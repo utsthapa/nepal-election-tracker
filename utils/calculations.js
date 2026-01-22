@@ -5,6 +5,56 @@
 import { constituencies, INITIAL_NATIONAL, PARTIES } from '../data/constituencies';
 
 /**
+ * Apply alliance (gathabandan) vote transfer between two parties.
+ * The higher-vote party receives the partner's votes with a handicap multiplier.
+ * @param {Object} voteShares - Current vote shares that sum to 1
+ * @param {Object} alliance - { enabled: boolean, parties: [A,B], handicap: percent }
+ * @returns {Object} New vote shares with alliance transfer applied
+ */
+export function applyAllianceTransfer(voteShares, alliance) {
+  if (!alliance?.enabled || !Array.isArray(alliance.parties) || alliance.parties.length !== 2) {
+    return voteShares;
+  }
+
+  const [partyA, partyB] = alliance.parties;
+  if (!(partyA in voteShares) || !(partyB in voteShares)) {
+    return voteShares;
+  }
+
+  const handicapPct = Math.max(0, Math.min(100, alliance.handicap ?? 0));
+  const efficiency = 1 - handicapPct / 100; // 0 = no transfer, 1 = full transfer
+
+  const shareA = voteShares[partyA] ?? 0;
+  const shareB = voteShares[partyB] ?? 0;
+
+  if ((shareA + shareB) <= 0) {
+    return voteShares;
+  }
+
+  const leader = shareA >= shareB ? partyA : partyB;
+  const donor = leader === partyA ? partyB : partyA;
+
+  const donorShare = voteShares[donor] ?? 0;
+  const leaderShare = voteShares[leader] ?? 0;
+
+  const transferAmount = donorShare * efficiency;
+  const adjusted = { ...voteShares };
+
+  // Donor stands down; leader gets donor votes minus handicap
+  adjusted[leader] = leaderShare + transferAmount;
+  adjusted[donor] = 0;
+
+  // Re-normalize to keep totals consistent
+  // Total after removing donor and applying handicap
+  const total = Object.values(adjusted).reduce((sum, val) => sum + val, 0) || 1;
+  Object.keys(adjusted).forEach(party => {
+    adjusted[party] = adjusted[party] / total;
+  });
+
+  return adjusted;
+}
+
+/**
  * Calculate adjusted vote shares for a constituency based on global slider changes
  * @param {Object} baseline - Baseline results for constituency
  * @param {Object} globalShifts - Current global slider values { NC: 26, UML: 27, ... }
@@ -59,41 +109,46 @@ function isAtBaseline(globalSliders, baselineValues = INITIAL_NATIONAL) {
  * Calculate FPTP results for all constituencies
  * @param {Object} globalSliders - Current slider values
  * @param {Object} overrides - Manual overrides { 'KTM-4': { NC: 0.45, ... }, ... }
+ * @param {Object} alliance - Optional alliance config to shift votes
  * @returns {Object} Results per constituency
  */
-export function calculateAllFPTPResults(globalSliders, overrides = {}, baselineValues = INITIAL_NATIONAL) {
+export function calculateAllFPTPResults(
+  globalSliders,
+  overrides = {},
+  baselineValues = INITIAL_NATIONAL,
+  alliance = null,
+) {
   const results = {};
   const atBaseline = isAtBaseline(globalSliders, baselineValues);
 
   constituencies.forEach(constituency => {
     const id = constituency.id;
+    let adjustedVotes;
 
     // Check if this constituency has manual override
     if (overrides[id]) {
-      const winner = determineFPTPWinner(overrides[id]);
-      results[id] = {
-        ...constituency,
-        adjusted: overrides[id],
-        ...winner,
-        isOverridden: true,
-      };
+      adjustedVotes = applyAllianceTransfer(overrides[id], alliance);
+      const winner = determineFPTPWinner(adjustedVotes);
+      results[id] = { ...constituency, adjusted: adjustedVotes, ...winner, isOverridden: true };
     } else if (atBaseline) {
       // Use actual 2022 results when sliders are at baseline
+      adjustedVotes = applyAllianceTransfer(constituency.results2022, alliance);
+      const winner = determineFPTPWinner(adjustedVotes);
       results[id] = {
         ...constituency,
-        adjusted: constituency.results2022,
-        winner: constituency.winner2022,
-        margin: constituency.margin,
-        share: constituency.results2022[constituency.winner2022],
+        adjusted: adjustedVotes,
+        ...winner,
+        share: winner.share,
         isOverridden: false,
       };
     } else {
       // Apply global shifts
-      const adjusted = calculateAdjustedResults(constituency.results2022, globalSliders, baselineValues);
-      const winner = determineFPTPWinner(adjusted);
+      adjustedVotes = calculateAdjustedResults(constituency.results2022, globalSliders, baselineValues);
+      adjustedVotes = applyAllianceTransfer(adjustedVotes, alliance);
+      const winner = determineFPTPWinner(adjustedVotes);
       results[id] = {
         ...constituency,
-        adjusted,
+        adjusted: adjustedVotes,
         ...winner,
         isOverridden: false,
       };
@@ -206,6 +261,7 @@ export const PR_SEATS = 110;
 export const MAJORITY_THRESHOLD = 138;
 
 export default {
+  applyAllianceTransfer,
   calculateAdjustedResults,
   determineFPTPWinner,
   calculateAllFPTPResults,

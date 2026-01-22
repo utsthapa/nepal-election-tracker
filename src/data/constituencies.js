@@ -48,20 +48,35 @@ export const PROVINCES = {
 };
 
 // Initial national vote shares matching 2022 PR results
-// These should produce: NC: 32, UML: 34, Maoist: 14, RSP: 13, RPP: 7, JSPN: 6, JP: 5, Others: 0 (below 3% threshold)
-// US, LSP, NUP did not cross the 3% PR threshold so they get 0 PR seats
+// Source: Wikipedia summary table of 2022 results (party list %)
+// These produce: NC: 32, UML: 34, Maoist: 14, RSP: 13, RPP: 7, JSPN: 5, JP: 5 (others below 3% threshold)
 export const INITIAL_NATIONAL = {
-  NC: 26.0,       // 32 PR seats
-  UML: 27.3,      // 34 PR seats
-  Maoist: 11.1,   // 14 PR seats
-  RSP: 10.4,      // 13 PR seats
-  RPP: 5.6,       // 7 PR seats
-  JSPN: 4.8,      // 6 PR seats
-  US: 2.8,        // Below 3% threshold - 0 PR seats
-  JP: 3.7,        // 5 PR seats
-  LSP: 1.6,       // Below 3% threshold - 0 PR seats
-  NUP: 1.0,       // Below 3% threshold - 0 PR seats
-  Others: 5.7,    // Various small parties below threshold
+  NC: 25.71,
+  UML: 26.95,
+  Maoist: 11.13,
+  RSP: 10.70,
+  RPP: 5.58,
+  JSPN: 3.99,
+  US: 2.83,
+  JP: 3.73,
+  LSP: 1.58,
+  NUP: 2.57,
+  Others: 5.23,
+};
+
+// FPTP national vote shares (Wikipedia constituency % column)
+export const OFFICIAL_FPTP_VOTE = {
+  NC: 23.19,
+  UML: 30.83,
+  Maoist: 9.37,
+  RSP: 7.77,
+  RPP: 5.24,
+  JSPN: 3.62,
+  US: 4.16,
+  JP: 2.61,
+  LSP: 1.62,
+  NUP: 1.64,
+  Others: 9.95, // includes independents and other small parties
 };
 
 // 2022 Actual seat counts (verified from Election Commission Nepal)

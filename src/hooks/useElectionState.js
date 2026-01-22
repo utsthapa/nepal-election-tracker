@@ -1,41 +1,16 @@
 import { useState, useMemo, useCallback } from 'react';
-import { constituencies, INITIAL_NATIONAL } from '../data/constituencies';
+import { constituencies, INITIAL_NATIONAL, OFFICIAL_FPTP_VOTE } from '../data/constituencies';
+import { FACTOR_MODES } from '../data/modes';
 import {
   calculateAllFPTPResults,
   countFPTPSeats,
   adjustZeroSumSliders,
+  applyModeAdjustments,
   FPTP_SEATS,
   PR_SEATS,
   MAJORITY_THRESHOLD,
 } from '../utils/calculations';
-import { allocateSeats, calculateNationalVoteShare } from '../utils/sainteLague';
-
-// Build a baseline for FPTP sliders from the actual 2022 constituency results
-const buildFptpBaseline = () => {
-  const shares = calculateNationalVoteShare(constituencies, {});
-  const parties = Object.keys(INITIAL_NATIONAL);
-  const baseline = {};
-  let runningTotal = 0;
-
-  parties.forEach((party, index) => {
-    if (index === parties.length - 1) {
-      baseline[party] = Math.max(0, Math.round((100 - runningTotal) * 10) / 10);
-    } else {
-      const pct = Math.max(0, Math.round(((shares?.[party] || 0) * 100) * 10) / 10);
-      baseline[party] = pct;
-      runningTotal += pct;
-    }
-  });
-
-  // Correct any rounding drift on the last party to ensure sum = 100
-  const sum = Object.values(baseline).reduce((a, b) => a + b, 0);
-  if (Math.abs(sum - 100) > 0.05) {
-    const lastParty = parties[parties.length - 1];
-    baseline[lastParty] = Number((baseline[lastParty] + (100 - sum)).toFixed(1));
-  }
-
-  return baseline;
-};
+import { allocateSeats } from '../utils/sainteLague';
 
 /**
  * Main election state management hook
@@ -43,7 +18,7 @@ const buildFptpBaseline = () => {
  * Now supports separate FPTP and PR sliders
  */
 export function useElectionState() {
-  const fptpBaseline = useMemo(buildFptpBaseline, []);
+  const fptpBaseline = useMemo(() => ({ ...OFFICIAL_FPTP_VOTE }), []);
 
   // FPTP slider values (must sum to 100) - affects constituency-level voting
   const [fptpSliders, setFptpSliders] = useState(() => ({ ...fptpBaseline }));
@@ -57,17 +32,73 @@ export function useElectionState() {
   // Constituency overrides { 'P1-1': { NC: 0.45, UML: 0.30, ... }, ... }
   const [overrides, setOverrides] = useState({});
 
+  // Alliance (gathabandan) configuration
+  const [allianceConfig, setAllianceConfig] = useState({
+    enabled: false,
+    parties: [],
+    handicap: 10, // percent vote loss when transferring
+  });
+
+  // Active factor modes (Set of mode IDs)
+  const [activeModes, setActiveModes] = useState(new Set());
+
   // Currently selected constituency for drawer
   const [selectedConstituency, setSelectedConstituency] = useState(null);
 
-  // Update FPTP slider (zero-sum adjustment)
+  // Update FPTP slider (zero-sum adjustment) - also updates PR with same delta
   const updateFptpSlider = useCallback((party, value) => {
-    setFptpSliders(current => adjustZeroSumSliders(current, party, value));
+    setFptpSliders(current => {
+      const newFptpSliders = adjustZeroSumSliders(current, party, value);
+      // Calculate deltas for each party
+      const deltas = {};
+      Object.keys(newFptpSliders).forEach(p => {
+        deltas[p] = newFptpSliders[p] - current[p];
+      });
+      // Apply same deltas to PR sliders
+      setPrSliders(currentPr => {
+        const newPrSliders = { ...currentPr };
+        Object.keys(deltas).forEach(p => {
+          newPrSliders[p] = Math.max(0, Math.min(100, currentPr[p] + deltas[p]));
+        });
+        // Normalize PR sliders to sum to 100
+        const total = Object.values(newPrSliders).reduce((a, b) => a + b, 0);
+        if (total > 0) {
+          Object.keys(newPrSliders).forEach(p => {
+            newPrSliders[p] = (newPrSliders[p] / total) * 100;
+          });
+        }
+        return newPrSliders;
+      });
+      return newFptpSliders;
+    });
   }, []);
 
-  // Update PR slider (zero-sum adjustment)
+  // Update PR slider (zero-sum adjustment) - also updates FPTP with same delta
   const updatePrSlider = useCallback((party, value) => {
-    setPrSliders(current => adjustZeroSumSliders(current, party, value));
+    setPrSliders(current => {
+      const newPrSliders = adjustZeroSumSliders(current, party, value);
+      // Calculate deltas for each party
+      const deltas = {};
+      Object.keys(newPrSliders).forEach(p => {
+        deltas[p] = newPrSliders[p] - current[p];
+      });
+      // Apply same deltas to FPTP sliders
+      setFptpSliders(currentFptp => {
+        const newFptpSliders = { ...currentFptp };
+        Object.keys(deltas).forEach(p => {
+          newFptpSliders[p] = Math.max(0, Math.min(100, currentFptp[p] + deltas[p]));
+        });
+        // Normalize FPTP sliders to sum to 100
+        const total = Object.values(newFptpSliders).reduce((a, b) => a + b, 0);
+        if (total > 0) {
+          Object.keys(newFptpSliders).forEach(p => {
+            newFptpSliders[p] = (newFptpSliders[p] / total) * 100;
+          });
+        }
+        return newFptpSliders;
+      });
+      return newPrSliders;
+    });
   }, []);
 
   // Legacy updateSlider - updates FPTP sliders (kept for compatibility)
@@ -77,7 +108,26 @@ export function useElectionState() {
   const resetSliders = useCallback(() => {
     setFptpSliders({ ...fptpBaseline });
     setPrSliders({ ...INITIAL_NATIONAL });
+    setActiveModes(new Set());
+    setAllianceConfig(current => ({
+      ...current,
+      enabled: false,
+      parties: [],
+    }));
   }, [fptpBaseline]);
+
+  // Toggle a factor mode on/off
+  const toggleMode = useCallback((modeId) => {
+    setActiveModes(prev => {
+      const newModes = new Set(prev);
+      if (newModes.has(modeId)) {
+        newModes.delete(modeId);
+      } else {
+        newModes.add(modeId);
+      }
+      return newModes;
+    });
+  }, []);
 
   // Override a specific constituency
   const overrideConstituency = useCallback((constituencyId, results) => {
@@ -101,26 +151,99 @@ export function useElectionState() {
     setOverrides({});
   }, []);
 
-  // Calculate FPTP results using FPTP sliders
+  // Configure or clear alliance
+  const setAlliance = useCallback(({ parties, handicap }) => {
+    if (!Array.isArray(parties) || parties.length !== 2) {
+      return;
+    }
+    setAllianceConfig(prev => {
+      const safeHandicap = typeof handicap === 'number'
+        ? Math.max(0, Math.min(100, handicap))
+        : prev.handicap;
+      return {
+        enabled: true,
+        parties,
+        handicap: safeHandicap,
+      };
+    });
+  }, []);
+
+  const clearAlliance = useCallback(() => {
+    setAllianceConfig(prev => ({
+      ...prev,
+      enabled: false,
+      parties: [],
+    }));
+  }, []);
+
+  // Calculate FPTP results using FPTP sliders with mode adjustments
   const fptpResults = useMemo(() => {
-    return calculateAllFPTPResults(fptpSliders, overrides, fptpBaseline);
-  }, [fptpSliders, overrides, fptpBaseline]);
+    // Apply mode adjustments to FPTP sliders
+    const adjustedFptpSliders = applyModeAdjustments(
+      Object.fromEntries(
+        Object.entries(fptpSliders).map(([party, value]) => [party, value / 100])
+      ),
+      activeModes
+    );
+    
+    // Convert back to percentages for calculation
+    const adjustedFptpPercentages = Object.fromEntries(
+      Object.entries(adjustedFptpSliders).map(([party, value]) => [party, value * 100])
+    );
+    
+    return calculateAllFPTPResults(adjustedFptpPercentages, overrides, fptpBaseline, allianceConfig);
+  }, [fptpSliders, overrides, fptpBaseline, allianceConfig, activeModes]);
+
+  // Adjusted FPTP sliders for display (includes mode effects)
+  const adjustedFptpSliders = useMemo(() => {
+    const adjusted = applyModeAdjustments(
+      Object.fromEntries(
+        Object.entries(fptpSliders).map(([party, value]) => [party, value / 100])
+      ),
+      activeModes
+    );
+    return Object.fromEntries(
+      Object.entries(adjusted).map(([party, value]) => [party, value * 100])
+    );
+  }, [fptpSliders, activeModes]);
+
+  // Adjusted PR sliders for display (includes mode effects)
+  const adjustedPrSliders = useMemo(() => {
+    const adjusted = applyModeAdjustments(
+      Object.fromEntries(
+        Object.entries(prSliders).map(([party, value]) => [party, value / 100])
+      ),
+      activeModes
+    );
+    return Object.fromEntries(
+      Object.entries(adjusted).map(([party, value]) => [party, value * 100])
+    );
+  }, [prSliders, activeModes]);
 
   // Count FPTP seats by party
   const fptpSeats = useMemo(() => {
     return countFPTPSeats(fptpResults);
   }, [fptpResults]);
 
-  // National vote shares for PR = PR sliders converted to decimals
+  // National vote shares for PR = PR sliders converted to decimals with mode adjustments
   // In Nepal's system, PR vote is a separate national ballot
   const nationalVoteShares = useMemo(() => {
+    // Apply mode adjustments to PR sliders
+    const adjustedPrSliders = applyModeAdjustments(
+      Object.fromEntries(
+        Object.entries(prSliders).map(([party, value]) => [party, value / 100])
+      ),
+      activeModes
+    );
+    
     const shares = {};
     const parties = Object.keys(INITIAL_NATIONAL);
     parties.forEach(party => {
-      shares[party] = prSliders[party] / 100;
+      // Parties below threshold are not allocated; aggregate "Others" should not qualify
+      shares[party] = party === 'Others' ? 0 : adjustedPrSliders[party];
     });
     return shares;
-  }, [prSliders]);
+  }, [prSliders, activeModes]);
 
   // Calculate PR seat allocation using Sainte-Laguë
   const prSeats = useMemo(() => {
@@ -178,6 +301,10 @@ export function useElectionState() {
     sliders, // Legacy: same as fptpSliders
     overrides,
     selectedConstituency,
+    allianceConfig,
+    activeModes,
+    adjustedFptpSliders,
+    adjustedPrSliders,
 
     // Actions - Separate slider updates
     updateFptpSlider,
@@ -189,6 +316,9 @@ export function useElectionState() {
     clearAllOverrides,
     selectConstituency,
     closeDrawer,
+    setAlliance,
+    clearAlliance,
+    toggleMode,
 
     // Computed
     fptpResults,

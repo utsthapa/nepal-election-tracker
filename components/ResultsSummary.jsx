@@ -7,7 +7,7 @@ const partyOrder = Object.keys(INITIAL_NATIONAL);
 // Use actual 2022 results from data
 const BASELINE_SEATS = ACTUAL_2022_SEATS.Total;
 
-export function ResultsSummary({ fptpSeats, prSeats, totalSeats, fptpSliders, prSliders }) {
+export function ResultsSummary({ fptpSeats, prSeats, totalSeats, fptpSliders, prSliders, adjustedFptpSliders, adjustedPrSliders }) {
   // Dynamic color classes
   const bgColors = {};
   const textColors = {};

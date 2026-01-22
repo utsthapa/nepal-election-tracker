@@ -7,7 +7,7 @@ const partyOrder = Object.keys(INITIAL_NATIONAL);
 // Use actual 2022 results from data
 const BASELINE_SEATS = ACTUAL_2022_SEATS.Total;
 
-export function ResultsSummary({ fptpSeats, prSeats, totalSeats, fptpSliders, prSliders }) {
+export function ResultsSummary({ fptpSeats, prSeats, totalSeats, fptpSliders, prSliders, adjustedFptpSliders, adjustedPrSliders }) {
   // Dynamic color classes
   const bgColors = {};
   const textColors = {};
@@ -34,8 +34,8 @@ export function ResultsSummary({ fptpSeats, prSeats, totalSeats, fptpSliders, pr
           const total = totalSeats[party] || 0;
           const baseline = BASELINE_SEATS[party];
           const change = total - baseline;
-          const fptpVoteChange = fptpSliders[party] - INITIAL_NATIONAL[party];
-          const prVoteChange = prSliders[party] - INITIAL_NATIONAL[party];
+          const fptpVoteChange = (adjustedFptpSliders || fptpSliders)[party] - INITIAL_NATIONAL[party];
+          const prVoteChange = (adjustedPrSliders || prSliders)[party] - INITIAL_NATIONAL[party];
 
           return (
             <motion.div

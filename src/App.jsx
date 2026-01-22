@@ -1,16 +1,22 @@
+import { useState } from 'react';
 import { useElectionState } from './hooks/useElectionState';
 import { Header } from './components/Header';
+import { FactorModes } from './components/FactorModes';
 import { PartySliders } from './components/PartySliders';
 import { ConstituencyTable } from './components/ConstituencyTable';
 import { SeatDrawer } from './components/SeatDrawer';
 import { PRBlockChart } from './components/PRBlockChart';
 import { MajorityBar } from './components/MajorityBar';
 import { ResultsSummary } from './components/ResultsSummary';
+import { AllianceModal } from './components/AllianceModal';
+import { PARTIES } from './data/constituencies';
 
 function App() {
   const {
     fptpSliders,
     prSliders,
+    adjustedFptpSliders,
+    adjustedPrSliders,
     overrides,
     selectedConstituency,
     updateFptpSlider,
@@ -28,11 +34,22 @@ function App() {
     totalSeats,
     leadingParty,
     hasMajority,
+    allianceConfig,
+    setAlliance,
+    clearAlliance,
+    activeModes,
+    toggleMode,
   } = useElectionState();
+
+  const [isAllianceModalOpen, setAllianceModalOpen] = useState(false);
+
+  const activeAlliance = allianceConfig?.enabled && (allianceConfig.parties?.length === 2);
+  const [allyA, allyB] = allianceConfig?.parties || [];
 
   const handleReset = () => {
     resetSliders();
     clearAllOverrides();
+    clearAlliance();
   };
 
   return (
@@ -45,12 +62,62 @@ function App() {
       />
 
       <main className="max-w-7xl mx-auto px-4 py-6">
+        {/* Alliance / Gathabandan panel */}
+        <div className="mb-6">
+          <div className="bg-surface rounded-xl p-4 border border-neutral flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <div>
+              <p className="text-xs text-gray-500 font-mono uppercase tracking-wider">Gathabandan Mode</p>
+              {activeAlliance ? (
+                <div className="flex flex-wrap items-center gap-3 mt-1 text-gray-200">
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold" style={{ color: PARTIES[allyA]?.color }}>{PARTIES[allyA]?.short || allyA}</span>
+                    <span className="text-gray-500">+</span>
+                    <span className="font-semibold" style={{ color: PARTIES[allyB]?.color }}>{PARTIES[allyB]?.short || allyB}</span>
+                  </div>
+                  <span className="text-xs text-gray-400">
+                    Handicap {allianceConfig.handicap}% • {100 - allianceConfig.handicap}% transfer efficiency
+                  </span>
+                </div>
+              ) : (
+                <p className="text-sm text-gray-400 mt-1">
+                  No alliance active. Pair two parties to pool constituency votes with a handicap.
+                </p>
+              )}
+            </div>
+
+            <div className="flex items-center gap-2">
+              {activeAlliance && (
+                <button
+                  onClick={clearAlliance}
+                  className="px-3 py-2 rounded-lg text-sm border border-neutral text-gray-200 hover:bg-neutral/70 transition-colors"
+                >
+                  Disable
+                </button>
+              )}
+              <button
+                onClick={() => setAllianceModalOpen(true)}
+                className="px-4 py-2 rounded-lg text-sm font-medium bg-gradient-to-r from-nc to-rsp text-white hover:opacity-90 transition-opacity"
+              >
+                Configure
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Factor Modes - Political Factors */}
+        <div className="mb-6">
+          <FactorModes
+            activeModes={activeModes}
+            onToggleMode={toggleMode}
+          />
+        </div>
+
         {/* Top Row - FPTP and PR Sliders */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <PartySliders
             title="FPTP Vote Share"
             subtitle="Affects 165 constituency seats"
-            sliders={fptpSliders}
+            sliders={adjustedFptpSliders}
             fptpSeats={fptpSeats}
             prSeats={prSeats}
             totalSeats={totalSeats}
@@ -61,7 +128,7 @@ function App() {
           <PartySliders
             title="PR Vote Share"
             subtitle="Affects 110 proportional seats (3% threshold)"
-            sliders={prSliders}
+            sliders={adjustedPrSliders}
             fptpSeats={fptpSeats}
             prSeats={prSeats}
             totalSeats={totalSeats}
@@ -98,8 +165,8 @@ function App() {
               fptpSeats={fptpSeats}
               prSeats={prSeats}
               totalSeats={totalSeats}
-              fptpSliders={fptpSliders}
-              prSliders={prSliders}
+              fptpSliders={adjustedFptpSliders}
+              prSliders={adjustedPrSliders}
             />
           </div>
         </div>
@@ -153,6 +220,14 @@ function App() {
         onClose={closeDrawer}
         onOverride={overrideConstituency}
         onClearOverride={clearOverride}
+      />
+
+      <AllianceModal
+        isOpen={isAllianceModalOpen}
+        onClose={() => setAllianceModalOpen(false)}
+        allianceConfig={allianceConfig}
+        onSave={setAlliance}
+        onClear={clearAlliance}
       />
     </div>
   );
