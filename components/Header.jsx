@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Vote, RotateCcw, Target } from 'lucide-react';
+import Link from 'next/link';
 import { PARTIES } from '../data/constituencies';
 
 export function Header({ totalSeats, leadingParty, hasMajority, onReset }) {
@@ -26,14 +27,32 @@ export function Header({ totalSeats, leadingParty, hasMajority, onReset }) {
               <Vote className="w-8 h-8 text-white" />
             </motion.div>
             <div>
-              <h1 className="text-2xl font-outfit font-bold text-white tracking-tight">
-                Nepal Election Simulator
-              </h1>
+              <Link href="/" className="hover:opacity-80 transition-opacity">
+                <h1 className="text-2xl font-outfit font-bold text-white tracking-tight">
+                  Nepal Election Simulator
+                </h1>
+              </Link>
               <p className="text-sm text-gray-400 font-mono">
                 165 FPTP + 110 PR = 275 Seats
               </p>
             </div>
           </div>
+
+          {/* Navigation Links */}
+          <nav className="hidden md:flex items-center gap-4">
+            <Link
+              href="/elections"
+              className="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-neutral/60 rounded-lg transition-colors"
+            >
+              Elections
+            </Link>
+            <Link
+              href="/districts"
+              className="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-neutral/60 rounded-lg transition-colors"
+            >
+              Districts
+            </Link>
+          </nav>
 
           <div className="flex items-center gap-6">
             {/* Leading Party Indicator */}

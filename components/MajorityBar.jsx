@@ -32,7 +32,7 @@ export function MajorityBar({ totalSeats, leadingParty }) {
   const seatsToMajority = Math.max(MAJORITY - leadingSeats, 0);
   const topParties = sortedParties.slice(0, 3);
 
-  // Coalition search across 2-4 parties (limited to top 6 to avoid noise)
+  // Coalition search prioritizing the fewest parties that can clear majority (search 2-4 party combos)
   const coalitionCandidates = sortedParties.slice(0, 6);
   const generateCombinations = (list, size, start = 0, path = [], results = []) => {
     if (path.length === size) {
@@ -48,27 +48,27 @@ export function MajorityBar({ totalSeats, leadingParty }) {
   };
 
   let coalitionCombos = [];
+  let minimalCoalitionSize = null;
   if (!hasMajority && coalitionCandidates.length >= 2) {
     const maxSize = Math.min(4, coalitionCandidates.length);
     for (let size = 2; size <= maxSize; size++) {
       const combos = generateCombinations(coalitionCandidates, size);
-      combos.forEach((combo) => {
-        const seats = combo.reduce((sum, [, seatCount]) => sum + seatCount, 0);
-        if (seats >= MAJORITY) {
-          coalitionCombos.push({
-            parties: combo.map(([id]) => id),
-            seats,
-            size,
-          });
-        }
-      });
+      const winningCombos = combos
+        .map((combo) => {
+          const seats = combo.reduce((sum, [, seatCount]) => sum + seatCount, 0);
+          return { seats, size, parties: combo.map(([id]) => id) };
+        })
+        .filter(({ seats }) => seats >= MAJORITY);
+
+      if (winningCombos.length > 0) {
+        minimalCoalitionSize = size;
+        coalitionCombos = winningCombos;
+        break; // Stop at the smallest size that works
+      }
     }
   }
 
-  coalitionCombos.sort((a, b) => {
-    if (b.seats !== a.seats) return b.seats - a.seats;
-    return a.size - b.size;
-  });
+  coalitionCombos.sort((a, b) => b.seats - a.seats);
 
   const coalitionCount = coalitionCombos.length;
   const coalitionPaths = coalitionCombos.slice(0, 6);
@@ -180,7 +180,11 @@ export function MajorityBar({ totalSeats, leadingParty }) {
                     {!hasMajority ? coalitionCount || 0 : 'N/A'}
                   </p>
                   <p className="text-xs font-mono text-gray-400">
-                    {!hasMajority ? '2-4 party paths clearing 138' : 'not required with a majority'}
+                    {!hasMajority
+                      ? minimalCoalitionSize
+                        ? `Smallest ${minimalCoalitionSize}-party routes clearing 138`
+                        : 'No coalition clears the line yet'
+                      : 'not required with a majority'}
                   </p>
                 </div>
               </div>
@@ -210,7 +214,7 @@ export function MajorityBar({ totalSeats, leadingParty }) {
                   <p className="text-xs font-mono text-gray-500">
                     {!hasMajority
                       ? coalitionCount
-                        ? 'Closest 2-4 party routes to 138'
+                        ? `Smallest ${minimalCoalitionSize}-party routes to 138`
                         : 'No coalition clears the line yet'
                       : 'Single-party control in play'}
                   </p>

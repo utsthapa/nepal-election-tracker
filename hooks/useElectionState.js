@@ -37,9 +37,6 @@ export function useElectionState() {
     handicap: 10, // percent vote loss when transferring
   });
 
-  // Active factor modes (Set of mode IDs)
-  const [activeModes, setActiveModes] = useState(new Set());
-
   // Currently selected constituency for drawer
   const [selectedConstituency, setSelectedConstituency] = useState(null);
 
@@ -114,19 +111,6 @@ export function useElectionState() {
     }));
   }, []);
 
-  // Toggle a factor mode on/off
-  const toggleMode = useCallback((modeId) => {
-    setActiveModes(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(modeId)) {
-        newSet.delete(modeId);
-      } else {
-        newSet.add(modeId);
-      }
-      return newSet;
-    });
-  }, []);
-
   // Calculate FPTP results using FPTP sliders
   const fptpResults = useMemo(() => {
     return calculateAllFPTPResults(fptpSliders, overrides, fptpBaseline, allianceConfig);
@@ -144,7 +128,7 @@ export function useElectionState() {
     const parties = Object.keys(INITIAL_NATIONAL);
     parties.forEach(party => {
       // Parties below threshold are not allocated; aggregate "Others" should not qualify
-      shares[party] = party === 'Others' ? 0 : prSliders[party] / 100;
+      shares[party] = party === 'Others' ? 0 : (prSliders[party] || 0) / 100;
     });
     return shares;
   }, [prSliders]);
@@ -206,7 +190,6 @@ export function useElectionState() {
     overrides,
     selectedConstituency,
     allianceConfig,
-    activeModes,
 
     // Actions - Separate slider updates
     updateFptpSlider,
@@ -220,7 +203,6 @@ export function useElectionState() {
     closeDrawer,
     setAlliance,
     clearAlliance,
-    toggleMode,
 
     // Computed
     fptpResults,

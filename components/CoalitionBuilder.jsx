@@ -3,8 +3,6 @@ import { Users, Target, MapPin, ArrowRight, ShieldHalf } from 'lucide-react';
 import { PARTIES } from '../data/constituencies';
 import { MAJORITY_THRESHOLD, TOTAL_SEATS } from '../utils/calculations';
 
-const PARTY_POOL = Object.keys(PARTIES);
-
 function formatPartyLabel(partyId) {
   const info = PARTIES[partyId];
   return info ? `${info.short} (${info.name})` : partyId;
@@ -12,6 +10,9 @@ function formatPartyLabel(partyId) {
 
 export function CoalitionBuilder({ totalSeats, fptpResults }) {
   const [selectedParties, setSelectedParties] = useState(['NC', 'UML', 'Maoist']);
+  const partyPool = useMemo(() => {
+    return Object.keys(PARTIES).sort((a, b) => (totalSeats[b] || 0) - (totalSeats[a] || 0));
+  }, [totalSeats]);
 
   const handleToggle = (party) => {
     setSelectedParties((current) => {
@@ -92,7 +93,7 @@ export function CoalitionBuilder({ totalSeats, fptpResults }) {
           <p className="text-[11px] font-mono uppercase tracking-[0.16em] text-gray-500">Coalition Builder</p>
           <h2 className="text-xl font-semibold text-white">Pick a bloc, see their path</h2>
           <p className="text-sm text-gray-400 mt-1">
-            Select 2–4 parties to stack their FPTP and PR totals, then target close constituencies to cross {MAJORITY_THRESHOLD}.
+            Select 2-4 parties to stack their FPTP and PR totals, then target close constituencies to cross {MAJORITY_THRESHOLD}.
           </p>
         </div>
         <div className="flex items-center gap-2 rounded-xl border border-neutral bg-neutral/60 px-4 py-2">
@@ -103,8 +104,10 @@ export function CoalitionBuilder({ totalSeats, fptpResults }) {
 
       {/* Party chooser */}
       <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
-        {PARTY_POOL.map((party) => {
+        {partyPool.map((party) => {
           const isSelected = selectedParties.includes(party);
+          const maxReached = selectedParties.length >= 4;
+          const lockout = maxReached && !isSelected;
           const partyColor = PARTIES[party]?.color || '#94a3b8';
           const seats = totalSeats[party] || 0;
           return (
@@ -112,6 +115,7 @@ export function CoalitionBuilder({ totalSeats, fptpResults }) {
               key={party}
               type="button"
               onClick={() => handleToggle(party)}
+              disabled={lockout}
               className={`flex items-center justify-between rounded-lg border px-3 py-2 text-left transition-all ${
                 isSelected
                   ? 'bg-white/10 border-white/30 shadow-lg'
@@ -123,10 +127,13 @@ export function CoalitionBuilder({ totalSeats, fptpResults }) {
                 <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: partyColor }} />
                 <span className="text-sm text-gray-100 font-semibold">{PARTIES[party]?.short || party}</span>
               </div>
-              <span className="text-xs font-mono text-gray-400">{seats} seats</span>
+              <span className={`text-xs font-mono ${lockout ? 'text-gray-600' : 'text-gray-400'}`}>{seats} seats</span>
             </button>
           );
         })}
+      </div>
+      <div className="mt-2 text-xs text-gray-500 font-mono">
+        Pick 2-4 parties (ordered by seats). {selectedParties.length >= 4 ? 'Max reached.' : 'Tap to add more.'}
       </div>
 
       {/* Stats row */}

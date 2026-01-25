@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useElectionState } from '../src/hooks/useElectionState';
 import { Header } from '../components/Header';
-import { FactorModes } from '../src/components/FactorModes';
 import { PartySliders } from '../components/PartySliders';
 import { ConstituencyTable } from '../components/ConstituencyTable';
 import { SeatDrawer } from '../components/SeatDrawer';
@@ -40,8 +39,6 @@ export default function Home() {
     allianceConfig,
     setAlliance,
     clearAlliance,
-    activeModes,
-    toggleMode,
   } = useElectionState();
 
   const [isAllianceModalOpen, setAllianceModalOpen] = useState(false);
@@ -105,14 +102,6 @@ export default function Home() {
               </button>
             </div>
           </div>
-        </div>
-
-        {/* Factor Modes - Political Factors */}
-        <div className="mb-6">
-          <FactorModes
-            activeModes={activeModes}
-            onToggleMode={toggleMode}
-          />
         </div>
 
         {/* Top Row - FPTP and PR Sliders Side by Side */}

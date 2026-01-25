@@ -3,7 +3,6 @@
  */
 
 import { constituencies, INITIAL_NATIONAL, PARTIES } from '../data/constituencies';
-import { FACTOR_MODES } from '../data/modes';
 
 /**
  * Apply alliance (gathabandan) vote transfer between two parties.
@@ -52,50 +51,6 @@ export function applyAllianceTransfer(voteShares, alliance) {
   Object.keys(adjusted).forEach(party => {
     adjusted[party] = adjusted[party] / total;
   });
-
-  return adjusted;
-}
-
-/**
- * Apply mode-based adjustments to vote shares
- * @param {Object} baseVotes - Original vote shares (as decimals, summing to 1)
- * @param {Set} activeModes - Set of active mode IDs
- * @returns {Object} Adjusted vote shares (as decimals, summing to 1)
- */
-export function applyModeAdjustments(baseVotes, activeModes) {
-  if (!activeModes || activeModes.size === 0) {
-    return { ...baseVotes };
-  }
-
-  const adjusted = { ...baseVotes };
-  const totalAdjustment = {};
-
-  // Calculate total adjustment per party (in percentage points)
-  activeModes.forEach(modeId => {
-    const mode = FACTOR_MODES[modeId];
-    if (mode) {
-      Object.entries(mode.effects).forEach(([party, effect]) => {
-        totalAdjustment[party] = (totalAdjustment[party] || 0) + effect;
-      });
-    }
-  });
-
-  // Apply adjustments with constraints
-  Object.keys(adjusted).forEach(party => {
-    const adjustment = totalAdjustment[party] || 0;
-    // Convert percentage adjustment to decimal
-    adjusted[party] = adjusted[party] + (adjustment / 100);
-    // Clamp between 0.5% (0.005) and 60% (0.60)
-    adjusted[party] = Math.max(0.005, Math.min(0.60, adjusted[party]));
-  });
-
-  // Re-normalize to sum to 1
-  const total = Object.values(adjusted).reduce((a, b) => a + b, 0);
-  if (total > 0) {
-    Object.keys(adjusted).forEach(party => {
-      adjusted[party] = adjusted[party] / total;
-    });
-  }
 
   return adjusted;
 }
@@ -309,7 +264,6 @@ export const MAJORITY_THRESHOLD = 138;
 
 export default {
   applyAllianceTransfer,
-  applyModeAdjustments,
   calculateAdjustedResults,
   determineFPTPWinner,
   calculateAllFPTPResults,

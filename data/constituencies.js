@@ -111,8 +111,21 @@ const generateConstituencies = () => {
 
   // Province 1 - Koshi (28 seats): NC:8, UML:13, Maoist:2, US:5
   // US won 5 FPTP seats in Province 1
+  // Hex layout: Far east, arranged from north (mountains) to south (terai)
   const p1Winners = ['UML','UML','NC','UML','NC','UML','NC','UML','US','UML','NC','UML','NC','US','UML','UML','NC','US','UML','NC','UML','NC','Maoist','NC','Maoist','US','UML','US'];
   const p1Districts = ['Taplejung','Panchthar 1','Panchthar 2','Ilam 1','Ilam 2','Jhapa 1','Jhapa 2','Jhapa 3','Jhapa 4','Morang 1','Morang 2','Morang 3','Morang 4','Morang 5','Morang 6','Sunsari 1','Sunsari 2','Sunsari 3','Sunsari 4','Dhankuta 1','Dhankuta 2','Terhathum','Sankhuwasabha 1','Sankhuwasabha 2','Bhojpur 1','Bhojpur 2','Solukhumbu','Okhaldhunga'];
+  const p1HexPositions = [
+    {q:23,r:0},{q:24,r:1},{q:25,r:1},{q:26,r:1},{q:27,r:2}, // Taplejung, Panchthar, Ilam (mountain)
+    {q:27,r:3},{q:28,r:3},{q:29,r:3},{q:29,r:4}, // Jhapa (terai, far east)
+    {q:26,r:4},{q:27,r:4},{q:28,r:4},{q:26,r:5},{q:27,r:5},{q:28,r:5}, // Morang (terai)
+    {q:25,r:4},{q:26,r:3},{q:25,r:5},{q:25,r:6}, // Sunsari (terai)
+    {q:24,r:2},{q:25,r:2}, // Dhankuta (hills)
+    {q:23,r:1}, // Terhathum (hills)
+    {q:22,r:0},{q:23,r:2}, // Sankhuwasabha (mountain)
+    {q:22,r:1},{q:21,r:1}, // Bhojpur (hills)
+    {q:21,r:0}, // Solukhumbu (mountain)
+    {q:22,r:2}, // Okhaldhunga (hills)
+  ];
   p1Districts.forEach((name, i) => {
     const winner = p1Winners[i];
     const margin = 0.02 + random.range(0, 0.08);
@@ -124,13 +137,25 @@ const generateConstituencies = () => {
       id: `P1-${i+1}`, name, province: 1, district: name.split(' ')[0],
       totalVotes: 40000 + Math.floor(random.range(0, 30000)),
       winner2022: winner, margin: Math.round(margin * 1000) / 1000, results2022: baseVotes,
+      hexPosition: p1HexPositions[i],
     });
   });
 
   // Province 2 - Madhesh (32 seats): NC:5, UML:2, Maoist:1, JSPN:6, JP:1, LSP:4, NUP:3, Others/Ind:6, US:3, RPP:1
   // JSPN won 6 seats, JP (Janamat) won 1, LSP won 4, NUP won 3, Independents won 6, US won 3, RPP won 1
+  // Hex layout: Eastern Terai strip, from east to west
   const p2Winners = ['JSPN','LSP','NC','JSPN','RPP','LSP','NUP','JP','JSPN','NC','JSPN','LSP','US','NUP','Maoist','US','JSPN','Others','NC','US','NUP','Others','Others','LSP','JSPN','UML','NC','Others','Others','NC','UML','Others'];
   const p2Districts = ['Saptari 1','Saptari 2','Saptari 3','Siraha 1','Siraha 2','Siraha 3','Siraha 4','Dhanusha 1','Dhanusha 2','Dhanusha 3','Dhanusha 4','Mahottari 1','Mahottari 2','Mahottari 3','Mahottari 4','Sarlahi 1','Sarlahi 2','Sarlahi 3','Sarlahi 4','Rautahat 1','Rautahat 2','Rautahat 3','Rautahat 4','Bara 1','Bara 2','Bara 3','Bara 4','Parsa 1','Parsa 2','Parsa 3','Parsa 4','Parsa 5'];
+  const p2HexPositions = [
+    {q:23,r:6},{q:24,r:6},{q:24,r:7}, // Saptari (east terai)
+    {q:22,r:6},{q:23,r:7},{q:22,r:7},{q:21,r:7}, // Siraha
+    {q:20,r:6},{q:21,r:6},{q:20,r:7},{q:19,r:7}, // Dhanusha
+    {q:19,r:6},{q:18,r:6},{q:18,r:7},{q:17,r:7}, // Mahottari
+    {q:17,r:6},{q:16,r:6},{q:16,r:7},{q:15,r:7}, // Sarlahi
+    {q:15,r:6},{q:14,r:6},{q:14,r:7},{q:13,r:7}, // Rautahat
+    {q:13,r:6},{q:12,r:6},{q:12,r:7},{q:11,r:7}, // Bara
+    {q:11,r:6},{q:10,r:6},{q:10,r:7},{q:9,r:7},{q:9,r:6}, // Parsa (border with P3)
+  ];
   p2Districts.forEach((name, i) => {
     const winner = p2Winners[i];
     const margin = 0.02 + random.range(0, 0.08);
@@ -142,13 +167,29 @@ const generateConstituencies = () => {
       id: `P2-${i+1}`, name, province: 2, district: name.split(' ')[0],
       totalVotes: 50000 + Math.floor(random.range(0, 35000)),
       winner2022: winner, margin: Math.round(margin * 1000) / 1000, results2022: baseVotes,
+      hexPosition: p2HexPositions[i],
     });
   });
 
   // Province 3 - Bagmati (32 seats): NC:13, UML:5, Maoist:4, RSP:7, RPP:3
   // RSP won 7 seats (mostly Kathmandu Valley), RPP won 3 seats
+  // Hex layout: Central Nepal, organized around Kathmandu Valley
   const p3Winners = ['Maoist','NC','Maoist','NC','NC','NC','NC','Maoist','NC','NC','UML','RSP','NC','RSP','UML','RSP','RSP','NC','RSP','NC','UML','NC','RSP','NC','UML','NC','Maoist','RPP','RPP','RSP','RPP','UML'];
   const p3Districts = ['Sindhuli 1','Sindhuli 2','Ramechhap 1','Ramechhap 2','Dolakha 1','Dolakha 2','Sindhupalchok 1','Sindhupalchok 2','Kavrepalanchok 1','Kavrepalanchok 2','Kavrepalanchok 3','Lalitpur 1','Lalitpur 2','Lalitpur 3','Bhaktapur 1','Bhaktapur 2','Kathmandu 1','Kathmandu 2','Kathmandu 3','Kathmandu 4','Kathmandu 5','Kathmandu 6','Kathmandu 7','Kathmandu 8','Kathmandu 9','Kathmandu 10','Nuwakot 1','Nuwakot 2','Rasuwa','Dhading 1','Dhading 2','Makwanpur'];
+  const p3HexPositions = [
+    {q:16,r:5},{q:17,r:5}, // Sindhuli (southeast of valley)
+    {q:18,r:3},{q:19,r:3}, // Ramechhap (east of valley)
+    {q:20,r:2},{q:21,r:2}, // Dolakha (northeast, mountains)
+    {q:19,r:1},{q:20,r:1}, // Sindhupalchok (north of valley, mountains)
+    {q:18,r:2},{q:19,r:2},{q:20,r:3}, // Kavrepalanchok (east of valley)
+    {q:16,r:3},{q:17,r:3},{q:17,r:4}, // Lalitpur (valley, south)
+    {q:18,r:4},{q:19,r:4}, // Bhaktapur (valley, east)
+    {q:15,r:2},{q:16,r:2},{q:15,r:3},{q:16,r:4},{q:17,r:2},{q:18,r:1},{q:19,r:5},{q:20,r:4},{q:21,r:3},{q:20,r:5}, // Kathmandu (valley, center - 10 seats)
+    {q:14,r:1},{q:15,r:1}, // Nuwakot (northwest of valley)
+    {q:16,r:0}, // Rasuwa (far north, mountains)
+    {q:13,r:1},{q:14,r:2}, // Dhading (west of valley)
+    {q:14,r:4}, // Makwanpur (southwest, near P2)
+  ];
   p3Districts.forEach((name, i) => {
     const winner = p3Winners[i];
     const margin = 0.02 + random.range(0, 0.06);
@@ -163,12 +204,27 @@ const generateConstituencies = () => {
       id: `P3-${i+1}`, name, province: 3, district: name.split(' ')[0],
       totalVotes: isKTM ? 60000 + Math.floor(random.range(0, 40000)) : 45000 + Math.floor(random.range(0, 25000)),
       winner2022: winner, margin: Math.round(margin * 1000) / 1000, results2022: baseVotes,
+      hexPosition: p3HexPositions[i],
     });
   });
 
   // Province 4 - Gandaki (18 seats): NC:11, UML:3, Maoist:4
+  // Hex layout: Central-west hills and mountains, organized around Pokhara (Kaski)
   const p4Winners = ['NC','Maoist','NC','NC','NC','UML','NC','NC','NC','Maoist','NC','Maoist','NC','Maoist','NC','UML','UML','NC'];
   const p4Districts = ['Gorkha 1','Gorkha 2','Manang','Mustang','Myagdi','Kaski 1','Kaski 2','Kaski 3','Lamjung 1','Lamjung 2','Tanahu 1','Tanahu 2','Nawalpur 1','Nawalpur 2','Syangja 1','Syangja 2','Parbat','Baglung 1'];
+  const p4HexPositions = [
+    {q:13,r:2},{q:14,r:3}, // Gorkha (north-central)
+    {q:14,r:0}, // Manang (far north, Annapurna)
+    {q:11,r:0}, // Mustang (far north-west)
+    {q:10,r:1}, // Myagdi (northwest)
+    {q:11,r:2},{q:12,r:2},{q:12,r:3}, // Kaski (Pokhara area)
+    {q:12,r:1},{q:13,r:3}, // Lamjung (north of Pokhara)
+    {q:11,r:3},{q:12,r:4}, // Tanahu (south of Pokhara)
+    {q:13,r:5},{q:14,r:5}, // Nawalpur (south, near P3)
+    {q:10,r:3},{q:11,r:4}, // Syangja (southwest)
+    {q:10,r:2}, // Parbat (west)
+    {q:9,r:1}, // Baglung 1 (northwest)
+  ];
   p4Districts.forEach((name, i) => {
     const winner = p4Winners[i];
     const margin = 0.03 + random.range(0, 0.07);
@@ -180,13 +236,28 @@ const generateConstituencies = () => {
       id: `P4-${i+1}`, name, province: 4, district: name.split(' ')[0],
       totalVotes: 35000 + Math.floor(random.range(0, 25000)),
       winner2022: winner, margin: Math.round(margin * 1000) / 1000, results2022: baseVotes,
+      hexPosition: p4HexPositions[i],
     });
   });
 
   // Province 5 - Lumbini (26 seats): NC:10, UML:8, Maoist:5, US:2, Others:1
   // US won 2 seats in Lumbini
+  // Hex layout: West-central, from hills to terai
   const p5Winners = ['Maoist','NC','UML','NC','Maoist','NC','UML','NC','UML','NC','US','UML','NC','US','NC','NC','Maoist','NC','Maoist','Maoist','UML','UML','UML','Others','NC','UML'];
   const p5Districts = ['Baglung 2','Gulmi 1','Gulmi 2','Palpa 1','Palpa 2','Nawalparasi W 1','Nawalparasi W 2','Rupandehi 1','Rupandehi 2','Rupandehi 3','Rupandehi 4','Rupandehi 5','Kapilvastu 1','Kapilvastu 2','Kapilvastu 3','Arghakhanchi 1','Arghakhanchi 2','Pyuthan 1','Pyuthan 2','Rolpa 1','Rolpa 2','Dang 1','Dang 2','Dang 3','Banke 1','Banke 2'];
+  const p5HexPositions = [
+    {q:9,r:2}, // Baglung 2 (north, continuation from P4)
+    {q:8,r:2},{q:9,r:3}, // Gulmi (hills)
+    {q:8,r:3},{q:9,r:4}, // Palpa (hills)
+    {q:10,r:4},{q:10,r:5}, // Nawalparasi W (mid-hills to terai)
+    {q:8,r:5},{q:9,r:5},{q:8,r:6},{q:7,r:6},{q:7,r:7}, // Rupandehi (terai, 5 seats including Lumbini/Butwal)
+    {q:6,r:6},{q:5,r:6},{q:6,r:7}, // Kapilvastu (terai, west)
+    {q:7,r:3},{q:8,r:4}, // Arghakhanchi (hills)
+    {q:6,r:2},{q:7,r:2}, // Pyuthan (hills, north)
+    {q:5,r:1},{q:6,r:1}, // Rolpa (hills, Maoist heartland)
+    {q:5,r:3},{q:6,r:3},{q:5,r:4}, // Dang (inner terai valley)
+    {q:4,r:4},{q:5,r:5}, // Banke (terai, west)
+  ];
   p5Districts.forEach((name, i) => {
     const winner = p5Winners[i];
     const margin = 0.02 + random.range(0, 0.06);
@@ -198,13 +269,26 @@ const generateConstituencies = () => {
       id: `P5-${i+1}`, name, province: 5, district: name.split(' ')[0],
       totalVotes: 40000 + Math.floor(random.range(0, 30000)),
       winner2022: winner, margin: Math.round(margin * 1000) / 1000, results2022: baseVotes,
+      hexPosition: p5HexPositions[i],
     });
   });
 
   // Province 6 - Karnali (12 seats): NC:4, UML:4, Maoist:2, RPP:2
   // RPP won 2 seats in Karnali
+  // Hex layout: Mid-west mountains and hills, remote region
   const p6Winners = ['Maoist','NC','UML','NC','UML','NC','RPP','Maoist','UML','UML','NC','RPP'];
   const p6Districts = ['Rukum West','Salyan 1','Salyan 2','Surkhet 1','Surkhet 2','Dailekh 1','Dailekh 2','Jajarkot','Kalikot','Jumla','Dolpa','Mugu-Humla'];
+  const p6HexPositions = [
+    {q:4,r:2}, // Rukum West (south Karnali, borders P5)
+    {q:4,r:3},{q:3,r:3}, // Salyan (mid-hills)
+    {q:3,r:4},{q:2,r:4}, // Surkhet (main valley)
+    {q:2,r:2},{q:3,r:2}, // Dailekh (hills)
+    {q:3,r:1}, // Jajarkot (north-central)
+    {q:2,r:1}, // Kalikot (northwest)
+    {q:1,r:0}, // Jumla (far northwest, mountains)
+    {q:2,r:0}, // Dolpa (far north-central, high mountains)
+    {q:0,r:0}, // Mugu-Humla (remote far northwest)
+  ];
   p6Districts.forEach((name, i) => {
     const winner = p6Winners[i];
     const margin = 0.03 + random.range(0, 0.06);
@@ -216,13 +300,26 @@ const generateConstituencies = () => {
       id: `P6-${i+1}`, name, province: 6, district: name.split(' ')[0],
       totalVotes: 25000 + Math.floor(random.range(0, 20000)),
       winner2022: winner, margin: Math.round(margin * 1000) / 1000, results2022: baseVotes,
+      hexPosition: p6HexPositions[i],
     });
   });
 
   // Province 7 - Sudurpashchim (17 seats): NC:5, UML:10, RPP:1, Others:1
   // RPP won 1 seat in Sudurpashchim
+  // Hex layout: Far west, from terai to mountains
   const p7Winners = ['UML','UML','UML','NC','UML','RPP','UML','NC','UML','NC','UML','Others','NC','UML','UML','UML','NC'];
   const p7Districts = ['Bardiya 1','Bardiya 2','Kailali 1','Kailali 2','Kailali 3','Kailali 4','Kailali 5','Kanchanpur 1','Kanchanpur 2','Dadeldhura','Baitadi 1','Baitadi 2','Darchula','Bajhang','Bajura','Achham 1','Achham 2'];
+  const p7HexPositions = [
+    {q:4,r:5},{q:3,r:5}, // Bardiya (terai, east of P7)
+    {q:2,r:6},{q:3,r:6},{q:2,r:7},{q:1,r:7},{q:1,r:6}, // Kailali (terai, 5 seats)
+    {q:0,r:6},{q:0,r:7}, // Kanchanpur (far west terai)
+    {q:1,r:4}, // Dadeldhura (hills)
+    {q:0,r:3},{q:1,r:3}, // Baitadi (hills)
+    {q:0,r:1}, // Darchula (far northwest, mountains, border with India/China)
+    {q:1,r:1}, // Bajhang (northwest mountains)
+    {q:0,r:2}, // Bajura (northwest)
+    {q:1,r:2},{q:2,r:3}, // Achham (hills)
+  ];
   p7Districts.forEach((name, i) => {
     const winner = p7Winners[i];
     const margin = 0.03 + random.range(0, 0.06);
@@ -234,6 +331,7 @@ const generateConstituencies = () => {
       id: `P7-${i+1}`, name, province: 7, district: name.split(' ')[0],
       totalVotes: 30000 + Math.floor(random.range(0, 25000)),
       winner2022: winner, margin: Math.round(margin * 1000) / 1000, results2022: baseVotes,
+      hexPosition: p7HexPositions[i],
     });
   });
 
