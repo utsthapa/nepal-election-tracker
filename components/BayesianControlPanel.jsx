@@ -72,7 +72,7 @@ export function BayesianControlPanel({
           </select>
         </div>
         <p className="text-xs text-gray-400">
-          Select which party to apply the starting point adjustment to. The adjustment will set the selected party's FPTP slider to match their PR vote share.
+          Select which party to apply the starting point adjustment to. The adjustment will set the selected party&apos;s FPTP slider to match their PR vote share.
         </p>
       </div>
 
@@ -96,7 +96,7 @@ export function BayesianControlPanel({
           </button>
         </div>
         <p className="text-xs text-gray-400">
-          When enabled, sets the selected party's FPTP slider to match their PR vote share (assumes they run in all seats).
+          When enabled, sets the selected party&apos;s FPTP slider to match their PR vote share (assumes they run in all seats).
         </p>
       </div>
 
