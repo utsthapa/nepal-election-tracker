@@ -1,0 +1,2594 @@
+[
+  {
+    "district_np": "भोजपुर",
+    "district": "Bhojpur",
+    "province": 1,
+    "seat": 1,
+    "name": "Bhojpur",
+    "winner2022": "Maoist",
+    "candidate2022": "सुदन किराती",
+    "totalVotes": 58685,
+    "results2022": {
+      "Maoist": 0.48719434267700434,
+      "UML": 0.446485473289597,
+      "Others": 0.05025134191019852,
+      "JSPN": 0.016068842123200137
+    }
+  },
+  {
+    "district_np": "धनकुटा",
+    "district": "Dhankuta",
+    "province": 1,
+    "seat": 1,
+    "name": "Dhankuta",
+    "winner2022": "UML",
+    "candidate2022": "राजेन्द्र कुमार राई",
+    "totalVotes": 66727,
+    "results2022": {
+      "UML": 0.4511067483927046,
+      "NC": 0.4301706955205539,
+      "Others": 0.1187225560867415
+    }
+  },
+  {
+    "district_np": "इलाम",
+    "district": "Ilam",
+    "province": 1,
+    "seat": 1,
+    "name": "Ilam 1",
+    "winner2022": "Others",
+    "candidate2022": "महेश बस्नेत",
+    "totalVotes": 57018,
+    "results2022": {
+      "UML": 0.4516643866849065,
+      "Others": 0.5253077975376197,
+      "JSPN": 0.02302781577747378
+    }
+  },
+  {
+    "district_np": "इलाम",
+    "district": "Ilam",
+    "province": 1,
+    "seat": 2,
+    "name": "Ilam 2",
+    "winner2022": "UML",
+    "candidate2022": "सुवास चन्द्र नेम्वाङ्ग",
+    "totalVotes": 66185,
+    "results2022": {
+      "UML": 0.45357709450781897,
+      "NC": 0.4518546498451311,
+      "Others": 0.08362922112261087,
+      "JSPN": 0.010939034524439072
+    }
+  },
+  {
+    "district_np": "झापा",
+    "district": "Jhapa",
+    "province": 1,
+    "seat": 1,
+    "name": "Jhapa 1",
+    "winner2022": "NC",
+    "candidate2022": "विश्व प्रकाश शर्मा",
+    "totalVotes": 77071,
+    "results2022": {
+      "NC": 0.5141233408156116,
+      "UML": 0.3289045166145502,
+      "Others": 0.1522621997898042,
+      "JSPN": 0.004709942780033995
+    }
+  },
+  {
+    "district_np": "झापा",
+    "district": "Jhapa",
+    "province": 1,
+    "seat": 2,
+    "name": "Jhapa 2",
+    "winner2022": "Others",
+    "candidate2022": "देव राज घिमिरे",
+    "totalVotes": 81721,
+    "results2022": {
+      "UML": 0.35139070740690886,
+      "Others": 0.4765237821367825,
+      "Maoist": 0.17045802180590056,
+      "JSPN": 0.001627488650408096
+    }
+  },
+  {
+    "district_np": "झापा",
+    "district": "Jhapa",
+    "province": 1,
+    "seat": 3,
+    "name": "Jhapa 3",
+    "winner2022": "Others",
+    "candidate2022": "राजेन्द्र प्रसाद लिङ्देन",
+    "totalVotes": 84808,
+    "results2022": {
+      "Others": 0.5514102443165739,
+      "NC": 0.4408310536741817,
+      "JSPN": 0.005471181963965664,
+      "JP": 0.0022875200452787472
+    }
+  },
+  {
+    "district_np": "झापा",
+    "district": "Jhapa",
+    "province": 1,
+    "seat": 4,
+    "name": "Jhapa 4",
+    "winner2022": "UML",
+    "candidate2022": "लाल प्रसाद साँवा लिम्बू",
+    "totalVotes": 74836,
+    "results2022": {
+      "UML": 0.3917232348067775,
+      "NC": 0.29996258485221017,
+      "Others": 0.3003100112245443,
+      "JP": 0.005558821957346732,
+      "JSPN": 0.0024453471591212787
+    }
+  },
+  {
+    "district_np": "झापा",
+    "district": "Jhapa",
+    "province": 1,
+    "seat": 5,
+    "name": "Jhapa 5",
+    "winner2022": "UML",
+    "candidate2022": "के.पी शर्मा ओली",
+    "totalVotes": 93870,
+    "results2022": {
+      "UML": 0.5573559177586023,
+      "NC": 0.25293490998188983,
+      "Others": 0.16718866517524236,
+      "JP": 0.015819750719079578,
+      "JSPN": 0.006700756365185895
+    }
+  },
+  {
+    "district_np": "खोटाङ्ग",
+    "district": "Khotang",
+    "province": 1,
+    "seat": 1,
+    "name": "Khotang",
+    "winner2022": "Maoist",
+    "candidate2022": "राम कुमार राई",
+    "totalVotes": 64422,
+    "results2022": {
+      "Maoist": 0.4866505231132222,
+      "UML": 0.44522057682158267,
+      "JSPN": 0.029710347396852008,
+      "Others": 0.03841855266834311
+    }
+  },
+  {
+    "district_np": "मोरङ्ग",
+    "district": "Morang",
+    "province": 1,
+    "seat": 1,
+    "name": "Morang 1",
+    "winner2022": "NC",
+    "candidate2022": "डिग बहादुर लिम्वु",
+    "totalVotes": 70676,
+    "results2022": {
+      "NC": 0.3862272907351859,
+      "UML": 0.38014318863546326,
+      "Others": 0.23362952062935083
+    }
+  },
+  {
+    "district_np": "मोरङ्ग",
+    "district": "Morang",
+    "province": 1,
+    "seat": 2,
+    "name": "Morang 2",
+    "winner2022": "UML",
+    "candidate2022": "ऋषिकेश पोखरेल",
+    "totalVotes": 75666,
+    "results2022": {
+      "UML": 0.4380831549176645,
+      "NC": 0.42211825654851587,
+      "Others": 0.13979858853381968
+    }
+  },
+  {
+    "district_np": "मोरङ्ग",
+    "district": "Morang",
+    "province": 1,
+    "seat": 3,
+    "name": "Morang 3",
+    "winner2022": "NC",
+    "candidate2022": "शुनिल कुमार शर्मा",
+    "totalVotes": 92202,
+    "results2022": {
+      "NC": 0.5274397518492007,
+      "UML": 0.2808507407648424,
+      "Others": 0.19170950738595693
+    }
+  },
+  {
+    "district_np": "मोरङ्ग",
+    "district": "Morang",
+    "province": 1,
+    "seat": 4,
+    "name": "Morang 4",
+    "winner2022": "Maoist",
+    "candidate2022": "अमन लाल मोदी",
+    "totalVotes": 70283,
+    "results2022": {
+      "Maoist": 0.4355534055176928,
+      "UML": 0.34806425451389383,
+      "Others": 0.2163823399684134
+    }
+  },
+  {
+    "district_np": "मोरङ्ग",
+    "district": "Morang",
+    "province": 1,
+    "seat": 5,
+    "name": "Morang 5",
+    "winner2022": "Others",
+    "candidate2022": "योगेन्द्र मण्डल",
+    "totalVotes": 67380,
+    "results2022": {
+      "Others": 0.44685366577619473,
+      "Maoist": 0.2595132086672603,
+      "JSPN": 0.2580884535470466,
+      "JP": 0.03554467200949837
+    }
+  },
+  {
+    "district_np": "मोरङ्ग",
+    "district": "Morang",
+    "province": 1,
+    "seat": 6,
+    "name": "Morang 6",
+    "winner2022": "NC",
+    "candidate2022": "डा शेखर कोइराला",
+    "totalVotes": 80426,
+    "results2022": {
+      "NC": 0.4379678213513043,
+      "UML": 0.2853057468977694,
+      "Others": 0.24748215751125258,
+      "JP": 0.022927908885186383,
+      "NUP": 0.006316365354487355
+    }
+  },
+  {
+    "district_np": "ओखलढुंगा",
+    "district": "Okhaldhunga",
+    "province": 1,
+    "seat": 1,
+    "name": "Okhaldhunga",
+    "winner2022": "NC",
+    "candidate2022": "राम हरि खतिवडा",
+    "totalVotes": 62585,
+    "results2022": {
+      "NC": 0.5361668131341376,
+      "UML": 0.42722697131900617,
+      "JSPN": 0.014332507789406408,
+      "Others": 0.022273707757449867
+    }
+  },
+  {
+    "district_np": "पाँचथर",
+    "district": "Panchthar",
+    "province": 1,
+    "seat": 1,
+    "name": "Panchthar",
+    "winner2022": "UML",
+    "candidate2022": "वसन्त कुमार नेम्वाङ्ग",
+    "totalVotes": 70791,
+    "results2022": {
+      "UML": 0.4539418852679013,
+      "NC": 0.45329208515206737,
+      "Others": 0.07476939158932633,
+      "JSPN": 0.017996637990705035
+    }
+  },
+  {
+    "district_np": "संखुवासभा",
+    "district": "Sankhuwasabha",
+    "province": 1,
+    "seat": 1,
+    "name": "Sankhuwasabha",
+    "winner2022": "NC",
+    "candidate2022": "दिपक खड्का",
+    "totalVotes": 62585,
+    "results2022": {
+      "NC": 0.5138771271071343,
+      "UML": 0.42695534073659824,
+      "Others": 0.0462091555484541,
+      "JSPN": 0.012958376607813373
+    }
+  },
+  {
+    "district_np": "सोलुखुम्बु",
+    "district": "Solukhumbu",
+    "province": 1,
+    "seat": 1,
+    "name": "Solukhumbu",
+    "winner2022": "UML",
+    "candidate2022": "मानबीर राई",
+    "totalVotes": 37810,
+    "results2022": {
+      "UML": 0.5110817244115313,
+      "NC": 0.4375826500925681,
+      "JSPN": 0.023829674689235653,
+      "Others": 0.027505950806664903
+    }
+  },
+  {
+    "district_np": "सुनसरी",
+    "district": "Sunsari",
+    "province": 1,
+    "seat": 1,
+    "name": "Sunsari 1",
+    "winner2022": "Others",
+    "candidate2022": "अशोक कुमार राई",
+    "totalVotes": 73021,
+    "results2022": {
+      "JSPN": 0.23361772640747183,
+      "Others": 0.5829829774996234,
+      "Maoist": 0.17922241546952247,
+      "JP": 0.0041768806233823145
+    }
+  },
+  {
+    "district_np": "सुनसरी",
+    "district": "Sunsari",
+    "province": 1,
+    "seat": 2,
+    "name": "Sunsari 2",
+    "winner2022": "UML",
+    "candidate2022": "भीम प्रसाद आचार्य",
+    "totalVotes": 88552,
+    "results2022": {
+      "UML": 0.3616406179420002,
+      "NC": 0.294380702863854,
+      "Others": 0.317395428674677,
+      "JP": 0.013461017255397958,
+      "NUP": 0.013122233264070828
+    }
+  },
+  {
+    "district_np": "सुनसरी",
+    "district": "Sunsari",
+    "province": 1,
+    "seat": 3,
+    "name": "Sunsari 3",
+    "winner2022": "UML",
+    "candidate2022": "भगवती चौधरी",
+    "totalVotes": 87114,
+    "results2022": {
+      "UML": 0.4682140643294993,
+      "NC": 0.4086599168905113,
+      "Others": 0.12312601877998944
+    }
+  },
+  {
+    "district_np": "सुनसरी",
+    "district": "Sunsari",
+    "province": 1,
+    "seat": 4,
+    "name": "Sunsari 4",
+    "winner2022": "NC",
+    "candidate2022": "ज्ञानेन्द्र बहादुर कार्की",
+    "totalVotes": 74423,
+    "results2022": {
+      "NC": 0.4095911210244145,
+      "UML": 0.4080862099082273,
+      "Others": 0.15233194039477044,
+      "JP": 0.02892922886742002,
+      "Maoist": 0.0010614998051677574
+    }
+  },
+  {
+    "district_np": "ताप्लेजुंग",
+    "district": "Taplejung",
+    "province": 1,
+    "seat": 1,
+    "name": "Taplejung",
+    "winner2022": "UML",
+    "candidate2022": "योगेश कुमार भट्टराई",
+    "totalVotes": 46391,
+    "results2022": {
+      "UML": 0.4730012286865987,
+      "Maoist": 0.46851760039662865,
+      "Others": 0.04494406242590158,
+      "JSPN": 0.013537108490871074
+    }
+  },
+  {
+    "district_np": "तेर्हथुम",
+    "district": "Tehrathum",
+    "province": 1,
+    "seat": 1,
+    "name": "Tehrathum",
+    "winner2022": "NC",
+    "candidate2022": "सिता गुरुङ्ग",
+    "totalVotes": 39901,
+    "results2022": {
+      "NC": 0.4938973960552367,
+      "UML": 0.46693065336708356,
+      "Others": 0.03621463121225032,
+      "JSPN": 0.002957319365429438
+    }
+  },
+  {
+    "district_np": "उदयपुर",
+    "district": "Udayapur",
+    "province": 1,
+    "seat": 1,
+    "name": "Udayapur 1",
+    "winner2022": "NC",
+    "candidate2022": "डा. नारायण खड्का",
+    "totalVotes": 71455,
+    "results2022": {
+      "NC": 0.4376180813099153,
+      "UML": 0.40432439997201036,
+      "Others": 0.12850045483171227,
+      "JSPN": 0.026674130571688475,
+      "NUP": 0.002882933314673571
+    }
+  },
+  {
+    "district_np": "उदयपुर",
+    "district": "Udayapur",
+    "province": 1,
+    "seat": 2,
+    "name": "Udayapur 2",
+    "winner2022": "Others",
+    "candidate2022": "अम्वर बहादुर रायामाझी",
+    "totalVotes": 42161,
+    "results2022": {
+      "UML": 0.3617324067265957,
+      "Others": 0.629562866155926,
+      "JSPN": 0.008704727117478238
+    }
+  },
+  {
+    "district_np": "बारा",
+    "district": "Bara",
+    "province": 2,
+    "seat": 1,
+    "name": "Bara 1",
+    "winner2022": "UML",
+    "candidate2022": "अच्युत प्रसाद मैनाली",
+    "totalVotes": 78029,
+    "results2022": {
+      "UML": 0.5023132425123993,
+      "NC": 0.38519012162144844,
+      "Others": 0.09887349575157954,
+      "JP": 0.013623140114572788
+    }
+  },
+  {
+    "district_np": "बारा",
+    "district": "Bara",
+    "province": 2,
+    "seat": 2,
+    "name": "Bara 2",
+    "winner2022": "Others",
+    "candidate2022": "रामसहाय प्रसाद यादव",
+    "totalVotes": 63742,
+    "results2022": {
+      "JSPN": 0.21684289793228953,
+      "Maoist": 0.21128925982868438,
+      "Others": 0.5116877412067397,
+      "JP": 0.0427504628031753,
+      "NUP": 0.017429638229111106
+    }
+  },
+  {
+    "district_np": "बारा",
+    "district": "Bara",
+    "province": 2,
+    "seat": 3,
+    "name": "Bara 3",
+    "winner2022": "Others",
+    "candidate2022": "ज्वाला कुमारी साह",
+    "totalVotes": 63615,
+    "results2022": {
+      "UML": 0.31833687023500745,
+      "JSPN": 0.2716183290104535,
+      "Others": 0.35240116324766174,
+      "JP": 0.052361864340171344,
+      "NUP": 0.005281773166705966
+    }
+  },
+  {
+    "district_np": "बारा",
+    "district": "Bara",
+    "province": 2,
+    "seat": 4,
+    "name": "Bara 4",
+    "winner2022": "Others",
+    "candidate2022": "कृष्ण कुमार श्रेष्ठ",
+    "totalVotes": 69266,
+    "results2022": {
+      "Others": 0.6744867611815321,
+      "UML": 0.29359281610025123,
+      "JP": 0.03192042271821673
+    }
+  },
+  {
+    "district_np": "धनुषा",
+    "district": "Dhanusha",
+    "province": 2,
+    "seat": 1,
+    "name": "Dhanusha 1",
+    "winner2022": "JSPN",
+    "candidate2022": "दीपक कार्की",
+    "totalVotes": 73098,
+    "results2022": {
+      "JSPN": 0.3752633450983611,
+      "Maoist": 0.29389312977099236,
+      "JP": 0.19791239158390106,
+      "Others": 0.13293113354674546
+    }
+  },
+  {
+    "district_np": "धनुषा",
+    "district": "Dhanusha",
+    "province": 2,
+    "seat": 2,
+    "name": "Dhanusha 2",
+    "winner2022": "NC",
+    "candidate2022": "राम कृष्ण यादव",
+    "totalVotes": 77665,
+    "results2022": {
+      "NC": 0.25895834674563833,
+      "UML": 0.2569368441382862,
+      "Others": 0.18933882701345522,
+      "JSPN": 0.16611086074808473,
+      "JP": 0.1286551213545355
+    }
+  },
+  {
+    "district_np": "धनुषा",
+    "district": "Dhanusha",
+    "province": 2,
+    "seat": 3,
+    "name": "Dhanusha 3",
+    "winner2022": "UML",
+    "candidate2022": "जुली कुमारी महतो (महासेठ)",
+    "totalVotes": 67893,
+    "results2022": {
+      "UML": 0.49177382057060376,
+      "Others": 0.3996140986552369,
+      "JP": 0.10861208077415933
+    }
+  },
+  {
+    "district_np": "धनुषा",
+    "district": "Dhanusha",
+    "province": 2,
+    "seat": 4,
+    "name": "Dhanusha 4",
+    "winner2022": "UML",
+    "candidate2022": "रघुबीर महासेठ",
+    "totalVotes": 76768,
+    "results2022": {
+      "UML": 0.41991454772822007,
+      "NC": 0.41829929137140476,
+      "JSPN": 0.0678928720300125,
+      "Others": 0.09389328887036265
+    }
+  },
+  {
+    "district_np": "महोत्तरी",
+    "district": "Mahottari",
+    "province": 2,
+    "seat": 1,
+    "name": "Mahottari 1",
+    "winner2022": "UML",
+    "candidate2022": "लझ्मी महतो काेइरी",
+    "totalVotes": 61738,
+    "results2022": {
+      "UML": 0.37905341928795877,
+      "Maoist": 0.3623700152256309,
+      "Others": 0.2002980336259678,
+      "JP": 0.05827853186044252
+    }
+  },
+  {
+    "district_np": "महोत्तरी",
+    "district": "Mahottari",
+    "province": 2,
+    "seat": 2,
+    "name": "Mahottari 2",
+    "winner2022": "Others",
+    "candidate2022": "शरत सिंह भण्डारी",
+    "totalVotes": 55166,
+    "results2022": {
+      "Others": 0.7058151760142116,
+      "UML": 0.18594786643947359,
+      "JP": 0.10823695754631477
+    }
+  },
+  {
+    "district_np": "महोत्तरी",
+    "district": "Mahottari",
+    "province": 2,
+    "seat": 3,
+    "name": "Mahottari 3",
+    "winner2022": "Others",
+    "candidate2022": "महन्थ ठाकुर",
+    "totalVotes": 55403,
+    "results2022": {
+      "Others": 0.664693247658069,
+      "JSPN": 0.2585600057758605,
+      "JP": 0.07674674656607043
+    }
+  },
+  {
+    "district_np": "महोत्तरी",
+    "district": "Mahottari",
+    "province": 2,
+    "seat": 4,
+    "name": "Mahottari 4",
+    "winner2022": "NC",
+    "candidate2022": "महेन्‍द्र कुमार राय",
+    "totalVotes": 58833,
+    "results2022": {
+      "NC": 0.4325463600360342,
+      "JSPN": 0.36256862645114135,
+      "JP": 0.17097547294885523,
+      "Others": 0.0339095405639692
+    }
+  },
+  {
+    "district_np": "पर्सा",
+    "district": "Parsa",
+    "province": 2,
+    "seat": 1,
+    "name": "Parsa 1",
+    "winner2022": "Others",
+    "candidate2022": "प्रदिप यादव",
+    "totalVotes": 48620,
+    "results2022": {
+      "JSPN": 0.46353352529823116,
+      "Others": 0.5364664747017688
+    }
+  },
+  {
+    "district_np": "पर्सा",
+    "district": "Parsa",
+    "province": 2,
+    "seat": 2,
+    "name": "Parsa 2",
+    "winner2022": "NC",
+    "candidate2022": "अजय कुमार चौरसिया",
+    "totalVotes": 55501,
+    "results2022": {
+      "NC": 0.5126213942091133,
+      "JSPN": 0.4044071277994991,
+      "Others": 0.08297147799138754
+    }
+  },
+  {
+    "district_np": "पर्सा",
+    "district": "Parsa",
+    "province": 2,
+    "seat": 3,
+    "name": "Parsa 3",
+    "winner2022": "UML",
+    "candidate2022": "राज कुमार गुप्ता",
+    "totalVotes": 61673,
+    "results2022": {
+      "UML": 0.3943216642615083,
+      "NC": 0.3916138342548603,
+      "Others": 0.2140645014836314
+    }
+  },
+  {
+    "district_np": "पर्सा",
+    "district": "Parsa",
+    "province": 2,
+    "seat": 4,
+    "name": "Parsa 4",
+    "winner2022": "NC",
+    "candidate2022": "रमेश रिजाल",
+    "totalVotes": 60116,
+    "results2022": {
+      "NC": 0.5193958347195422,
+      "UML": 0.42702441945571895,
+      "Others": 0.03792667509481669,
+      "JP": 0.015653070729922152
+    }
+  },
+  {
+    "district_np": "रौतहट",
+    "district": "Rautahat",
+    "province": 2,
+    "seat": 1,
+    "name": "Rautahat 1",
+    "winner2022": "Others",
+    "candidate2022": "माधव कुमार नेपाल",
+    "totalVotes": 64009,
+    "results2022": {
+      "Others": 0.5573591213735568,
+      "UML": 0.4205971035323158,
+      "JP": 0.022043775094127388
+    }
+  },
+  {
+    "district_np": "रौतहट",
+    "district": "Rautahat",
+    "province": 2,
+    "seat": 2,
+    "name": "Rautahat 2",
+    "winner2022": "Others",
+    "candidate2022": "किरण कुमार साह",
+    "totalVotes": 64636,
+    "results2022": {
+      "Others": 0.5146048641623863,
+      "NC": 0.43703199455411845,
+      "JSPN": 0.03283000185655053,
+      "JP": 0.015533139426944736
+    }
+  },
+  {
+    "district_np": "रौतहट",
+    "district": "Rautahat",
+    "province": 2,
+    "seat": 3,
+    "name": "Rautahat 3",
+    "winner2022": "Others",
+    "candidate2022": "प्रभु साह",
+    "totalVotes": 70935,
+    "results2022": {
+      "Others": 0.8435469091421725,
+      "Maoist": 0.12064566152111088,
+      "NUP": 0.024289842813843658,
+      "JP": 0.011517586522873052
+    }
+  },
+  {
+    "district_np": "रौतहट",
+    "district": "Rautahat",
+    "province": 2,
+    "seat": 4,
+    "name": "Rautahat 4",
+    "winner2022": "NC",
+    "candidate2022": "देव प्रसाद तिमलसेना",
+    "totalVotes": 69970,
+    "results2022": {
+      "NC": 0.4882235243675861,
+      "UML": 0.37957696155495213,
+      "Others": 0.13219951407746178
+    }
+  },
+  {
+    "district_np": "सप्तरी",
+    "district": "Saptari",
+    "province": 2,
+    "seat": 1,
+    "name": "Saptari 1",
+    "winner2022": "JSPN",
+    "candidate2022": "नवल किसोर साह सुडी",
+    "totalVotes": 70235,
+    "results2022": {
+      "JSPN": 0.33607175909446857,
+      "JP": 0.28470135972093685,
+      "NC": 0.20377304762582757,
+      "Others": 0.1558339859044636,
+      "NUP": 0.01961984765430341
+    }
+  },
+  {
+    "district_np": "सप्तरी",
+    "district": "Saptari",
+    "province": 2,
+    "seat": 2,
+    "name": "Saptari 2",
+    "winner2022": "JP",
+    "candidate2022": "चन्द्र कान्त राउत",
+    "totalVotes": 60921,
+    "results2022": {
+      "JP": 0.5752039526600023,
+      "JSPN": 0.27870520838462925,
+      "Others": 0.14609083895536842
+    }
+  },
+  {
+    "district_np": "सप्तरी",
+    "district": "Saptari",
+    "province": 2,
+    "seat": 3,
+    "name": "Saptari 3",
+    "winner2022": "NC",
+    "candidate2022": "दिनेश कुमार यादव",
+    "totalVotes": 66826,
+    "results2022": {
+      "NC": 0.391554185496663,
+      "UML": 0.33370245114177116,
+      "JP": 0.22616945500254393,
+      "Others": 0.048573908359021936
+    }
+  },
+  {
+    "district_np": "सप्तरी",
+    "district": "Saptari",
+    "province": 2,
+    "seat": 4,
+    "name": "Saptari 4",
+    "winner2022": "NC",
+    "candidate2022": "तेजु लाल चौधरी",
+    "totalVotes": 63992,
+    "results2022": {
+      "NC": 0.3670927615951994,
+      "JSPN": 0.2809257407175897,
+      "JP": 0.20197837229653706,
+      "Others": 0.12642205275659457,
+      "NUP": 0.02358107263407926
+    }
+  },
+  {
+    "district_np": "सर्लाही",
+    "district": "Sarlahi",
+    "province": 2,
+    "seat": 1,
+    "name": "Sarlahi 1",
+    "winner2022": "Others",
+    "candidate2022": "राम प्रकाश चौधरी",
+    "totalVotes": 71374,
+    "results2022": {
+      "Others": 0.7428895676296691,
+      "JSPN": 0.19972258805727575,
+      "JP": 0.05738784431305517
+    }
+  },
+  {
+    "district_np": "सर्लाही",
+    "district": "Sarlahi",
+    "province": 2,
+    "seat": 2,
+    "name": "Sarlahi 2",
+    "winner2022": "Others",
+    "candidate2022": "महिन्द्र राय यादव",
+    "totalVotes": 70469,
+    "results2022": {
+      "Maoist": 0.3338914983893627,
+      "Others": 0.3628120166314266,
+      "UML": 0.21029104996523293,
+      "JP": 0.09300543501397777
+    }
+  },
+  {
+    "district_np": "सर्लाही",
+    "district": "Sarlahi",
+    "province": 2,
+    "seat": 3,
+    "name": "Sarlahi 3",
+    "winner2022": "UML",
+    "candidate2022": "हरि प्रसाद उप्रेती",
+    "totalVotes": 77199,
+    "results2022": {
+      "UML": 0.42666355781810644,
+      "Maoist": 0.4166893353540849,
+      "JP": 0.07149056334926618,
+      "Others": 0.08515654347854247
+    }
+  },
+  {
+    "district_np": "सर्लाही",
+    "district": "Sarlahi",
+    "province": 2,
+    "seat": 4,
+    "name": "Sarlahi 4",
+    "winner2022": "Others",
+    "candidate2022": "अमरेश कुमार सिह",
+    "totalVotes": 69283,
+    "results2022": {
+      "Others": 0.6031494017291399,
+      "NC": 0.2634556817689765,
+      "JSPN": 0.08390225596466666,
+      "JP": 0.049492660537216925
+    }
+  },
+  {
+    "district_np": "सिराहा",
+    "district": "Siraha",
+    "province": 2,
+    "seat": 1,
+    "name": "Siraha 1",
+    "winner2022": "UML",
+    "candidate2022": "राम शंकर यादव",
+    "totalVotes": 66106,
+    "results2022": {
+      "UML": 0.44567815326899224,
+      "NC": 0.41416815417662545,
+      "JP": 0.10360632922881433,
+      "Others": 0.03654736332556803
+    }
+  },
+  {
+    "district_np": "सिराहा",
+    "district": "Siraha",
+    "province": 2,
+    "seat": 2,
+    "name": "Siraha 2",
+    "winner2022": "JSPN",
+    "candidate2022": "राज किशोर यादव",
+    "totalVotes": 67768,
+    "results2022": {
+      "JSPN": 0.3567760594971078,
+      "NC": 0.33980639830008263,
+      "JP": 0.24940975091488607,
+      "Others": 0.054007791287923504
+    }
+  },
+  {
+    "district_np": "सिराहा",
+    "district": "Siraha",
+    "province": 2,
+    "seat": 3,
+    "name": "Siraha 3",
+    "winner2022": "UML",
+    "candidate2022": "लिलानाथ श्रेष्ठ",
+    "totalVotes": 69406,
+    "results2022": {
+      "UML": 0.4043454456387056,
+      "Maoist": 0.3873152177045212,
+      "JP": 0.1605913033455321,
+      "Others": 0.047748033311241105
+    }
+  },
+  {
+    "district_np": "सिराहा",
+    "district": "Siraha",
+    "province": 2,
+    "seat": 4,
+    "name": "Siraha 4",
+    "winner2022": "JSPN",
+    "candidate2022": "बिरेन्द्र प्रसाद महतो",
+    "totalVotes": 60922,
+    "results2022": {
+      "JSPN": 0.395620629657595,
+      "JP": 0.2674567479728177,
+      "Others": 0.33692262236958737
+    }
+  },
+  {
+    "district_np": "भक्तपुर",
+    "district": "Bhaktapur",
+    "province": 3,
+    "seat": 1,
+    "name": "Bhaktapur 1",
+    "winner2022": "Others",
+    "candidate2022": "प्रेम सुवाल",
+    "totalVotes": 71709,
+    "results2022": {
+      "Others": 0.7559999442189962,
+      "UML": 0.16689676330725572,
+      "Maoist": 0.07367276074132954,
+      "JSPN": 0.003430531732418525
+    }
+  },
+  {
+    "district_np": "भक्तपुर",
+    "district": "Bhaktapur",
+    "province": 3,
+    "seat": 2,
+    "name": "Bhaktapur 2",
+    "winner2022": "NC",
+    "candidate2022": "दुर्लभ थापा क्षेत्री",
+    "totalVotes": 63693,
+    "results2022": {
+      "NC": 0.3805598731414755,
+      "UML": 0.3655346741400154,
+      "Others": 0.2504042830452326,
+      "JSPN": 0.003501169673276498
+    }
+  },
+  {
+    "district_np": "चितवन",
+    "district": "Chitwan",
+    "province": 3,
+    "seat": 1,
+    "name": "Chitwan 1",
+    "winner2022": "Others",
+    "candidate2022": "हरि ढकाल",
+    "totalVotes": 91514,
+    "results2022": {
+      "Others": 0.4341958607426186,
+      "UML": 0.2910374368949013,
+      "NC": 0.27342264571540964,
+      "JSPN": 0.0013440566470703935
+    }
+  },
+  {
+    "district_np": "चितवन",
+    "district": "Chitwan",
+    "province": 3,
+    "seat": 2,
+    "name": "Chitwan 2",
+    "winner2022": "Others",
+    "candidate2022": "रबि लामिछाने",
+    "totalVotes": 80753,
+    "results2022": {
+      "Others": 0.6321870394907929,
+      "NC": 0.18560301165281784,
+      "UML": 0.1814421755228908,
+      "JSPN": 0.0007677733334984459
+    }
+  },
+  {
+    "district_np": "चितवन",
+    "district": "Chitwan",
+    "province": 3,
+    "seat": 3,
+    "name": "Chitwan 3",
+    "winner2022": "Others",
+    "candidate2022": "विक्रम पाण्डे",
+    "totalVotes": 89529,
+    "results2022": {
+      "Others": 0.7106747534318489,
+      "Maoist": 0.2884428509198137,
+      "JSPN": 0.0008823956483374102
+    }
+  },
+  {
+    "district_np": "धादिङ्ग",
+    "district": "Dhading",
+    "province": 3,
+    "seat": 1,
+    "name": "Dhading 1",
+    "winner2022": "Others",
+    "candidate2022": "राजेन्द्र प्रसाद पाण्डे",
+    "totalVotes": 77935,
+    "results2022": {
+      "Others": 0.6391095143388721,
+      "UML": 0.35923526015269136,
+      "JSPN": 0.0016552255084365177
+    }
+  },
+  {
+    "district_np": "धादिङ्ग",
+    "district": "Dhading",
+    "province": 3,
+    "seat": 2,
+    "name": "Dhading 2",
+    "winner2022": "NC",
+    "candidate2022": "रामनाथ अधिकारी",
+    "totalVotes": 66369,
+    "results2022": {
+      "NC": 0.5233768777591948,
+      "UML": 0.3644773915532854,
+      "Others": 0.10840904639214091,
+      "JSPN": 0.0037366842953788664
+    }
+  },
+  {
+    "district_np": "दोलखा",
+    "district": "Dolakha",
+    "province": 3,
+    "seat": 1,
+    "name": "Dolakha",
+    "winner2022": "Maoist",
+    "candidate2022": "ग‌ंगा कार्की",
+    "totalVotes": 81023,
+    "results2022": {
+      "Maoist": 0.4544388630388902,
+      "UML": 0.4505510780889377,
+      "Others": 0.08992508300112313,
+      "JSPN": 0.004455524974389988,
+      "NUP": 0.0006294508966589733
+    }
+  },
+  {
+    "district_np": "काठमाडौं",
+    "district": "Kathmandu",
+    "province": 3,
+    "seat": 1,
+    "name": "Kathmandu 1",
+    "winner2022": "Others",
+    "candidate2022": "प्रकाश मान सिंह",
+    "totalVotes": 26166,
+    "results2022": {
+      "NC": 0.2729878468241229,
+      "Others": 0.5911870366123978,
+      "UML": 0.13498433081097608,
+      "JP": 0.0008407857525032484
+    }
+  },
+  {
+    "district_np": "काठमाडौं",
+    "district": "Kathmandu",
+    "province": 3,
+    "seat": 2,
+    "name": "Kathmandu 2",
+    "winner2022": "Others",
+    "candidate2022": "सोविता गौतम",
+    "totalVotes": 50817,
+    "results2022": {
+      "Others": 0.5814196036759353,
+      "UML": 0.2276009996654663,
+      "Maoist": 0.18613849695967885,
+      "JP": 0.0032272664659464354,
+      "JSPN": 0.0016136332329732177
+    }
+  },
+  {
+    "district_np": "काठमाडौं",
+    "district": "Kathmandu",
+    "province": 3,
+    "seat": 3,
+    "name": "Kathmandu 3",
+    "winner2022": "NC",
+    "candidate2022": "सन्तोष चालिसे",
+    "totalVotes": 37319,
+    "results2022": {
+      "NC": 0.40617379886920874,
+      "UML": 0.30000803880061094,
+      "Others": 0.2778477451164286,
+      "Maoist": 0.013880329054905008,
+      "JSPN": 0.0011790240896058309,
+      "JP": 0.0009110640692408693
+    }
+  },
+  {
+    "district_np": "काठमाडौं",
+    "district": "Kathmandu",
+    "province": 3,
+    "seat": 4,
+    "name": "Kathmandu 4",
+    "winner2022": "NC",
+    "candidate2022": "गगन कुमार थापा",
+    "totalVotes": 44039,
+    "results2022": {
+      "NC": 0.4837076227888917,
+      "UML": 0.3146075069824474,
+      "Others": 0.20168487022866097
+    }
+  },
+  {
+    "district_np": "काठमाडौं",
+    "district": "Kathmandu",
+    "province": 3,
+    "seat": 5,
+    "name": "Kathmandu 5",
+    "winner2022": "Others",
+    "candidate2022": "प्रदीप पौडेल",
+    "totalVotes": 44316,
+    "results2022": {
+      "NC": 0.34454824442639226,
+      "UML": 0.22993952522790867,
+      "Others": 0.4225561873815326,
+      "JSPN": 0.002956042964166441
+    }
+  },
+  {
+    "district_np": "काठमाडौं",
+    "district": "Kathmandu",
+    "province": 3,
+    "seat": 6,
+    "name": "Kathmandu 6",
+    "winner2022": "Others",
+    "candidate2022": "शिशिर  खनाल",
+    "totalVotes": 37411,
+    "results2022": {
+      "Others": 0.5211836090989281,
+      "UML": 0.23835235625885434,
+      "NC": 0.2355456951164096,
+      "JSPN": 0.004918339525807917
+    }
+  },
+  {
+    "district_np": "काठमाडौं",
+    "district": "Kathmandu",
+    "province": 3,
+    "seat": 7,
+    "name": "Kathmandu 7",
+    "winner2022": "Others",
+    "candidate2022": "गणेश पराजुली",
+    "totalVotes": 36061,
+    "results2022": {
+      "Others": 0.5750533817697789,
+      "UML": 0.18856936856992318,
+      "Maoist": 0.16813177671168297,
+      "JSPN": 0.06824547294861484
+    }
+  },
+  {
+    "district_np": "काठमाडौं",
+    "district": "Kathmandu",
+    "province": 3,
+    "seat": 8,
+    "name": "Kathmandu 8",
+    "winner2022": "Others",
+    "candidate2022": "विराज भक्त श्रेष्ठ",
+    "totalVotes": 30674,
+    "results2022": {
+      "Others": 0.8574362652409206,
+      "UML": 0.12685010106278932,
+      "JSPN": 0.012779552715654952,
+      "JP": 0.0029340809806350657
+    }
+  },
+  {
+    "district_np": "काठमाडौं",
+    "district": "Kathmandu",
+    "province": 3,
+    "seat": 9,
+    "name": "Kathmandu 9",
+    "winner2022": "Others",
+    "candidate2022": "कृष्ण गोपाल श्रेष्ठ",
+    "totalVotes": 42517,
+    "results2022": {
+      "UML": 0.2812051649928264,
+      "Others": 0.5495919279347085,
+      "Maoist": 0.15057506409201024,
+      "JSPN": 0.018627842980454876
+    }
+  },
+  {
+    "district_np": "काठमाडौं",
+    "district": "Kathmandu",
+    "province": 3,
+    "seat": 10,
+    "name": "Kathmandu 10",
+    "winner2022": "Others",
+    "candidate2022": "राजेन्द्र कुमार के.सी.",
+    "totalVotes": 51155,
+    "results2022": {
+      "NC": 0.2827289610008797,
+      "UML": 0.23049555273189326,
+      "Others": 0.3826214446290685,
+      "Maoist": 0.10292249047013977,
+      "NUP": 0.0012315511680187664
+    }
+  },
+  {
+    "district_np": "काभ्रेपलाञ्चोक",
+    "district": "Kavrepalanchok",
+    "province": 3,
+    "seat": 1,
+    "name": "Kavrepalanchok 1",
+    "winner2022": "Maoist",
+    "candidate2022": "सुर्य मान तामाङ (दोङ)",
+    "totalVotes": 79046,
+    "results2022": {
+      "Maoist": 0.4378842699187815,
+      "UML": 0.3864585178250639,
+      "Others": 0.17122941072287023,
+      "JSPN": 0.004427801533284417
+    }
+  },
+  {
+    "district_np": "काभ्रेपलाञ्चोक",
+    "district": "Kavrepalanchok",
+    "province": 3,
+    "seat": 2,
+    "name": "Kavrepalanchok 2",
+    "winner2022": "UML",
+    "candidate2022": "गोकुल प्रसाद वाँस्कोटा",
+    "totalVotes": 99225,
+    "results2022": {
+      "UML": 0.45699168556311415,
+      "NC": 0.3979037540942303,
+      "Others": 0.14247417485512723,
+      "JSPN": 0.0016326530612244899,
+      "Maoist": 0.000997732426303855
+    }
+  },
+  {
+    "district_np": "ललितपुर",
+    "district": "Lalitpur",
+    "province": 3,
+    "seat": 1,
+    "name": "Lalitpur 1",
+    "winner2022": "NC",
+    "candidate2022": "उदय शंशेर ज.ब.राणा",
+    "totalVotes": 48781,
+    "results2022": {
+      "NC": 0.48978085730099835,
+      "UML": 0.3951948504540702,
+      "Others": 0.11203132367110145,
+      "JSPN": 0.002992968573829975
+    }
+  },
+  {
+    "district_np": "ललितपुर",
+    "district": "Lalitpur",
+    "province": 3,
+    "seat": 2,
+    "name": "Lalitpur 2",
+    "winner2022": "Others",
+    "candidate2022": "प्रेम बहादुर महर्जन",
+    "totalVotes": 51355,
+    "results2022": {
+      "UML": 0.2925713173011391,
+      "Others": 0.7074286826988608
+    }
+  },
+  {
+    "district_np": "ललितपुर",
+    "district": "Lalitpur",
+    "province": 3,
+    "seat": 3,
+    "name": "Lalitpur 3",
+    "winner2022": "Others",
+    "candidate2022": "तोसीमा कार्की",
+    "totalVotes": 58145,
+    "results2022": {
+      "Others": 0.6262447329950984,
+      "UML": 0.2229426433915212,
+      "Maoist": 0.15081262361338035
+    }
+  },
+  {
+    "district_np": "मकवानपुर",
+    "district": "Makwanpur",
+    "province": 3,
+    "seat": 1,
+    "name": "Makwanpur 1",
+    "winner2022": "Others",
+    "candidate2022": "दिपक बहादुर सिंह",
+    "totalVotes": 87174,
+    "results2022": {
+      "Others": 0.41168238236171334,
+      "NC": 0.2921054442838461,
+      "UML": 0.29205955904283387,
+      "JSPN": 0.004152614311606672
+    }
+  },
+  {
+    "district_np": "मकवानपुर",
+    "district": "Makwanpur",
+    "province": 3,
+    "seat": 2,
+    "name": "Makwanpur 2",
+    "winner2022": "Others",
+    "candidate2022": "महेश कुमार वर्तौला",
+    "totalVotes": 82294,
+    "results2022": {
+      "UML": 0.4246968187231147,
+      "Others": 0.5753031812768853
+    }
+  },
+  {
+    "district_np": "नुवाकोट",
+    "district": "Nuwakot",
+    "province": 3,
+    "seat": 1,
+    "name": "Nuwakot 1",
+    "winner2022": "Maoist",
+    "candidate2022": "हित बहादुर तामाङ",
+    "totalVotes": 60021,
+    "results2022": {
+      "Maoist": 0.4423118575165359,
+      "UML": 0.39094650205761317,
+      "Others": 0.16425917595508238,
+      "JSPN": 0.0024824644707685645
+    }
+  },
+  {
+    "district_np": "नुवाकोट",
+    "district": "Nuwakot",
+    "province": 3,
+    "seat": 2,
+    "name": "Nuwakot 2",
+    "winner2022": "NC",
+    "candidate2022": "अर्जुन नरसिंह के.सी.",
+    "totalVotes": 63004,
+    "results2022": {
+      "NC": 0.4461145324106406,
+      "Others": 0.30690114913338834,
+      "UML": 0.24698431845597105
+    }
+  },
+  {
+    "district_np": "रामेछाप",
+    "district": "Ramechhap",
+    "province": 3,
+    "seat": 1,
+    "name": "Ramechhap",
+    "winner2022": "NC",
+    "candidate2022": "पुर्ण वहादुर तमाङ्ग",
+    "totalVotes": 83899,
+    "results2022": {
+      "NC": 0.5613773704096592,
+      "UML": 0.3662737338943253,
+      "Others": 0.06983396703178822,
+      "NUP": 0.0012753429719066973,
+      "Maoist": 0.0012395856923205282
+    }
+  },
+  {
+    "district_np": "रसुवा",
+    "district": "Rasuwa",
+    "province": 3,
+    "seat": 1,
+    "name": "Rasuwa",
+    "winner2022": "NC",
+    "candidate2022": "मोहन आचार्य",
+    "totalVotes": 27427,
+    "results2022": {
+      "NC": 0.6648557990301528,
+      "UML": 0.31407007693149086,
+      "Others": 0.021074124038356363
+    }
+  },
+  {
+    "district_np": "सिन्धुली",
+    "district": "Sindhuli",
+    "province": 3,
+    "seat": 1,
+    "name": "Sindhuli 1",
+    "winner2022": "NC",
+    "candidate2022": "श्‍याम कुमार घिमिरे",
+    "totalVotes": 60420,
+    "results2022": {
+      "NC": 0.5029956967891427,
+      "UML": 0.42280701754385963,
+      "Others": 0.07239324726911618,
+      "JSPN": 0.0018040383978814962
+    }
+  },
+  {
+    "district_np": "सिन्धुली",
+    "district": "Sindhuli",
+    "province": 3,
+    "seat": 2,
+    "name": "Sindhuli 2",
+    "winner2022": "Maoist",
+    "candidate2022": "लेख नाथ दाहाल",
+    "totalVotes": 53491,
+    "results2022": {
+      "Maoist": 0.5144229870445496,
+      "UML": 0.4054326896113365,
+      "Others": 0.08014432334411396
+    }
+  },
+  {
+    "district_np": "सिन्धुपाल्चोक",
+    "district": "Sindhupalchok",
+    "province": 3,
+    "seat": 1,
+    "name": "Sindhupalchok 1",
+    "winner2022": "Maoist",
+    "candidate2022": "माधव सापकोटा",
+    "totalVotes": 66028,
+    "results2022": {
+      "Maoist": 0.4605318955594596,
+      "UML": 0.40991700490700916,
+      "Others": 0.12488641182528624,
+      "JSPN": 0.004664687708244987
+    }
+  },
+  {
+    "district_np": "सिन्धुपाल्चोक",
+    "district": "Sindhupalchok",
+    "province": 3,
+    "seat": 2,
+    "name": "Sindhupalchok 2",
+    "winner2022": "NC",
+    "candidate2022": "मोहन बहादुर बस्नेत",
+    "totalVotes": 73622,
+    "results2022": {
+      "NC": 0.534908043791258,
+      "UML": 0.37373339490913043,
+      "Others": 0.08987802559017685,
+      "JP": 0.00148053570943468
+    }
+  },
+  {
+    "district_np": "बागलुङ",
+    "district": "Baglung",
+    "province": 4,
+    "seat": 1,
+    "name": "Baglung 1",
+    "winner2022": "Others",
+    "candidate2022": "चित्र बहादुर के.सी.",
+    "totalVotes": 50723,
+    "results2022": {
+      "Others": 0.6284722906768133,
+      "UML": 0.37152770932318674
+    }
+  },
+  {
+    "district_np": "बागलुङ",
+    "district": "Baglung",
+    "province": 4,
+    "seat": 2,
+    "name": "Baglung 2",
+    "winner2022": "Maoist",
+    "candidate2022": "देवेन्द्र पौडेल",
+    "totalVotes": 48090,
+    "results2022": {
+      "Maoist": 0.5155749636098981,
+      "UML": 0.41990018714909544,
+      "Others": 0.06452484924100645
+    }
+  },
+  {
+    "district_np": "गोरखा",
+    "district": "Gorkha",
+    "province": 4,
+    "seat": 1,
+    "name": "Gorkha 1",
+    "winner2022": "NC",
+    "candidate2022": "राजेन्द्र बजगाई",
+    "totalVotes": 57231,
+    "results2022": {
+      "NC": 0.5840890426517097,
+      "UML": 0.2932851077213398,
+      "Others": 0.1185022103405497,
+      "JSPN": 0.004123639286400727
+    }
+  },
+  {
+    "district_np": "गोरखा",
+    "district": "Gorkha",
+    "province": 4,
+    "seat": 2,
+    "name": "Gorkha 2",
+    "winner2022": "Maoist",
+    "candidate2022": "पुष्प कमल दाहाल {प्रचन्ड}",
+    "totalVotes": 50918,
+    "results2022": {
+      "Maoist": 0.5127656231588044,
+      "Others": 0.34200086413449077,
+      "UML": 0.1452335127067049
+    }
+  },
+  {
+    "district_np": "कास्की",
+    "district": "Kaski",
+    "province": 4,
+    "seat": 1,
+    "name": "Kaski 1",
+    "winner2022": "UML",
+    "candidate2022": "मन बहादुर गुरुङ्ग",
+    "totalVotes": 65137,
+    "results2022": {
+      "UML": 0.3946758370818429,
+      "NC": 0.3560035003147213,
+      "Others": 0.24469963308104456,
+      "JSPN": 0.0040683482506102524,
+      "Maoist": 0.0005526812717810154
+    }
+  },
+  {
+    "district_np": "कास्की",
+    "district": "Kaski",
+    "province": 4,
+    "seat": 2,
+    "name": "Kaski 2",
+    "winner2022": "Others",
+    "candidate2022": "विधा भटटराई",
+    "totalVotes": 47156,
+    "results2022": {
+      "UML": 0.36046314360844856,
+      "Others": 0.62901857663924,
+      "JSPN": 0.007570616676562897,
+      "JP": 0.0029476630757485794
+    }
+  },
+  {
+    "district_np": "कास्की",
+    "district": "Kaski",
+    "province": 4,
+    "seat": 3,
+    "name": "Kaski 3",
+    "winner2022": "UML",
+    "candidate2022": "दामोदर पौडेल वैरागी",
+    "totalVotes": 58051,
+    "results2022": {
+      "UML": 0.39585881380165716,
+      "Maoist": 0.3020619799831183,
+      "Others": 0.29286317203838,
+      "JSPN": 0.009216034176844499
+    }
+  },
+  {
+    "district_np": "लमजुंग",
+    "district": "Lamjung",
+    "province": 4,
+    "seat": 1,
+    "name": "Lamjung",
+    "winner2022": "UML",
+    "candidate2022": "पृथ्‍वी सुव्वा गुरुङ",
+    "totalVotes": 77841,
+    "results2022": {
+      "UML": 0.4494418108708778,
+      "Maoist": 0.4084094500327591,
+      "Others": 0.1402474274482599,
+      "JSPN": 0.0019013116481031848
+    }
+  },
+  {
+    "district_np": "मनाङ्ग",
+    "district": "Manang",
+    "province": 4,
+    "seat": 1,
+    "name": "Manang",
+    "winner2022": "NC",
+    "candidate2022": "टेक बहादुर गुरुङ",
+    "totalVotes": 4827,
+    "results2022": {
+      "NC": 0.5334576341412886,
+      "UML": 0.46550652579241764,
+      "Others": 0.0010358400662937642
+    }
+  },
+  {
+    "district_np": "मुस्तांग",
+    "district": "Mustang",
+    "province": 4,
+    "seat": 1,
+    "name": "Mustang",
+    "winner2022": "NC",
+    "candidate2022": "योगेश गौचन  थकाली",
+    "totalVotes": 7170,
+    "results2022": {
+      "NC": 0.5567642956764296,
+      "UML": 0.4292887029288703,
+      "Others": 0.01394700139470014
+    }
+  },
+  {
+    "district_np": "म्याग्दी",
+    "district": "Myagdi",
+    "province": 4,
+    "seat": 1,
+    "name": "Myagdi",
+    "winner2022": "NC",
+    "candidate2022": "खम बहादुर गर्बुजा",
+    "totalVotes": 47614,
+    "results2022": {
+      "NC": 0.5044944764145,
+      "UML": 0.4240139454782207,
+      "Others": 0.07149157810727937
+    }
+  },
+  {
+    "district_np": "नवलपरासी (बर्दघाट सुस्ता पूर्व)",
+    "district": "Nawalpur",
+    "province": 4,
+    "seat": 1,
+    "name": "Nawalpur 1",
+    "winner2022": "Others",
+    "candidate2022": "शशांक कोइराला",
+    "totalVotes": 82567,
+    "results2022": {
+      "NC": 0.327818620029794,
+      "UML": 0.30335364007412163,
+      "Others": 0.3624087105017743,
+      "NUP": 0.003815083507939007,
+      "JSPN": 0.0026039458863710684
+    }
+  },
+  {
+    "district_np": "नवलपरासी (बर्दघाट सुस्ता पूर्व)",
+    "district": "Nawalpur",
+    "province": 4,
+    "seat": 2,
+    "name": "Nawalpur 2",
+    "winner2022": "NC",
+    "candidate2022": "विष्णु कुमार कार्की",
+    "totalVotes": 81626,
+    "results2022": {
+      "NC": 0.44265307622571237,
+      "UML": 0.4178815573469238,
+      "Others": 0.13499375199078725,
+      "NUP": 0.004471614436576581
+    }
+  },
+  {
+    "district_np": "पर्वत",
+    "district": "Parbat",
+    "province": 4,
+    "seat": 1,
+    "name": "Parbat",
+    "winner2022": "UML",
+    "candidate2022": "पदम गिरी",
+    "totalVotes": 63716,
+    "results2022": {
+      "UML": 0.46883043505555905,
+      "NC": 0.433313453449683,
+      "Others": 0.097856111494758
+    }
+  },
+  {
+    "district_np": "स्याङ्जा",
+    "district": "Syangja",
+    "province": 4,
+    "seat": 1,
+    "name": "Syangja 1",
+    "winner2022": "NC",
+    "candidate2022": "राजु थापा",
+    "totalVotes": 68594,
+    "results2022": {
+      "NC": 0.46649852756800886,
+      "UML": 0.4190453975566376,
+      "Others": 0.11397498323468525,
+      "Maoist": 0.00048109164066828004
+    }
+  },
+  {
+    "district_np": "स्याङ्जा",
+    "district": "Syangja",
+    "province": 4,
+    "seat": 2,
+    "name": "Syangja 2",
+    "winner2022": "NC",
+    "candidate2022": "धनराज गुरुङ्ग",
+    "totalVotes": 67657,
+    "results2022": {
+      "NC": 0.4650812184991945,
+      "UML": 0.3819117016716674,
+      "Others": 0.15300707982913817
+    }
+  },
+  {
+    "district_np": "तनहुँ",
+    "district": "Tanahun",
+    "province": 4,
+    "seat": 1,
+    "name": "Tanahun 1",
+    "winner2022": "NC",
+    "candidate2022": "रामचन्द्र पौडेल",
+    "totalVotes": 62695,
+    "results2022": {
+      "NC": 0.4045139165802696,
+      "UML": 0.31870165084935004,
+      "Others": 0.2726373714012282,
+      "JSPN": 0.004147061169152245
+    }
+  },
+  {
+    "district_np": "तनहुँ",
+    "district": "Tanahun",
+    "province": 4,
+    "seat": 2,
+    "name": "Tanahun 2",
+    "winner2022": "NC",
+    "candidate2022": "शंकर भण्डारी",
+    "totalVotes": 64236,
+    "results2022": {
+      "NC": 0.4764306619341179,
+      "UML": 0.39121364966685346,
+      "Others": 0.1323556883990286
+    }
+  },
+  {
+    "district_np": "अर्घाखांची",
+    "district": "Arghakhanchi",
+    "province": 5,
+    "seat": 1,
+    "name": "Arghakhanchi",
+    "winner2022": "UML",
+    "candidate2022": "टोप बहादुर रायमाझी",
+    "totalVotes": 87809,
+    "results2022": {
+      "UML": 0.4859980184263572,
+      "NC": 0.46629616554111764,
+      "Others": 0.04584951428669043,
+      "JSPN": 0.0018563017458347094
+    }
+  },
+  {
+    "district_np": "बाँके",
+    "district": "Banke",
+    "province": 5,
+    "seat": 1,
+    "name": "Banke 1",
+    "winner2022": "UML",
+    "candidate2022": "सुर्य प्रसाद ढकाल",
+    "totalVotes": 70811,
+    "results2022": {
+      "UML": 0.3534196664360057,
+      "Maoist": 0.2783465845701939,
+      "NUP": 0.16190987275988195,
+      "Others": 0.16829306181243028,
+      "JSPN": 0.03803081442148819
+    }
+  },
+  {
+    "district_np": "बाँके",
+    "district": "Banke",
+    "province": 5,
+    "seat": 2,
+    "name": "Banke 2",
+    "winner2022": "Others",
+    "candidate2022": "धवलशम्मशेर जगंबहादुर राणा",
+    "totalVotes": 62601,
+    "results2022": {
+      "Others": 0.5503905688407533,
+      "JSPN": 0.37571284803757127,
+      "NC": 0.07033433970703343,
+      "JP": 0.0035622434146419385
+    }
+  },
+  {
+    "district_np": "बाँके",
+    "district": "Banke",
+    "province": 5,
+    "seat": 3,
+    "name": "Banke 3",
+    "winner2022": "NC",
+    "candidate2022": "किशोर सिह राठोर",
+    "totalVotes": 69074,
+    "results2022": {
+      "NC": 0.4212438833714567,
+      "UML": 0.3518690100471958,
+      "Others": 0.1281813707038828,
+      "JSPN": 0.06212178243622781,
+      "JP": 0.03658395344123693
+    }
+  },
+  {
+    "district_np": "बर्दिया",
+    "district": "Bardiya",
+    "province": 5,
+    "seat": 1,
+    "name": "Bardiya 1",
+    "winner2022": "NC",
+    "candidate2022": "संजय कुमार गौतम",
+    "totalVotes": 97981,
+    "results2022": {
+      "NC": 0.31241771363835846,
+      "UML": 0.26693950868025434,
+      "NUP": 0.24487400618487257,
+      "Others": 0.14152743899327422,
+      "JP": 0.024035272144599464,
+      "JSPN": 0.010206060358640962
+    }
+  },
+  {
+    "district_np": "बर्दिया",
+    "district": "Bardiya",
+    "province": 5,
+    "seat": 2,
+    "name": "Bardiya 2",
+    "winner2022": "Others",
+    "candidate2022": "लालविर चौधरी",
+    "totalVotes": 86812,
+    "results2022": {
+      "Others": 0.5107358429710178,
+      "Maoist": 0.3039211168962816,
+      "UML": 0.18534304013270056
+    }
+  },
+  {
+    "district_np": "दाङ",
+    "district": "Dang",
+    "province": 5,
+    "seat": 1,
+    "name": "Dang 1",
+    "winner2022": "Others",
+    "candidate2022": "मेटमणि चौधरी",
+    "totalVotes": 73687,
+    "results2022": {
+      "Others": 0.5994951619688683,
+      "UML": 0.29167967212669804,
+      "NUP": 0.10882516590443361
+    }
+  },
+  {
+    "district_np": "दाङ",
+    "district": "Dang",
+    "province": 5,
+    "seat": 2,
+    "name": "Dang 2",
+    "winner2022": "Maoist",
+    "candidate2022": "रेखा शर्मा",
+    "totalVotes": 74530,
+    "results2022": {
+      "Maoist": 0.3606601368576412,
+      "UML": 0.35807057560713806,
+      "Others": 0.2748020931168657,
+      "NUP": 0.006467194418355025
+    }
+  },
+  {
+    "district_np": "दाङ",
+    "district": "Dang",
+    "province": 5,
+    "seat": 3,
+    "name": "Dang 3",
+    "winner2022": "NC",
+    "candidate2022": "दिपक गिरी",
+    "totalVotes": 85112,
+    "results2022": {
+      "NC": 0.43367562740859106,
+      "UML": 0.34180844064291754,
+      "Others": 0.2160447410470909,
+      "NUP": 0.00620359056302284,
+      "JSPN": 0.0022676003383776673
+    }
+  },
+  {
+    "district_np": "गुल्मी",
+    "district": "Gulmi",
+    "province": 5,
+    "seat": 1,
+    "name": "Gulmi 1",
+    "winner2022": "NC",
+    "candidate2022": "चन्द्रकान्त भण्डारी",
+    "totalVotes": 68664,
+    "results2022": {
+      "NC": 0.4914365606431318,
+      "UML": 0.4682511942211348,
+      "Others": 0.04031224513573343
+    }
+  },
+  {
+    "district_np": "गुल्मी",
+    "district": "Gulmi",
+    "province": 5,
+    "seat": 2,
+    "name": "Gulmi 2",
+    "winner2022": "UML",
+    "candidate2022": "गोकर्ण राज विष्‍ट",
+    "totalVotes": 56593,
+    "results2022": {
+      "UML": 0.5031717703602919,
+      "Others": 0.4968282296397081
+    }
+  },
+  {
+    "district_np": "कपिलवस्तु",
+    "district": "Kapilvastu",
+    "province": 5,
+    "seat": 1,
+    "name": "Kapilvastu 1",
+    "winner2022": "UML",
+    "candidate2022": "बलराम अधिकारी",
+    "totalVotes": 86549,
+    "results2022": {
+      "UML": 0.4006400998278432,
+      "Maoist": 0.21933240129868628,
+      "JP": 0.09700863094894221,
+      "NUP": 0.0701914522409271,
+      "Others": 0.2128274156836012
+    }
+  },
+  {
+    "district_np": "कपिलवस्तु",
+    "district": "Kapilvastu",
+    "province": 5,
+    "seat": 2,
+    "name": "Kapilvastu 2",
+    "winner2022": "NC",
+    "candidate2022": "सुरेन्द्र राज आचार्य",
+    "totalVotes": 80730,
+    "results2022": {
+      "NC": 0.48326520500433545,
+      "UML": 0.479338535860275,
+      "Others": 0.03739625913538957
+    }
+  },
+  {
+    "district_np": "कपिलवस्तु",
+    "district": "Kapilvastu",
+    "province": 5,
+    "seat": 3,
+    "name": "Kapilvastu 3",
+    "winner2022": "Others",
+    "candidate2022": "मंगल प्रसाद गुप्‍ता",
+    "totalVotes": 72774,
+    "results2022": {
+      "UML": 0.3108115535768269,
+      "NC": 0.26084865473933,
+      "Others": 0.3974908621210872,
+      "JP": 0.03084892956275593
+    }
+  },
+  {
+    "district_np": "नवलपरासी (बर्दघाट सुस्ता पश्चिम)",
+    "district": "Nawalparasi W",
+    "province": 5,
+    "seat": 1,
+    "name": "Nawalparasi W 1",
+    "winner2022": "Others",
+    "candidate2022": "विनोद कुमार चौधरी",
+    "totalVotes": 158170,
+    "results2022": {
+      "NC": 0.3732566226212303,
+      "Others": 0.5337168868938484,
+      "JP": 0.07526079534677878,
+      "NUP": 0.017765695138142506
+    }
+  },
+  {
+    "district_np": "नवलपरासी (बर्दघाट सुस्ता पश्चिम)",
+    "district": "Nawalparasi W",
+    "province": 5,
+    "seat": 2,
+    "name": "Nawalparasi W 2",
+    "winner2022": "Others",
+    "candidate2022": "धुब्र बहादुर प्रधान",
+    "totalVotes": 166244,
+    "results2022": {
+      "Others": 0.5120906619186256,
+      "NC": 0.2357258006303987,
+      "UML": 0.17446644690936214,
+      "JP": 0.05548470922258848,
+      "NUP": 0.02223238131902505
+    }
+  },
+  {
+    "district_np": "पाल्पा",
+    "district": "Palpa",
+    "province": 5,
+    "seat": 1,
+    "name": "Palpa 1",
+    "winner2022": "UML",
+    "candidate2022": "नारायण प्रसाद आचार्य",
+    "totalVotes": 56838,
+    "results2022": {
+      "UML": 0.5472219289911678,
+      "NC": 0.3563812942045814,
+      "Others": 0.09486611070058763,
+      "JSPN": 0.0015306661036630423
+    }
+  },
+  {
+    "district_np": "पाल्पा",
+    "district": "Palpa",
+    "province": 5,
+    "seat": 2,
+    "name": "Palpa 2",
+    "winner2022": "Others",
+    "candidate2022": "ठाकुर प्रसाद गैरे",
+    "totalVotes": 62206,
+    "results2022": {
+      "UML": 0.46048612674018585,
+      "Others": 0.5377134038517185,
+      "JSPN": 0.001800469408095682
+    }
+  },
+  {
+    "district_np": "प्यूठान",
+    "district": "Pyuthan",
+    "province": 5,
+    "seat": 1,
+    "name": "Pyuthan",
+    "winner2022": "Others",
+    "candidate2022": "सूर्य बहादुर  थापा क्षेत्री",
+    "totalVotes": 83283,
+    "results2022": {
+      "UML": 0.4937142033788408,
+      "Others": 0.5062857966211591
+    }
+  },
+  {
+    "district_np": "रोल्पा",
+    "district": "Rolpa",
+    "province": 5,
+    "seat": 1,
+    "name": "Rolpa",
+    "winner2022": "Maoist",
+    "candidate2022": "बर्षमान पुन",
+    "totalVotes": 61710,
+    "results2022": {
+      "Maoist": 0.6759682385350835,
+      "UML": 0.26713660670879924,
+      "Others": 0.056895154756117325
+    }
+  },
+  {
+    "district_np": "रुकुम पूर्व",
+    "district": "Rukum East",
+    "province": 5,
+    "seat": 1,
+    "name": "Rukum East",
+    "winner2022": "Maoist",
+    "candidate2022": "पूर्ण बहादुर घर्ति मगर",
+    "totalVotes": 19722,
+    "results2022": {
+      "Maoist": 0.6217422168137106,
+      "UML": 0.2642226954669912,
+      "Others": 0.11403508771929824
+    }
+  },
+  {
+    "district_np": "रुपन्देही",
+    "district": "Rupandehi",
+    "province": 5,
+    "seat": 1,
+    "name": "Rupandehi 1",
+    "winner2022": "Others",
+    "candidate2022": "छविलाल विश्वकर्मा",
+    "totalVotes": 90227,
+    "results2022": {
+      "UML": 0.27577111064315557,
+      "Others": 0.5121970141975241,
+      "NUP": 0.15474303700666098,
+      "JP": 0.0572888381526594
+    }
+  },
+  {
+    "district_np": "रुपन्देही",
+    "district": "Rupandehi",
+    "province": 5,
+    "seat": 2,
+    "name": "Rupandehi 2",
+    "winner2022": "Others",
+    "candidate2022": "विष्‍णु प्रसाद पौडेल",
+    "totalVotes": 77508,
+    "results2022": {
+      "UML": 0.35047995045672703,
+      "Others": 0.6495200495432729
+    }
+  },
+  {
+    "district_np": "रुपन्देही",
+    "district": "Rupandehi",
+    "province": 5,
+    "seat": 3,
+    "name": "Rupandehi 3",
+    "winner2022": "Others",
+    "candidate2022": "दीपक बोहरा",
+    "totalVotes": 88212,
+    "results2022": {
+      "Others": 0.5226953248991068,
+      "NC": 0.38584319593706073,
+      "NUP": 0.05385888541241554,
+      "JP": 0.03760259375141704
+    }
+  },
+  {
+    "district_np": "रुपन्देही",
+    "district": "Rupandehi",
+    "province": 5,
+    "seat": 4,
+    "name": "Rupandehi 4",
+    "winner2022": "Others",
+    "candidate2022": "सर्वेन्द्र नाथ शुक्ला",
+    "totalVotes": 71002,
+    "results2022": {
+      "Others": 0.4180727303456241,
+      "NC": 0.3197656404044956,
+      "JP": 0.21866989662263034,
+      "JSPN": 0.03694262133461029,
+      "NUP": 0.006549111292639644
+    }
+  },
+  {
+    "district_np": "रुपन्देही",
+    "district": "Rupandehi",
+    "province": 5,
+    "seat": 5,
+    "name": "Rupandehi 5",
+    "winner2022": "UML",
+    "candidate2022": "बासु देव घिमिरे",
+    "totalVotes": 80504,
+    "results2022": {
+      "UML": 0.45739342144489714,
+      "NC": 0.3368776706747491,
+      "JP": 0.10421842392924575,
+      "Others": 0.10151048395110802
+    }
+  },
+  {
+    "district_np": "दैलेख",
+    "district": "Dailekh",
+    "province": 6,
+    "seat": 1,
+    "name": "Dailekh 1",
+    "winner2022": "Others",
+    "candidate2022": "अम्मर बहादुर थापा",
+    "totalVotes": 41821,
+    "results2022": {
+      "Others": 0.5828650677889099,
+      "UML": 0.4171349322110901
+    }
+  },
+  {
+    "district_np": "दैलेख",
+    "district": "Dailekh",
+    "province": 6,
+    "seat": 2,
+    "name": "Dailekh 2",
+    "winner2022": "NC",
+    "candidate2022": "दिक्पाल कुमार शाहि",
+    "totalVotes": 44486,
+    "results2022": {
+      "NC": 0.45369329676752235,
+      "UML": 0.44993930674819044,
+      "Others": 0.09636739648428719
+    }
+  },
+  {
+    "district_np": "डोल्पा",
+    "district": "Dolpa",
+    "province": 6,
+    "seat": 1,
+    "name": "Dolpa",
+    "winner2022": "Others",
+    "candidate2022": "धन बहादुर बुढा",
+    "totalVotes": 17521,
+    "results2022": {
+      "Others": 0.685805604702928,
+      "UML": 0.3141943952970721
+    }
+  },
+  {
+    "district_np": "हुम्ला",
+    "district": "Humla",
+    "province": 6,
+    "seat": 1,
+    "name": "Humla",
+    "winner2022": "Maoist",
+    "candidate2022": "छिरिङ डम्डुल लामा (भोटे)",
+    "totalVotes": 24265,
+    "results2022": {
+      "Maoist": 0.5922522151246652,
+      "UML": 0.3921697918813105,
+      "Others": 0.015577992994024315
+    }
+  },
+  {
+    "district_np": "जाजरकोट",
+    "district": "Jajarkot",
+    "province": 6,
+    "seat": 1,
+    "name": "Jajarkot",
+    "winner2022": "Maoist",
+    "candidate2022": "शक्ति बहादुर वस्नेत",
+    "totalVotes": 61637,
+    "results2022": {
+      "Maoist": 0.5540665509353149,
+      "UML": 0.40754741470220807,
+      "Others": 0.03838603436247708
+    }
+  },
+  {
+    "district_np": "जुम्ला",
+    "district": "Jumla",
+    "province": 6,
+    "seat": 1,
+    "name": "Jumla",
+    "winner2022": "Others",
+    "candidate2022": "ज्ञान बहादुर शाही",
+    "totalVotes": 42806,
+    "results2022": {
+      "Others": 0.5681212914077466,
+      "Maoist": 0.2793767228893146,
+      "UML": 0.15250198570293885
+    }
+  },
+  {
+    "district_np": "कालिकोट",
+    "district": "Kalikot",
+    "province": 6,
+    "seat": 1,
+    "name": "Kalikot",
+    "winner2022": "Maoist",
+    "candidate2022": "महेन्द्र बहादुर शाही",
+    "totalVotes": 44266,
+    "results2022": {
+      "Maoist": 0.5360095784575069,
+      "UML": 0.3776713504721457,
+      "Others": 0.08631907107034745
+    }
+  },
+  {
+    "district_np": "मुगु",
+    "district": "Mugu",
+    "province": 6,
+    "seat": 1,
+    "name": "Mugu",
+    "winner2022": "NC",
+    "candidate2022": "ऐन बहादुर शाही ठकुरी",
+    "totalVotes": 25820,
+    "results2022": {
+      "NC": 0.5695584817970566,
+      "UML": 0.4147947327652982,
+      "Others": 0.015646785437645236
+    }
+  },
+  {
+    "district_np": "रुकुम पश्चिम",
+    "district": "Rukum West",
+    "province": 6,
+    "seat": 1,
+    "name": "Rukum West",
+    "winner2022": "Maoist",
+    "candidate2022": "जनार्दन शर्मा",
+    "totalVotes": 57295,
+    "results2022": {
+      "Maoist": 0.6902696570381359,
+      "UML": 0.22621520202460949,
+      "Others": 0.08351514093725455
+    }
+  },
+  {
+    "district_np": "सल्यान",
+    "district": "Salyan",
+    "province": 6,
+    "seat": 1,
+    "name": "Salyan",
+    "winner2022": "Others",
+    "candidate2022": "प्रकाश ज्वाला",
+    "totalVotes": 76328,
+    "results2022": {
+      "Others": 0.8291714704957551,
+      "UML": 0.17082852950424485
+    }
+  },
+  {
+    "district_np": "सुर्खेत",
+    "district": "Surkhet",
+    "province": 6,
+    "seat": 1,
+    "name": "Surkhet 1",
+    "winner2022": "NC",
+    "candidate2022": "पूर्ण बहादुर खड्का",
+    "totalVotes": 75615,
+    "results2022": {
+      "NC": 0.5634728559148318,
+      "UML": 0.40981286781723203,
+      "Others": 0.022085565033392845,
+      "JSPN": 0.0046287112345434105
+    }
+  },
+  {
+    "district_np": "सुर्खेत",
+    "district": "Surkhet",
+    "province": 6,
+    "seat": 2,
+    "name": "Surkhet 2",
+    "winner2022": "NC",
+    "candidate2022": "हृदयराम थानी",
+    "totalVotes": 72426,
+    "results2022": {
+      "NC": 0.4780741722585812,
+      "UML": 0.4081131085521774,
+      "Others": 0.10804131113136167,
+      "JSPN": 0.004321652445254467,
+      "Maoist": 0.0014497556126253004
+    }
+  },
+  {
+    "district_np": "अछाम",
+    "district": "Achham",
+    "province": 7,
+    "seat": 1,
+    "name": "Achham 1",
+    "winner2022": "Others",
+    "candidate2022": "शेर बहादुर कुँवर",
+    "totalVotes": 39415,
+    "results2022": {
+      "Others": 0.6182925282252949,
+      "UML": 0.38170747177470504
+    }
+  },
+  {
+    "district_np": "अछाम",
+    "district": "Achham",
+    "province": 7,
+    "seat": 2,
+    "name": "Achham 2",
+    "winner2022": "NC",
+    "candidate2022": "पुष्प बहादुर शाह",
+    "totalVotes": 39773,
+    "results2022": {
+      "NC": 0.5771251854273,
+      "UML": 0.40514922183390745,
+      "Others": 0.017725592738792647
+    }
+  },
+  {
+    "district_np": "बैतडी",
+    "district": "Baitadi",
+    "province": 7,
+    "seat": 1,
+    "name": "Baitadi",
+    "winner2022": "UML",
+    "candidate2022": "दामोदर भण्डारी",
+    "totalVotes": 72498,
+    "results2022": {
+      "UML": 0.463612789318326,
+      "Maoist": 0.44249496537835525,
+      "Others": 0.09197495103313195,
+      "JSPN": 0.0019172942701867637
+    }
+  },
+  {
+    "district_np": "बझाङ्ग",
+    "district": "Bajhang",
+    "province": 7,
+    "seat": 1,
+    "name": "Bajhang",
+    "winner2022": "Others",
+    "candidate2022": "भानुभक्त जोशी",
+    "totalVotes": 58613,
+    "results2022": {
+      "Others": 0.5288587855936396,
+      "UML": 0.4676778189138928,
+      "JSPN": 0.0034633954924675413
+    }
+  },
+  {
+    "district_np": "बाजुरा",
+    "district": "Bajura",
+    "province": 7,
+    "seat": 1,
+    "name": "Bajura",
+    "winner2022": "NC",
+    "candidate2022": "बद्री प्रसाद पाण्डे",
+    "totalVotes": 58529,
+    "results2022": {
+      "NC": 0.5430812076064857,
+      "UML": 0.4501870867433238,
+      "Others": 0.006731705650190504
+    }
+  },
+  {
+    "district_np": "डडेलधुरा",
+    "district": "Dadeldhura",
+    "province": 7,
+    "seat": 1,
+    "name": "Dadeldhura",
+    "winner2022": "NC",
+    "candidate2022": "शेर बहादुर देउवा",
+    "totalVotes": 48016,
+    "results2022": {
+      "NC": 0.5317810729756748,
+      "Others": 0.4648658780406531,
+      "JSPN": 0.0033530489836721094
+    }
+  },
+  {
+    "district_np": "दार्चुला",
+    "district": "Darchula",
+    "province": 7,
+    "seat": 1,
+    "name": "Darchula",
+    "winner2022": "NC",
+    "candidate2022": "दिलेन्द्र प्रसाद बडू",
+    "totalVotes": 55723,
+    "results2022": {
+      "NC": 0.5117276528542971,
+      "UML": 0.47343107872871165,
+      "Others": 0.013674784200419935,
+      "NUP": 0.0011664842165712542
+    }
+  },
+  {
+    "district_np": "डोटी",
+    "district": "Doti",
+    "province": 7,
+    "seat": 1,
+    "name": "Doti",
+    "winner2022": "Others",
+    "candidate2022": "प्रेम वहादुर आले",
+    "totalVotes": 58583,
+    "results2022": {
+      "Others": 0.6073263574757182,
+      "UML": 0.3926736425242818
+    }
+  },
+  {
+    "district_np": "कैलाली",
+    "district": "Kailali",
+    "province": 7,
+    "seat": 1,
+    "name": "Kailali 1",
+    "winner2022": "NUP",
+    "candidate2022": "रन्जिता श्रेष्ठ",
+    "totalVotes": 60878,
+    "results2022": {
+      "NUP": 0.4994250796675318,
+      "NC": 0.2970038437530799,
+      "UML": 0.09707940471106147,
+      "Others": 0.10649167186832682
+    }
+  },
+  {
+    "district_np": "कैलाली",
+    "district": "Kailali",
+    "province": 7,
+    "seat": 2,
+    "name": "Kailali 2",
+    "winner2022": "NUP",
+    "candidate2022": "अरुन कुमार चौधरी",
+    "totalVotes": 56710,
+    "results2022": {
+      "NUP": 0.38566390407335566,
+      "UML": 0.2843942867219185,
+      "Maoist": 0.26885910774113914,
+      "Others": 0.06108270146358667
+    }
+  },
+  {
+    "district_np": "कैलाली",
+    "district": "Kailali",
+    "province": 7,
+    "seat": 3,
+    "name": "Kailali 3",
+    "winner2022": "NUP",
+    "candidate2022": "गंगा राम चौधरी",
+    "totalVotes": 59719,
+    "results2022": {
+      "NUP": 0.3871464692978784,
+      "Maoist": 0.2972085935799327,
+      "UML": 0.16534101374771848,
+      "Others": 0.15030392337447043
+    }
+  },
+  {
+    "district_np": "कैलाली",
+    "district": "Kailali",
+    "province": 7,
+    "seat": 4,
+    "name": "Kailali 4",
+    "winner2022": "NC",
+    "candidate2022": "विर बहादुर बलायर",
+    "totalVotes": 59367,
+    "results2022": {
+      "NC": 0.4425859484225243,
+      "UML": 0.3817440665689693,
+      "NUP": 0.10499098825947074,
+      "Others": 0.07067899674903566
+    }
+  },
+  {
+    "district_np": "कैलाली",
+    "district": "Kailali",
+    "province": 7,
+    "seat": 5,
+    "name": "Kailali 5",
+    "winner2022": "NC",
+    "candidate2022": "डिल्ली राज पन्त",
+    "totalVotes": 61766,
+    "results2022": {
+      "NC": 0.3463394100314089,
+      "UML": 0.3289512029271768,
+      "Others": 0.3247093870414144
+    }
+  },
+  {
+    "district_np": "कन्चनपुर",
+    "district": "Kanchanpur",
+    "province": 7,
+    "seat": 1,
+    "name": "Kanchanpur 1",
+    "winner2022": "UML",
+    "candidate2022": "तारा लामा तामाङ",
+    "totalVotes": 60140,
+    "results2022": {
+      "UML": 0.41474891918856005,
+      "Maoist": 0.3225806451612903,
+      "NUP": 0.1444130362487529,
+      "Others": 0.11825739940139673
+    }
+  },
+  {
+    "district_np": "कन्चनपुर",
+    "district": "Kanchanpur",
+    "province": 7,
+    "seat": 2,
+    "name": "Kanchanpur 2",
+    "winner2022": "NC",
+    "candidate2022": "नारायण प्रकाश साउद",
+    "totalVotes": 59916,
+    "results2022": {
+      "NC": 0.4695907603978904,
+      "UML": 0.36187328927164697,
+      "Others": 0.16708391748447826,
+      "JP": 0.001452032845984378
+    }
+  },
+  {
+    "district_np": "कन्चनपुर",
+    "district": "Kanchanpur",
+    "province": 7,
+    "seat": 3,
+    "name": "Kanchanpur 3",
+    "winner2022": "NC",
+    "candidate2022": "रमेश लेखक",
+    "totalVotes": 54157,
+    "results2022": {
+      "NC": 0.5645622911165685,
+      "UML": 0.3413224513913252,
+      "Others": 0.09169636427423972,
+      "JP": 0.002418893217866573
+    }
+  }
+]

@@ -1,0 +1,827 @@
+[
+  {
+    "name": "Achham 1",
+    "candidate": "Sher Bahadur Kunwor",
+    "party": "Unified Socialist"
+  },
+  {
+    "name": "Achham 2",
+    "candidate": "Pushpa Bahadur Shah",
+    "party": "Congress"
+  },
+  {
+    "name": "Arghakhanchi 1",
+    "candidate": "Top Bahadur Rayamajhi",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Baglung 1",
+    "candidate": "Chitra Bahadur K.C.",
+    "party": "Janamorcha"
+  },
+  {
+    "name": "Baglung 2",
+    "candidate": "Devendra Paudel",
+    "party": "Maoist Centre"
+  },
+  {
+    "name": "Baitadi 1",
+    "candidate": "Damodar Bhandari",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Bajhang 1",
+    "candidate": "Bhanu Bhakta Joshi",
+    "party": "Unified Socialist"
+  },
+  {
+    "name": "Bajura 1",
+    "candidate": "Badri Prasad Pandey",
+    "party": "Congress"
+  },
+  {
+    "name": "Banke 1",
+    "candidate": "Surya Prasad Dhakal",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Banke 2",
+    "candidate": "Dhawal Shamsher Rana",
+    "party": "RPP"
+  },
+  {
+    "name": "Banke 3",
+    "candidate": "Kishore Singh Rathore",
+    "party": "Congress"
+  },
+  {
+    "name": "Bara 1",
+    "candidate": "Achyut Prasad Mainali",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Bara 2",
+    "candidate": "Ram Sahaya Yadav",
+    "party": "PSP-Nepal"
+  },
+  {
+    "name": "Bara 3",
+    "candidate": "Jwala Kumari Sah",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Bara 4",
+    "candidate": "Krishna Kumar Shrestha",
+    "party": "Unified Socialist"
+  },
+  {
+    "name": "Bardiya 1",
+    "candidate": "Sanjay Kumar Gautam",
+    "party": "Congress"
+  },
+  {
+    "name": "Bardiya 2",
+    "candidate": "Lalbir Chaudhary",
+    "party": "Independent"
+  },
+  {
+    "name": "Bhaktapur 1",
+    "candidate": "Prem Suwal",
+    "party": "NMKP"
+  },
+  {
+    "name": "Bhaktapur 2",
+    "candidate": "Durlabh Thapa Chhetri",
+    "party": "Congress"
+  },
+  {
+    "name": "Bhojpur 1",
+    "candidate": "Sudan Kirati",
+    "party": "Maoist Centre"
+  },
+  {
+    "name": "Chitwan 1",
+    "candidate": "Hari Dhakal",
+    "party": "RSP"
+  },
+  {
+    "name": "Chitwan 2",
+    "candidate": "Rabi Lamichhane",
+    "party": "RSP"
+  },
+  {
+    "name": "Chitwan 3",
+    "candidate": "Bikram Pandey",
+    "party": "RPP"
+  },
+  {
+    "name": "Dadeldhura 1",
+    "candidate": "Sher Bahadur Deuba",
+    "party": "Congress"
+  },
+  {
+    "name": "Dailekh 1",
+    "candidate": "Amar Bahadur Thapa",
+    "party": "Unified Socialist"
+  },
+  {
+    "name": "Dailekh 2",
+    "candidate": "Dikpal Kumar Shahi",
+    "party": "Congress"
+  },
+  {
+    "name": "Dang 1",
+    "candidate": "Metmani Chaudhary",
+    "party": "Unified Socialist"
+  },
+  {
+    "name": "Dang 2",
+    "candidate": "Rekha Sharma",
+    "party": "Maoist Centre"
+  },
+  {
+    "name": "Dang 3",
+    "candidate": "Deepak Giri",
+    "party": "Congress"
+  },
+  {
+    "name": "Darchula 1",
+    "candidate": "Dilendra Prasad Badu",
+    "party": "Congress"
+  },
+  {
+    "name": "Dhading 1",
+    "candidate": "Rajendra Prasad Pandey",
+    "party": "Unified Socialist"
+  },
+  {
+    "name": "Dhading 2",
+    "candidate": "Ram Nath Adhikari",
+    "party": "Congress"
+  },
+  {
+    "name": "Dhankuta 1",
+    "candidate": "Rajendra Kumar Rai",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Dhanusha 1",
+    "candidate": "Dipak Karki",
+    "party": "PSP-Nepal"
+  },
+  {
+    "name": "Dhanusha 2",
+    "candidate": "Ram Krishna Yadav",
+    "party": "Congress"
+  },
+  {
+    "name": "Dhanusha 3",
+    "candidate": "Julie Kumari Mahato",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Dhanusha 4",
+    "candidate": "Raghubir Mahaseth",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Dolakha 1",
+    "candidate": "Ganga Karki",
+    "party": "Maoist Centre"
+  },
+  {
+    "name": "Dolpa 1",
+    "candidate": "Dhan Bahadur Buda",
+    "party": "Unified Socialist"
+  },
+  {
+    "name": "Doti 1",
+    "candidate": "Prem Bahadur Ale",
+    "party": "Unified Socialist"
+  },
+  {
+    "name": "Gorkha 1",
+    "candidate": "Rajendra Bajgain",
+    "party": "Congress"
+  },
+  {
+    "name": "Gorkha 2",
+    "candidate": "Pushpa Kamal Dahal",
+    "party": "Maoist Centre"
+  },
+  {
+    "name": "Gulmi 1",
+    "candidate": "Chandra Kant Bhandari",
+    "party": "Congress"
+  },
+  {
+    "name": "Gulmi 2",
+    "candidate": "Gokarna Raj Bista",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Humla 1",
+    "candidate": "Tshering Damdul Lama",
+    "party": "Maoist Centre"
+  },
+  {
+    "name": "Ilam 1",
+    "candidate": "Mahesh Basnet",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Ilam 2",
+    "candidate": "Subas Chandra Nemwang",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Jajarkot 1",
+    "candidate": "Shakti Bahadur Basnet",
+    "party": "Maoist Centre"
+  },
+  {
+    "name": "Jhapa 1",
+    "candidate": "Bishwa Prakash Sharma",
+    "party": "Congress"
+  },
+  {
+    "name": "Jhapa 2",
+    "candidate": "Dev Raj Ghimire",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Jhapa 3",
+    "candidate": "Rajendra Lingden",
+    "party": "RPP"
+  },
+  {
+    "name": "Jhapa 4",
+    "candidate": "Lal Prasad Sawa Limbu",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Jhapa 5",
+    "candidate": "KP Sharma Oli",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Jumla 1",
+    "candidate": "Gyan Bahadur Shahi",
+    "party": "RPP"
+  },
+  {
+    "name": "Kailali 1",
+    "candidate": "Ranjeeta Shrestha",
+    "party": "Nagrik Unmukti Party"
+  },
+  {
+    "name": "Kailali 2",
+    "candidate": "Arun Kumar Chaudhary",
+    "party": "Nagrik Unmukti Party"
+  },
+  {
+    "name": "Kailali 3",
+    "candidate": "Ganga Ram Chaudhary",
+    "party": "Nagrik Unmukti Party"
+  },
+  {
+    "name": "Kailali 4",
+    "candidate": "Bir Bahadur Balayar",
+    "party": "Congress"
+  },
+  {
+    "name": "Kailali 5",
+    "candidate": "Dilli Raj Pant",
+    "party": "Congress"
+  },
+  {
+    "name": "Kalikot 1",
+    "candidate": "Mahendra Bahadur Shahi",
+    "party": "Maoist Centre"
+  },
+  {
+    "name": "Kanchanpur 1",
+    "candidate": "Tara Lama Tamang",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Kanchanpur 2",
+    "candidate": "Narayan Prakash Saud",
+    "party": "Congress"
+  },
+  {
+    "name": "Kanchanpur 3",
+    "candidate": "Ramesh Lekhak",
+    "party": "Congress"
+  },
+  {
+    "name": "Kapilvastu 1",
+    "candidate": "Balaram Adhikari",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Kapilvastu 2",
+    "candidate": "Surendra Raj Acharya",
+    "party": "Congress"
+  },
+  {
+    "name": "Kapilvastu 3",
+    "candidate": "Mangal Prasad Gupta",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Kaski 1",
+    "candidate": "Man Bahadur Gurung",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Kaski 2",
+    "candidate": "Bidya Bhattarai",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Kaski 3",
+    "candidate": "Damodar Poudel Bairagi",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Kathmandu 1",
+    "candidate": "Prakash Man Singh",
+    "party": "Congress"
+  },
+  {
+    "name": "Kathmandu 2",
+    "candidate": "Sobita Gautam",
+    "party": "RSP"
+  },
+  {
+    "name": "Kathmandu 3",
+    "candidate": "Santosh Chalise",
+    "party": "Congress"
+  },
+  {
+    "name": "Kathmandu 4",
+    "candidate": "Gagan Thapa",
+    "party": "Congress"
+  },
+  {
+    "name": "Kathmandu 5",
+    "candidate": "Pradip Paudel",
+    "party": "Congress"
+  },
+  {
+    "name": "Kathmandu 6",
+    "candidate": "Shishir Khanal",
+    "party": "RSP"
+  },
+  {
+    "name": "Kathmandu 7",
+    "candidate": "Ganesh Parajuli",
+    "party": "RSP"
+  },
+  {
+    "name": "Kathmandu 8",
+    "candidate": "Biraj Bhakta Shrestha",
+    "party": "RSP"
+  },
+  {
+    "name": "Kathmandu 9",
+    "candidate": "Krishna Gopal Shrestha",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Kathmandu 10",
+    "candidate": "Rajendra Kumar K.C.",
+    "party": "Congress"
+  },
+  {
+    "name": "Kavrepalanchok 1",
+    "candidate": "Surya Man Dong",
+    "party": "Maoist Centre"
+  },
+  {
+    "name": "Kavrepalanchok 2",
+    "candidate": "Gokul Prasad Baskota",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Khotang 1",
+    "candidate": "Ram Kumar Rai",
+    "party": "Maoist Centre"
+  },
+  {
+    "name": "Lalitpur 1",
+    "candidate": "Udaya Shamsher Rana",
+    "party": "Congress"
+  },
+  {
+    "name": "Lalitpur 2",
+    "candidate": "Prem Bahadur Maharjan",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Lalitpur 3",
+    "candidate": "Toshima Karki",
+    "party": "RSP"
+  },
+  {
+    "name": "Lamjung 1",
+    "candidate": "Prithivi Subba Gurung",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Mahottari 1",
+    "candidate": "Laxmi Mahato Koiri",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Mahottari 2",
+    "candidate": "Sharat Singh Bhandari",
+    "party": "Loktantrik Samajwadi"
+  },
+  {
+    "name": "Mahottari 3",
+    "candidate": "Mahantha Thakur",
+    "party": "Loktantrik Samajwadi"
+  },
+  {
+    "name": "Mahottari 4",
+    "candidate": "Mahendra Kumar Ray",
+    "party": "Congress"
+  },
+  {
+    "name": "Makwanpur 1",
+    "candidate": "Deepak Bahadur Singh",
+    "party": "RPP"
+  },
+  {
+    "name": "Makwanpur 2",
+    "candidate": "Mahesh Kumar Bartaula",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Manang 1",
+    "candidate": "Tek Bahadur Gurung",
+    "party": "Congress"
+  },
+  {
+    "name": "Morang 1",
+    "candidate": "Dig Bahadur Limbu",
+    "party": "Congress"
+  },
+  {
+    "name": "Morang 2",
+    "candidate": "Rishikesh Pokharel",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Morang 3",
+    "candidate": "Sunil Kumar Sharma",
+    "party": "Congress"
+  },
+  {
+    "name": "Morang 4",
+    "candidate": "Aman Lal Modi",
+    "party": "Maoist Centre"
+  },
+  {
+    "name": "Morang 5",
+    "candidate": "Yogendra Mandal",
+    "party": "Independent"
+  },
+  {
+    "name": "Morang 6",
+    "candidate": "Shekhar Koirala",
+    "party": "Congress"
+  },
+  {
+    "name": "Mugu 1",
+    "candidate": "Aain Bahadur Shahi Thakuri",
+    "party": "Congress"
+  },
+  {
+    "name": "Mustang 1",
+    "candidate": "Yogesh Gauchan Thakali",
+    "party": "Congress"
+  },
+  {
+    "name": "Myagdi 1",
+    "candidate": "Kham Bahadur Garbuja",
+    "party": "Congress"
+  },
+  {
+    "name": "Nawalpur 1",
+    "candidate": "Shashanka Koirala",
+    "party": "Congress"
+  },
+  {
+    "name": "Nawalpur 2",
+    "candidate": "Bishnu Kumar Karki",
+    "party": "Congress"
+  },
+  {
+    "name": "Nuwakot 1",
+    "candidate": "Hit Bahadur Tamang",
+    "party": "Maoist Centre"
+  },
+  {
+    "name": "Nuwakot 2",
+    "candidate": "Arjun Narsingh K.C.",
+    "party": "Congress"
+  },
+  {
+    "name": "Okhaldhunga 1",
+    "candidate": "Ram Hari Khatiwada",
+    "party": "Congress"
+  },
+  {
+    "name": "Palpa 1",
+    "candidate": "Narayan Prasad Acharya",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Palpa 2",
+    "candidate": "Thakur Prasad Gaire",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Panchthar 1",
+    "candidate": "Basanta Kumar Nemwang",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Parasi 1",
+    "candidate": "Binod Chaudhary",
+    "party": "Congress"
+  },
+  {
+    "name": "Parasi 2",
+    "candidate": "Dhruba Bahadur Pradhan",
+    "party": "RPP"
+  },
+  {
+    "name": "Parbat 1",
+    "candidate": "Padam Giri",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Parsa 1",
+    "candidate": "Pradeep Yadav",
+    "party": "PSP-Nepal"
+  },
+  {
+    "name": "Parsa 2",
+    "candidate": "Ajay Kumar Chaurasiya",
+    "party": "Congress"
+  },
+  {
+    "name": "Parsa 3",
+    "candidate": "Raj Kumar Gupta",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Parsa 4",
+    "candidate": "Ramesh Rijal",
+    "party": "Congress"
+  },
+  {
+    "name": "Pyuthan 1",
+    "candidate": "Surya Bahadur Thapa Chhetri",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Ramechhap 1",
+    "candidate": "Purna Bahadur Tamang",
+    "party": "Congress"
+  },
+  {
+    "name": "Rasuwa 1",
+    "candidate": "Mohan Acharya",
+    "party": "Congress"
+  },
+  {
+    "name": "Rautahat 1",
+    "candidate": "Madhav Kumar Nepal",
+    "party": "Unified Socialist"
+  },
+  {
+    "name": "Rautahat 2",
+    "candidate": "Kiran Kumar Sah",
+    "party": "Independent"
+  },
+  {
+    "name": "Rautahat 3",
+    "candidate": "Prabhu Sah",
+    "party": "Independent"
+  },
+  {
+    "name": "Rautahat 4",
+    "candidate": "Dev Prasad Timilsena",
+    "party": "Congress"
+  },
+  {
+    "name": "Rolpa 1",
+    "candidate": "Barsaman Pun",
+    "party": "Maoist Centre"
+  },
+  {
+    "name": "Rukum East 1",
+    "candidate": "Purna Bahadur Gharti Magar",
+    "party": "Maoist Centre"
+  },
+  {
+    "name": "Rukum West 1",
+    "candidate": "Janardan Sharma",
+    "party": "Maoist Centre"
+  },
+  {
+    "name": "Rupandehi 1",
+    "candidate": "Chhabilal Bishwakarma",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Rupandehi 2",
+    "candidate": "Bishnu Prasad Paudel",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Rupandehi 3",
+    "candidate": "Deepak Bohara",
+    "party": "RPP"
+  },
+  {
+    "name": "Rupandehi 4",
+    "candidate": "Sarbendra Nath Shukla",
+    "party": "Loktantrik Samajwadi"
+  },
+  {
+    "name": "Rupandehi 5",
+    "candidate": "Basudev Ghimire",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Salyan 1",
+    "candidate": "Prakash Jwala",
+    "party": "Unified Socialist"
+  },
+  {
+    "name": "Sankhuwasabha 1",
+    "candidate": "Deepak Khadka",
+    "party": "Congress"
+  },
+  {
+    "name": "Saptari 1",
+    "candidate": "Nawal Kishore Sah Sudi",
+    "party": "PSP-Nepal"
+  },
+  {
+    "name": "Saptari 2",
+    "candidate": "CK Raut",
+    "party": "Janamat"
+  },
+  {
+    "name": "Saptari 3",
+    "candidate": "Dinesh Kumar Yadav",
+    "party": "Congress"
+  },
+  {
+    "name": "Saptari 4",
+    "candidate": "Teju Lal Chaudhary",
+    "party": "Congress"
+  },
+  {
+    "name": "Sarlahi 1",
+    "candidate": "Ram Prakash Chaudhary",
+    "party": "Loktantrik Samajwadi"
+  },
+  {
+    "name": "Sarlahi 2",
+    "candidate": "Mahindra Rai Yadav",
+    "party": "Maoist Centre"
+  },
+  {
+    "name": "Sarlahi 3",
+    "candidate": "Hari Prasad Upreti",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Sarlahi 4",
+    "candidate": "Amresh Kumar Singh",
+    "party": "Independent"
+  },
+  {
+    "name": "Sindhuli 1",
+    "candidate": "Shyam Kumar Ghimire",
+    "party": "Congress"
+  },
+  {
+    "name": "Sindhuli 2",
+    "candidate": "Lekh Nath Dahal",
+    "party": "Maoist Centre"
+  },
+  {
+    "name": "Sindhupalchok 1",
+    "candidate": "Madhav Sapkota",
+    "party": "Maoist Centre"
+  },
+  {
+    "name": "Sindhupalchok 2",
+    "candidate": "Mohan Bahadur Basnet",
+    "party": "Congress"
+  },
+  {
+    "name": "Siraha 1",
+    "candidate": "Ram Shankar Yadav",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Siraha 2",
+    "candidate": "Raj Kishor Yadav",
+    "party": "PSP-Nepal"
+  },
+  {
+    "name": "Siraha 3",
+    "candidate": "Lila Nath Shrestha",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Siraha 4",
+    "candidate": "Birendra Prasad Mahato",
+    "party": "PSP-Nepal"
+  },
+  {
+    "name": "Solukhumbu 1",
+    "candidate": "Manbir Rai",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Sunsari 1",
+    "candidate": "Ashok Rai",
+    "party": "PSP-Nepal"
+  },
+  {
+    "name": "Sunsari 2",
+    "candidate": "Bhim Prasad Acharya",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Sunsari 3",
+    "candidate": "Bhagwati Chaudhary",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Sunsari 4",
+    "candidate": "Gyanendra Bahadur Karki",
+    "party": "Congress"
+  },
+  {
+    "name": "Surkhet 1",
+    "candidate": "Purna Bahadur Khadka",
+    "party": "Congress"
+  },
+  {
+    "name": "Surkhet 2",
+    "candidate": "Hridaya Ram Thani",
+    "party": "Congress"
+  },
+  {
+    "name": "Syangja 1",
+    "candidate": "Raju Thapa",
+    "party": "Congress"
+  },
+  {
+    "name": "Syangja 2",
+    "candidate": "Dhanraj Gurung",
+    "party": "Congress"
+  },
+  {
+    "name": "Tanahun 1",
+    "candidate": "Ram Chandra Paudel",
+    "party": "Congress"
+  },
+  {
+    "name": "Tanahun 2",
+    "candidate": "Shankar Bhandari",
+    "party": "Congress"
+  },
+  {
+    "name": "Taplejung 1",
+    "candidate": "Yogesh Bhattrai",
+    "party": "CPN (UML)"
+  },
+  {
+    "name": "Tehrathum 1",
+    "candidate": "Sita Gurung",
+    "party": "Congress"
+  },
+  {
+    "name": "Udayapur 1",
+    "candidate": "Narayan Khadka",
+    "party": "Congress"
+  },
+  {
+    "name": "Udayapur 2",
+    "candidate": "Ambar Bahadur Rayamajhi",
+    "party": "CPN (UML)"
+  }
+]
