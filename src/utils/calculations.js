@@ -471,7 +471,7 @@ export const FPTP_SEATS = 165;
 export const PR_SEATS = 110;
 export const MAJORITY_THRESHOLD = 138;
 
-export default {
+const calculations = {
   applyAllianceTransfer,
   applySwitchingMatrix,
   calculateAdjustedResults,
@@ -486,3 +486,5 @@ export default {
   PR_SEATS,
   MAJORITY_THRESHOLD,
 };
+
+export default calculations;

@@ -576,9 +576,17 @@ export default function NepalMap({
           </div>
         </div>
         {viewMode === 'map' && (
-          <div className="text-sm text-gray-400">
-            {constituenciesData?.features?.length} constituencies over {districtsData?.features?.length} districts
-          </div>
+          <>
+            <div className="text-sm text-gray-400">
+              {constituenciesData?.features?.length} constituencies over {districtsData?.features?.length} districts
+            </div>
+            <div className="text-xs text-gray-500 flex items-center gap-2 mt-2">
+              <div className="flex items-center gap-1">
+                <div className="w-3 h-3 bg-black/50 border border-gray-600 rounded"></div>
+                <span>Black areas are protected</span>
+              </div>
+            </div>
+          </>
         )}
       </div>
 
@@ -591,6 +599,48 @@ export default function NepalMap({
                 selectedConstituencyDetail ? 'w-1/2' : 'w-full'
               }`}
             />
+
+            {/* Hover Tooltip */}
+            {hoveredConstituency && (
+              <div
+                className="fixed z-[9999] pointer-events-none"
+                style={{
+                  left: tooltipPos.x + 15,
+                  top: tooltipPos.y - 10,
+                }}
+              >
+                <div className="bg-surface border border-neutral rounded-xl shadow-2xl p-4 min-w-[280px]">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div
+                      className="w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold text-white"
+                      style={{ backgroundColor: PARTIES[getHoveredWinner(hoveredConstituency)]?.color || '#9ca3af' }}
+                    >
+                      {PARTIES[getHoveredWinner(hoveredConstituency)]?.short?.charAt(0) || '?'}
+                    </div>
+                    <div>
+                      <div className="text-sm text-gray-400">Winner</div>
+                      <div className="text-base font-bold text-white">
+                        {PARTIES[getHoveredWinner(hoveredConstituency)]?.name || 'Unknown'}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-400">Vote Share</span>
+                      <span className="text-base font-mono font-bold text-white">
+                        {(getWinnerPercentage(hoveredConstituency) * 100).toFixed(1)}%
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-400">Total Votes</span>
+                      <span className="text-base font-mono font-bold text-white">
+                        {hoveredConstituency.totalVotes?.toLocaleString() || 'N/A'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
 
             <AnimatePresence>
               {selectedConstituencyDetail && (

@@ -40,7 +40,7 @@ export function WelcomeModal({ isOpen, onClose }) {
                   <div>
                     <h3 className="text-lg font-semibold text-white">Welcome to NepaliSoch.com</h3>
                     <p className="text-sm text-gray-400 mt-1">
-                      Your data hub for Nepal's elections
+                      Your data hub for Nepal&apos;s elections
                     </p>
                   </div>
                   <button
@@ -54,7 +54,7 @@ export function WelcomeModal({ isOpen, onClose }) {
                 <div className="space-y-4 mb-6">
                   <div className="bg-neutral/30 rounded-lg p-4">
                     <p className="text-sm text-gray-300 leading-relaxed">
-                      We're a work in progress building Nepal's most comprehensive election data platform. Explore historical election results, analyze voting patterns, and try our simulation mode.
+                      We&apos;re a work in progress building Nepal&apos;s most comprehensive election data platform. Explore historical election results, analyze voting patterns, and try our simulation mode.
                     </p>
                   </div>
 
@@ -100,7 +100,7 @@ export function WelcomeModal({ isOpen, onClose }) {
                     onChange={(e) => setDontShowAgain(e.target.checked)}
                     className="w-4 h-4 rounded border-gray-600 text-blue-500 focus:ring-blue-500 focus:ring-offset-0 bg-neutral"
                   />
-                  <span className="text-sm text-gray-400">Don't show this again</span>
+                  <span className="text-sm text-gray-400">Don&apos;t show this again</span>
                 </div>
 
                 <button

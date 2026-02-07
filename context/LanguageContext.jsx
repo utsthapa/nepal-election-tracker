@@ -96,7 +96,7 @@ const TRANSLATIONS = {
   'meta.tags': { en: 'Tags', ne: 'ट्यागहरू' },
   
   // Simulator
-  'simulator.title': { en: 'Nepal Election Simulator', ne: 'नेपाल निर्वाचन प्रतिरूपक' },
+  'simulator.title': { en: 'Election Simulator', ne: 'निर्वाचन प्रतिरूपक' },
   'simulator.fptp': { en: 'FPTP Vote Share', ne: 'FPTP मत शेयर' },
   'simulator.pr': { en: 'PR Vote Share', ne: 'PR मत शेयर' },
   'simulator.seats': { en: 'Seats', ne: 'सिटहरू' },
@@ -131,8 +131,8 @@ const TRANSLATIONS = {
   'about.roadmap': { en: 'Future Roadmap', ne: 'भविष्यको रोडम्याप' },
   
   // Feature Tour
-  'tour.welcome': { en: 'Welcome to Nepal Votes', ne: 'स्वागतम्' },
-  'tour.subtitle': { en: 'Nepal\'s election simulator and analytics platform', ne: 'नेपालको चुनाव सिमुलेटर र विश्लेषण प्लेटफर्म' },
+  'tour.welcome': { en: 'Welcome to NepaliSoch', ne: 'नेपाली सोचमा स्वागतम्' },
+  'tour.subtitle': { en: 'Data-driven election analysis and simulation for Nepal', ne: 'नेपालको डाटा-आधारित निर्वाचन विश्लेषण र प्रतिरूपण' },
   'tour.simulationMode': { en: 'Simulation Mode', ne: 'सिमुलेसन मोड' },
   'tour.simulationModeDesc': { en: 'Adjust FPTP and PR vote share sliders to see real-time seat projections. Watch as 275 seats are calculated instantly based on your inputs.', ne: 'FPTP र PR मत शेयर स्लाइडरहरू समायोजन गरेर रियल-टाइम सिट प्रोजेक्सन हेर्नुहोस्। तपाईंको इनपुटको आधारमा २७५ सिटहरू तुरुन्त गणना हुन्छ।' },
   'tour.interactiveMap': { en: 'Interactive Map', ne: 'इन्टरएक्टिभ म्याप' },

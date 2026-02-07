@@ -3,20 +3,20 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 
 const ThemeContext = createContext({
-  theme: 'dark',
+  theme: 'light',
   toggleTheme: () => {},
 })
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState('dark')
+  const [theme, setTheme] = useState('light')
   const [mounted, setMounted] = useState(false)
 
-  // Sync initial theme from localStorage or system preference
+  // Sync initial theme from localStorage (default: light)
   useEffect(() => {
     const stored = typeof window !== 'undefined' ? localStorage.getItem('theme') : null
     const initial = stored === 'light' || stored === 'dark'
       ? stored
-      : 'dark'
+      : 'light'
 
     setTheme(initial)
     document.documentElement.setAttribute('data-theme', initial)

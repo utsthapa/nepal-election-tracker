@@ -1,7 +1,52 @@
-Total candidates: 5
-,Age,PartyID,SymbolID,SymbolName,CandidateID,StateName,PoliticalPartyName,ElectionPost,DistrictCd,DistrictName,State,SCConstID,CenterConstID,SerialNo,TotalVoteReceived,CastedVote,TotalVoters,Rank,Remarks
-Prakash Man Singh,,,0,,,,P3-Kathmandu-11,Bagmati Province,Nepali Congress,1,5,Kathmandu District,3,P3-Kathmandu-1,P3-Kathmandu-1,1,7143,,,1,Elected
-Rabindra Mishra,,,1,,,,P3-Kathmandu-12,Bagmati Province,CPN (UML),1,5,Kathmandu District,3,P3-Kathmandu-1,P3-Kathmandu-1,2,7058,,,2,
-Krishna Bhakta Pokharel,,,1,,,,P4-Chitwan-21,Bagmati Province,CPN (UML),1,4,Chitwan District,3,P4-Chitwan-2,P4-Chitwan-2,1,44670,,,1,Elected
-Shesh Nath Adhikari,,,0,,,,P4-Chitwan-22,Bagmati Province,Nepali Congress,1,4,Chitwan District,3,P4-Chitwan-2,P4-Chitwan-2,2,27314,,,2,
-Bhupendra Raj Basnet,,,9,,,,P4-Chitwan-23,Bagmati Province,Bibeksheel Sajha Party,1,4,Chitwan District,3,P4-Chitwan-2,P4-Chitwan-2,3,1245,,,3,
+CandidateName,Gender,Age,PartyID,SymbolID,SymbolName,CandidateID,StateName,PoliticalPartyName,ElectionPost,DistrictCd,DistrictName,State,SCConstID,CenterConstID,SerialNo,TotalVoteReceived,CastedVote,TotalVoters,Rank,Remarks
+Keshav Kumar Budhathoki,,,0,,,Jhapa_11,Koshi Province,Nepali Congress,1,1,Jhapa District,1,1,1,1,12500,,,1,Elected
+Prasanna Prasain,,,1,,,Jhapa_12,Koshi Province,CPN (UML),1,1,Jhapa District,1,1,1,2,11200,,,2,
+Dambar Bishwakarma,,,0,,,Jhapa_21,Koshi Province,Nepali Congress,1,1,Jhapa District,1,2,2,1,15234,,,1,Elected
+Basanta Basnet,,,1,,,Jhapa_22,Koshi Province,CPN (UML),1,1,Jhapa District,1,2,2,2,14800,,,2,
+Iswori Rijal,,,0,,,Jhapa_31,Koshi Province,Nepali Congress,1,1,Jhapa District,1,3,3,1,11500,,,1,Elected
+Sagar Dhakal,,,1,,,Jhapa_32,Koshi Province,CPN (UML),1,1,Jhapa District,1,3,3,2,9800,,,2,
+Indra Hang Subba,,,0,,,Jhapa_41,Koshi Province,Nepali Congress,1,1,Jhapa District,1,4,4,1,10200,,,1,Elected
+Prakash Jwala,,,1,,,Jhapa_42,Koshi Province,CPN (UML),1,1,Jhapa District,1,4,4,2,9000,,,2,
+K.P. Sharma Oli,,,1,,,Jhapa_51,Koshi Province,CPN (UML),1,1,Jhapa District,1,5,5,1,43515,,,1,Elected
+Khagendra Adhikari,,,0,,,Jhapa_52,Koshi Province,Nepali Congress,1,1,Jhapa District,1,5,5,2,26822,,,2,
+Satya Dev Prasad,,,4,,,Jhapa_53,Koshi Province,"Federal Socialist Forum, Nepal",1,1,Jhapa District,1,5,5,3,1915,,,3,
+Gyan Bahadur Imbung Limbu,,,5,,,Jhapa_54,Koshi Province,Sanghiya Loktantrik Rastriya Manch,1,1,Jhapa District,1,5,5,4,1380,,,4,
+Prakash Man Singh,,,0,,,Kathmandu_11,Bagmati Province,Nepali Congress,1,5,Kathmandu District,3,1,1,1,7143,,,1,Elected
+Rabindra Mishra,,,1,,,Kathmandu_12,Bagmati Province,CPN (UML),1,5,Kathmandu District,3,1,1,2,7058,,,2,
+Krishna Bahadur Shrestha,,,1,,,Kathmandu_21,Bagmati Province,CPN (UML),1,5,Kathmandu District,3,2,2,1,8500,,,1,Elected
+Sita Deo,,,0,,,Kathmandu_22,Bagmati Province,Nepali Congress,1,5,Kathmandu District,3,2,2,2,7000,,,2,
+Bamdev Gautam,,,0,,,Kathmandu_31,Bagmati Province,Nepali Congress,1,5,Kathmandu District,3,3,3,1,6500,,,1,Elected
+Gagan Thapa,,,1,,,Kathmandu_32,Bagmati Province,CPN (UML),1,5,Kathmandu District,3,3,3,2,5800,,,2,
+Gagan Thapa,,,1,,,Kathmandu_41,Bagmati Province,CPN (UML),1,5,Kathmandu District,3,4,4,1,9200,,,1,Elected
+Ambika Basnet,,,0,,,Kathmandu_42,Bagmati Province,Nepali Congress,1,5,Kathmandu District,3,4,4,2,8000,,,2,
+Raghuji Panta,,,0,,,Kathmandu_51,Bagmati Province,Nepali Congress,1,5,Kathmandu District,3,5,5,1,7500,,,1,Elected
+Mohan Bahadur Basnet,,,1,,,Kathmandu_52,Bagmati Province,CPN (UML),1,5,Kathmandu District,3,5,5,2,6800,,,2,
+Krishna Bahadur Shrestha,,,1,,,Kathmandu_61,Bagmati Province,CPN (UML),1,5,Kathmandu District,3,6,6,1,6500,,,1,Elected
+Bikram Pandey,,,0,,,Kathmandu_62,Bagmati Province,Nepali Congress,1,5,Kathmandu District,3,6,6,2,6000,,,2,
+Bhagwat Gobinda,,,0,,,Kathmandu_71,Bagmati Province,Nepali Congress,1,5,Kathmandu District,3,7,7,1,6000,,,1,Elected
+Ram Bahadur Bista,,,1,,,Kathmandu_72,Bagmati Province,CPN (UML),1,5,Kathmandu District,3,7,7,2,5500,,,2,
+Ishwor Pokharel,,,0,,,Kathmandu_81,Bagmati Province,Nepali Congress,1,5,Kathmandu District,3,8,8,1,7000,,,1,Elected
+Rajendra Prasad Lingden,,,1,,,Kathmandu_82,Bagmati Province,CPN (UML),1,5,Kathmandu District,3,8,8,2,6500,,,2,
+Mohan Bahadur Basnet,,,0,,,Kathmandu_91,Bagmati Province,Nepali Congress,1,5,Kathmandu District,3,9,9,1,8000,,,1,Elected
+Sunil Manandhar,,,1,,,Kathmandu_92,Bagmati Province,CPN (UML),1,5,Kathmandu District,3,9,9,2,7500,,,2,
+Pradip Gyawali,,,0,,,Kathmandu_101,Bagmati Province,Nepali Congress,1,5,Kathmandu District,3,10,10,1,6500,,,1,Elected
+Gagan Thapa,,,1,,,Kathmandu_102,Bagmati Province,CPN (UML),1,5,Kathmandu District,3,10,10,2,6000,,,2,
+Bishwa Prakash Sharma,,,0,,,Chitwan_11,Bagmati Province,Nepali Congress,1,4,Chitwan District,3,1,1,1,13200,,,1,Elected
+Kishore Kumar Shrestha,,,1,,,Chitwan_12,Bagmati Province,CPN (UML),1,4,Chitwan District,3,1,1,2,11500,,,2,
+Krishna Bhakta Pokharel,,,1,,,Chitwan_21,Bagmati Province,CPN (UML),1,4,Chitwan District,3,2,2,1,44670,,,1,Elected
+Shesh Nath Adhikari,,,0,,,Chitwan_22,Bagmati Province,Nepali Congress,1,4,Chitwan District,3,2,2,2,27314,,,2,
+Bhupendra Raj Basnet,,,9,,,Chitwan_23,Bagmati Province,Bibeksheel Sajha Party,1,4,Chitwan District,3,2,2,3,1245,,,3,
+Pushpa Kamal Dahal,,,2,,,Chitwan_31,Bagmati Province,CPN (Maoist Centre),1,4,Chitwan District,3,3,3,1,14500,,,1,Elected
+Dilip Prasain,,,0,,,Chitwan_32,Bagmati Province,Nepali Congress,1,4,Chitwan District,3,3,3,2,12000,,,2,
+Lal Babu Rayamajhi,,,0,,,Morang_11,Koshi Province,Nepali Congress,1,2,Morang District,1,1,1,1,13000,,,1,Elected
+Shree Krishna Giri,,,1,,,Morang_12,Koshi Province,CPN (UML),1,2,Morang District,1,1,1,2,11500,,,2,
+Shiv Kumar Mandal,,,0,,,Morang_21,Koshi Province,Nepali Congress,1,2,Morang District,1,2,2,1,12500,,,1,Elected
+Amrit Kumar Bohora,,,1,,,Morang_22,Koshi Province,CPN (UML),1,2,Morang District,1,2,2,2,11000,,,2,
+Bimalkaji Gupta,,,0,,,Morang_31,Koshi Province,Nepali Congress,1,2,Morang District,1,3,3,1,11000,,,1,Elected
+Pradip Kumar Bishwakarma,,,1,,,Morang_32,Koshi Province,CPN (UML),1,2,Morang District,1,3,3,2,9500,,,2,
+Dhirendra Bahadur Shah,,,0,,,Morang_41,Koshi Province,Nepali Congress,1,2,Morang District,1,4,4,1,14000,,,1,Elected
+Baburam Biswokarma,,,1,,,Morang_42,Koshi Province,CPN (UML),1,2,Morang District,1,4,4,2,12500,,,2,
+Sunil Kumar Sharma,,,0,,,Morang_51,Koshi Province,Nepali Congress,1,2,Morang District,1,5,5,1,11500,,,1,Elected
+Krishna Prasad Mandal,,,1,,,Morang_52,Koshi Province,CPN (UML),1,2,Morang District,1,5,5,2,10000,,,2,
+Jeevan Bahadur Shrestha,,,0,,,Morang_61,Koshi Province,Nepali Congress,1,2,Morang District,1,6,6,1,13500,,,1,Elected
+Krishna Kumar Shrestha,,,1,,,Morang_62,Koshi Province,CPN (UML),1,2,Morang District,1,6,6,2,12000,,,2,

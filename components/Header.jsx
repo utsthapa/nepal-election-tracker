@@ -1,116 +1,107 @@
-import { motion } from 'framer-motion';
-import { Vote, RotateCcw, Target } from 'lucide-react';
+'use client'
+
+import { useState } from 'react';
 import Link from 'next/link';
-import { PARTIES } from '../data/constituencies';
+import { usePathname } from 'next/navigation';
+import { Menu, X } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { LanguageToggle } from './LanguageToggle';
 import { useLanguage } from '../context/LanguageContext';
 
-export function Header({ totalSeats, leadingParty, hasMajority, onReset }) {
-  const { t } = useLanguage();
-  const partyColors = {};
-  Object.keys(PARTIES).forEach(p => {
-    partyColors[p] = `text-${p.toLowerCase()}`;
-  });
+const NAV_ITEMS = [
+  { href: '/', labelKey: 'nav.simulator', label: 'Simulator' },
+  { href: '/elections', labelKey: 'nav.elections', label: 'Elections' },
+  { href: '/analysis', labelKey: 'nav.analysis', label: 'Analysis' },
+  { href: '/districts', labelKey: 'nav.districts', label: 'Districts' },
+  { href: '/demographics', labelKey: 'nav.demographics', label: 'Demographics' },
+  { href: '/about', labelKey: 'nav.about', label: 'About' },
+];
 
-  const formatPartyLabel = (partyId) => {
-    const info = PARTIES[partyId];
-    return info ? `${info.short} (${info.name})` : partyId;
+export function Header() {
+  const { t, language } = useLanguage();
+  const pathname = usePathname();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const isActive = (href) => {
+    if (href === '/') return pathname === '/';
+    return pathname.startsWith(href);
   };
 
   return (
-    <header className="bg-surface/80 backdrop-blur-sm border-b border-neutral sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <motion.div
-              initial={{ rotate: -10 }}
-              animate={{ rotate: 0 }}
-              className="p-2 bg-gradient-to-br from-nc/20 to-uml/20 rounded-lg"
-            >
-              <Vote className="w-8 h-8 text-white" />
-            </motion.div>
-            <div>
-              <Link href="/" className="hover:opacity-80 transition-opacity">
-                <h1 className="text-2xl font-outfit font-bold text-white tracking-tight">
-                  Nepal Votes
-                </h1>
-              </Link>
-              <p className="text-sm text-gray-400 font-mono flex items-center gap-2">
-                {t('simulator.title')}
-                <span className="px-2 py-0.5 rounded-full border border-emerald-400/40 text-emerald-200 text-[11px] uppercase tracking-[0.14em]">
-                  Election Tracker 2084
-                </span>
-              </p>
-            </div>
-          </div>
+    <header className="bg-surface/90 backdrop-blur-md border-b border-neutral sticky top-0 z-50">
+      {/* Top bar: Brand + toggles */}
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex items-center justify-between h-14">
+          {/* Wordmark */}
+          <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <span className="text-xl font-display font-bold text-foreground tracking-tight">
+              {language === 'ne' ? 'नेपाली सोच' : 'NepaliSoch'}
+            </span>
+            <span className="hidden sm:inline text-xs text-muted font-sans tracking-wide">
+              {language === 'ne' ? 'डाटा-संचालित विश्लेषण' : 'Data-Driven Analysis'}
+            </span>
+          </Link>
 
-          {/* Navigation Links */}
-          <nav className="hidden md:flex items-center gap-4">
-            <Link
-              href="/"
-              className="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-neutral/60 rounded-lg transition-colors"
-            >
-              {t('nav.home')}
-            </Link>
-            <Link
-              href="/simulator"
-              className="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-neutral/60 rounded-lg transition-colors"
-            >
-              {t('nav.simulator')}
-            </Link>
-            <Link
-              href="/about"
-              className="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-neutral/60 rounded-lg transition-colors"
-            >
-              {t('nav.about')}
-            </Link>
-          </nav>
-
-          <div className="flex items-center gap-6">
-            {/* Leading Party Indicator */}
-            {leadingParty && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-right"
-              >
-                <p className="text-xs text-gray-500 uppercase tracking-wider">Leading</p>
-                <p className={`text-lg font-bold ${partyColors[leadingParty] || 'text-white'}`}>
-                  {formatPartyLabel(leadingParty)}
-                </p>
-                <p className="text-sm font-mono text-gray-400">
-                  {totalSeats[leadingParty]} seats
-                </p>
-              </motion.div>
-            )}
-
-            {/* Majority Status */}
-            <div className="flex items-center gap-2">
-              <Target
-                className={`w-5 h-5 ${hasMajority ? 'text-green-400' : 'text-gray-500'}`}
-              />
-              <span className={`text-sm font-medium ${hasMajority ? 'text-green-400' : 'text-gray-500'}`}>
-                {hasMajority ? t('simulator.majority') : t('simulator.hung')}
-              </span>
-            </div>
-
+          {/* Right side: toggles + mobile menu button */}
+          <div className="flex items-center gap-2">
             <LanguageToggle />
             <ThemeToggle />
-
-            {/* Reset Button */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={onReset}
-              className="flex items-center gap-2 px-4 py-2 bg-neutral hover:bg-neutral/80 rounded-lg text-gray-300 transition-colors"
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="md:hidden p-2 rounded-lg hover:bg-neutral/50 transition-colors text-foreground"
+              aria-label="Toggle navigation menu"
             >
-              <RotateCcw className="w-4 h-4" />
-              <span className="text-sm font-medium">Reset</span>
-            </motion.button>
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </div>
       </div>
+
+      {/* Nav bar: desktop */}
+      <nav className="hidden md:block border-t border-neutral/50">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center gap-1 h-10 -mb-px">
+            {NAV_ITEMS.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`px-3 py-2 text-sm font-medium transition-colors relative ${
+                  isActive(item.href)
+                    ? 'text-foreground'
+                    : 'text-muted hover:text-foreground'
+                }`}
+              >
+                {t(item.labelKey, item.label)}
+                {isActive(item.href) && (
+                  <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-foreground rounded-full" />
+                )}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile drawer */}
+      {mobileOpen && (
+        <nav className="md:hidden border-t border-neutral bg-surface">
+          <div className="px-4 py-3 space-y-1">
+            {NAV_ITEMS.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileOpen(false)}
+                className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                  isActive(item.href)
+                    ? 'bg-neutral/50 text-foreground'
+                    : 'text-muted hover:bg-neutral/30 hover:text-foreground'
+                }`}
+              >
+                {t(item.labelKey, item.label)}
+              </Link>
+            ))}
+          </div>
+        </nav>
+      )}
     </header>
   );
 }

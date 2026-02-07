@@ -207,7 +207,7 @@ export function enforceFemaleQuota(totalSeats, femaleShareMap = PARTY_FEMALE_SHA
   };
 }
 
-export default {
+const sainteLague = {
   allocateSeats,
   getQualifiedParties,
   calculateNationalVoteShare,
@@ -216,3 +216,5 @@ export default {
   THRESHOLD_PERCENT,
   PR_SEATS,
 };
+
+export default sainteLague;

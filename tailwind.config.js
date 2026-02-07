@@ -26,9 +26,8 @@ export default {
         others: '#f59e0b',
       },
       fontFamily: {
-        sans: ['Sora', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
-        display: ['Newsreader', 'serif'],
-        outfit: ['Outfit', 'sans-serif'],
+        sans: ['Figtree', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
+        display: ['Lora', 'serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
     },

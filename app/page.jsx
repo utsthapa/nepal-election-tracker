@@ -4,6 +4,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useElectionState } from '../hooks/useElectionState';
 import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
 import { PartySliders } from '../components/PartySliders';
 import { ConstituencyTable } from '../components/ConstituencyTable';
 import { SeatDrawer } from '../components/SeatDrawer';
@@ -20,7 +21,7 @@ import { PARTIES } from '../data/constituencies';
 import { IDEOLOGY_COORDS } from '../data/partyMeta';
 import { BY_ELECTION_SIGNALS } from '../data/proxySignals';
 import { useLanguage } from '../context/LanguageContext';
-import { Map, Table, Lock, Unlock } from 'lucide-react';
+import { Map, Table, Lock, Unlock, RotateCcw, Target } from 'lucide-react';
 import NepalMap from '../components/NepalMap';
 
 // Dynamically import map component with no SSR
@@ -29,10 +30,10 @@ const ConstituencyMap = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-full h-[500px] bg-surface rounded-xl border border-neutral flex items-center justify-center">
+      <div className="w-full h-[500px] bg-surface rounded-lg border border-neutral flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500 mx-auto mb-3"></div>
-          <p className="text-gray-400 text-sm">Loading map...</p>
+          <p className="text-muted text-sm">Loading map...</p>
         </div>
       </div>
     )
@@ -93,60 +94,63 @@ export default function HomePage() {
     }
     return true;
   });
-  const [viewMode, setViewMode] = useState('map'); // 'table' or 'map' - for ConstituencyTable
-  const [nepalMapMode, setNepalMapMode] = useState('map'); // 'map' or 'table' - for NepalMap
-  const [selectedYear, setSelectedYear] = useState(2026); // Selected election year
-  const [rspStartingPoint, setRspStartingPoint] = useState(false); // RSP starting point toggle
-  const [selectedParty, setSelectedParty] = useState('RSP'); // Party to apply starting point adjustment to
+  const [viewMode, setViewMode] = useState('map');
+  const [nepalMapMode, setNepalMapMode] = useState('map');
+  const [selectedYear, setSelectedYear] = useState(2026);
+  const [rspStartingPoint, setRspStartingPoint] = useState(false);
+  const [selectedParty, setSelectedParty] = useState('RSP');
 
   const activeAlliance = allianceConfig?.enabled && (allianceConfig.parties?.length === 2);
   const [allyA, allyB] = allianceConfig?.parties || [];
   const majorityProb = leadingParty ? (seatIntervals?.[leadingParty]?.majorityProb || 0) : 0;
 
+  const partyColors = {};
+  Object.keys(PARTIES).forEach(p => {
+    partyColors[p] = `text-${p.toLowerCase()}`;
+  });
+
+  const formatPartyLabel = (partyId) => {
+    const info = PARTIES[partyId];
+    return info ? `${info.short} (${info.name})` : partyId;
+  };
+
   const handleApplySwitching = () => {
-    // Calculate all new slider values first, then apply them
     const newFptpSliders = { ...fptpSliders };
     const newPrSliders = { ...prSliders };
-    
-    // Apply switching matrix to both FPTP and PR sliders
+
     Object.entries(switchingMatrix).forEach(([fromParty, targets]) => {
       if (!targets) return;
       Object.entries(targets).forEach(([toParty, percentage]) => {
         if (!percentage || percentage <= 0) return;
-        
+
         const pct = percentage / 100;
-        
-        // Calculate FPTP slider changes
+
         const fptpFromValue = newFptpSliders[fromParty] || 0;
         const fptpToValue = newFptpSliders[toParty] || 0;
         const fptpTransfer = fptpFromValue * pct;
-        
+
         newFptpSliders[fromParty] = fptpFromValue - fptpTransfer;
         newFptpSliders[toParty] = fptpToValue + fptpTransfer;
-        
-        // Calculate PR slider changes
+
         const prFromValue = newPrSliders[fromParty] || 0;
         const prToValue = newPrSliders[toParty] || 0;
         const prTransfer = prFromValue * pct;
-        
+
         newPrSliders[fromParty] = prFromValue - prTransfer;
         newPrSliders[toParty] = prToValue + prTransfer;
       });
     });
-    
-    // Apply all FPTP slider changes
+
     Object.entries(newFptpSliders).forEach(([party, value]) => {
       updateFptpSlider(party, value);
     });
-    
-    // Apply all PR slider changes
+
     Object.entries(newPrSliders).forEach(([party, value]) => {
       updatePrSlider(party, value);
     });
   };
 
   const handleClearSwitching = () => {
-    // Clear all switching matrix values
     Object.keys(switchingMatrix).forEach(fromParty => {
       Object.keys(switchingMatrix[fromParty] || {}).forEach(toParty => {
         updateSwitching(fromParty, toParty, 0);
@@ -155,21 +159,14 @@ export default function HomePage() {
   };
 
   const handleApplySimulationControls = () => {
-    // Apply all simulation control settings to update sliders
-    // This function applies the effects of starting point adjustment
-
     const newFptpSliders = { ...fptpSliders };
     const newPrSliders = { ...prSliders };
 
-    // Apply Starting Point option - sets selected party's FPTP slider to match PR proportion
     if (rspStartingPoint) {
-      // Get selected party's PR vote share from current sliders
       const partyPrShare = prSliders[selectedParty] || 0;
-      // Set selected party's FPTP slider to match PR proportion (assumes they run in all seats)
       newFptpSliders[selectedParty] = partyPrShare;
     }
 
-    // Normalize sliders to ensure they sum to 100
     const normalizeSliders = (sliders) => {
       const total = Object.values(sliders).reduce((sum, val) => sum + val, 0);
       if (total === 0) return sliders;
@@ -183,26 +180,23 @@ export default function HomePage() {
     const normalizedFptpSliders = normalizeSliders(newFptpSliders);
     const normalizedPrSliders = normalizeSliders(newPrSliders);
 
-    // Apply all FPTP slider changes
     Object.entries(normalizedFptpSliders).forEach(([party, value]) => {
       updateFptpSlider(party, value);
     });
 
-    // Apply all PR slider changes
     Object.entries(normalizedPrSliders).forEach(([party, value]) => {
       updatePrSlider(party, value);
     });
   };
 
   const handleResetSimulationControls = () => {
-    // Reset simulation controls to defaults
     setRspStartingPoint(false);
     setSelectedParty('RSP');
     setSlidersLocked(true);
-    // Reset incumbency decay and RSP proxy intensity to baseline (0)
     setIncumbencyDecay(0);
     setRspProxyIntensity(0);
   };
+
   const computeCompatibility = (a, b) => {
     const pa = IDEOLOGY_COORDS[a];
     const pb = IDEOLOGY_COORDS[b];
@@ -226,44 +220,73 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header
-        totalSeats={totalSeats}
-        leadingParty={leadingParty}
-        hasMajority={hasMajority}
-        onReset={handleReset}
-      />
+      <Header />
 
       <main className="max-w-7xl mx-auto px-4 py-6">
-        {/* Alliance / Gathabandan panel - Only for simulation */}
+        {/* Simulator status bar: leading party + majority + reset */}
+        {selectedYear === 2026 && (
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-4 bg-surface rounded-lg border border-neutral px-4 py-3">
+            <div className="flex items-center gap-6">
+              {leadingParty && (
+                <div>
+                  <p className="section-label">Leading</p>
+                  <p className={`text-lg font-bold ${partyColors[leadingParty] || 'text-foreground'}`}>
+                    {formatPartyLabel(leadingParty)}
+                  </p>
+                  <p className="text-sm font-mono text-muted">
+                    {totalSeats[leadingParty]} seats
+                  </p>
+                </div>
+              )}
+              <div className="flex items-center gap-2">
+                <Target
+                  className={`w-5 h-5 ${hasMajority ? 'text-green-500' : 'text-muted'}`}
+                />
+                <span className={`text-sm font-medium ${hasMajority ? 'text-green-500' : 'text-muted'}`}>
+                  {hasMajority ? t('simulator.majority') : t('simulator.hung')}
+                </span>
+              </div>
+            </div>
+            <button
+              onClick={handleReset}
+              className="flex items-center gap-2 px-4 py-2 bg-neutral/50 hover:bg-neutral rounded-lg text-muted hover:text-foreground transition-colors text-sm font-medium"
+            >
+              <RotateCcw className="w-4 h-4" />
+              Reset
+            </button>
+          </div>
+        )}
+
+        {/* Alliance / Gathabandan panel */}
         {selectedYear === 2026 && (
           <div className="mb-6">
-            <div className="bg-surface rounded-xl p-4 border border-neutral flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <div className="bg-surface rounded-lg p-4 border border-neutral flex flex-col md:flex-row md:items-center md:justify-between gap-3">
               <div>
-                <p className="text-xs text-gray-500 font-mono uppercase tracking-wider">
+                <p className="section-label">
                   {t('simulator.gathabandan')}
                 </p>
                 {activeAlliance ? (
-                  <div className="flex flex-wrap items-center gap-3 mt-1 text-gray-200">
+                  <div className="flex flex-wrap items-center gap-3 mt-1 text-foreground">
                     <div className="flex items-center gap-2">
                       <span className="font-semibold" style={{ color: PARTIES[allyA]?.color }}>
                         {PARTIES[allyA]?.short || allyA}
                       </span>
-                      <span className="text-gray-500">+</span>
+                      <span className="text-muted">+</span>
                       <span className="font-semibold" style={{ color: PARTIES[allyB]?.color }}>
                         {PARTIES[allyB]?.short || allyB}
                       </span>
                     </div>
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-muted">
                       Handicap {allianceConfig.handicap}% • {100 - allianceConfig.handicap}% transfer efficiency
                     </span>
                     {compatibility && (
-                      <span className="text-xs text-gray-400">
+                      <span className="text-xs text-muted">
                         Compatibility score: {compatibility.score.toFixed(1)}/100
                       </span>
                     )}
                   </div>
                 ) : (
-                  <p className="text-sm text-gray-400 mt-1">
+                  <p className="text-sm text-muted mt-1">
                     No alliance active. Pair two parties to pool constituency votes with a handicap.
                   </p>
                 )}
@@ -273,7 +296,7 @@ export default function HomePage() {
                 {activeAlliance && (
                   <button
                     onClick={clearAlliance}
-                    className="px-3 py-2 rounded-lg text-sm border border-neutral text-gray-200 hover:bg-neutral/70 transition-colors"
+                    className="px-3 py-2 rounded-lg text-sm border border-neutral text-foreground hover:bg-neutral/50 transition-colors"
                   >
                     Disable
                   </button>
@@ -289,7 +312,7 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* Nepal Map - Moved to top for easy visibility */}
+        {/* Nepal Map */}
         <div className="mb-6">
           <YearSelector selectedYear={selectedYear} onYearChange={setSelectedYear} />
           <NepalMap
@@ -301,18 +324,17 @@ export default function HomePage() {
           />
         </div>
 
-        {/* Top Row - FPTP and PR Sliders Side by Side with Lock Toggle */}
+        {/* FPTP and PR Sliders */}
         {selectedYear === 2026 && (
           <>
             <div className="mb-6">
-              {/* Lock toggle button - centered above sliders */}
               <div className="flex justify-center mb-3">
                 <button
                   onClick={() => setSlidersLocked(!slidersLocked)}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
                     slidersLocked
-                      ? 'border-amber-400 bg-amber-500/20 text-amber-300'
-                      : 'border-neutral text-gray-400 hover:border-gray-500 hover:text-gray-300'
+                      ? 'border-amber-400 bg-amber-500/20 text-amber-600 dark:text-amber-300'
+                      : 'border-neutral text-muted hover:border-foreground/30 hover:text-foreground'
                   }`}
                   title={slidersLocked ? 'Unlock sliders (FPTP and PR move independently)' : 'Lock sliders (FPTP and PR move together)'}
                 >
@@ -367,7 +389,7 @@ export default function HomePage() {
           </>
         )}
 
-        {/* Middle Row - Summary Charts - Only for simulation */}
+        {/* Summary Charts */}
         {selectedYear === 2026 && (
           <>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
@@ -393,20 +415,19 @@ export default function HomePage() {
           </>
         )}
 
-        {/* Main Content - Constituency Table/Map and Results */}
+        {/* Constituency Table/Map and Results */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           <div className="lg:col-span-3">
-            {/* View Toggle - Only show for simulation */}
             {selectedYear === 2026 && (
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-white">Constituencies</h2>
+                <h2 className="text-lg font-semibold text-foreground">Constituencies</h2>
                 <div className="flex items-center gap-1 bg-neutral/50 rounded-lg p-1">
                   <button
                     onClick={() => setViewMode('table')}
                     className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
                       viewMode === 'table'
-                        ? 'bg-surface text-white'
-                        : 'text-gray-400 hover:text-white'
+                        ? 'bg-surface text-foreground'
+                        : 'text-muted hover:text-foreground'
                     }`}
                   >
                     <Table className="w-4 h-4" />
@@ -416,8 +437,8 @@ export default function HomePage() {
                     onClick={() => setViewMode('map')}
                     className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
                       viewMode === 'map'
-                        ? 'bg-surface text-white'
-                        : 'text-gray-400 hover:text-white'
+                        ? 'bg-surface text-foreground'
+                        : 'text-muted hover:text-foreground'
                     }`}
                   >
                     <Map className="w-4 h-4" />
@@ -427,20 +448,13 @@ export default function HomePage() {
               </div>
             )}
 
-            {/* Table or Map View */}
-            {selectedYear === 2026 && viewMode === 'table' ? (
+            {selectedYear === 2026 && viewMode === 'table' && (
               <ConstituencyTable
                 fptpResults={fptpResults}
                 overrides={overrides}
                 onSelectConstituency={selectConstituency}
               />
-            ) : selectedYear === 2026 ? (
-              <ConstituencyMap
-                onSelectConstituency={selectConstituency}
-                selectedConstituencyId={selectedConstituency?.id}
-                fptpResults={fptpResults}
-              />
-            ) : null}
+            )}
           </div>
 
           <div className="lg:col-span-1">
@@ -455,48 +469,33 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Override indicator - Only for simulation */}
+        {/* Override indicator */}
         {selectedYear === 2026 && Object.keys(overrides).length > 0 && (
           <div className="mt-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span className="text-amber-400 text-2xl">⚡</span>
+              <span className="text-amber-500 text-2xl">⚡</span>
               <div>
-                <p className="text-amber-400 font-medium">
+                <p className="text-amber-600 dark:text-amber-400 font-medium">
                   {Object.keys(overrides).length} constituency{Object.keys(overrides).length > 1 ? 'ies' : ''} manually overridden
                 </p>
-                <p className="text-amber-400/60 text-sm">
+                <p className="text-amber-600/60 dark:text-amber-400/60 text-sm">
                   These seats are detached from global slider adjustments
                 </p>
               </div>
             </div>
             <button
               onClick={clearAllOverrides}
-              className="px-4 py-2 bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 rounded-lg text-sm font-medium transition-colors"
+              className="px-4 py-2 bg-amber-500/20 hover:bg-amber-500/30 text-amber-600 dark:text-amber-400 rounded-lg text-sm font-medium transition-colors"
             >
               Clear All Overrides
             </button>
           </div>
         )}
-
-        {/* Footer */}
-        <footer className="mt-12 pt-6 border-t border-neutral">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
-            <div>
-              <p className="font-mono">
-                {selectedYear === 2026 ? 'Nepal Election Simulator' : `Nepal Election ${selectedYear}`}
-              </p>
-              <p className="text-xs mt-1">
-                {selectedYear === 2026
-                  ? 'Based on 2022 General Election baseline data • 165 FPTP + 110 PR seats'
-                  : `Historical election data • 165 FPTP + 110 PR seats`
-                }
-              </p>
-            </div>
-          </div>
-        </footer>
       </main>
 
-      {/* Seat Override Drawer - Only for simulation */}
+      <Footer />
+
+      {/* Seat Override Drawer */}
       {selectedYear === 2026 && (
         <SeatDrawer
           constituency={selectedConstituency}
@@ -507,7 +506,7 @@ export default function HomePage() {
         />
       )}
 
-      {/* Alliance Modal - Only for simulation */}
+      {/* Alliance Modal */}
       <AllianceModal
         isOpen={isAllianceModalOpen}
         onClose={() => setAllianceModalOpen(false)}

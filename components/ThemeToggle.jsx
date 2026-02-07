@@ -11,17 +11,14 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggleTheme}
-      className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-neutral bg-surface/60 hover:bg-surface transition-colors"
-      aria-label="Toggle light and dark mode"
+      className="p-2 rounded-lg hover:bg-neutral/50 transition-colors text-muted hover:text-foreground"
+      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
     >
       {isDark ? (
-        <Sun className="w-4 h-4 text-amber-400" />
+        <Sun className="w-4 h-4" />
       ) : (
-        <Moon className="w-4 h-4 text-blue-500" />
+        <Moon className="w-4 h-4" />
       )}
-      <span className="text-sm font-medium text-foreground">
-        {isDark ? 'Light mode' : 'Dark mode'}
-      </span>
     </button>
   )
 }

@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --color-background: 246 243 236; /* warm newsprint */
-  --color-surface: 255 255 252;    /* card/paper */
-  --color-neutral: 219 211 196;    /* borders + dividers */
-  --color-foreground: 24 26 36;    /* primary text */
-  --color-muted: 102 110 125;      /* secondary text */
-  --accent-primary: #c03028;       /* brick red accent */
-  --accent-secondary: #1f3c88;     /* deep navy accent */
+  --color-background: 250 249 246; /* warm ivory #FAF9F6 */
+  --color-surface: 255 255 255;    /* crisp white #FFFFFF */
+  --color-neutral: 219 211 196;    /* warm borders + dividers */
+  --color-foreground: 24 26 36;    /* deep text */
+  --color-muted: 100 110 130;      /* secondary text */
+  --accent-primary: #B91C1C;       /* deep crimson — Nepal flag red */
+  --accent-secondary: #1E3A5F;     /* slate-navy */
   --nc: #22c55e;
   --uml: #ef4444;
   --maoist: #991b1b;
@@ -25,11 +25,13 @@
 }
 
 [data-theme='dark'] {
-  --color-background: 10 14 23;
-  --color-surface: 17 24 39;
-  --color-neutral: 30 41 59;
-  --color-foreground: 226 232 240;
-  --color-muted: 148 163 184;
+  --color-background: 20 20 24;    /* warm charcoal #141418 */
+  --color-surface: 30 30 36;       /* warm dark surface #1E1E24 */
+  --color-neutral: 50 50 60;       /* soft borders */
+  --color-foreground: 226 232 240; /* light text */
+  --color-muted: 148 163 184;      /* muted text */
+  --accent-primary: #DC2626;       /* brighter red for dark */
+  --accent-secondary: #3B82F6;     /* brighter blue for dark */
   color-scheme: dark;
 }
 
@@ -40,17 +42,18 @@
 }
 
 body {
-  font-family: 'Sora', sans-serif;
+  font-family: 'Figtree', sans-serif;
   background-color: rgb(var(--color-background));
   color: rgb(var(--color-foreground));
   min-height: 100vh;
   position: relative;
   line-height: 1.7;
   letter-spacing: 0.01em;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6, .font-display {
-  font-family: 'Newsreader', serif;
+  font-family: 'Lora', serif;
   letter-spacing: -0.01em;
 }
 
@@ -63,7 +66,7 @@ body::before {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  opacity: 0.04;
+  opacity: 0.03;
   z-index: 1000;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 }
@@ -74,32 +77,59 @@ body::after {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.35), rgba(255,255,255,0));
+  background: linear-gradient(to bottom, rgba(255,255,255,0.25), rgba(255,255,255,0));
   z-index: 0;
+}
+
+[data-theme='dark'] body::after {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0));
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgb(var(--color-surface));
+  background: rgb(var(--color-background));
 }
 
 ::-webkit-scrollbar-thumb {
   background: rgb(var(--color-neutral));
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(var(--color-neutral));
+  background: rgb(var(--color-muted));
+}
+
+/* Smooth theme transitions on key elements */
+.bg-surface,
+.bg-background,
+.bg-neutral {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Data font utility */
 .font-data {
   font-family: 'JetBrains Mono', monospace;
+}
+
+/* Editorial utilities */
+.editorial-divider {
+  border: none;
+  border-top: 1px solid rgb(var(--color-neutral));
+  margin: 1.5rem 0;
+}
+
+.section-label {
+  font-family: 'Figtree', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgb(var(--color-muted));
 }
 
 /* Hex styling */
@@ -260,17 +290,3 @@ input[type="range"].slider-others::-webkit-slider-thumb { background: var(--othe
 .glow-lsp { box-shadow: 0 0 20px rgba(168, 85, 247, 0.25); }
 .glow-nup { box-shadow: 0 0 20px rgba(6, 182, 212, 0.25); }
 .glow-others { box-shadow: 0 0 20px rgba(245, 158, 11, 0.25); }
-
-/* Light mode overrides for tailwind text helpers */
-[data-theme='light'] .text-white,
-[data-theme='light'] .text-gray-100,
-[data-theme='light'] .text-gray-200,
-[data-theme='light'] .text-gray-300 {
-  color: rgb(var(--color-foreground));
-}
-
-[data-theme='light'] .text-gray-400,
-[data-theme='light'] .text-gray-500,
-[data-theme='light'] .text-gray-600 {
-  color: rgb(51 65 85);
-}
