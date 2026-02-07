@@ -592,52 +592,6 @@ export default function NepalMap({
               }`}
             />
 
-            {hoveredConstituency && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="fixed z-[1000] pointer-events-none"
-                style={{
-                  left: tooltipPos.x + 15,
-                  top: tooltipPos.y - 10,
-                }}
-              >
-                <div className="bg-white/95 backdrop-blur border border-gray-300 rounded-lg shadow-xl p-4 min-w-[220px]">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div
-                      className="w-4 h-4 rounded-full"
-                      style={{
-                        backgroundColor: PARTIES[getHoveredWinner(hoveredConstituency)]?.color || '#9ca3af',
-                      }}
-                    />
-                    <span className="font-semibold text-gray-900">
-                      {hoveredConstituency.name}
-                    </span>
-                  </div>
-
-                  <div className="text-sm text-gray-600 mb-2">
-                    {PROVINCES[hoveredConstituency.province]?.name}
-                  </div>
-
-                  <div className="text-xs text-gray-500 mb-2">
-                    Total Votes: {hoveredConstituency.totalVotes?.toLocaleString()}
-                  </div>
-
-                  <div className="border-t pt-2 mt-2">
-                    <p className="text-xs font-medium mb-2 text-gray-700">Results</p>
-                    <div className="flex justify-between text-xs mb-1">
-                      <span style={{ color: PARTIES[getHoveredWinner(hoveredConstituency)]?.color }}>
-                        {PARTIES[getHoveredWinner(hoveredConstituency)]?.short || getHoveredWinner(hoveredConstituency)}
-                      </span>
-                      <span className="text-gray-600">
-                        Winner ({(getWinnerPercentage(hoveredConstituency) * 100).toFixed(1)}%)
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
             <AnimatePresence>
               {selectedConstituencyDetail && (
                   <motion.div

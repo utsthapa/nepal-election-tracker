@@ -12,9 +12,9 @@ import { MajorityBar } from '../components/MajorityBar';
 import { CoalitionBuilder } from '../components/CoalitionBuilder';
 import { ResultsSummary } from '../components/ResultsSummary';
 import { AllianceModal } from '../components/AllianceModal';
+import { WelcomeModal } from '../components/WelcomeModal';
 import { BayesianControlPanel } from '../components/BayesianControlPanel';
 import { SwitchingMatrix } from '../components/SwitchingMatrix';
-import { FeatureTour } from '../components/FeatureTour';
 import YearSelector from '../components/YearSelector';
 import { PARTIES } from '../data/constituencies';
 import { IDEOLOGY_COORDS } from '../data/partyMeta';
@@ -87,6 +87,12 @@ export default function HomePage() {
   } = useElectionState();
 
   const [isAllianceModalOpen, setAllianceModalOpen] = useState(false);
+  const [isWelcomeModalOpen, setWelcomeModalOpen] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return !localStorage.getItem('hasSeenWelcomeModal');
+    }
+    return true;
+  });
   const [viewMode, setViewMode] = useState('map'); // 'table' or 'map' - for ConstituencyTable
   const [nepalMapMode, setNepalMapMode] = useState('map'); // 'map' or 'table' - for NepalMap
   const [selectedYear, setSelectedYear] = useState(2026); // Selected election year
@@ -510,7 +516,11 @@ export default function HomePage() {
         onClear={clearAlliance}
       />
 
-      <FeatureTour />
+      {/* Welcome Modal */}
+      <WelcomeModal
+        isOpen={isWelcomeModalOpen}
+        onClose={() => setWelcomeModalOpen(false)}
+      />
     </div>
   );
 }

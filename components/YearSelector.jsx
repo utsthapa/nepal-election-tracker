@@ -4,7 +4,7 @@ import { ELECTIONS, getElectionYears } from '../data/historicalElections';
 import { Clock, TrendingUp } from 'lucide-react';
 
 export default function YearSelector({ selectedYear, onYearChange }) {
-  const years = [...getElectionYears().sort((a, b) => b - a), 2026];
+  const years = [2026, ...getElectionYears().sort((a, b) => b - a)];
   
   return (
     <div className="flex flex-wrap items-center gap-2 mb-4">

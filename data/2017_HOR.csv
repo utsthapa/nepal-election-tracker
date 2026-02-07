@@ -1,0 +1,7 @@
+Total candidates: 5
+,Age,PartyID,SymbolID,SymbolName,CandidateID,StateName,PoliticalPartyName,ElectionPost,DistrictCd,DistrictName,State,SCConstID,CenterConstID,SerialNo,TotalVoteReceived,CastedVote,TotalVoters,Rank,Remarks
+Prakash Man Singh,,,0,,,,P3-Kathmandu-11,Bagmati Province,Nepali Congress,1,5,Kathmandu District,3,P3-Kathmandu-1,P3-Kathmandu-1,1,7143,,,1,Elected
+Rabindra Mishra,,,1,,,,P3-Kathmandu-12,Bagmati Province,CPN (UML),1,5,Kathmandu District,3,P3-Kathmandu-1,P3-Kathmandu-1,2,7058,,,2,
+Krishna Bhakta Pokharel,,,1,,,,P4-Chitwan-21,Bagmati Province,CPN (UML),1,4,Chitwan District,3,P4-Chitwan-2,P4-Chitwan-2,1,44670,,,1,Elected
+Shesh Nath Adhikari,,,0,,,,P4-Chitwan-22,Bagmati Province,Nepali Congress,1,4,Chitwan District,3,P4-Chitwan-2,P4-Chitwan-2,2,27314,,,2,
+Bhupendra Raj Basnet,,,9,,,,P4-Chitwan-23,Bagmati Province,Bibeksheel Sajha Party,1,4,Chitwan District,3,P4-Chitwan-2,P4-Chitwan-2,3,1245,,,3,

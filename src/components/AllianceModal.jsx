@@ -51,7 +51,7 @@ export function AllianceModal({ isOpen, onClose, allianceConfig, onSave, onClear
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-            className="fixed inset-0 z-[1002] flex items-center justify-center px-4 py-6"
+            className="fixed inset-0 z-[1002] flex items-center justify-center"
           >
             <div
               className="bg-surface border border-neutral rounded-xl shadow-2xl max-w-xl w-full p-6 relative"
