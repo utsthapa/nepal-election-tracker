@@ -32,6 +32,12 @@ export function SimpleHeader() {
                 Home
               </Link>
               <Link
+                href="/nepal-map"
+                className="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-neutral/60 rounded-lg transition-colors"
+              >
+                Map
+              </Link>
+              <Link
                 href="/simulator"
                 className="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-neutral/60 rounded-lg transition-colors"
               >

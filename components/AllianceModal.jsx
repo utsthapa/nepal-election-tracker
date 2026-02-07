@@ -42,7 +42,7 @@ export function AllianceModal({ isOpen, onClose, allianceConfig, onSave, onClear
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.9 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/70 z-40"
+            className="fixed inset-0 bg-black/70 z-[1001]"
             onClick={onClose}
           />
 
@@ -51,7 +51,7 @@ export function AllianceModal({ isOpen, onClose, allianceConfig, onSave, onClear
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-            className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6"
+            className="fixed inset-0 z-[1002] flex items-center justify-center px-4 py-6"
           >
             <div
               className="bg-surface border border-neutral rounded-xl shadow-2xl max-w-xl w-full p-6 relative"

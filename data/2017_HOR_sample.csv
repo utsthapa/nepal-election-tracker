@@ -1,0 +1,5 @@
+CandidateName,Gender,Age,PartyID,SymbolID,SymbolName,CandidateID,StateName,PoliticalPartyName,ElectionPost,DistrictCd,DistrictName,State,SCConstID,CenterConstID,SerialNo,TotalVoteReceived,CastedVote,TotalVoters,Rank,Remarks,Samudaya,DOB,CTZDIST,FATHER_NAME,SPOUCE_NAME,QUALIFICATION,EXPERIENCE,OTHERDETAILS,NAMEOFINST,ADDRESS
+शेर प्रसाद ओली,पुरुष,1,2,सूर्य,384009,प्रदेश १,Khadga Prasad Oli,UML,1,1,ताप्लेजुङा,1,Jhapa,1,1,1,43450,0,0,0,1,Elected,1973.02.18,ताप्लेजुङा,माथन कुमार बहादुर ओली,Bachelor,0,0,,त्रिभुवन विश्वविद्याल काठमाण्डौं गोरखा,
+शेर बहादुर देउाँर,पुरुष,0,22,वृक्ष,384005,प्रदेश १,Sher Bahadur Deuba,NC,0,1,1,Bhaktapur,1,1,1,31287,0,0,0,1,Elected,1966.03.06,सुन्सरी,सुन्सरी,Bachelor,0,0,0,0,,पोखर,भक्तपुर
+शेर बहादुर देउाँर,महिला,0,1,सूर्य,384003,प्रदेश १,शेर बहादुर देउाँर,NC,0,1,1,Bhaktapur,1,1,1,28946,0,0,0,2,,सुन्सरी,सुन्सरी,Master,0,0,0,0,,पोखर,भक्तपुर
+पुष्ण राज खान,महिला,0,1,मंगिर,384002,प्रदेश १,पुष्ण राज खान,UML,1,1,1,Chitwan,2,1,1,18523,0,0,0,3,,,त्रिभुवन विश्वविद्याल काठमाण्डौं गोरखा,Master,0,0,0,0,,पोखर,भक्तपुर

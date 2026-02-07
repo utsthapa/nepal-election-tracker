@@ -59,6 +59,12 @@ export function Header({ totalSeats, leadingParty, hasMajority, onReset }) {
             >
               {t('nav.simulator')}
             </Link>
+            <Link
+              href="/about"
+              className="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-neutral/60 rounded-lg transition-colors"
+            >
+              {t('nav.about')}
+            </Link>
           </nav>
 
           <div className="flex items-center gap-6">

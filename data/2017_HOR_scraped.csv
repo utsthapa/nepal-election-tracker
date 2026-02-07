@@ -1,0 +1,10 @@
+CandidateName,Gender,Age,PartyID,SymbolID,SymbolName,CandidateID,StateName,PoliticalPartyName,ElectionPost,DistrictCd,DistrictName,State,SCConstID,CenterConstID,SerialNo,TotalVoteReceived,CastedVote,TotalVoters,Rank,Remarks
+K.P. Sharma Oli,,,1,,,Jhapa_51,Koshi Province,CPN (UML),1,1,Jhapa District,1,5,5,1,43515,,,1,Elected
+Khagendra Adhikari,,,0,,,Jhapa_52,Koshi Province,Nepali Congress,1,1,Jhapa District,1,5,5,2,26822,,,2,
+Satya Dev Prasad,,,4,,,Jhapa_53,Koshi Province,"Federal Socialist Forum, Nepal",1,1,Jhapa District,1,5,5,3,1915,,,3,
+Gyan Bahadur Imbung Limbu,,,5,,,Jhapa_54,Koshi Province,Sanghiya Loktantrik Rastriya Manch,1,1,Jhapa District,1,5,5,4,1380,,,4,
+Krishna Bhakta Pokharel,,,1,,,Chitwan_21,Bagmati Province,CPN (UML),1,4,Chitwan District,3,2,2,1,44670,,,1,Elected
+Shesh Nath Adhikari,,,0,,,Chitwan_22,Bagmati Province,Nepali Congress,1,4,Chitwan District,3,2,2,2,27314,,,2,
+Bhupendra Raj Basnet,,,9,,,Chitwan_23,Bagmati Province,Bibeksheel Sajha Party,1,4,Chitwan District,3,2,2,3,1245,,,3,
+Prakash Man Singh,,,0,,,Kathmandu_11,Bagmati Province,Nepali Congress,1,5,Kathmandu District,3,1,1,1,7143,,,1,Elected
+Rabindra Mishra,,,1,,,Kathmandu_12,Bagmati Province,CPN (UML),1,5,Kathmandu District,3,1,1,2,7058,,,2,

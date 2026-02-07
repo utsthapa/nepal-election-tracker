@@ -14,11 +14,14 @@ import { ResultsSummary } from '../components/ResultsSummary';
 import { AllianceModal } from '../components/AllianceModal';
 import { BayesianControlPanel } from '../components/BayesianControlPanel';
 import { SwitchingMatrix } from '../components/SwitchingMatrix';
+import { FeatureTour } from '../components/FeatureTour';
+import YearSelector from '../components/YearSelector';
 import { PARTIES } from '../data/constituencies';
 import { IDEOLOGY_COORDS } from '../data/partyMeta';
 import { BY_ELECTION_SIGNALS } from '../data/proxySignals';
 import { useLanguage } from '../context/LanguageContext';
 import { Map, Table, Lock, Unlock } from 'lucide-react';
+import NepalMap from '../components/NepalMap';
 
 // Dynamically import map component with no SSR
 const ConstituencyMap = dynamic(
@@ -84,7 +87,9 @@ export default function HomePage() {
   } = useElectionState();
 
   const [isAllianceModalOpen, setAllianceModalOpen] = useState(false);
-  const [viewMode, setViewMode] = useState('map'); // 'table' or 'map'
+  const [viewMode, setViewMode] = useState('map'); // 'table' or 'map' - for ConstituencyTable
+  const [nepalMapMode, setNepalMapMode] = useState('map'); // 'map' or 'table' - for NepalMap
+  const [selectedYear, setSelectedYear] = useState(2026); // Selected election year
   const [rspStartingPoint, setRspStartingPoint] = useState(false); // RSP starting point toggle
   const [selectedParty, setSelectedParty] = useState('RSP'); // Party to apply starting point adjustment to
 
@@ -223,203 +228,229 @@ export default function HomePage() {
       />
 
       <main className="max-w-7xl mx-auto px-4 py-6">
-        {/* Alliance / Gathabandan panel */}
-        <div className="mb-6">
-          <div className="bg-surface rounded-xl p-4 border border-neutral flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-            <div>
-              <p className="text-xs text-gray-500 font-mono uppercase tracking-wider">
-                {t('simulator.gathabandan')}
-              </p>
-              {activeAlliance ? (
-                <div className="flex flex-wrap items-center gap-3 mt-1 text-gray-200">
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold" style={{ color: PARTIES[allyA]?.color }}>
-                      {PARTIES[allyA]?.short || allyA}
-                    </span>
-                    <span className="text-gray-500">+</span>
-                    <span className="font-semibold" style={{ color: PARTIES[allyB]?.color }}>
-                      {PARTIES[allyB]?.short || allyB}
-                    </span>
-                  </div>
-                  <span className="text-xs text-gray-400">
-                    Handicap {allianceConfig.handicap}% • {100 - allianceConfig.handicap}% transfer efficiency
-                  </span>
-                  {compatibility && (
-                    <span className="text-xs text-gray-400">
-                      Compatibility score: {compatibility.score.toFixed(1)}/100
-                    </span>
-                  )}
-                </div>
-              ) : (
-                <p className="text-sm text-gray-400 mt-1">
-                  No alliance active. Pair two parties to pool constituency votes with a handicap.
+        {/* Alliance / Gathabandan panel - Only for simulation */}
+        {selectedYear === 2026 && (
+          <div className="mb-6">
+            <div className="bg-surface rounded-xl p-4 border border-neutral flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+              <div>
+                <p className="text-xs text-gray-500 font-mono uppercase tracking-wider">
+                  {t('simulator.gathabandan')}
                 </p>
-              )}
-            </div>
+                {activeAlliance ? (
+                  <div className="flex flex-wrap items-center gap-3 mt-1 text-gray-200">
+                    <div className="flex items-center gap-2">
+                      <span className="font-semibold" style={{ color: PARTIES[allyA]?.color }}>
+                        {PARTIES[allyA]?.short || allyA}
+                      </span>
+                      <span className="text-gray-500">+</span>
+                      <span className="font-semibold" style={{ color: PARTIES[allyB]?.color }}>
+                        {PARTIES[allyB]?.short || allyB}
+                      </span>
+                    </div>
+                    <span className="text-xs text-gray-400">
+                      Handicap {allianceConfig.handicap}% • {100 - allianceConfig.handicap}% transfer efficiency
+                    </span>
+                    {compatibility && (
+                      <span className="text-xs text-gray-400">
+                        Compatibility score: {compatibility.score.toFixed(1)}/100
+                      </span>
+                    )}
+                  </div>
+                ) : (
+                  <p className="text-sm text-gray-400 mt-1">
+                    No alliance active. Pair two parties to pool constituency votes with a handicap.
+                  </p>
+                )}
+              </div>
 
-            <div className="flex items-center gap-2">
-              {activeAlliance && (
+              <div className="flex items-center gap-2">
+                {activeAlliance && (
+                  <button
+                    onClick={clearAlliance}
+                    className="px-3 py-2 rounded-lg text-sm border border-neutral text-gray-200 hover:bg-neutral/70 transition-colors"
+                  >
+                    Disable
+                  </button>
+                )}
                 <button
-                  onClick={clearAlliance}
-                  className="px-3 py-2 rounded-lg text-sm border border-neutral text-gray-200 hover:bg-neutral/70 transition-colors"
+                  onClick={() => setAllianceModalOpen(true)}
+                  className="px-4 py-2 rounded-lg text-sm font-medium bg-gradient-to-r from-nc to-rsp text-white hover:opacity-90 transition-opacity"
                 >
-                  Disable
+                  Configure
                 </button>
-              )}
-              <button
-                onClick={() => setAllianceModalOpen(true)}
-                className="px-4 py-2 rounded-lg text-sm font-medium bg-gradient-to-r from-nc to-rsp text-white hover:opacity-90 transition-opacity"
-              >
-                Configure
-              </button>
+              </div>
             </div>
           </div>
+        )}
+
+        {/* Nepal Map - Moved to top for easy visibility */}
+        <div className="mb-6">
+          <YearSelector selectedYear={selectedYear} onYearChange={setSelectedYear} />
+          <NepalMap
+            fptpResults={selectedYear === 2026 ? fptpResults : null}
+            onSelectConstituency={selectConstituency}
+            viewMode={nepalMapMode}
+            onViewModeChange={setNepalMapMode}
+            year={selectedYear}
+          />
         </div>
 
         {/* Top Row - FPTP and PR Sliders Side by Side with Lock Toggle */}
-        <div className="mb-6">
-          {/* Lock toggle button - centered above sliders */}
-          <div className="flex justify-center mb-3">
-            <button
-              onClick={() => setSlidersLocked(!slidersLocked)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
-                slidersLocked
-                  ? 'border-amber-400 bg-amber-500/20 text-amber-300'
-                  : 'border-neutral text-gray-400 hover:border-gray-500 hover:text-gray-300'
-              }`}
-              title={slidersLocked ? 'Unlock sliders (FPTP and PR move independently)' : 'Lock sliders (FPTP and PR move together)'}
-            >
-              {slidersLocked ? <Lock className="w-4 h-4" /> : <Unlock className="w-4 h-4" />}
-              {slidersLocked ? 'Sliders Locked' : 'Sliders Unlocked'}
-            </button>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <PartySliders
-              title={t('simulator.fptp')}
-              subtitle="Affects 165 constituency seats"
-              sliders={adjustedFptpSliders}
-              fptpSeats={fptpSeats}
-              prSeats={prSeats}
-              totalSeats={totalSeats}
-              onSliderChange={updateFptpSlider}
-              showFptp={true}
-            />
+        {selectedYear === 2026 && (
+          <>
+            <div className="mb-6">
+              {/* Lock toggle button - centered above sliders */}
+              <div className="flex justify-center mb-3">
+                <button
+                  onClick={() => setSlidersLocked(!slidersLocked)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
+                    slidersLocked
+                      ? 'border-amber-400 bg-amber-500/20 text-amber-300'
+                      : 'border-neutral text-gray-400 hover:border-gray-500 hover:text-gray-300'
+                  }`}
+                  title={slidersLocked ? 'Unlock sliders (FPTP and PR move independently)' : 'Lock sliders (FPTP and PR move together)'}
+                >
+                  {slidersLocked ? <Lock className="w-4 h-4" /> : <Unlock className="w-4 h-4" />}
+                  {slidersLocked ? 'Sliders Locked' : 'Sliders Unlocked'}
+                </button>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <PartySliders
+                  title={t('simulator.fptp')}
+                  subtitle="Affects 165 constituency seats"
+                  sliders={adjustedFptpSliders}
+                  fptpSeats={fptpSeats}
+                  prSeats={prSeats}
+                  totalSeats={totalSeats}
+                  onSliderChange={updateFptpSlider}
+                  showFptp={true}
+                />
 
-            <PartySliders
-              title={t('simulator.pr')}
-              subtitle="Affects 110 proportional seats (3% threshold)"
-              sliders={adjustedPrSliders}
-              fptpSeats={fptpSeats}
-              prSeats={prSeats}
-              totalSeats={totalSeats}
-              onSliderChange={updatePrSlider}
-              showPr={true}
-            />
-          </div>
-        </div>
+                <PartySliders
+                  title={t('simulator.pr')}
+                  subtitle="Affects 110 proportional seats (3% threshold)"
+                  sliders={adjustedPrSliders}
+                  fptpSeats={fptpSeats}
+                  prSeats={prSeats}
+                  totalSeats={totalSeats}
+                  onSliderChange={updatePrSlider}
+                  showPr={true}
+                />
+              </div>
+            </div>
 
-        {/* Bayesian controls + switching matrix */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-          <div className="lg:col-span-2">
-          <BayesianControlPanel
-            onApplySimulationControls={handleApplySimulationControls}
-            onResetSimulationControls={handleResetSimulationControls}
-            rspStartingPoint={rspStartingPoint}
-            onRspStartingPointChange={setRspStartingPoint}
-            selectedParty={selectedParty}
-            onSelectedPartyChange={setSelectedParty}
-          />
-          </div>
-          <SwitchingMatrix
-            matrix={switchingMatrix}
-            onChange={updateSwitching}
-            onApply={handleApplySwitching}
-            onClear={handleClearSwitching}
-          />
-        </div>
+            {/* Bayesian controls + switching matrix */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+              <div className="lg:col-span-2">
+              <BayesianControlPanel
+                onApplySimulationControls={handleApplySimulationControls}
+                onResetSimulationControls={handleResetSimulationControls}
+                rspStartingPoint={rspStartingPoint}
+                onRspStartingPointChange={setRspStartingPoint}
+                selectedParty={selectedParty}
+                onSelectedPartyChange={setSelectedParty}
+              />
+              </div>
+              <SwitchingMatrix
+                matrix={switchingMatrix}
+                onChange={updateSwitching}
+                onApply={handleApplySwitching}
+                onClear={handleClearSwitching}
+              />
+            </div>
+          </>
+        )}
 
-        {/* Middle Row - Summary Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-          <MajorityBar
-            totalSeats={totalSeats}
-            leadingParty={leadingParty}
-          />
+        {/* Middle Row - Summary Charts - Only for simulation */}
+        {selectedYear === 2026 && (
+          <>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+              <MajorityBar
+                totalSeats={totalSeats}
+                leadingParty={leadingParty}
+              />
 
-          <PRBlockChart
-            prSeats={prSeats}
-            nationalVoteShares={nationalVoteShares}
-            method={prMethod}
-          />
-        </div>
+              <PRBlockChart
+                prSeats={prSeats}
+                nationalVoteShares={nationalVoteShares}
+                method={prMethod}
+              />
+            </div>
 
-        {/* Coalition builder */}
-        <div className="mb-6">
-          <CoalitionBuilder
-            totalSeats={totalSeats}
-            fptpResults={fptpResults}
-          />
-        </div>
+            {/* Coalition builder */}
+            <div className="mb-6">
+              <CoalitionBuilder
+                totalSeats={totalSeats}
+                fptpResults={fptpResults}
+              />
+            </div>
+          </>
+        )}
 
         {/* Main Content - Constituency Table/Map and Results */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           <div className="lg:col-span-3">
-            {/* View Toggle */}
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-white">Constituencies</h2>
-              <div className="flex items-center gap-1 bg-neutral/50 rounded-lg p-1">
-                <button
-                  onClick={() => setViewMode('table')}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                    viewMode === 'table'
-                      ? 'bg-surface text-white'
-                      : 'text-gray-400 hover:text-white'
-                  }`}
-                >
-                  <Table className="w-4 h-4" />
-                  Table
-                </button>
-                <button
-                  onClick={() => setViewMode('map')}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                    viewMode === 'map'
-                      ? 'bg-surface text-white'
-                      : 'text-gray-400 hover:text-white'
-                  }`}
-                >
-                  <Map className="w-4 h-4" />
-                  Map
-                </button>
+            {/* View Toggle - Only show for simulation */}
+            {selectedYear === 2026 && (
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold text-white">Constituencies</h2>
+                <div className="flex items-center gap-1 bg-neutral/50 rounded-lg p-1">
+                  <button
+                    onClick={() => setViewMode('table')}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                      viewMode === 'table'
+                        ? 'bg-surface text-white'
+                        : 'text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    <Table className="w-4 h-4" />
+                    Table
+                  </button>
+                  <button
+                    onClick={() => setViewMode('map')}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
+                      viewMode === 'map'
+                        ? 'bg-surface text-white'
+                        : 'text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    <Map className="w-4 h-4" />
+                    Map
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Table or Map View */}
-            {viewMode === 'table' ? (
+            {selectedYear === 2026 && viewMode === 'table' ? (
               <ConstituencyTable
                 fptpResults={fptpResults}
                 overrides={overrides}
                 onSelectConstituency={selectConstituency}
               />
-            ) : (
+            ) : selectedYear === 2026 ? (
               <ConstituencyMap
                 onSelectConstituency={selectConstituency}
                 selectedConstituencyId={selectedConstituency?.id}
                 fptpResults={fptpResults}
               />
-            )}
+            ) : null}
           </div>
 
           <div className="lg:col-span-1">
-            <ResultsSummary
-              fptpSeats={fptpSeats}
-              prSeats={prSeats}
-              totalSeats={totalSeats}
-              seatIntervals={seatIntervals}
-            />
+            {selectedYear === 2026 && (
+              <ResultsSummary
+                fptpSeats={fptpSeats}
+                prSeats={prSeats}
+                totalSeats={totalSeats}
+                seatIntervals={seatIntervals}
+              />
+            )}
           </div>
         </div>
 
-        {/* Override indicator */}
-        {Object.keys(overrides).length > 0 && (
+        {/* Override indicator - Only for simulation */}
+        {selectedYear === 2026 && Object.keys(overrides).length > 0 && (
           <div className="mt-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg flex items-center justify-between">
             <div className="flex items-center gap-3">
               <span className="text-amber-400 text-2xl">⚡</span>
@@ -445,24 +476,32 @@ export default function HomePage() {
         <footer className="mt-12 pt-6 border-t border-neutral">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
             <div>
-              <p className="font-mono">Nepal Election Simulator</p>
+              <p className="font-mono">
+                {selectedYear === 2026 ? 'Nepal Election Simulator' : `Nepal Election ${selectedYear}`}
+              </p>
               <p className="text-xs mt-1">
-                Based on 2022 General Election baseline data • 165 FPTP + 110 PR seats
+                {selectedYear === 2026
+                  ? 'Based on 2022 General Election baseline data • 165 FPTP + 110 PR seats'
+                  : `Historical election data • 165 FPTP + 110 PR seats`
+                }
               </p>
             </div>
           </div>
         </footer>
       </main>
 
-      {/* Seat Override Drawer */}
-      <SeatDrawer
-        constituency={selectedConstituency}
-        isOpen={!!selectedConstituency}
-        onClose={closeDrawer}
-        onOverride={overrideConstituency}
-        onClearOverride={clearOverride}
-      />
+      {/* Seat Override Drawer - Only for simulation */}
+      {selectedYear === 2026 && (
+        <SeatDrawer
+          constituency={selectedConstituency}
+          isOpen={!!selectedConstituency}
+          onClose={closeDrawer}
+          onOverride={overrideConstituency}
+          onClearOverride={clearOverride}
+        />
+      )}
 
+      {/* Alliance Modal - Only for simulation */}
       <AllianceModal
         isOpen={isAllianceModalOpen}
         onClose={() => setAllianceModalOpen(false)}
@@ -470,6 +509,8 @@ export default function HomePage() {
         onSave={setAlliance}
         onClear={clearAlliance}
       />
+
+      <FeatureTour />
     </div>
   );
 }

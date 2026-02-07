@@ -128,6 +128,24 @@ const TRANSLATIONS = {
   'about.methodology': { en: 'Methodology', ne: 'पद्धति' },
   'about.dataSources': { en: 'Data Sources', ne: 'डाटा स्रोतहरू' },
   'about.contact': { en: 'Contact', ne: 'सम्पर्क' },
+  'about.roadmap': { en: 'Future Roadmap', ne: 'भविष्यको रोडम्याप' },
+  
+  // Feature Tour
+  'tour.welcome': { en: 'Welcome to Nepal Votes', ne: 'स्वागतम्' },
+  'tour.subtitle': { en: 'Nepal\'s election simulator and analytics platform', ne: 'नेपालको चुनाव सिमुलेटर र विश्लेषण प्लेटफर्म' },
+  'tour.simulationMode': { en: 'Simulation Mode', ne: 'सिमुलेसन मोड' },
+  'tour.simulationModeDesc': { en: 'Adjust FPTP and PR vote share sliders to see real-time seat projections. Watch as 275 seats are calculated instantly based on your inputs.', ne: 'FPTP र PR मत शेयर स्लाइडरहरू समायोजन गरेर रियल-टाइम सिट प्रोजेक्सन हेर्नुहोस्। तपाईंको इनपुटको आधारमा २७५ सिटहरू तुरुन्त गणना हुन्छ।' },
+  'tour.interactiveMap': { en: 'Interactive Map', ne: 'इन्टरएक्टिभ म्याप' },
+  'tour.interactiveMapDesc': { en: 'Explore all 165 constituencies across Nepal\'s 7 provinces. Click any region to view detailed demographics, voting patterns, and election results.', ne: 'नेपालको ७ प्रदेशमा भएका सबै १६५ निर्वाचन क्षेत्रहरू अन्वेषण गर्नुहोस्। कुनै पनि क्षेत्रमा क्लिक गरेर विस्तृत जनसांख्यिकी, मतदान प्याटर्न, र निर्वाचन नतिजाहरू हेर्नुहोस्।' },
+  'tour.coalitionBuilder': { en: 'Coalition Builder', ne: 'गठबन्धन बिल्डर' },
+  'tour.coalitionBuilderDesc': { en: 'Pair parties to form alliances with configurable transfer efficiency. Test different coalition scenarios and see the impact on seat distribution.', ne: 'पार्टीहरूलाई ट्रान्सफर दक्षता कन्फिगर गरेर गठबन्धन बनाउनुहोस्। विभिन्न गठबन्धन परिदृश्यहरू परीक्षण गर्नुहोस् र सिट वितरणमा प्रभाव हेर्नुहोस्।' },
+  'tour.constituencyOverrides': { en: 'Constituency Overrides', ne: 'निर्वाचन क्षेत्र ओभरराइडहरू' },
+  'tour.constituencyOverridesDesc': { en: 'Manually override any constituency\'s winner. Useful for modeling local factors, swing regions, or incumbency effects that aren\'t captured in national data.', ne: 'कुनै पनि निर्वाचन क्षेत्रको विजेता म्यानुअली ओभरराइड गर्नुहोस्। यो स्थानीय कारकहरू, स्विङ क्षेत्रहरू, वा राष्ट्रिय डाटामा कब्जा नगरिएका इन्कम्बेन्सी प्रभावहरू मोडेलिङ गर्न उपयोगी छ।' },
+  'tour.bayesianControls': { en: 'Bayesian Controls', ne: 'Bayesian कन्ट्रोलहरू' },
+  'tour.bayesianControlsDesc': { en: 'Apply advanced simulation parameters including incumbency decay, party switching matrices, and proxy signals like by-election results.', ne: 'इन्कम्बेन्सी डिके, पार्टी स्विचिङ म्याट्रिसेस, र उप-निर्वाचन नतिजाहरू जस्ता प्रोक्सी संकेतहरू सहित उन्नत सिमुलेसन प्यारामिटरहरू लागू गर्नुहोस्।' },
+  'tour.getStarted': { en: 'Get Started', ne: 'सुरु गर्नुहोस्' },
+  'tour.skip': { en: 'Skip', ne: 'छोड्नुहोस्' },
+  'tour.dontShowAgain': { en: 'Don\'t show this again', ne: 'पुन: नदेखाउनुहोस्' },
   
   // Common
   'common.loading': { en: 'Loading...', ne: 'लोड हुँदैछ...' },
