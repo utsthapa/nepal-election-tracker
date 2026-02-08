@@ -20,10 +20,10 @@ export function ResultsSummary({ fptpSeats, prSeats, totalSeats, fptpSliders, pr
 
   return (
     <div className="bg-surface rounded-xl p-6 border border-neutral">
-      <h2 className="text-lg font-outfit font-semibold text-white mb-1">
+      <h2 className="text-lg font-sans font-semibold text-white mb-1">
         Results Summary
       </h2>
-      <p className="text-xs text-gray-500 mb-4 font-mono">
+      <p className="text-xs text-gray-800 mb-4 font-mono">
         Compared to 2022 actual results
       </p>
 
@@ -63,7 +63,7 @@ export function ResultsSummary({ fptpSeats, prSeats, totalSeats, fptpSliders, pr
               </div>
 
               <div className="flex items-center justify-between text-sm">
-                <div className="flex gap-4 text-gray-400 font-mono">
+                <div className="flex gap-4 text-gray-700 font-mono">
                   <span>FPTP: {fptp}</span>
                   <span>PR: {pr}</span>
                 </div>
@@ -73,7 +73,7 @@ export function ResultsSummary({ fptpSeats, prSeats, totalSeats, fptpSliders, pr
                   <div className={`flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium ${
                     change > 0 ? 'bg-green-500/20 text-green-400' :
                     change < 0 ? 'bg-red-500/20 text-red-400' :
-                    'bg-gray-500/20 text-gray-400'
+                    'bg-gray-500/20 text-gray-700'
                   }`}>
                     {change > 0 ? (
                       <TrendingUp className="w-3 h-3" />
@@ -94,14 +94,14 @@ export function ResultsSummary({ fptpSeats, prSeats, totalSeats, fptpSliders, pr
       {/* Total Row */}
       <div className="mt-4 pt-4 border-t border-neutral">
         <div className="flex items-center justify-between">
-          <span className="text-gray-400">Total Seats</span>
+          <span className="text-gray-700">Total Seats</span>
           <span className="text-xl font-bold font-mono text-white">
             {Object.values(totalSeats).reduce((a, b) => a + b, 0)}
           </span>
         </div>
         <div className="flex items-center justify-between mt-1 text-sm">
-          <span className="text-gray-500">FPTP + PR</span>
-          <span className="font-mono text-gray-400">
+          <span className="text-gray-800">FPTP + PR</span>
+          <span className="font-mono text-gray-700">
             {Object.values(fptpSeats).reduce((a, b) => a + b, 0)} + {Object.values(prSeats).reduce((a, b) => a + b, 0)}
           </span>
         </div>

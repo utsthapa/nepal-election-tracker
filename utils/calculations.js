@@ -129,7 +129,7 @@ export function calculateAllFPTPResults(
     if (overrides[id]) {
       adjustedVotes = applyAllianceTransfer(overrides[id], alliance);
       const winner = determineFPTPWinner(adjustedVotes);
-      results[id] = { ...constituency, adjusted: adjustedVotes, ...winner, isOverridden: true };
+      results[id] = { ...constituency, adjusted: adjustedVotes, ...winner, margin: winner.margin, isOverridden: true };
     } else if (atBaseline) {
       // Use actual 2022 results when sliders are at baseline
       adjustedVotes = applyAllianceTransfer(constituency.results2022, alliance);
@@ -137,7 +137,8 @@ export function calculateAllFPTPResults(
       results[id] = {
         ...constituency,
         adjusted: adjustedVotes,
-        ...winner,
+        winner: winner.winner,
+        margin: winner.margin,
         share: winner.share,
         isOverridden: false,
       };

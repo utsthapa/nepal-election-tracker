@@ -105,7 +105,7 @@ export function FeatureTour({ onComplete }) {
                   onClick={handleSkip}
                   className="absolute top-4 right-4 p-2 hover:bg-neutral rounded-lg transition-colors"
                 >
-                  <X className="w-5 h-5 text-gray-400" />
+                  <X className="w-5 h-5 text-gray-700" />
                 </button>
 
                 <div className="flex items-center gap-3 mb-4">
@@ -117,16 +117,16 @@ export function FeatureTour({ onComplete }) {
                     <Sparkles className="w-6 h-6 text-white" />
                   </motion.div>
                   <div>
-                    <h2 className="text-2xl font-bold text-white font-outfit">
-                      {language === 'ne' ? 'स्वागतम्' : 'Welcome to Nepal Votes'}
+                    <h2 className="text-2xl font-bold text-white font-sans">
+                      {language === 'ne' ? 'स्वागतम्' : 'Welcome to NepaliSoch'}
                     </h2>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-sm text-gray-700">
                       {language === 'ne' ? 'नेपालको चुनाव सिमुलेटर र विश्लेषण प्लेटफर्म' : 'Nepal\'s election simulator and analytics platform'}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs text-gray-500 font-mono">
+                <div className="flex items-center gap-2 text-xs text-gray-800 font-mono">
                   <span>{currentIndex + 1}</span>
                   <span>/</span>
                   <span>{features.length}</span>
@@ -164,10 +164,10 @@ export function FeatureTour({ onComplete }) {
                       )}
                     </div>
 
-                    <h3 className="text-xl font-bold text-white mt-4 mb-2 font-outfit">
+                    <h3 className="text-xl font-bold text-white mt-4 mb-2 font-sans">
                       {currentFeature.title}
                     </h3>
-                    <p className="text-gray-300 leading-relaxed">
+                    <p className="text-gray-700 leading-relaxed">
                       {currentFeature.description}
                     </p>
                   </motion.div>
@@ -196,7 +196,7 @@ export function FeatureTour({ onComplete }) {
                     onChange={(e) => setDontShowAgain(e.target.checked)}
                     className="w-4 h-4 rounded border-gray-600 text-blue-500 focus:ring-blue-500 focus:ring-offset-0 bg-neutral"
                   />
-                  <span className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">
+                  <span className="text-sm text-gray-700 group-hover:text-gray-700 transition-colors">
                     {language === 'ne' ? 'पुन: नदेखाउनुहोस्' : 'Don\'t show this again'}
                   </span>
                 </label>
@@ -204,7 +204,7 @@ export function FeatureTour({ onComplete }) {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={handleSkip}
-                    className="flex-1 px-4 py-3 rounded-lg border border-neutral text-gray-300 hover:bg-neutral/80 transition-colors font-medium"
+                    className="flex-1 px-4 py-3 rounded-lg border border-neutral text-gray-700 hover:bg-neutral/80 transition-colors font-medium"
                   >
                     {language === 'ne' ? 'छोड्नुहोस्' : 'Skip'}
                   </button>
@@ -223,13 +223,13 @@ export function FeatureTour({ onComplete }) {
                     className="p-2 hover:bg-neutral rounded-lg transition-colors"
                     disabled={currentIndex === 0}
                   >
-                    <ChevronRight className="w-5 h-5 text-gray-400 rotate-180" />
+                    <ChevronRight className="w-5 h-5 text-gray-700 rotate-180" />
                   </button>
                   <button
                     onClick={nextFeature}
                     className="p-2 hover:bg-neutral rounded-lg transition-colors"
                   >
-                    <ChevronRight className="w-5 h-5 text-gray-400" />
+                    <ChevronRight className="w-5 h-5 text-gray-700" />
                   </button>
                 </div>
               </div>

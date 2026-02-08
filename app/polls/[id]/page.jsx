@@ -7,11 +7,11 @@ export async function generateMetadata({ params }) {
   
   if (!poll) {
     return {
-      title: 'Poll Not Found | Nepal Votes',
+      title: 'Poll Not Found | NepaliSoch',
     }
   }
 
-  const title = poll.titleNe ? `${poll.titleNe} | Nepal Votes` : `${poll.title} | Nepal Votes`
+  const title = poll.titleNe ? `${poll.titleNe} | NepaliSoch` : `${poll.title} | NepaliSoch`
   
   return {
     title,

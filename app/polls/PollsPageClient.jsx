@@ -17,7 +17,7 @@ export default function PollsPageClient({ polls, trends }) {
           <h1 className="text-4xl font-bold text-white mb-2">
             {t('nav.polls')}
           </h1>
-          <p className="text-gray-400">
+          <p className="text-gray-700">
             {language === 'ne' 
               ? 'नेपाळको लागि नवीनतम सार्वजनिक राय मतदान र मतदान प्रवृत्ति'
               : 'Latest public opinion polls and polling trends for Nepal elections'
@@ -30,7 +30,7 @@ export default function PollsPageClient({ polls, trends }) {
           <div className="bg-surface border border-neutral rounded-xl p-4">
             <div className="flex items-center gap-3 mb-2">
               <BarChart3 className="w-5 h-5 text-blue-400" />
-              <span className="text-sm text-gray-500 uppercase tracking-wider">
+              <span className="text-sm text-gray-800 uppercase tracking-wider">
                 {t('content.poll')}
               </span>
             </div>
@@ -39,7 +39,7 @@ export default function PollsPageClient({ polls, trends }) {
           <div className="bg-surface border border-neutral rounded-xl p-4">
             <div className="flex items-center gap-3 mb-2">
               <Users className="w-5 h-5 text-green-400" />
-              <span className="text-sm text-gray-500 uppercase tracking-wider">
+              <span className="text-sm text-gray-800 uppercase tracking-wider">
                 {t('polls.sampleSize')}
               </span>
             </div>
@@ -50,7 +50,7 @@ export default function PollsPageClient({ polls, trends }) {
           <div className="bg-surface border border-neutral rounded-xl p-4">
             <div className="flex items-center gap-3 mb-2">
               <TrendingUp className="w-5 h-5 text-purple-400" />
-              <span className="text-sm text-gray-500 uppercase tracking-wider">
+              <span className="text-sm text-gray-800 uppercase tracking-wider">
                 {language === 'ne' ? 'औसत' : 'Average'}
               </span>
             </div>
@@ -61,7 +61,7 @@ export default function PollsPageClient({ polls, trends }) {
           <div className="bg-surface border border-neutral rounded-xl p-4">
             <div className="flex items-center gap-3 mb-2">
               <AlertCircle className="w-5 h-5 text-yellow-400" />
-              <span className="text-sm text-gray-500 uppercase tracking-wider">
+              <span className="text-sm text-gray-800 uppercase tracking-wider">
                 {t('polls.marginError')}
               </span>
             </div>
@@ -88,7 +88,7 @@ export default function PollsPageClient({ polls, trends }) {
                         className="w-3 h-3 rounded-full"
                         style={{ backgroundColor: partyInfo?.color || '#6b7280' }}
                       />
-                      <span className="text-xs font-medium text-gray-400">
+                      <span className="text-xs font-medium text-gray-700">
                         {partyInfo?.short || party}
                       </span>
                     </div>
@@ -121,22 +121,22 @@ export default function PollsPageClient({ polls, trends }) {
                       <span className="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs font-medium">
                         {poll.rating}
                       </span>
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-gray-800">
                         {format(new Date(poll.date), 'MMMM d, yyyy')}
                       </span>
                     </div>
                     <h3 className="text-xl font-bold text-white mb-2">
                       {title}
                     </h3>
-                    <p className="text-sm text-gray-400 mb-2">
+                    <p className="text-sm text-gray-700 mb-2">
                       {pollster}
                     </p>
                   </div>
                   <div className="text-right">
-                    <div className="text-xs text-gray-500 mb-1">
+                    <div className="text-xs text-gray-800 mb-1">
                       {t('polls.sampleSize')}: {poll.sampleSize}
                     </div>
-                    <div className="text-xs text-gray-500">
+                    <div className="text-xs text-gray-800">
                       {t('polls.marginError')}: ±{poll.marginError}%
                     </div>
                   </div>
@@ -164,11 +164,11 @@ export default function PollsPageClient({ polls, trends }) {
 
                 {/* Methodology */}
                 <div className="mt-4 pt-4 border-t border-neutral">
-                  <p className="text-xs text-gray-500 mb-2">
+                  <p className="text-xs text-gray-800 mb-2">
                     {t('polls.methodology')}: {methodology}
                   </p>
                   {notes && (
-                    <p className="text-sm text-gray-400">
+                    <p className="text-sm text-gray-700">
                       {notes}
                     </p>
                   )}
@@ -180,7 +180,7 @@ export default function PollsPageClient({ polls, trends }) {
 
         {polls.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-400">
+            <p className="text-gray-700">
               {language === 'ne' ? 'कुनै मतदान फेला परेन' : 'No polls found'}
             </p>
           </div>

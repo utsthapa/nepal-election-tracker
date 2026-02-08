@@ -28,13 +28,13 @@ export function Header({ totalSeats, leadingParty, hasMajority, onReset }) {
               animate={{ rotate: 0 }}
               className="p-2 bg-gradient-to-br from-nc/20 to-uml/20 rounded-lg"
             >
-              <Vote className="w-8 h-8 text-white" />
+              <Vote className="w-8 h-8 text-foreground" />
             </motion.div>
             <div>
-              <h1 className="text-2xl font-outfit font-bold text-white tracking-tight">
+              <h1 className="text-2xl font-sans font-bold text-foreground tracking-tight">
                 Nepal Election Simulator
               </h1>
-              <p className="text-sm text-gray-400 font-mono">
+              <p className="text-sm text-muted font-mono">
                 165 FPTP + 110 PR = 275 Seats
               </p>
             </div>
@@ -48,11 +48,11 @@ export function Header({ totalSeats, leadingParty, hasMajority, onReset }) {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-right"
               >
-                <p className="text-xs text-gray-500 uppercase tracking-wider">Leading</p>
+                <p className="text-xs text-muted uppercase tracking-wider">Leading</p>
                 <p className={`text-lg font-bold ${partyColors[leadingParty]}`}>
                   {partyNames[leadingParty]}
                 </p>
-                <p className="text-sm font-mono text-gray-400">
+                <p className="text-sm font-mono text-muted">
                   {totalSeats[leadingParty]} seats
                 </p>
               </motion.div>
@@ -61,9 +61,9 @@ export function Header({ totalSeats, leadingParty, hasMajority, onReset }) {
             {/* Majority Status */}
             <div className="flex items-center gap-2">
               <Target
-                className={`w-5 h-5 ${hasMajority ? 'text-green-400' : 'text-gray-500'}`}
+                className={`w-5 h-5 ${hasMajority ? 'text-nc' : 'text-muted'}`}
               />
-              <span className={`text-sm font-medium ${hasMajority ? 'text-green-400' : 'text-gray-500'}`}>
+              <span className={`text-sm font-medium ${hasMajority ? 'text-nc' : 'text-muted'}`}>
                 {hasMajority ? 'Majority' : 'Hung Parliament'}
               </span>
             </div>
@@ -73,7 +73,7 @@ export function Header({ totalSeats, leadingParty, hasMajority, onReset }) {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={onReset}
-              className="flex items-center gap-2 px-4 py-2 bg-neutral hover:bg-neutral/80 rounded-lg text-gray-300 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-neutral hover:bg-neutral/80 rounded-lg text-foreground transition-colors"
             >
               <RotateCcw className="w-4 h-4" />
               <span className="text-sm font-medium">Reset</span>

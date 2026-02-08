@@ -2,7 +2,7 @@ import { getAllArticles, getAllCategories, getAllTags } from '../../lib/content'
 import AnalysisPageClient from './AnalysisPageClient'
 
 export const metadata = {
-  title: 'Analysis | Nepal Votes',
+  title: 'Analysis | NepaliSoch',
   description: 'In-depth election analysis, forecasts, and political commentary for Nepal.',
 }
 

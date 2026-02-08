@@ -10,7 +10,7 @@ export async function generateMetadata({ params }) {
   
   if (!article) {
     return {
-      title: 'Article Not Found | Nepal Votes',
+      title: 'Article Not Found | NepaliSoch',
     }
   }
 

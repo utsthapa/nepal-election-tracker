@@ -17,10 +17,10 @@ export function ArticleStructuredData({ article, language = 'en' }) {
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Nepal Votes',
+      name: 'NepaliSoch',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://nepalvotes.com/logo.png',
+        url: 'https://nepalisoch.com/logo.png',
       },
     },
     inLanguage: language === 'ne' ? 'ne-NP' : 'en-US',
@@ -38,20 +38,20 @@ export function WebsiteStructuredData() {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Nepal Votes',
-    url: 'https://nepalvotes.com',
+    name: 'NepaliSoch',
+    url: 'https://nepalisoch.com',
     description: 'Data-driven election analysis, polls, and forecasts for Nepal. Interactive tools and in-depth political commentary.',
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://nepalvotes.com/search',
+      target: 'https://nepalisoch.com/search',
       'query-input': 'required name=search_term_string',
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Nepal Votes',
+      name: 'NepaliSoch',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://nepalvotes.com/logo.png',
+        url: 'https://nepalisoch.com/logo.png',
       },
     },
   }

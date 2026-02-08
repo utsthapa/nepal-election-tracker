@@ -112,10 +112,10 @@ export function SeatDrawer({
             <div className="sticky top-0 bg-surface border-b border-neutral z-10">
               <div className="p-4 flex items-center justify-between">
                 <div>
-                  <h3 className="text-lg font-outfit font-bold text-white">
+                  <h3 className="text-lg font-sans font-bold text-white">
                     {constituency.name}
                   </h3>
-                  <p className="text-sm text-gray-400">
+                  <p className="text-sm text-gray-700">
                     {constituency.district}, Province {constituency.province}
                   </p>
                 </div>
@@ -123,12 +123,12 @@ export function SeatDrawer({
                   onClick={onClose}
                   className="p-2 hover:bg-neutral rounded-lg transition-colors"
                 >
-                  <X className="w-5 h-5 text-gray-400" />
+                  <X className="w-5 h-5 text-gray-700" />
                 </button>
               </div>
 
               {topProb && (
-                <div className="px-4 py-2 flex items-center justify-between border-t border-neutral text-xs text-gray-300 bg-neutral/40">
+                <div className="px-4 py-2 flex items-center justify-between border-t border-neutral text-xs text-gray-700 bg-neutral/40">
                   <span>
                     Projected: <span className={textColors[topProb[0]]}>{formatPartyLabel(topProb[0])}</span>
                   </span>
@@ -143,7 +143,7 @@ export function SeatDrawer({
                   className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-colors ${
                     activeTab === 'voting'
                       ? 'text-blue-400 border-b-2 border-blue-400 bg-blue-500/10'
-                      : 'text-gray-400 hover:text-gray-200 hover:bg-neutral/50'
+                      : 'text-gray-700 hover:text-gray-200 hover:bg-neutral/50'
                   }`}
                 >
                   <Vote className="w-4 h-4" />
@@ -154,7 +154,7 @@ export function SeatDrawer({
                   className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-colors ${
                     activeTab === 'demographics'
                       ? 'text-green-400 border-b-2 border-green-400 bg-green-500/10'
-                      : 'text-gray-400 hover:text-gray-200 hover:bg-neutral/50'
+                      : 'text-gray-700 hover:text-gray-200 hover:bg-neutral/50'
                   }`}
                 >
                   <BarChart3 className="w-4 h-4" />
@@ -182,9 +182,9 @@ export function SeatDrawer({
                   {isDetached ? (
                     <Unlink className="w-4 h-4 text-amber-400" />
                   ) : (
-                    <Link2 className="w-4 h-4 text-gray-400" />
+                    <Link2 className="w-4 h-4 text-gray-700" />
                   )}
-                  <span className="text-sm text-gray-300">
+                  <span className="text-sm text-gray-700">
                     {isDetached ? 'Detached from global' : 'Following global sliders'}
                   </span>
                 </div>
@@ -202,15 +202,15 @@ export function SeatDrawer({
 
               {/* Baseline Info */}
               <div>
-                <h4 className="text-sm font-medium text-gray-400 mb-2">2022 Baseline</h4>
+                <h4 className="text-sm font-medium text-gray-700 mb-2">2022 Baseline</h4>
                 <div className="space-y-1">
                   {partyOrder.map(party => (
                     <div key={party} className="flex items-center justify-between text-sm">
                       <div className="flex items-center gap-2">
                         <div className={`w-2 h-2 rounded-full ${bgColors[party]}`} />
-                        <span className="text-gray-300">{formatPartyLabel(party)}</span>
+                        <span className="text-gray-700">{formatPartyLabel(party)}</span>
                       </div>
-                      <span className="font-mono text-gray-400">
+                      <span className="font-mono text-gray-700">
                         {(constituency.results2022[party] * 100).toFixed(2)}%
                       </span>
                     </div>
@@ -226,10 +226,10 @@ export function SeatDrawer({
                   exit={{ opacity: 0, height: 0 }}
                 >
                   <div className="flex items-center justify-between mb-3">
-                    <h4 className="text-sm font-medium text-gray-400">Manual Override</h4>
+                    <h4 className="text-sm font-medium text-gray-700">Manual Override</h4>
                     <button
                       onClick={handleReset}
-                      className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-300 transition-colors"
+                      className="flex items-center gap-1 text-xs text-gray-800 hover:text-gray-700 transition-colors"
                     >
                       <RotateCcw className="w-3 h-3" />
                       Reset
@@ -242,7 +242,7 @@ export function SeatDrawer({
                         <div className="flex items-center justify-between mb-1">
                           <div className="flex items-center gap-2">
                             <div className={`w-2 h-2 rounded-full ${bgColors[party]}`} />
-                            <span className="text-sm text-gray-300">{formatPartyLabel(party)}</span>
+                            <span className="text-sm text-gray-700">{formatPartyLabel(party)}</span>
                           </div>
                           <span className={`font-mono text-sm font-medium ${textColors[party]}`}>
                             {((localResults[party] || 0) * 100).toFixed(2)}%
@@ -266,7 +266,7 @@ export function SeatDrawer({
 
                   <div className="mt-4 pt-4 border-t border-neutral">
                     <div className="flex justify-between text-sm mb-1">
-                      <span className="text-gray-400">Total</span>
+                      <span className="text-gray-700">Total</span>
                       <span className="font-mono text-white">
                         {(Object.values(localResults).reduce((a, b) => a + b, 0) * 100).toFixed(2)}%
                       </span>
@@ -277,10 +277,10 @@ export function SeatDrawer({
 
               {/* Current Result Preview */}
               <div className="bg-neutral/30 rounded-lg p-4">
-                <h4 className="text-sm font-medium text-gray-400 mb-2">Projected Winner</h4>
+                <h4 className="text-sm font-medium text-gray-700 mb-2">Projected Winner</h4>
                 {(() => {
                   if (!localResults || Object.keys(localResults).length === 0) {
-                    return <p className="text-gray-500 text-sm">No data available</p>;
+                    return <p className="text-gray-800 text-sm">No data available</p>;
                   }
                   const sorted = Object.entries(localResults).sort((a, b) => b[1] - a[1]);
                   const winner = sorted[0];
@@ -296,7 +296,7 @@ export function SeatDrawer({
                           {PARTIES[winner[0]]?.name || winner[0]}
                         </span>
                       </div>
-                      <p className="text-sm font-mono text-gray-400">
+                      <p className="text-sm font-mono text-gray-700">
                         {(winner[1] * 100).toFixed(2)}% (+{(margin * 100).toFixed(2)}% margin)
                       </p>
                     </div>

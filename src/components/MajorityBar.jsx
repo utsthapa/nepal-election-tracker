@@ -72,17 +72,17 @@ export function MajorityBar({ totalSeats, leadingParty }) {
   return (
     <div className="bg-surface rounded-xl p-6 border border-neutral">
       <div className="flex items-center justify-between mb-1">
-        <h2 className="text-lg font-outfit font-semibold text-white">
+        <h2 className="text-lg font-sans font-semibold text-white">
           Path to Majority
         </h2>
         <div className="flex items-center gap-2">
-          <Target className={`w-4 h-4 ${hasMajority ? 'text-green-400' : 'text-gray-400'}`} />
-          <span className="text-sm font-mono text-gray-400">
+          <Target className={`w-4 h-4 ${hasMajority ? 'text-green-400' : 'text-gray-700'}`} />
+          <span className="text-sm font-mono text-gray-700">
             {MAJORITY} needed
           </span>
         </div>
       </div>
-      <p className="text-xs text-gray-500 mb-4 font-mono">
+      <p className="text-xs text-gray-800 mb-4 font-mono">
         Total: {TOTAL_SEATS} seats (165 FPTP + 110 PR)
       </p>
 
@@ -145,7 +145,7 @@ export function MajorityBar({ totalSeats, leadingParty }) {
               <p className={`font-medium ${textColors[leadingParty]}`}>
                 {leadingParty} has majority!
               </p>
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-gray-700">
                 {leadingSeats} seats ({leadingSeats - MAJORITY} above threshold)
               </p>
             </div>
@@ -155,7 +155,7 @@ export function MajorityBar({ totalSeats, leadingParty }) {
             <AlertTriangle className="w-5 h-5 text-amber-400" />
             <div>
               <p className="font-medium text-amber-400">Hung Parliament</p>
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-gray-700">
                 {leadingParty} leads with {leadingSeats} seats, needs {seatsToMajority} more
               </p>
             </div>
@@ -166,7 +166,7 @@ export function MajorityBar({ totalSeats, leadingParty }) {
       {/* Coalition Possibilities */}
       {!hasMajority && coalitionPaths.length > 0 && (
         <div className="mt-4 pt-4 border-t border-neutral">
-          <h4 className="text-sm font-medium text-gray-400 mb-2">
+          <h4 className="text-sm font-medium text-gray-700 mb-2">
             Top routes to 138 (starts at {minimalCoalitionSize || 2}-party blocs)
           </h4>
           <div className="space-y-2">
@@ -178,13 +178,13 @@ export function MajorityBar({ totalSeats, leadingParty }) {
                 <div className="flex items-center gap-2">
                   {coalition.parties.map((party, i) => (
                     <span key={party} className="flex items-center gap-1">
-                      {i > 0 && <span className="text-gray-500">+</span>}
+                      {i > 0 && <span className="text-gray-800">+</span>}
                       <div className={`w-2 h-2 rounded-full ${bgColors[party]}`} />
                       <span className={`text-sm ${textColors[party]}`}>{party}</span>
                     </span>
                   ))}
                 </div>
-                <span className="font-mono text-sm text-gray-300">
+                <span className="font-mono text-sm text-gray-700">
                   {coalition.seats} seats · +{coalition.surplus} over 138
                 </span>
               </div>

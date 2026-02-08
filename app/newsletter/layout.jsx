@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Newsletter | Nepal Votes',
+  title: 'Newsletter | NepaliSoch',
   description: 'Subscribe to our weekly newsletter for Nepal election analysis and updates.',
 }
 

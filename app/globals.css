@@ -24,16 +24,7 @@
   color-scheme: light;
 }
 
-[data-theme='dark'] {
-  --color-background: 20 20 24;    /* warm charcoal #141418 */
-  --color-surface: 30 30 36;       /* warm dark surface #1E1E24 */
-  --color-neutral: 50 50 60;       /* soft borders */
-  --color-foreground: 226 232 240; /* light text */
-  --color-muted: 148 163 184;      /* muted text */
-  --accent-primary: #DC2626;       /* brighter red for dark */
-  --accent-secondary: #3B82F6;     /* brighter blue for dark */
-  color-scheme: dark;
-}
+
 
 * {
   margin: 0;
@@ -49,7 +40,6 @@ body {
   position: relative;
   line-height: 1.7;
   letter-spacing: 0.01em;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6, .font-display {
@@ -81,10 +71,6 @@ body::after {
   z-index: 0;
 }
 
-[data-theme='dark'] body::after {
-  background: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0));
-}
-
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
@@ -104,12 +90,7 @@ body::after {
   background: rgb(var(--color-muted));
 }
 
-/* Smooth theme transitions on key elements */
-.bg-surface,
-.bg-background,
-.bg-neutral {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
+
 
 /* Data font utility */
 .font-data {

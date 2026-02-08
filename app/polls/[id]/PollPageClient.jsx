@@ -22,7 +22,7 @@ export default function PollPageClient({ poll }) {
         {/* Back Button */}
         <Link
           href="/polls"
-          className="inline-flex items-center gap-2 text-gray-400 hover:text-white mb-6 transition-colors"
+          className="inline-flex items-center gap-2 text-gray-700 hover:text-white mb-6 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           {language === 'ne' ? 'पछि जानुहोस्' : 'Back to Polls'}
@@ -38,7 +38,7 @@ export default function PollPageClient({ poll }) {
             }`}>
               {poll.rating}
             </span>
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-gray-800">
               {format(new Date(poll.date), 'MMMM d, yyyy')}
             </span>
           </div>
@@ -47,7 +47,7 @@ export default function PollPageClient({ poll }) {
             {title}
           </h1>
 
-          <p className="text-lg text-gray-300 mb-6">
+          <p className="text-lg text-gray-700 mb-6">
             {pollster}
           </p>
 
@@ -56,7 +56,7 @@ export default function PollPageClient({ poll }) {
             <div className="bg-neutral rounded-lg p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Users className="w-5 h-5 text-blue-400" />
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-gray-800">
                   {t('polls.sampleSize')}
                 </span>
               </div>
@@ -67,7 +67,7 @@ export default function PollPageClient({ poll }) {
             <div className="bg-neutral rounded-lg p-4">
               <div className="flex items-center gap-2 mb-2">
                 <AlertCircle className="w-5 h-5 text-yellow-400" />
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-gray-800">
                   {t('polls.marginError')}
                 </span>
               </div>
@@ -78,7 +78,7 @@ export default function PollPageClient({ poll }) {
             <div className="bg-neutral rounded-lg p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Calendar className="w-5 h-5 text-purple-400" />
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-gray-800">
                   {t('meta.published')}
                 </span>
               </div>
@@ -95,7 +95,7 @@ export default function PollPageClient({ poll }) {
             <TrendingUp className="w-6 h-6" />
             {t('polls.methodology')}
           </h2>
-          <p className="text-gray-300 mb-4">
+          <p className="text-gray-700 mb-4">
             {methodology}
           </p>
           {notes && (
@@ -151,7 +151,7 @@ export default function PollPageClient({ poll }) {
                       <p className="font-bold text-white">
                         {partyInfo?.short || party}
                       </p>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm text-gray-700">
                         {partyInfo?.name || party}
                       </p>
                     </div>

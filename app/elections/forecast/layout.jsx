@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Election Forecast | Nepal Votes',
+  title: 'Election Forecast | NepaliSoch',
   description: 'Statistical models and projections for upcoming Nepal elections.',
 }
 

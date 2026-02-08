@@ -45,8 +45,8 @@ const ConstituencyMap = ({
   const getColor = useCallback((feature) => {
     const constData = getConstituencyData(feature);
     if (!constData) {
-      // Fallback gray for unmatched constituencies
-      return '#9ca3af';
+      // Fallback black for unmatched constituencies
+      return '#000000';
     }
 
     let winner;
@@ -58,7 +58,7 @@ const ConstituencyMap = ({
       winner = constData.winner2022;
     }
 
-    return PARTIES[winner]?.color || '#9ca3af';
+    return PARTIES[winner]?.color || '#000000';
   }, [getConstituencyData, fptpResults]);
 
   // Nepal outline for background
@@ -109,15 +109,12 @@ const ConstituencyMap = ({
           zoomControl: true,
         });
 
-        // Use transparent/light background for areas outside Nepal
-        map.getContainer().style.background = 'transparent';
-
         // Add Nepal outline as background layer first (fills gaps between constituencies)
         L.geoJSON(outlineData, {
           style: {
-            fillColor: '#1a1a2e',  // Dark navy/black for Nepal shape background
+            fillColor: '#000000',  // Black for Nepal shape background
             fillOpacity: 1,
-            color: '#1a1a2e',      // Matching border
+            color: '#000000',      // Matching border
             weight: 2,
             opacity: 1,
           },
@@ -232,14 +229,14 @@ const ConstituencyMap = ({
       <div className="w-full h-[600px] bg-surface rounded-xl border border-neutral flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-400">Loading map data...</p>
+          <p className="text-gray-700">Loading map data...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="relative w-full h-[600px] bg-transparent rounded-xl border border-neutral overflow-hidden">
+    <div className="relative w-full h-[600px] rounded-xl border border-neutral overflow-hidden" style={{ backgroundColor: '#000000' }}>
       {/* Leaflet CSS via CDN as backup */}
       <link
         rel="stylesheet"
@@ -258,7 +255,7 @@ const ConstituencyMap = ({
         <div className="absolute inset-0 bg-gray-900/80 flex items-center justify-center z-[400]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500 mx-auto mb-3"></div>
-            <p className="text-gray-400 text-sm">Rendering map...</p>
+            <p className="text-gray-700 text-sm">Rendering map...</p>
           </div>
         </div>
       )}
@@ -283,7 +280,7 @@ const ConstituencyMap = ({
       <div className="absolute top-4 right-4 backdrop-blur-sm border border-stone-300 rounded-lg p-3 z-[500]" style={{ backgroundColor: '#fefdf8' }}>
         <p className="text-xs text-gray-600 mb-1">Total Constituencies</p>
         <p className="text-2xl font-bold text-gray-900">165</p>
-        <p className="text-xs text-gray-500 mt-1">Click to view details</p>
+        <p className="text-xs text-gray-800 mt-1">Click to view details</p>
       </div>
     </div>
   );

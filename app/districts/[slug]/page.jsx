@@ -92,7 +92,7 @@ export function generateMetadata({ params }) {
 
   if (!data) {
     return {
-      title: 'District not found | Nepal Election Simulator',
+      title: 'District not found | NepaliSoch',
       description: 'No district found for this route.',
     };
   }
@@ -102,7 +102,7 @@ export function generateMetadata({ params }) {
   const leadingSeats = sortedWinners[0]?.[1] || 0;
   const partyName = leadingParty ? PARTIES[leadingParty]?.name || leadingParty : 'Leading party';
 
-  const title = `${data.name} Election Results 2022 | Nepal Election Simulator`;
+  const title = `${data.name} Election Results 2022 | NepaliSoch`;
   const description = `${data.name} district in ${data.provinceName}: ${data.constituencies.length} constituencies, ${partyName} won ${leadingSeats} seat${leadingSeats === 1 ? '' : 's'} in 2022. Explore winning candidates and tune district vote-share sliders.`;
   const url = `/districts/${data.slug}`;
 
@@ -147,7 +147,7 @@ export default function DistrictPage({ params }) {
     variableMeasured: ['voteShare', 'winner', 'candidate'],
     creator: {
       '@type': 'Organization',
-      name: 'Nepal Election Simulator',
+      name: 'NepaliSoch',
     },
     datasetTimeInterval: '2022',
     keywords: [

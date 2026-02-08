@@ -16,10 +16,10 @@ export function PartySliders({
 }) {
   return (
     <div className="bg-surface rounded-xl p-6 border border-neutral">
-      <h2 className="text-lg font-outfit font-semibold text-white mb-1">
+      <h2 className="text-lg font-sans font-semibold text-white mb-1">
         {title}
       </h2>
-      <p className="text-xs text-gray-500 mb-4 font-mono">
+      <p className="text-xs text-gray-800 mb-4 font-mono">
         {subtitle}
       </p>
 
@@ -42,7 +42,7 @@ export function PartySliders({
 
       <div className="mt-4 pt-4 border-t border-neutral">
         <div className="flex justify-between text-sm">
-          <span className="text-gray-400">Total</span>
+          <span className="text-gray-700">Total</span>
           <span className="font-mono text-white">
             {Object.values(sliders).reduce((a, b) => a + b, 0).toFixed(0)}%
           </span>
@@ -79,7 +79,7 @@ function PartySlider({ party, value, fptpSeats, prSeats, totalSeats, onChange, d
       <div className="flex items-center justify-between mb-1">
         <div className="flex items-center gap-2">
           <div className={`w-2.5 h-2.5 rounded-full ${bgColors[party]}`} />
-          <span className="text-xs font-medium text-gray-300">{partyInfo.short}</span>
+          <span className="text-xs font-medium text-gray-700">{partyInfo.short}</span>
         </div>
         <div className="flex items-center gap-3">
           <span className={`font-mono text-sm font-bold ${textColors[party]}`}>

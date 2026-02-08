@@ -39,13 +39,13 @@ export function WelcomeModal({ isOpen, onClose }) {
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <h3 className="text-lg font-semibold text-white">Welcome to NepaliSoch.com</h3>
-                    <p className="text-sm text-gray-400 mt-1">
+                    <p className="text-sm text-gray-700 mt-1">
                       Your data hub for Nepal&apos;s elections
                     </p>
                   </div>
                   <button
                     onClick={handleClose}
-                    className="p-2 rounded-lg hover:bg-neutral transition-colors text-gray-400"
+                    className="p-2 rounded-lg hover:bg-neutral transition-colors text-gray-700"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -53,7 +53,7 @@ export function WelcomeModal({ isOpen, onClose }) {
 
                 <div className="space-y-4 mb-6">
                   <div className="bg-neutral/30 rounded-lg p-4">
-                    <p className="text-sm text-gray-300 leading-relaxed">
+                    <p className="text-sm text-gray-700 leading-relaxed">
                       We&apos;re a work in progress building Nepal&apos;s most comprehensive election data platform. Explore historical election results, analyze voting patterns, and try our simulation mode.
                     </p>
                   </div>
@@ -67,7 +67,7 @@ export function WelcomeModal({ isOpen, onClose }) {
                       </div>
                       <div>
                         <h5 className="text-sm font-medium text-white">Election Data</h5>
-                        <p className="text-xs text-gray-400">Data from prior elections across all constituencies</p>
+                        <p className="text-xs text-gray-700">Data from prior elections across all constituencies</p>
                       </div>
                     </div>
 
@@ -77,7 +77,7 @@ export function WelcomeModal({ isOpen, onClose }) {
                       </div>
                       <div>
                         <h5 className="text-sm font-medium text-white">Interactive Maps</h5>
-                        <p className="text-xs text-gray-400">Explore all 165 constituencies across Nepal</p>
+                        <p className="text-xs text-gray-700">Explore all 165 constituencies across Nepal</p>
                       </div>
                     </div>
 
@@ -87,7 +87,7 @@ export function WelcomeModal({ isOpen, onClose }) {
                       </div>
                       <div>
                         <h5 className="text-sm font-medium text-white">Simulation Mode</h5>
-                        <p className="text-xs text-gray-400">Test different scenarios and see projected outcomes</p>
+                        <p className="text-xs text-gray-700">Test different scenarios and see projected outcomes</p>
                       </div>
                     </div>
                   </div>
@@ -100,7 +100,7 @@ export function WelcomeModal({ isOpen, onClose }) {
                     onChange={(e) => setDontShowAgain(e.target.checked)}
                     className="w-4 h-4 rounded border-gray-600 text-blue-500 focus:ring-blue-500 focus:ring-offset-0 bg-neutral"
                   />
-                  <span className="text-sm text-gray-400">Don&apos;t show this again</span>
+                  <span className="text-sm text-gray-700">Don&apos;t show this again</span>
                 </div>
 
                 <button

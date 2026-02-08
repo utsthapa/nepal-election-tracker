@@ -89,13 +89,13 @@ export function DistrictCoalitionBuilder({
   return (
     <div className="bg-surface border border-neutral rounded-2xl p-6">
       <div className="mb-4">
-        <p className="text-xs font-mono uppercase tracking-wider text-gray-500">
+        <p className="text-xs font-mono uppercase tracking-wider text-gray-800">
           Gathbandan Analysis
         </p>
         <h2 className="text-xl font-semibold text-white">
           Coalition Builder for this District
         </h2>
-        <p className="text-sm text-gray-400 mt-1">
+        <p className="text-sm text-gray-700 mt-1">
           Select 2-4 parties to see combined vote share and potential seat flips
         </p>
       </div>
@@ -144,11 +144,11 @@ export function DistrictCoalitionBuilder({
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
             <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-              <p className="text-[11px] uppercase tracking-wider text-gray-500">
+              <p className="text-[11px] uppercase tracking-wider text-gray-800">
                 Seats Held
               </p>
               <p className="text-2xl font-bold text-white mt-1">{analysis.seatsHeld}</p>
-              <p className="text-xs font-mono text-gray-400">
+              <p className="text-xs font-mono text-gray-700">
                 of {constituencies.length}
               </p>
             </div>
@@ -162,24 +162,24 @@ export function DistrictCoalitionBuilder({
               <p className="text-xs font-mono text-green-100/80">seats could flip</p>
             </div>
             <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-              <p className="text-[11px] uppercase tracking-wider text-gray-500">
+              <p className="text-[11px] uppercase tracking-wider text-gray-800">
                 Total Possible
               </p>
               <p className="text-2xl font-bold text-white mt-1">
                 {analysis.seatsHeld + analysis.potentialFlips}
               </p>
-              <p className="text-xs font-mono text-gray-400">
+              <p className="text-xs font-mono text-gray-700">
                 of {constituencies.length}
               </p>
             </div>
             <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-              <p className="text-[11px] uppercase tracking-wider text-gray-500">
+              <p className="text-[11px] uppercase tracking-wider text-gray-800">
                 Avg Vote Share
               </p>
               <p className="text-2xl font-bold text-white mt-1">
                 {(analysis.avgShare * 100).toFixed(2)}%
               </p>
-              <p className="text-xs font-mono text-gray-400">combined</p>
+              <p className="text-xs font-mono text-gray-700">combined</p>
             </div>
           </div>
 
@@ -187,7 +187,7 @@ export function DistrictCoalitionBuilder({
           <div className="rounded-xl border border-neutral bg-neutral/40">
             <div className="px-4 py-3 border-b border-neutral flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Target className="w-4 h-4 text-gray-300" />
+                <Target className="w-4 h-4 text-gray-700" />
                 <span className="text-sm font-semibold text-white">
                   Per-Constituency Analysis
                 </span>
@@ -225,13 +225,13 @@ export function DistrictCoalitionBuilder({
                       )}
                     </div>
                     <div className="flex items-center gap-4 text-xs font-mono">
-                      <span className="text-gray-400">
+                      <span className="text-gray-700">
                         Coalition: {(c.coalitionShare * 100).toFixed(2)}%
                       </span>
                       {!c.currentWinnerInCoalition && (
                         <span
                           className={
-                            c.gap <= 0 ? 'text-green-400' : 'text-gray-500'
+                            c.gap <= 0 ? 'text-green-400' : 'text-gray-800'
                           }
                         >
                           {c.gap <= 0 ? 'Wins' : `Gap: ${(c.gap * 100).toFixed(2)}%`}
@@ -245,7 +245,7 @@ export function DistrictCoalitionBuilder({
           </div>
         </>
       ) : (
-        <div className="text-center py-8 text-gray-400">
+        <div className="text-center py-8 text-gray-700">
           Select at least 2 parties to see coalition analysis
         </div>
       )}

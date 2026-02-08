@@ -28,12 +28,12 @@ export function SwitchingMatrix({ matrix = {}, onChange, onApply, onClear }) {
     <div className="bg-surface rounded-xl border border-neutral p-5 space-y-3">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-[11px] uppercase tracking-[0.18em] text-gray-500 flex items-center gap-2">
+          <p className="text-[11px] uppercase tracking-[0.18em] text-gray-800 flex items-center gap-2">
             <ArrowRightLeft className="w-4 h-4" /> Switching Matrix
           </p>
           <h3 className="text-lg font-semibold text-white mt-1">Voter flow table</h3>
         </div>
-        <span className="text-xs text-gray-500">Share moved from base vote</span>
+        <span className="text-xs text-gray-800">Share moved from base vote</span>
       </div>
 
       <div className="space-y-2 max-h-[280px] overflow-y-auto pr-1">
@@ -44,7 +44,7 @@ export function SwitchingMatrix({ matrix = {}, onChange, onApply, onClear }) {
               <div className="flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: PARTIES[from]?.color }} />
                 <span className="text-sm text-gray-200">{label}</span>
-                <span className="text-xs text-gray-500">(of {PARTIES[from]?.short || from} voters)</span>
+                <span className="text-xs text-gray-800">(of {PARTIES[from]?.short || from} voters)</span>
               </div>
               <div className="flex items-center gap-2">
                 <input
@@ -56,7 +56,7 @@ export function SwitchingMatrix({ matrix = {}, onChange, onApply, onClear }) {
                   onChange={(e) => handleChange(from, to, parseFloat(e.target.value))}
                   className="w-20 px-2 py-1 bg-neutral border border-neutral rounded text-right text-sm text-gray-200 focus:outline-none focus:border-gray-500"
                 />
-                <span className="text-xs text-gray-400">%</span>
+                <span className="text-xs text-gray-700">%</span>
               </div>
             </div>
           );
@@ -69,7 +69,7 @@ export function SwitchingMatrix({ matrix = {}, onChange, onApply, onClear }) {
           className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
             hasActiveFlows
               ? 'bg-gradient-to-r from-nc to-rsp text-white hover:opacity-90'
-              : 'bg-neutral/50 text-gray-500 cursor-not-allowed'
+              : 'bg-neutral/50 text-gray-800 cursor-not-allowed'
           }`}
         >
           <Check className="w-4 h-4" />
@@ -81,14 +81,14 @@ export function SwitchingMatrix({ matrix = {}, onChange, onApply, onClear }) {
           className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
             hasActiveFlows
               ? 'border-red-400 text-red-400 hover:bg-red-500/10'
-              : 'border-neutral text-gray-500 cursor-not-allowed'
+              : 'border-neutral text-gray-800 cursor-not-allowed'
           }`}
         >
           <X className="w-4 h-4" />
           Clear
         </button>
       </div>
-      <p className="text-[11px] text-gray-500">
+      <p className="text-[11px] text-gray-800">
         Apply updates sliders with voter flow. Values persist after applying.
       </p>
     </div>

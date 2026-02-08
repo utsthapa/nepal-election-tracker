@@ -22,7 +22,7 @@ const normalizeDistrict = (raw) => {
 }
 
 const partyColor = (id) => {
-  if (!id) return 'var(--color-neutral)'
+  if (!id) return '#000000'
   const key = id.toLowerCase()
   return `var(--${key in { others: true } ? 'others' : key})`
 }
@@ -111,16 +111,10 @@ export default function NepalConstituencyMap() {
         className="relative w-full overflow-hidden rounded-3xl border border-neutral bg-white shadow-[0_20px_60px_rgba(0,0,0,0.08)]"
       >
         <svg viewBox="0 0 960 600" role="img" aria-label="Map of Nepal constituencies" className="w-full h-auto">
-          <defs>
-            <linearGradient id="map-bg" x1="0" x2="1" y1="0" y2="1">
-              <stop offset="0%" stopColor="#f7fafc" />
-              <stop offset="100%" stopColor="#eef2ff" />
-            </linearGradient>
-          </defs>
-          <rect x="0" y="0" width="960" height="600" fill="url(#map-bg)" />
+          <rect x="0" y="0" width="960" height="600" fill="#000000" />
           {drawnFeatures.map(({ feature, seat, district, path }, idx) => {
             const winner = seat?.winner2022
-            const fill = seat ? partyColor(winner) : 'var(--color-neutral)'
+            const fill = seat ? partyColor(winner) : '#000000'
             const isHover = hover?.id === idx
             return (
               <path

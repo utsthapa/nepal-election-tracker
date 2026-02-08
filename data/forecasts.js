@@ -5,7 +5,7 @@ export const FORECASTS = {
     id: 'forecast-2027',
     election: '2027 General Election',
     electionNe: '२०२७ साधारण निर्वाचन',
-    model: 'Nepal Votes Ensemble Model',
+    model: 'NepaliSoch Ensemble Model',
     lastUpdated: '2025-01-28',
     confidence: 'Medium',
     methodology: 'Combines polling data, historical trends, and demographic analysis',

@@ -18,7 +18,7 @@ export default function ArticlePageClient({ article, relatedArticles, children }
         {/* Back Button */}
         <Link
           href="/analysis"
-          className="inline-flex items-center gap-2 text-gray-400 hover:text-white mb-6 transition-colors"
+          className="inline-flex items-center gap-2 text-gray-700 hover:text-white mb-6 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           {language === 'ne' ? 'पछि जानुहोस्' : 'Back to Analysis'}
@@ -31,7 +31,7 @@ export default function ArticlePageClient({ article, relatedArticles, children }
               {article.category}
             </span>
             {article.tags && article.tags.map(tag => (
-              <span key={tag} className="px-3 py-1 bg-neutral text-gray-400 rounded-full text-sm">
+              <span key={tag} className="px-3 py-1 bg-neutral text-gray-700 rounded-full text-sm">
                 {tag}
               </span>
             ))}
@@ -41,11 +41,11 @@ export default function ArticlePageClient({ article, relatedArticles, children }
             {title}
           </h1>
 
-          <p className="text-xl text-gray-300 mb-6 leading-relaxed">
+          <p className="text-xl text-gray-700 mb-6 leading-relaxed">
             {excerpt}
           </p>
 
-          <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
+          <div className="flex flex-wrap items-center gap-6 text-sm text-gray-700">
             <div className="flex items-center gap-2">
               <User className="w-4 h-4" />
               <span>{author}</span>
@@ -144,10 +144,10 @@ export default function ArticlePageClient({ article, relatedArticles, children }
                       <h4 className="text-lg font-bold text-white mb-2 group-hover:text-blue-400 transition-colors line-clamp-2">
                         {relatedTitle}
                       </h4>
-                      <p className="text-sm text-gray-400 line-clamp-3 flex-1">
+                      <p className="text-sm text-gray-700 line-clamp-3 flex-1">
                         {relatedExcerpt}
                       </p>
-                      <div className="text-xs text-gray-500 mt-2">
+                      <div className="text-xs text-gray-800 mt-2">
                         {format(new Date(relatedArticle.date), 'MMM d, yyyy')}
                       </div>
                     </article>

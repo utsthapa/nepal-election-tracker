@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useElectionState } from '../hooks/useElectionState';
 import { Header } from '../components/Header';
@@ -21,7 +21,7 @@ import { PARTIES } from '../data/constituencies';
 import { IDEOLOGY_COORDS } from '../data/partyMeta';
 import { BY_ELECTION_SIGNALS } from '../data/proxySignals';
 import { useLanguage } from '../context/LanguageContext';
-import { Map, Table, Lock, Unlock, RotateCcw, Target } from 'lucide-react';
+import { Lock, Unlock, RotateCcw, Target } from 'lucide-react';
 import NepalMap from '../components/NepalMap';
 
 // Dynamically import map component with no SSR
@@ -83,17 +83,19 @@ export default function HomePage() {
     prMethod,
     setPrMethod,
     iterationCount,
+    setIterationCount,
     slidersLocked,
     setSlidersLocked,
   } = useElectionState();
 
   const [isAllianceModalOpen, setAllianceModalOpen] = useState(false);
-  const [isWelcomeModalOpen, setWelcomeModalOpen] = useState(() => {
+  const [isWelcomeModalOpen, setWelcomeModalOpen] = useState(true);
+
+  useEffect(() => {
     if (typeof window !== 'undefined') {
-      return !localStorage.getItem('hasSeenWelcomeModal');
+      setWelcomeModalOpen(!localStorage.getItem('hasSeenWelcomeModal'));
     }
-    return true;
-  });
+  }, []);
   const [viewMode, setViewMode] = useState('map');
   const [nepalMapMode, setNepalMapMode] = useState('map');
   const [selectedYear, setSelectedYear] = useState(2026);
@@ -333,7 +335,7 @@ export default function HomePage() {
                   onClick={() => setSlidersLocked(!slidersLocked)}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
                     slidersLocked
-                      ? 'border-amber-400 bg-amber-500/20 text-amber-600 dark:text-amber-300'
+                      ? 'border-uml bg-uml/20 text-uml'
                       : 'border-neutral text-muted hover:border-foreground/30 hover:text-foreground'
                   }`}
                   title={slidersLocked ? 'Unlock sliders (FPTP and PR move independently)' : 'Lock sliders (FPTP and PR move together)'}
@@ -377,6 +379,15 @@ export default function HomePage() {
                 onRspStartingPointChange={setRspStartingPoint}
                 selectedParty={selectedParty}
                 onSelectedPartyChange={setSelectedParty}
+                incumbencyDecay={incumbencyDecay}
+                onIncumbencyDecayChange={setIncumbencyDecay}
+                rspProxyIntensity={rspProxyIntensity}
+                onRspProxyIntensityChange={setRspProxyIntensity}
+                iterationCount={iterationCount}
+                onIterationCountChange={setIterationCount}
+                activeSignals={activeSignals}
+                onToggleSignal={toggleSignal}
+                onAddPreset={addRecentSignal}
               />
               </div>
               <SwitchingMatrix
@@ -418,36 +429,6 @@ export default function HomePage() {
         {/* Constituency Table/Map and Results */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           <div className="lg:col-span-3">
-            {selectedYear === 2026 && (
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-foreground">Constituencies</h2>
-                <div className="flex items-center gap-1 bg-neutral/50 rounded-lg p-1">
-                  <button
-                    onClick={() => setViewMode('table')}
-                    className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                      viewMode === 'table'
-                        ? 'bg-surface text-foreground'
-                        : 'text-muted hover:text-foreground'
-                    }`}
-                  >
-                    <Table className="w-4 h-4" />
-                    Table
-                  </button>
-                  <button
-                    onClick={() => setViewMode('map')}
-                    className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                      viewMode === 'map'
-                        ? 'bg-surface text-foreground'
-                        : 'text-muted hover:text-foreground'
-                    }`}
-                  >
-                    <Map className="w-4 h-4" />
-                    Map
-                  </button>
-                </div>
-              </div>
-            )}
-
             {selectedYear === 2026 && viewMode === 'table' && (
               <ConstituencyTable
                 fptpResults={fptpResults}
@@ -457,7 +438,7 @@ export default function HomePage() {
             )}
           </div>
 
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-4">
             {selectedYear === 2026 && (
               <ResultsSummary
                 fptpSeats={fptpSeats}
@@ -471,21 +452,21 @@ export default function HomePage() {
 
         {/* Override indicator */}
         {selectedYear === 2026 && Object.keys(overrides).length > 0 && (
-          <div className="mt-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg flex items-center justify-between">
+          <div className="mt-6 p-4 bg-others/10 border border-others/30 rounded-lg flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span className="text-amber-500 text-2xl">⚡</span>
+              <span className="text-others text-2xl">⚡</span>
               <div>
-                <p className="text-amber-600 dark:text-amber-400 font-medium">
+                <p className="text-others font-medium">
                   {Object.keys(overrides).length} constituency{Object.keys(overrides).length > 1 ? 'ies' : ''} manually overridden
                 </p>
-                <p className="text-amber-600/60 dark:text-amber-400/60 text-sm">
+                <p className="text-others/60 text-sm">
                   These seats are detached from global slider adjustments
                 </p>
               </div>
             </div>
             <button
               onClick={clearAllOverrides}
-              className="px-4 py-2 bg-amber-500/20 hover:bg-amber-500/30 text-amber-600 dark:text-amber-400 rounded-lg text-sm font-medium transition-colors"
+              className="px-4 py-2 bg-others/20 hover:bg-others/30 text-others rounded-lg text-sm font-medium transition-colors"
             >
               Clear All Overrides
             </button>

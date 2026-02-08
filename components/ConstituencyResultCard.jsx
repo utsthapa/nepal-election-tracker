@@ -43,7 +43,7 @@ export function ConstituencyResultCard({ constituency, coalitionParties = [], pr
       </div>
 
       {candidate2022 && (
-        <p className="text-[11px] text-gray-500 mb-3">
+        <p className="text-[11px] text-gray-800 mb-3">
           Winning candidate: <span className="text-gray-200 font-semibold">{candidate2022}</span>
         </p>
       )}
@@ -57,7 +57,7 @@ export function ConstituencyResultCard({ constituency, coalitionParties = [], pr
 
           return (
             <div key={party} className="flex items-center gap-2">
-              <span className="w-12 text-xs text-gray-400 font-mono">
+              <span className="w-12 text-xs text-gray-700 font-mono">
                 {info?.short || party}
               </span>
               <div className="flex-1 h-2 bg-neutral rounded-full overflow-hidden">
@@ -72,7 +72,7 @@ export function ConstituencyResultCard({ constituency, coalitionParties = [], pr
               </div>
               <span
                 className={`w-12 text-xs font-mono text-right ${
-                  isWinner ? 'text-white font-semibold' : 'text-gray-400'
+                  isWinner ? 'text-white font-semibold' : 'text-gray-700'
                 }`}
               >
                 {(share * 100).toFixed(2)}%
@@ -83,7 +83,7 @@ export function ConstituencyResultCard({ constituency, coalitionParties = [], pr
       </div>
 
       {/* Stats row */}
-      <div className="flex items-center justify-between text-xs text-gray-400 pt-2 border-t border-neutral">
+      <div className="flex items-center justify-between text-xs text-gray-700 pt-2 border-t border-neutral">
         <div className="flex items-center gap-1">
           <Users className="w-3 h-3" />
           <span>{totalVotes?.toLocaleString()} votes</span>
@@ -104,7 +104,7 @@ export function ConstituencyResultCard({ constituency, coalitionParties = [], pr
           }`}
         >
           <div className="flex items-center justify-between text-xs">
-            <span className="text-gray-400">Projected winner</span>
+            <span className="text-gray-700">Projected winner</span>
             <span
               className="font-semibold"
               style={{ color: PARTIES[projection.winner]?.color }}
@@ -112,7 +112,7 @@ export function ConstituencyResultCard({ constituency, coalitionParties = [], pr
               {PARTIES[projection.winner]?.short || projection.winner}
             </span>
           </div>
-          <p className="text-[11px] text-gray-500 mt-1">
+          <p className="text-[11px] text-gray-800 mt-1">
             {(projection.margin * 100).toFixed(2)}% margin with current sliders
           </p>
         </div>
@@ -122,7 +122,7 @@ export function ConstituencyResultCard({ constituency, coalitionParties = [], pr
       {coalitionParties.length >= 2 && (
         <div className={`mt-3 pt-3 border-t ${coalitionWouldWin && !currentWinnerInCoalition ? 'border-green-500/30' : 'border-neutral'}`}>
           <div className="flex items-center justify-between">
-            <span className="text-xs text-gray-400">Coalition Share</span>
+            <span className="text-xs text-gray-700">Coalition Share</span>
             <span className="text-sm font-mono font-semibold text-white">
               {(coalitionShare * 100).toFixed(2)}%
             </span>
@@ -134,7 +134,7 @@ export function ConstituencyResultCard({ constituency, coalitionParties = [], pr
                   Coalition would flip this seat
                 </span>
               ) : (
-                <span className="text-xs text-gray-500">
+                <span className="text-xs text-gray-800">
                   Gap: {((topNonCoalitionShare - coalitionShare) * 100).toFixed(2)}% to flip
                 </span>
               )}

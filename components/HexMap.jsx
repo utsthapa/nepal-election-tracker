@@ -47,10 +47,10 @@ export function HexMap({ fptpResults, overrides, onSelectConstituency }) {
 
   return (
     <div className="relative bg-surface rounded-xl p-4 border border-neutral overflow-hidden">
-      <h2 className="text-lg font-outfit font-semibold text-white mb-1">
+      <h2 className="text-lg font-sans font-semibold text-white mb-1">
         FPTP Constituencies
       </h2>
-      <p className="text-xs text-gray-500 mb-4 font-mono">
+      <p className="text-xs text-gray-800 mb-4 font-mono">
         165 seats • Click to override • Hover for details
       </p>
 
@@ -112,7 +112,7 @@ export function HexMap({ fptpResults, overrides, onSelectConstituency }) {
           }}
         >
           <p className="text-sm font-semibold text-white">{hoveredResult.name}</p>
-          <p className="text-xs text-gray-400 mb-2">
+          <p className="text-xs text-gray-700 mb-2">
             {hoveredResult.district}, Province {hoveredResult.province}
           </p>
           <div className="flex items-center gap-2 mb-1">
@@ -120,11 +120,11 @@ export function HexMap({ fptpResults, overrides, onSelectConstituency }) {
             <span className="text-sm font-medium text-white">
               {formatPartyLabel(hoveredResult.winner)}
             </span>
-            <span className="text-xs font-mono text-gray-400">
+            <span className="text-xs font-mono text-gray-700">
               {(hoveredResult.share * 100).toFixed(2)}%
             </span>
           </div>
-          <p className="text-xs font-mono text-gray-500">
+          <p className="text-xs font-mono text-gray-800">
             Margin: {(hoveredResult.margin * 100).toFixed(2)}%
           </p>
           {hoveredResult.isOverridden && (
@@ -142,7 +142,7 @@ export function HexMap({ fptpResults, overrides, onSelectConstituency }) {
                 className="w-3 h-3 rounded"
                 style={{ backgroundColor: color }}
               />
-              <span className="text-gray-400">{party}</span>
+              <span className="text-gray-700">{party}</span>
             </div>
           ))}
         </div>

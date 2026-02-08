@@ -3,7 +3,8 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { Search, MapPin, Users } from 'lucide-react';
-import { SimpleHeader } from '../../components/SimpleHeader';
+import { Header } from '../../components/Header';
+import { Footer } from '../../components/Footer';
 import { PARTIES, PROVINCES, constituencies } from '../../data/constituencies';
 
 export default function DistrictsPage() {
@@ -74,13 +75,13 @@ export default function DistrictsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SimpleHeader />
+      <Header />
 
       <main className="max-w-7xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-white mb-2">Districts</h1>
-          <p className="text-gray-400">
+          <h1 className="text-3xl font-bold text-foreground mb-2">Districts</h1>
+          <p className="text-muted">
             Explore all 77 districts of Nepal with 2022 election results
           </p>
         </div>
@@ -88,16 +89,16 @@ export default function DistrictsPage() {
         {/* Search */}
         <div className="mb-8">
           <div className="relative max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted" />
             <input
               type="text"
               placeholder="Search districts or provinces..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-surface border border-neutral rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-nc/50 transition-colors"
+              className="w-full pl-10 pr-4 py-3 bg-surface border border-neutral rounded-xl text-foreground placeholder-muted focus:outline-none focus:border-nc/50 transition-colors"
             />
           </div>
-          <p className="text-sm text-gray-500 mt-2">
+          <p className="text-sm text-muted mt-2">
             {filteredDistricts.length} of {districts.length} districts shown
           </p>
         </div>
@@ -107,10 +108,10 @@ export default function DistrictsPage() {
           <div key={provinceNum} className="mb-10">
             <div className="flex items-center gap-3 mb-4">
               <MapPin className="w-5 h-5 text-nc" />
-              <h2 className="text-xl font-semibold text-white">
+              <h2 className="text-xl font-semibold text-foreground">
                 {PROVINCES[provinceNum]?.name || `Province ${provinceNum}`}
               </h2>
-              <span className="text-sm text-gray-500 font-mono">
+              <span className="text-sm text-muted font-mono">
                 {provinceDistricts.length} districts
               </span>
             </div>
@@ -127,7 +128,7 @@ export default function DistrictsPage() {
                     className="group bg-surface border border-neutral rounded-xl p-4 hover:border-nc/50 transition-all"
                   >
                     <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-lg font-semibold text-white group-hover:text-nc transition-colors">
+                      <h3 className="text-lg font-semibold text-foreground group-hover:text-nc transition-colors">
                         {district.name}
                       </h3>
                       {dominantParty && (
@@ -140,13 +141,13 @@ export default function DistrictsPage() {
 
                     <div className="space-y-2 text-sm">
                       <div className="flex items-center justify-between">
-                        <span className="text-gray-400">Constituencies</span>
-                        <span className="font-mono text-white">
+                        <span className="text-muted">Constituencies</span>
+                        <span className="font-mono text-foreground">
                           {district.constituencies.length}
                         </span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-gray-400">2022 Winners</span>
+                        <span className="text-muted">2022 Winners</span>
                         <div className="flex items-center gap-1">
                           {Object.entries(district.winners)
                             .sort((a, b) => b[1] - a[1])
@@ -181,10 +182,12 @@ export default function DistrictsPage() {
 
         {filteredDistricts.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-400">No districts found matching &quot;{searchQuery}&quot;</p>
+            <p className="text-muted">No districts found matching &quot;{searchQuery}&quot;</p>
           </div>
         )}
       </main>
+
+      <Footer />
     </div>
   );
 }

@@ -248,10 +248,11 @@ function main() {
       }
     });
 
-    // Calculate margin
-    const margin = (winner && runnerUp && c.totalVotes > 0)
-      ? (winner.votes - runnerUp.votes) / c.totalVotes
-      : 0;
+    // Calculate margin from AGGREGATED vote shares
+    const sortedParties = Object.entries(results2022).sort((a, b) => b[1] - a[1]);
+    const topParty = sortedParties[0];
+    const runnerUpParty = sortedParties[1];
+    const margin = (topParty && runnerUpParty) ? topParty[1] - runnerUpParty[1] : 0;
 
     return {
       id: c.id,

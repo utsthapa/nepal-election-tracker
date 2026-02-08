@@ -16,7 +16,7 @@ export default function NepalMapPage() {
             <MapPin className="w-8 h-8 text-blue-400" />
             <h1 className="text-3xl font-bold text-white">Nepal Map</h1>
           </div>
-          <p className="text-gray-400">
+          <p className="text-gray-700">
             Interactive map of Nepal&apos;s 77 districts with 2022 election results
           </p>
         </div>
@@ -26,19 +26,19 @@ export default function NepalMapPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
             <div className="bg-neutral/30 rounded-lg p-4">
               <h3 className="font-medium text-white mb-2">Hover</h3>
-              <p className="text-gray-400">
+              <p className="text-gray-700">
                 Hover over any district to see its name, province, and 2022 election winners
               </p>
             </div>
             <div className="bg-neutral/30 rounded-lg p-4">
               <h3 className="font-medium text-white mb-2">Click</h3>
-              <p className="text-gray-400">
+              <p className="text-gray-700">
                 Click on a district to view detailed information including constituency results
               </p>
             </div>
             <div className="bg-neutral/30 rounded-lg p-4">
               <h3 className="font-medium text-white mb-2">Toggle View</h3>
-              <p className="text-gray-400">
+              <p className="text-gray-700">
                 Switch between Leaflet (interactive) and D3 (SVG) rendering modes
               </p>
             </div>
@@ -56,7 +56,7 @@ export default function NepalMapPage() {
                   className="w-4 h-4 rounded-full"
                   style={{ backgroundColor: party.color }}
                 />
-                <span className="text-sm text-gray-300">
+                <span className="text-sm text-gray-700">
                   {party.short || key}
                 </span>
               </div>
@@ -65,7 +65,7 @@ export default function NepalMapPage() {
         </div>
 
         <div className="mt-8 p-4 bg-neutral/30 rounded-lg">
-          <p className="text-xs text-gray-500 text-center">
+          <p className="text-xs text-gray-800 text-center">
             District colors represent the dominant party (most seats won) in the 2022 Federal Parliament Election.
             Click on any district to view detailed constituency-level results.
           </p>

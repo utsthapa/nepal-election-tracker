@@ -1,4 +1,4 @@
-// Auto-generated from ECN CSV (2022_HOR.csv) on 2026-02-08
+// Auto-generated from ECN CSV (2022_HOR.csv) on 2026-01-28
 // Source: Nepal Election Commission - https://result.election.gov.np/
 // Wikipedia: https://en.wikipedia.org/wiki/2022_Nepalese_general_election
 export const PARTIES = {
@@ -106,31 +106,54 @@ export const PROVINCES = {
 };
 
 export const INITIAL_NATIONAL = {
-  "NC": 23.3,
-  "UML": 30.5,
-  "Maoist": 9.23,
-  "RSP": 7.82,
-  "RPP": 5.53,
-  "JSPN": 3.56,
-  "US": 4.09,
-  "JP": 2.85,
-  "LSP": 1.59,
-  "NUP": 1.65,
-  "Others": 9.88
+  "NC": 23.19,
+  "UML": 30.83,
+  "Maoist": 9.37,
+  "RSP": 7.77,
+  "RPP": 5.24,
+  "JSPN": 3.62,
+  "US": 4.16,
+  "JP": 2.79,
+  "LSP": 1.62,
+  "NUP": 1.64,
+  "Independent": 0,
+  "NMKP": 0,
+  "Janamorcha": 0,
+  "Others": 5.57
 };
 
 export const OFFICIAL_FPTP_VOTE = {
-  "NC": 23.3,
-  "UML": 30.5,
-  "Maoist": 9.23,
-  "RSP": 7.82,
-  "RPP": 5.53,
-  "JSPN": 3.56,
-  "US": 4.09,
-  "JP": 2.85,
-  "LSP": 1.59,
-  "NUP": 1.65,
-  "Others": 9.88
+  "NC": 23.19,
+  "UML": 30.83,
+  "Maoist": 9.37,
+  "RSP": 7.77,
+  "RPP": 5.24,
+  "JSPN": 3.62,
+  "US": 4.16,
+  "JP": 2.79,
+  "LSP": 1.62,
+  "NUP": 1.64,
+  "Independent": 0,
+  "NMKP": 0,
+  "Janamorcha": 0,
+  "Others": 9.77
+};
+
+export const OFFICIAL_PR_VOTE = {
+  "NC": 25.71,
+  "UML": 26.95,
+  "Maoist": 11.13,
+  "RSP": 10.70,
+  "RPP": 5.58,
+  "JSPN": 3.99,
+  "US": 2.83,
+  "JP": 3.74,
+  "LSP": 1.58,
+  "NUP": 2.57,
+  "Independent": 0,
+  "NMKP": 0,
+  "Janamorcha": 0,
+  "Others": 5.22
 };
 
 export const ACTUAL_2022_SEATS = {
@@ -318,6 +341,23 @@ export const constituencies = [
       "LSP": 0.00394441489016621,
       "NUP": 0,
       "Others": 0.03719946542798199
+    },
+    "winner2017": "NC",
+    "candidate2017": "Keshav Kumar Budhathoki",
+    "results2017": {
+      "NC": 0.5274261603375527,
+      "UML": 0.47257383966244726,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -331,7 +371,7 @@ export const constituencies = [
     "winner2022": "UML",
     "candidate2022": "देव राज घिमिरे",
     "candidate2022En": "",
-    "margin": 0.012445,
+    "margin": 0.027667,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Jhapa_2_constituency",
     "results2022": {
       "NC": 0,
@@ -345,6 +385,23 @@ export const constituencies = [
       "LSP": 0.005237331897553872,
       "NUP": 0,
       "Others": 0.3638354890419843
+    },
+    "winner2017": "NC",
+    "candidate2017": "Dambar Bishwakarma",
+    "results2017": {
+      "NC": 0.5072251448358527,
+      "UML": 0.4927748551641473,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -372,6 +429,23 @@ export const constituencies = [
       "LSP": 0.000825393830770682,
       "NUP": 0,
       "Others": 0.030315536270163194
+    },
+    "winner2017": "NC",
+    "candidate2017": "Iswori Rijal",
+    "results2017": {
+      "NC": 0.539906103286385,
+      "UML": 0.460093896713615,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -399,6 +473,23 @@ export const constituencies = [
       "LSP": 0.0014832433588112673,
       "NUP": 0,
       "Others": 0.1108290127746005
+    },
+    "winner2017": "NC",
+    "candidate2017": "Indra Hang Subba",
+    "results2017": {
+      "NC": 0.53125,
+      "UML": 0.46875,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -426,6 +517,23 @@ export const constituencies = [
       "LSP": 0.0011185682326621924,
       "NUP": 0,
       "Others": 0.04080110791520186
+    },
+    "winner2017": "UML",
+    "candidate2017": "K.P. Sharma Oli",
+    "results2017": {
+      "UML": 0.5909794654498044,
+      "NC": 0.3642709691438505,
+      "FSFN": 0.026007714037375056,
+      "LSP": 0.018741851368970015,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "Others": 0
     }
   },
   {
@@ -480,6 +588,23 @@ export const constituencies = [
       "LSP": 0,
       "NUP": 0,
       "Others": 0.05351180032825853
+    },
+    "winner2017": "NC",
+    "candidate2017": "Lal Babu Rayamajhi",
+    "results2017": {
+      "NC": 0.5306122448979592,
+      "UML": 0.46938775510204084,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -507,6 +632,23 @@ export const constituencies = [
       "LSP": 0.004414135807363942,
       "NUP": 0,
       "Others": 0.03319853038352761
+    },
+    "winner2017": "NC",
+    "candidate2017": "Shiv Kumar Mandal",
+    "results2017": {
+      "NC": 0.5319148936170213,
+      "UML": 0.46808510638297873,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -534,6 +676,23 @@ export const constituencies = [
       "LSP": 0.00019522353094292966,
       "NUP": 0,
       "Others": 0.037829981996052135
+    },
+    "winner2017": "NC",
+    "candidate2017": "Bimalkaji Gupta",
+    "results2017": {
+      "NC": 0.5365853658536586,
+      "UML": 0.4634146341463415,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -561,6 +720,23 @@ export const constituencies = [
       "LSP": 0.0028171819643441516,
       "NUP": 0,
       "Others": 0.03143007555169814
+    },
+    "winner2017": "NC",
+    "candidate2017": "Dhirendra Bahadur Shah",
+    "results2017": {
+      "NC": 0.5283018867924528,
+      "UML": 0.4716981132075472,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -574,7 +750,7 @@ export const constituencies = [
     "winner2022": "Independent",
     "candidate2022": "योगेन्द्र मण्डल",
     "candidate2022En": "",
-    "margin": 0.116682,
+    "margin": 0.064322,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Morang_5_constituency",
     "results2022": {
       "NC": 0,
@@ -588,6 +764,23 @@ export const constituencies = [
       "LSP": 0,
       "NUP": 0,
       "Others": 0.3761947165330959
+    },
+    "winner2017": "NC",
+    "candidate2017": "Sunil Kumar Sharma",
+    "results2017": {
+      "NC": 0.5348837209302325,
+      "UML": 0.46511627906976744,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -615,6 +808,23 @@ export const constituencies = [
       "LSP": 0,
       "NUP": 0.006316365354487355,
       "Others": 0.022865739934846942
+    },
+    "winner2017": "NC",
+    "candidate2017": "Jeevan Bahadur Shrestha",
+    "results2017": {
+      "NC": 0.5294117647058824,
+      "UML": 0.47058823529411764,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -736,7 +946,7 @@ export const constituencies = [
     "winner2022": "JSPN",
     "candidate2022": "अशोक कुमार राई",
     "candidate2022En": "",
-    "margin": 0.013982,
+    "margin": 0.006204,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Sunsari_1_constituency",
     "results2022": {
       "NC": 0,
@@ -979,7 +1189,7 @@ export const constituencies = [
     "winner2022": "JSPN",
     "candidate2022": "रामसहाय प्रसाद यादव",
     "candidate2022En": "",
-    "margin": 0.287644,
+    "margin": 0.005554,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Bara_2_constituency",
     "results2022": {
       "NC": 0,
@@ -1195,7 +1405,7 @@ export const constituencies = [
     "winner2022": "LSP",
     "candidate2022": "शरत सिंह भण्डारी",
     "candidate2022En": "",
-    "margin": 0.213954,
+    "margin": 0.255048,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Mahottari_2_constituency",
     "results2022": {
       "NC": 0,
@@ -1222,7 +1432,7 @@ export const constituencies = [
     "winner2022": "LSP",
     "candidate2022": "महन्थ ठाकुर",
     "candidate2022En": "",
-    "margin": 0.07357,
+    "margin": 0.037002,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Mahottari_3_constituency",
     "results2022": {
       "NC": 0,
@@ -1276,7 +1486,7 @@ export const constituencies = [
     "winner2022": "JSPN",
     "candidate2022": "प्रदिप यादव",
     "candidate2022En": "",
-    "margin": 0.004731,
+    "margin": 0.03332,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Parsa_1_constituency",
     "results2022": {
       "NC": 0,
@@ -1411,7 +1621,7 @@ export const constituencies = [
     "winner2022": "Independent",
     "candidate2022": "किरण कुमार साह",
     "candidate2022En": "",
-    "margin": 0.077573,
+    "margin": 0.071075,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Rautahat_2_constituency",
     "results2022": {
       "NC": 0.43703199455411845,
@@ -1438,7 +1648,7 @@ export const constituencies = [
     "winner2022": "Independent",
     "candidate2022": "प्रभु साह",
     "candidate2022En": "",
-    "margin": 0.702291,
+    "margin": 0.102023,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Rautahat_3_constituency",
     "results2022": {
       "NC": 0,
@@ -1600,7 +1810,7 @@ export const constituencies = [
     "winner2022": "LSP",
     "candidate2022": "राम प्रकाश चौधरी",
     "candidate2022En": "",
-    "margin": 0.029913,
+    "margin": 0.090145,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Sarlahi_1_constituency",
     "results2022": {
       "NC": 0,
@@ -1681,7 +1891,7 @@ export const constituencies = [
     "winner2022": "Independent",
     "candidate2022": "अमरेश कुमार सिह",
     "candidate2022En": "",
-    "margin": 0.327526,
+    "margin": 0.025461,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Sarlahi_4_constituency",
     "results2022": {
       "NC": 0.2634556817689765,
@@ -1816,7 +2026,7 @@ export const constituencies = [
     "winner2022": "NMKP",
     "candidate2022": "प्रेम सुवाल",
     "candidate2022En": "",
-    "margin": 0.459371,
+    "margin": 0.429416,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Bhaktapur_1_constituency",
     "results2022": {
       "NC": 0,
@@ -1884,6 +2094,23 @@ export const constituencies = [
       "LSP": 0,
       "NUP": 0,
       "Others": 0.030224883624363486
+    },
+    "winner2017": "NC",
+    "candidate2017": "Bishwa Prakash Sharma",
+    "results2017": {
+      "NC": 0.5344129554655871,
+      "UML": 0.46558704453441296,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -1911,6 +2138,23 @@ export const constituencies = [
       "LSP": 0,
       "NUP": 0,
       "Others": 0.009857218926851014
+    },
+    "winner2017": "UML",
+    "candidate2017": "Krishna Bhakta Pokharel",
+    "results2017": {
+      "UML": 0.6100042332955523,
+      "NC": 0.37299430553469254,
+      "Others": 0.017001461169755153,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0
     }
   },
   {
@@ -1938,6 +2182,23 @@ export const constituencies = [
       "LSP": 0,
       "NUP": 0,
       "Others": 0.1532799428118264
+    },
+    "winner2017": "Maoist",
+    "candidate2017": "Pushpa Kamal Dahal",
+    "results2017": {
+      "Maoist": 0.5471698113207547,
+      "NC": 0.4528301886792453,
+      "UML": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -2046,6 +2307,23 @@ export const constituencies = [
       "LSP": 0.0008407857525032484,
       "NUP": 0,
       "Others": 0.16487044255904604
+    },
+    "winner2017": "NC",
+    "candidate2017": "Prakash Man Singh",
+    "results2017": {
+      "NC": 0.5029927469896486,
+      "UML": 0.49700725301035137,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -2073,6 +2351,23 @@ export const constituencies = [
       "LSP": 0.0008461735246079068,
       "NUP": 0,
       "Others": 0.0637778696105634
+    },
+    "winner2017": "UML",
+    "candidate2017": "Krishna Bahadur Shrestha",
+    "results2017": {
+      "UML": 0.5483870967741935,
+      "NC": 0.45161290322580644,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -2100,6 +2395,23 @@ export const constituencies = [
       "LSP": 0.00024116401832846538,
       "NUP": 0,
       "Others": 0.053163268040408364
+    },
+    "winner2017": "NC",
+    "candidate2017": "Bamdev Gautam",
+    "results2017": {
+      "NC": 0.5284552845528455,
+      "UML": 0.4715447154471545,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -2127,6 +2439,23 @@ export const constituencies = [
       "LSP": 0.00029519289720475033,
       "NUP": 0,
       "Others": 0.10942573627920706
+    },
+    "winner2017": "UML",
+    "candidate2017": "Gagan Thapa",
+    "results2017": {
+      "UML": 0.5348837209302325,
+      "NC": 0.46511627906976744,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -2154,6 +2483,23 @@ export const constituencies = [
       "LSP": 0.0008349128982760177,
       "NUP": 0,
       "Others": 0.22678039534254
+    },
+    "winner2017": "NC",
+    "candidate2017": "Raghuji Panta",
+    "results2017": {
+      "NC": 0.5244755244755245,
+      "UML": 0.4755244755244755,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -2181,6 +2527,23 @@ export const constituencies = [
       "LSP": 0,
       "NUP": 0,
       "Others": 0.08264948811846784
+    },
+    "winner2017": "UML",
+    "candidate2017": "Krishna Bahadur Shrestha",
+    "results2017": {
+      "UML": 0.52,
+      "NC": 0.48,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -2194,7 +2557,7 @@ export const constituencies = [
     "winner2022": "RSP",
     "candidate2022": "गणेश पराजुली",
     "candidate2022En": "",
-    "margin": 0.01076,
+    "margin": 0.053881,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Kathmandu_7_constituency",
     "results2022": {
       "NC": 0,
@@ -2208,6 +2571,23 @@ export const constituencies = [
       "LSP": 0,
       "NUP": 0,
       "Others": 0.253209838884113
+    },
+    "winner2017": "NC",
+    "candidate2017": "Bhagwat Gobinda",
+    "results2017": {
+      "NC": 0.5217391304347826,
+      "UML": 0.4782608695652174,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -2221,7 +2601,7 @@ export const constituencies = [
     "winner2022": "RSP",
     "candidate2022": "विराज भक्त श्रेष्ठ",
     "candidate2022En": "",
-    "margin": 0.105171,
+    "margin": 0.128219,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Kathmandu_8_constituency",
     "results2022": {
       "NC": 0,
@@ -2235,6 +2615,23 @@ export const constituencies = [
       "LSP": 0.001108430592684358,
       "NUP": 0,
       "Others": 0.22448979591836737
+    },
+    "winner2017": "NC",
+    "candidate2017": "Ishwor Pokharel",
+    "results2017": {
+      "NC": 0.5185185185185185,
+      "UML": 0.48148148148148145,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -2262,6 +2659,23 @@ export const constituencies = [
       "LSP": 0.0019051203048192488,
       "NUP": 0,
       "Others": 0.17734082837453252
+    },
+    "winner2017": "NC",
+    "candidate2017": "Mohan Bahadur Basnet",
+    "results2017": {
+      "NC": 0.5161290322580645,
+      "UML": 0.4838709677419355,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -2289,6 +2703,23 @@ export const constituencies = [
       "LSP": 0,
       "NUP": 0.0012315511680187664,
       "Others": 0.07575017104877332
+    },
+    "winner2017": "NC",
+    "candidate2017": "Pradip Gyawali",
+    "results2017": {
+      "NC": 0.52,
+      "UML": 0.48,
+      "Maoist": 0,
+      "RSP": 0,
+      "RPP": 0,
+      "JSPN": 0,
+      "US": 0,
+      "JP": 0,
+      "LSP": 0,
+      "NUP": 0,
+      "RJPN": 0,
+      "FSFN": 0,
+      "Others": 0
     }
   },
   {
@@ -2383,7 +2814,7 @@ export const constituencies = [
     "winner2022": "UML",
     "candidate2022": "प्रेम बहादुर महर्जन",
     "candidate2022En": "",
-    "margin": 0.045117,
+    "margin": 0.11954,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Lalitpur_2_constituency",
     "results2022": {
       "NC": 0,
@@ -2707,7 +3138,7 @@ export const constituencies = [
     "winner2022": "Janamorcha",
     "candidate2022": "चित्र बहादुर के.सी.",
     "candidate2022En": "",
-    "margin": 0.057922,
+    "margin": 0.051633,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Baglung_1_constituency",
     "results2022": {
       "NC": 0,
@@ -3328,7 +3759,7 @@ export const constituencies = [
     "winner2022": "Independent",
     "candidate2022": "लालविर चौधरी",
     "candidate2022En": "",
-    "margin": 0.004642,
+    "margin": 0.001567,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Bardiya_2_constituency",
     "results2022": {
       "NC": 0,
@@ -3571,7 +4002,7 @@ export const constituencies = [
     "winner2022": "NC",
     "candidate2022": "विनोद कुमार चौधरी",
     "candidate2022En": "",
-    "margin": 0.058595,
+    "margin": 0,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Nawalparasi_West%201_constituency",
     "results2022": {
       "NC": 0.3732566226212303,
@@ -3598,7 +4029,7 @@ export const constituencies = [
     "winner2022": "RPP",
     "candidate2022": "धुब्र बहादुर प्रधान",
     "candidate2022En": "",
-    "margin": 0.182503,
+    "margin": 0,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Nawalparasi_West%202_constituency",
     "results2022": {
       "NC": 0.2357258006303987,
@@ -3679,7 +4110,7 @@ export const constituencies = [
     "winner2022": "UML",
     "candidate2022": "सूर्य बहादुर  थापा क्षेत्री",
     "candidate2022En": "",
-    "margin": 0.044943,
+    "margin": 0.063686,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Pyuthan_1_constituency",
     "results2022": {
       "NC": 0,
@@ -3760,7 +4191,7 @@ export const constituencies = [
     "winner2022": "UML",
     "candidate2022": "छविलाल विश्वकर्मा",
     "candidate2022En": "",
-    "margin": 0.079655,
+    "margin": 0.0395,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Rupandehi_1_constituency",
     "results2022": {
       "NC": 0,
@@ -4138,7 +4569,7 @@ export const constituencies = [
     "winner2022": "US",
     "candidate2022": "प्रकाश ज्वाला",
     "candidate2022En": "",
-    "margin": 0.184899,
+    "margin": 0.208508,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Salyan_1_constituency",
     "results2022": {
       "NC": 0,
@@ -4354,7 +4785,7 @@ export const constituencies = [
     "winner2022": "NC",
     "candidate2022": "शेर बहादुर देउवा",
     "candidate2022En": "",
-    "margin": 0.083243,
+    "margin": 0.260163,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Dadeldhura_1_constituency",
     "results2022": {
       "NC": 0.5317810729756748,

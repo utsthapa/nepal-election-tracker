@@ -1,4 +1,4 @@
-// Auto-generated from ECN CSV (2022_HOR.csv) on 2026-01-28
+// Auto-generated from ECN CSV (2022_HOR.csv) on 2026-02-08
 // Source: Nepal Election Commission - https://result.election.gov.np/
 // Wikipedia: https://en.wikipedia.org/wiki/2022_Nepalese_general_election
 export const PARTIES = {
@@ -331,7 +331,7 @@ export const constituencies = [
     "winner2022": "UML",
     "candidate2022": "देव राज घिमिरे",
     "candidate2022En": "",
-    "margin": 0.027667,
+    "margin": 0.012445,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Jhapa_2_constituency",
     "results2022": {
       "NC": 0,
@@ -574,7 +574,7 @@ export const constituencies = [
     "winner2022": "Independent",
     "candidate2022": "योगेन्द्र मण्डल",
     "candidate2022En": "",
-    "margin": 0.064322,
+    "margin": 0.116682,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Morang_5_constituency",
     "results2022": {
       "NC": 0,
@@ -736,7 +736,7 @@ export const constituencies = [
     "winner2022": "JSPN",
     "candidate2022": "अशोक कुमार राई",
     "candidate2022En": "",
-    "margin": 0.006204,
+    "margin": 0.013982,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Sunsari_1_constituency",
     "results2022": {
       "NC": 0,
@@ -979,7 +979,7 @@ export const constituencies = [
     "winner2022": "JSPN",
     "candidate2022": "रामसहाय प्रसाद यादव",
     "candidate2022En": "",
-    "margin": 0.005554,
+    "margin": 0.287644,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Bara_2_constituency",
     "results2022": {
       "NC": 0,
@@ -1195,7 +1195,7 @@ export const constituencies = [
     "winner2022": "LSP",
     "candidate2022": "शरत सिंह भण्डारी",
     "candidate2022En": "",
-    "margin": 0.255048,
+    "margin": 0.213954,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Mahottari_2_constituency",
     "results2022": {
       "NC": 0,
@@ -1222,7 +1222,7 @@ export const constituencies = [
     "winner2022": "LSP",
     "candidate2022": "महन्थ ठाकुर",
     "candidate2022En": "",
-    "margin": 0.037002,
+    "margin": 0.07357,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Mahottari_3_constituency",
     "results2022": {
       "NC": 0,
@@ -1276,7 +1276,7 @@ export const constituencies = [
     "winner2022": "JSPN",
     "candidate2022": "प्रदिप यादव",
     "candidate2022En": "",
-    "margin": 0.03332,
+    "margin": 0.004731,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Parsa_1_constituency",
     "results2022": {
       "NC": 0,
@@ -1411,7 +1411,7 @@ export const constituencies = [
     "winner2022": "Independent",
     "candidate2022": "किरण कुमार साह",
     "candidate2022En": "",
-    "margin": 0.071075,
+    "margin": 0.077573,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Rautahat_2_constituency",
     "results2022": {
       "NC": 0.43703199455411845,
@@ -1438,7 +1438,7 @@ export const constituencies = [
     "winner2022": "Independent",
     "candidate2022": "प्रभु साह",
     "candidate2022En": "",
-    "margin": 0.102023,
+    "margin": 0.702291,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Rautahat_3_constituency",
     "results2022": {
       "NC": 0,
@@ -1600,7 +1600,7 @@ export const constituencies = [
     "winner2022": "LSP",
     "candidate2022": "राम प्रकाश चौधरी",
     "candidate2022En": "",
-    "margin": 0.090145,
+    "margin": 0.029913,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Sarlahi_1_constituency",
     "results2022": {
       "NC": 0,
@@ -1681,7 +1681,7 @@ export const constituencies = [
     "winner2022": "Independent",
     "candidate2022": "अमरेश कुमार सिह",
     "candidate2022En": "",
-    "margin": 0.025461,
+    "margin": 0.327526,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Sarlahi_4_constituency",
     "results2022": {
       "NC": 0.2634556817689765,
@@ -1816,7 +1816,7 @@ export const constituencies = [
     "winner2022": "NMKP",
     "candidate2022": "प्रेम सुवाल",
     "candidate2022En": "",
-    "margin": 0.429416,
+    "margin": 0.459371,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Bhaktapur_1_constituency",
     "results2022": {
       "NC": 0,
@@ -2194,7 +2194,7 @@ export const constituencies = [
     "winner2022": "RSP",
     "candidate2022": "गणेश पराजुली",
     "candidate2022En": "",
-    "margin": 0.053881,
+    "margin": 0.01076,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Kathmandu_7_constituency",
     "results2022": {
       "NC": 0,
@@ -2221,7 +2221,7 @@ export const constituencies = [
     "winner2022": "RSP",
     "candidate2022": "विराज भक्त श्रेष्ठ",
     "candidate2022En": "",
-    "margin": 0.128219,
+    "margin": 0.105171,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Kathmandu_8_constituency",
     "results2022": {
       "NC": 0,
@@ -2383,7 +2383,7 @@ export const constituencies = [
     "winner2022": "UML",
     "candidate2022": "प्रेम बहादुर महर्जन",
     "candidate2022En": "",
-    "margin": 0.11954,
+    "margin": 0.045117,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Lalitpur_2_constituency",
     "results2022": {
       "NC": 0,
@@ -2707,7 +2707,7 @@ export const constituencies = [
     "winner2022": "Janamorcha",
     "candidate2022": "चित्र बहादुर के.सी.",
     "candidate2022En": "",
-    "margin": 0.051633,
+    "margin": 0.057922,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Baglung_1_constituency",
     "results2022": {
       "NC": 0,
@@ -3328,7 +3328,7 @@ export const constituencies = [
     "winner2022": "Independent",
     "candidate2022": "लालविर चौधरी",
     "candidate2022En": "",
-    "margin": 0.001567,
+    "margin": 0.004642,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Bardiya_2_constituency",
     "results2022": {
       "NC": 0,
@@ -3571,7 +3571,7 @@ export const constituencies = [
     "winner2022": "NC",
     "candidate2022": "विनोद कुमार चौधरी",
     "candidate2022En": "",
-    "margin": 0,
+    "margin": 0.058595,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Nawalparasi_West%201_constituency",
     "results2022": {
       "NC": 0.3732566226212303,
@@ -3598,7 +3598,7 @@ export const constituencies = [
     "winner2022": "RPP",
     "candidate2022": "धुब्र बहादुर प्रधान",
     "candidate2022En": "",
-    "margin": 0,
+    "margin": 0.182503,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Nawalparasi_West%202_constituency",
     "results2022": {
       "NC": 0.2357258006303987,
@@ -3679,7 +3679,7 @@ export const constituencies = [
     "winner2022": "UML",
     "candidate2022": "सूर्य बहादुर  थापा क्षेत्री",
     "candidate2022En": "",
-    "margin": 0.063686,
+    "margin": 0.044943,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Pyuthan_1_constituency",
     "results2022": {
       "NC": 0,
@@ -3760,7 +3760,7 @@ export const constituencies = [
     "winner2022": "UML",
     "candidate2022": "छविलाल विश्वकर्मा",
     "candidate2022En": "",
-    "margin": 0.0395,
+    "margin": 0.079655,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Rupandehi_1_constituency",
     "results2022": {
       "NC": 0,
@@ -4138,7 +4138,7 @@ export const constituencies = [
     "winner2022": "US",
     "candidate2022": "प्रकाश ज्वाला",
     "candidate2022En": "",
-    "margin": 0.208508,
+    "margin": 0.184899,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Salyan_1_constituency",
     "results2022": {
       "NC": 0,
@@ -4354,7 +4354,7 @@ export const constituencies = [
     "winner2022": "NC",
     "candidate2022": "शेर बहादुर देउवा",
     "candidate2022En": "",
-    "margin": 0.260163,
+    "margin": 0.083243,
     "wikipediaUrl": "https://en.wikipedia.org/wiki/Dadeldhura_1_constituency",
     "results2022": {
       "NC": 0.5317810729756748,

@@ -84,8 +84,8 @@ export function useElectionState() {
     });
     return initial;
   });
-  const [incumbencyDecay, setIncumbencyDecay] = useState(0);
-  const [rspProxyIntensity, setRspProxyIntensity] = useState(0);
+  const [incumbencyDecay, setIncumbencyDecay] = useState(0.60);
+  const [rspProxyIntensity, setRspProxyIntensity] = useState(0.85);
   const [switchingMatrix, setSwitchingMatrix] = useState({});
   const [iterationCount, setIterationCount] = useState(1000);
 

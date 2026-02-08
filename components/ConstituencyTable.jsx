@@ -1,19 +1,34 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronUp, ChevronDown, Filter, Search, Users } from 'lucide-react';
-import { PARTIES, PROVINCES } from '../data/constituencies';
+import { PARTIES, PROVINCES, constituencies } from '../data/constituencies';
 import { AgeDistributionMini } from './DemographicsPanel';
 import { getConstituencyDemographics, getYouthIndex } from '../utils/demographicUtils';
 
 export function ConstituencyTable({ fptpResults, overrides, onSelectConstituency }) {
+  const constituenciesData = useMemo(() => {
+    const data = {};
+    constituencies.forEach(c => {
+      data[c.id] = c;
+    });
+    return data;
+  }, []);
   const [sortBy, setSortBy] = useState('margin'); // 'margin', 'name', 'province', 'winner'
   const [sortAsc, setSortAsc] = useState(true);
   const [filterProvince, setFilterProvince] = useState(null);
   const [filterWinner, setFilterWinner] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const results = useMemo(() => {
-    let data = Object.values(fptpResults);
+const results = useMemo(() => {
+    let data = Object.values(fptpResults).map(result => {
+      const constituency = constituenciesData[result.id];
+      return {
+        ...result,
+        winner2022: constituency?.winner2022,
+        results2022: constituency?.results2022,
+        margin2022: constituency?.margin,
+      };
+    });
 
     // Filter by province
     if (filterProvince) {
@@ -57,7 +72,7 @@ export function ConstituencyTable({ fptpResults, overrides, onSelectConstituency
     });
 
     return data;
-  }, [fptpResults, sortBy, sortAsc, filterProvince, filterWinner, searchTerm]);
+  }, [fptpResults, constituenciesData, sortBy, sortAsc, filterProvince, filterWinner, searchTerm]);
 
   const handleSort = (column) => {
     if (sortBy === column) {
@@ -92,14 +107,14 @@ export function ConstituencyTable({ fptpResults, overrides, onSelectConstituency
       <div className="p-4 border-b border-neutral">
         <div className="flex items-center justify-between mb-3">
           <div>
-            <h2 className="text-lg font-outfit font-semibold text-white">
+            <h2 className="text-lg font-sans font-semibold text-foreground">
               FPTP Constituencies
             </h2>
-            <p className="text-xs text-gray-500 font-mono">
+            <p className="text-xs text-muted font-mono">
               165 seats • Sorted by margin (closest races first)
             </p>
           </div>
-          <span className="text-sm font-mono text-gray-400">
+          <span className="text-sm font-mono text-muted">
             {results.length} results
           </span>
         </div>
@@ -108,13 +123,13 @@ export function ConstituencyTable({ fptpResults, overrides, onSelectConstituency
         <div className="flex flex-wrap gap-3">
           {/* Search */}
           <div className="relative flex-1 min-w-[200px]">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
             <input
               type="text"
               placeholder="Search constituency..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-neutral border border-neutral rounded-lg text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-gray-500"
+              className="w-full pl-9 pr-3 py-2 bg-surface border border-neutral rounded-lg text-sm text-foreground placeholder-muted focus:outline-none focus:border-foreground"
             />
           </div>
 
@@ -122,7 +137,7 @@ export function ConstituencyTable({ fptpResults, overrides, onSelectConstituency
           <select
             value={filterProvince || ''}
             onChange={(e) => setFilterProvince(e.target.value ? parseInt(e.target.value) : null)}
-            className="px-3 py-2 bg-neutral border border-neutral rounded-lg text-sm text-gray-200 focus:outline-none focus:border-gray-500"
+            className="px-3 py-2 bg-surface border border-neutral rounded-lg text-sm text-foreground focus:outline-none focus:border-foreground"
           >
             <option value="">All Provinces</option>
             {Object.entries(PROVINCES).map(([id, prov]) => (
@@ -134,7 +149,7 @@ export function ConstituencyTable({ fptpResults, overrides, onSelectConstituency
           <select
             value={filterWinner || ''}
             onChange={(e) => setFilterWinner(e.target.value || null)}
-            className="px-3 py-2 bg-neutral border border-neutral rounded-lg text-sm text-gray-200 focus:outline-none focus:border-gray-500"
+            className="px-3 py-2 bg-surface border border-neutral rounded-lg text-sm text-foreground focus:outline-none focus:border-foreground"
           >
             <option value="">All Parties</option>
             {Object.entries(PARTIES).map(([id, party]) => (
@@ -147,10 +162,10 @@ export function ConstituencyTable({ fptpResults, overrides, onSelectConstituency
       {/* Table */}
       <div className="max-h-[600px] overflow-y-auto">
         <table className="w-full">
-          <thead className="bg-neutral/50 sticky top-0">
+      <thead className="bg-neutral/50 sticky top-0">
             <tr>
               <th
-                className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider cursor-pointer hover:text-gray-200"
+                className="px-4 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider cursor-pointer hover:text-foreground"
                 onClick={() => handleSort('name')}
               >
                 <div className="flex items-center gap-1">
@@ -159,7 +174,7 @@ export function ConstituencyTable({ fptpResults, overrides, onSelectConstituency
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider cursor-pointer hover:text-gray-200"
+                className="px-4 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider cursor-pointer hover:text-foreground"
                 onClick={() => handleSort('province')}
               >
                 <div className="flex items-center gap-1">
@@ -167,28 +182,34 @@ export function ConstituencyTable({ fptpResults, overrides, onSelectConstituency
                   <SortIcon column="province" />
                 </div>
               </th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">
+                2022 Winner
+              </th>
+              <th className="px-4 py-3 text-right text-xs font-medium text-muted uppercase tracking-wider">
+                2022 Margin
+              </th>
               <th
-                className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider cursor-pointer hover:text-gray-200"
+                className="px-4 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider cursor-pointer hover:text-foreground"
                 onClick={() => handleSort('winner')}
               >
                 <div className="flex items-center gap-1">
-                  Winner
+                  Sim. Winner
                   <SortIcon column="winner" />
                 </div>
               </th>
               <th
-                className="px-4 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider cursor-pointer hover:text-gray-200"
+                className="px-4 py-3 text-right text-xs font-medium text-muted uppercase tracking-wider cursor-pointer hover:text-foreground"
                 onClick={() => handleSort('margin')}
               >
                 <div className="flex items-center justify-end gap-1">
-                  Margin
+                  Sim. Margin
                   <SortIcon column="margin" />
                 </div>
               </th>
-              <th className="px-4 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">
+              <th className="px-4 py-3 text-right text-xs font-medium text-muted uppercase tracking-wider">
                 Vote Share
               </th>
-              <th className="px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider">
+              <th className="px-4 py-3 text-center text-xs font-medium text-muted uppercase tracking-wider">
                 <div className="flex items-center justify-center gap-1">
                   <Users className="w-3 h-3" />
                   Age
@@ -199,7 +220,7 @@ export function ConstituencyTable({ fptpResults, overrides, onSelectConstituency
           <tbody className="divide-y divide-neutral">
             <AnimatePresence>
               {results.map((result, index) => (
-                <motion.tr
+<motion.tr
                   key={result.id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -213,17 +234,34 @@ export function ConstituencyTable({ fptpResults, overrides, onSelectConstituency
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
                       {overrides[result.id] && (
-                        <span className="text-amber-400 text-xs">⚡</span>
+                        <span className="text-others text-xs">⚡</span>
                       )}
                       <div>
-                        <p className="text-sm font-medium text-gray-200">{result.name}</p>
-                        <p className="text-xs text-gray-500">{result.district}</p>
+                        <p className="text-sm font-medium text-foreground">{result.name}</p>
+                        <p className="text-xs text-muted">{result.district}</p>
                       </div>
                     </div>
                   </td>
                   <td className="px-4 py-3">
-                    <span className="text-sm text-gray-400">
+                    <span className="text-sm text-muted">
                       {PROVINCES[result.province]?.name || `P${result.province}`}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-2">
+                      {result.winner2022 && (
+                        <>
+                          <div className={`w-3 h-3 rounded-full ${bgColors[result.winner2022]}`} />
+                          <span className={`text-sm font-medium ${textColors[result.winner2022]}`}>
+                            {getPartyLabel(result.winner2022)}
+                          </span>
+                        </>
+                      )}
+                    </div>
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <span className={`text-sm font-mono text-muted`}>
+                      {result.margin2022 ? (result.margin2022 * 100).toFixed(2) + '%' : '-'}
                     </span>
                   </td>
                   <td className="px-4 py-3">
@@ -232,13 +270,16 @@ export function ConstituencyTable({ fptpResults, overrides, onSelectConstituency
                       <span className={`text-sm font-medium ${textColors[result.winner]}`}>
                         {getPartyLabel(result.winner)}
                       </span>
+                      {result.winner !== result.winner2022 && (
+                        <span className="text-xs text-others">→</span>
+                      )}
                     </div>
                   </td>
                   <td className="px-4 py-3 text-right">
                     <span className={`text-sm font-mono ${
-                      result.margin < 0.03 ? 'text-amber-400' :
-                      result.margin < 0.05 ? 'text-yellow-400' :
-                      'text-gray-400'
+                      result.margin < 0.03 ? 'text-others' :
+                      result.margin < 0.05 ? 'text-yellow-600' :
+                      'text-muted'
                     }`}>
                       {(result.margin * 100).toFixed(2)}%
                     </span>
@@ -273,43 +314,43 @@ export function ConstituencyTable({ fptpResults, overrides, onSelectConstituency
       {/* Legend */}
       <div className="p-4 border-t border-neutral bg-neutral/30">
         <div className="flex flex-wrap items-center gap-4 text-xs">
-          <span className="text-gray-500">Parties:</span>
+          <span className="text-muted">Parties:</span>
           {Object.entries(PARTIES).map(([id, party]) => (
             <div key={id} className="flex items-center gap-1">
               <div className={`w-3 h-3 rounded ${bgColors[id]}`} />
-              <span className="text-gray-400">{getPartyLabel(id)}</span>
+              <span className="text-muted">{getPartyLabel(id)}</span>
             </div>
           ))}
         </div>
-        <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
+        <div className="flex items-center gap-4 mt-2 text-xs text-muted">
           <span className="flex items-center gap-1">
-            <span className="text-amber-400">⚡</span> Manual override
+            <span className="text-others">⚡</span> Manual override
           </span>
           <span className="flex items-center gap-1">
-            <span className="text-amber-400">●</span> Margin &lt; 3%
+            <span className="text-others">●</span> Margin &lt; 3%
           </span>
           <span className="flex items-center gap-1">
-            <span className="text-yellow-400">●</span> Margin 3-5%
+            <span className="text-yellow-600">●</span> Margin 3-5%
           </span>
         </div>
-        <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
+        <div className="flex items-center gap-4 mt-2 text-xs text-muted">
           <span className="flex items-center gap-1">
             <Users className="w-3 h-3" /> Age Distribution:
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-blue-400"></span> 0-14
+            <span className="w-2 h-2 rounded-full bg-blue-600"></span> 0-14
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-green-400"></span> 15-29
+            <span className="w-2 h-2 rounded-full bg-green-600"></span> 15-29
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-yellow-400"></span> 30-44
+            <span className="w-2 h-2 rounded-full bg-yellow-600"></span> 30-44
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-orange-400"></span> 45-59
+            <span className="w-2 h-2 rounded-full bg-orange-600"></span> 45-59
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-red-400"></span> 60+
+            <span className="w-2 h-2 rounded-full bg-red-600"></span> 60+
           </span>
         </div>
       </div>

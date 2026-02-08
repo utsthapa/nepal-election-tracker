@@ -2,7 +2,7 @@ import { getLatestPolls, getPollTrends } from '../../data/polls'
 import PollsPageClient from './PollsPageClient'
 
 export const metadata = {
-  title: 'Polls | Nepal Votes',
+  title: 'Polls | NepaliSoch',
   description: 'Latest public opinion polls and polling trends for Nepal elections.',
 }
 

@@ -8,7 +8,7 @@ export default function YearSelector({ selectedYear, onYearChange }) {
   
   return (
     <div className="flex flex-wrap items-center gap-2 mb-4">
-      <div className="flex items-center gap-2 text-sm text-gray-400">
+      <div className="flex items-center gap-2 text-sm text-gray-700">
         {selectedYear === 2026 ? (
           <TrendingUp className="w-4 h-4 text-blue-400" />
         ) : (
@@ -33,7 +33,7 @@ export default function YearSelector({ selectedYear, onYearChange }) {
                     : 'bg-surface border-2 border-blue-500 text-white shadow-lg scale-105'
                   : isSimulation
                     ? 'bg-blue-500/10 text-blue-300 border border-blue-500/30 hover:bg-blue-500/20'
-                    : 'bg-surface border border-neutral text-gray-300 hover:border-gray-500 hover:text-white'
+                    : 'bg-surface border border-neutral text-gray-700 hover:border-gray-500 hover:text-white'
               }`}
             >
               {isSimulation ? `${year} (Simulation)` : year}
@@ -43,7 +43,7 @@ export default function YearSelector({ selectedYear, onYearChange }) {
       </div>
       
       {selectedYear !== 2026 && ELECTIONS[selectedYear] && (
-        <div className="text-xs text-gray-500 ml-2">
+        <div className="text-xs text-gray-800 ml-2">
           <span className="font-medium">{ELECTIONS[selectedYear].name}</span>
           {' • '}
           {ELECTIONS[selectedYear].date}

@@ -28,14 +28,14 @@ export function PRBlockChart({ prSeats, nationalVoteShares = {}, threshold = 3, 
   return (
     <div className="bg-surface rounded-xl p-6 border border-neutral">
       <div className="flex items-center justify-between mb-1">
-        <h2 className="text-lg font-outfit font-semibold text-white">
+        <h2 className="text-lg font-sans font-semibold text-foreground">
           PR Allocation
         </h2>
-        <span className="text-sm font-mono text-gray-400">
+        <span className="text-sm font-mono text-muted">
           {totalSeats} / 110 seats
         </span>
       </div>
-      <p className="text-xs text-gray-500 mb-4 font-mono">
+      <p className="text-xs text-muted mb-4 font-mono">
         {methodLabel} • {threshold}% threshold (failed votes redistributed)
       </p>
 
@@ -58,14 +58,14 @@ export function PRBlockChart({ prSeats, nationalVoteShares = {}, threshold = 3, 
                 style={{ minWidth: seats > 0 ? '2rem' : 0 }}
               >
                 {seats >= 5 && (
-                  <span className="text-white text-sm font-bold font-mono">
+                  <span className="text-foreground text-sm font-bold font-mono">
                     {seats}
                   </span>
                 )}
 
                 {/* Tooltip */}
                 <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-surface border border-neutral rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
-                  <span className="text-xs text-white">{PARTIES[party].name}: {seats}</span>
+                  <span className="text-xs text-foreground">{PARTIES[party].name}: {seats}</span>
                 </div>
               </motion.div>
             );
@@ -89,13 +89,13 @@ export function PRBlockChart({ prSeats, nationalVoteShares = {}, threshold = 3, 
             >
               <div className="flex items-center gap-2">
                 <div className={`w-3 h-3 rounded ${bgColors[party]}`} />
-                <span className="text-sm text-gray-300">{formatPartyLabel(party)}</span>
+                <span className="text-sm text-foreground">{formatPartyLabel(party)}</span>
                 {!meetsThreshold && (
                   <span className="text-xs text-red-400">(below {threshold}%)</span>
                 )}
               </div>
               <div className="flex items-center gap-4">
-                <span className="text-xs font-mono text-gray-500">
+                <span className="text-xs font-mono text-muted">
                   {voteShare.toFixed(2)}% votes
                 </span>
                 <motion.span
@@ -114,7 +114,7 @@ export function PRBlockChart({ prSeats, nationalVoteShares = {}, threshold = 3, 
 
       {/* Threshold Indicator */}
       <div className="mt-4 pt-4 border-t border-neutral">
-        <div className="flex items-center gap-2 text-xs text-gray-500">
+        <div className="flex items-center gap-2 text-xs text-muted">
           <div className="w-2 h-2 rounded-full bg-red-500" />
           <span>Parties below {threshold}% threshold receive 0 PR seats</span>
         </div>

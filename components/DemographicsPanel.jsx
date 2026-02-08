@@ -24,14 +24,14 @@ function AgeBar({ group, label, percentage, population, isHighlighted, compariso
   return (
     <div className="group">
       <div className="flex items-center justify-between mb-1">
-        <span className="text-xs text-gray-400 font-medium">{label}</span>
+        <span className="text-xs text-gray-700 font-medium">{label}</span>
         <div className="flex items-center gap-2">
-          <span className="text-xs font-mono text-gray-300">{percentage.toFixed(2)}%</span>
+          <span className="text-xs font-mono text-gray-700">{percentage.toFixed(2)}%</span>
           {comparison && (
             <span className={`text-[10px] font-mono ${
               comparison.status === 'above' ? 'text-green-400' :
               comparison.status === 'below' ? 'text-red-400' :
-              'text-gray-500'
+              'text-gray-800'
             }`}>
               {comparison.difference > 0 ? '+' : ''}{(comparison.difference * 100).toFixed(2)}%
             </span>
@@ -79,11 +79,11 @@ function StatCard({ icon: Icon, label, value, subValue, color = 'blue' }) {
         <div className={`p-1.5 rounded ${colorClasses[color]}`}>
           <Icon className="w-3.5 h-3.5" />
         </div>
-        <span className="text-xs text-gray-400">{label}</span>
+        <span className="text-xs text-gray-700">{label}</span>
       </div>
       <div className="text-lg font-bold font-mono text-white">{value}</div>
       {subValue && (
-        <div className="text-[10px] text-gray-500 font-mono">{subValue}</div>
+        <div className="text-[10px] text-gray-800 font-mono">{subValue}</div>
       )}
     </div>
   );
@@ -96,7 +96,7 @@ export function DemographicsPanel({ constituencyId, constituencyName }) {
   if (!demographics) {
     return (
       <div className="bg-surface rounded-xl p-6 border border-neutral">
-        <div className="flex items-center gap-2 text-gray-400">
+        <div className="flex items-center gap-2 text-gray-700">
           <Info className="w-4 h-4" />
           <span className="text-sm">Demographic data not available for this constituency</span>
         </div>
@@ -115,11 +115,11 @@ export function DemographicsPanel({ constituencyId, constituencyName }) {
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
         <div>
-          <h2 className="text-lg font-outfit font-semibold text-white flex items-center gap-2">
+          <h2 className="text-lg font-sans font-semibold text-white flex items-center gap-2">
             <BarChart3 className="w-5 h-5 text-blue-400" />
             Demographics
           </h2>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-gray-800 mt-1">
             {constituencyName || constituencyId} • {demographics.district} District
           </p>
         </div>
@@ -153,8 +153,8 @@ export function DemographicsPanel({ constituencyId, constituencyName }) {
       {/* Age Distribution */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-sm font-medium text-gray-300">Age Distribution</h3>
-          <span className="text-[10px] text-gray-500">
+          <h3 className="text-sm font-medium text-gray-700">Age Distribution</h3>
+          <span className="text-[10px] text-gray-800">
             White line = Nepal avg
           </span>
         </div>
@@ -178,49 +178,49 @@ export function DemographicsPanel({ constituencyId, constituencyName }) {
           <div className="text-lg font-bold font-mono text-green-400">
             {(youthIndex * 100).toFixed(2)}%
           </div>
-          <div className="text-[10px] text-gray-500">Youth Index</div>
+          <div className="text-[10px] text-gray-800">Youth Index</div>
           <div className="text-[9px] text-gray-600">(Under 30)</div>
         </div>
         <div className="bg-neutral/30 rounded-lg p-3 text-center">
           <div className="text-lg font-bold font-mono text-yellow-400">
             {demographics.medianAge}
           </div>
-          <div className="text-[10px] text-gray-500">Median Age</div>
+          <div className="text-[10px] text-gray-800">Median Age</div>
           <div className="text-[9px] text-gray-600">(years)</div>
         </div>
         <div className="bg-neutral/30 rounded-lg p-3 text-center">
           <div className="text-lg font-bold font-mono text-purple-400">
             {(dependencyRatio * 100).toFixed(0)}%
           </div>
-          <div className="text-[10px] text-gray-500">Dependency</div>
+          <div className="text-[10px] text-gray-800">Dependency</div>
           <div className="text-[9px] text-gray-600">(0-14 + 60+)</div>
         </div>
       </div>
 
       {/* Voting Age Breakdown */}
       <div className="mb-6">
-        <h3 className="text-sm font-medium text-gray-300 mb-3">Voter Age Groups</h3>
+        <h3 className="text-sm font-medium text-gray-700 mb-3">Voter Age Groups</h3>
         <div className="grid grid-cols-2 gap-2">
           <div className="flex items-center justify-between bg-neutral/20 rounded px-3 py-2">
-            <span className="text-xs text-gray-400">Young (18-29)</span>
+            <span className="text-xs text-gray-700">Young (18-29)</span>
             <span className="text-sm font-mono text-green-400">
               {votingBreakdown.youngVoters.toLocaleString()}
             </span>
           </div>
           <div className="flex items-center justify-between bg-neutral/20 rounded px-3 py-2">
-            <span className="text-xs text-gray-400">Prime (30-44)</span>
+            <span className="text-xs text-gray-700">Prime (30-44)</span>
             <span className="text-sm font-mono text-yellow-400">
               {votingBreakdown.primeAge.toLocaleString()}
             </span>
           </div>
           <div className="flex items-center justify-between bg-neutral/20 rounded px-3 py-2">
-            <span className="text-xs text-gray-400">Middle (45-59)</span>
+            <span className="text-xs text-gray-700">Middle (45-59)</span>
             <span className="text-sm font-mono text-orange-400">
               {votingBreakdown.middleAge.toLocaleString()}
             </span>
           </div>
           <div className="flex items-center justify-between bg-neutral/20 rounded px-3 py-2">
-            <span className="text-xs text-gray-400">Senior (60+)</span>
+            <span className="text-xs text-gray-700">Senior (60+)</span>
             <span className="text-sm font-mono text-red-400">
               {votingBreakdown.seniors.toLocaleString()}
             </span>
@@ -231,13 +231,13 @@ export function DemographicsPanel({ constituencyId, constituencyName }) {
       {/* Additional Stats */}
       <div className="grid grid-cols-2 gap-3 pt-4 border-t border-neutral">
         <div className="flex items-center justify-between">
-          <span className="text-xs text-gray-500">Literacy Rate</span>
+          <span className="text-xs text-gray-800">Literacy Rate</span>
           <span className="text-sm font-mono text-white">
             {(demographics.literacyRate * 100).toFixed(2)}%
           </span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-xs text-gray-500">Urban Population</span>
+          <span className="text-xs text-gray-800">Urban Population</span>
           <span className="text-sm font-mono text-white">
             {(demographics.urbanPopulation * 100).toFixed(2)}%
           </span>
@@ -265,20 +265,20 @@ export function DemographicsCompact({ constituencyId }) {
   return (
     <div className="flex items-center gap-3 text-xs">
       <div className="flex items-center gap-1">
-        <Users className="w-3 h-3 text-gray-500" />
-        <span className="font-mono text-gray-400">
+        <Users className="w-3 h-3 text-gray-800" />
+        <span className="font-mono text-gray-700">
           {(demographics.estimatedPopulation / 1000).toFixed(0)}k
         </span>
       </div>
       <div className="flex items-center gap-1">
         <span className="text-gray-600">Youth:</span>
-        <span className={`font-mono ${youthIndex > 0.55 ? 'text-green-400' : 'text-gray-400'}`}>
+        <span className={`font-mono ${youthIndex > 0.55 ? 'text-green-400' : 'text-gray-700'}`}>
           {(youthIndex * 100).toFixed(0)}%
         </span>
       </div>
       <div className="flex items-center gap-1">
         <span className="text-gray-600">Med:</span>
-        <span className="font-mono text-gray-400">{demographics.medianAge}y</span>
+        <span className="font-mono text-gray-700">{demographics.medianAge}y</span>
       </div>
     </div>
   );

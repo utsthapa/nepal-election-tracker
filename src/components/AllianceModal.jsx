@@ -60,16 +60,16 @@ export function AllianceModal({ isOpen, onClose, allianceConfig, onSave, onClear
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <div className="flex items-center gap-2">
-                    <Link2 className="w-5 h-5 text-gray-300" />
+                    <Link2 className="w-5 h-5 text-gray-700" />
                     <h3 className="text-lg font-semibold text-white">Gathabandan Mode</h3>
                   </div>
-                  <p className="text-sm text-gray-400 mt-1">
+                  <p className="text-sm text-gray-700 mt-1">
                     Pair two parties. In every seat where both appear, the leading ally receives the partner&apos;s votes with a handicap.
                   </p>
                 </div>
                 <button
                   onClick={onClose}
-                  className="p-2 rounded-lg hover:bg-neutral transition-colors text-gray-400"
+                  className="p-2 rounded-lg hover:bg-neutral transition-colors text-gray-700"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -78,7 +78,7 @@ export function AllianceModal({ isOpen, onClose, allianceConfig, onSave, onClear
               <div className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs text-gray-500 mb-1">Lead Partner</label>
+                    <label className="block text-xs text-gray-800 mb-1">Lead Partner</label>
                     <select
                       value={partyA}
                       onChange={(e) => setPartyA(e.target.value)}
@@ -98,7 +98,7 @@ export function AllianceModal({ isOpen, onClose, allianceConfig, onSave, onClear
                   </div>
 
                   <div>
-                    <label className="block text-xs text-gray-500 mb-1">Supporting Partner</label>
+                    <label className="block text-xs text-gray-800 mb-1">Supporting Partner</label>
                     <select
                       value={partyB}
                       onChange={(e) => setPartyB(e.target.value)}
@@ -120,8 +120,8 @@ export function AllianceModal({ isOpen, onClose, allianceConfig, onSave, onClear
 
                 <div>
                   <div className="flex items-center justify-between">
-                    <label className="text-xs text-gray-500">Handicap on transferred votes</label>
-                    <span className="text-sm font-mono text-gray-300">{handicap}%</span>
+                    <label className="text-xs text-gray-800">Handicap on transferred votes</label>
+                    <span className="text-sm font-mono text-gray-700">{handicap}%</span>
                   </div>
                   <input
                     type="range"
@@ -132,7 +132,7 @@ export function AllianceModal({ isOpen, onClose, allianceConfig, onSave, onClear
                     onChange={(e) => setHandicap(Number(e.target.value))}
                     className="w-full h-2 mt-2"
                   />
-                  <p className="text-xs text-gray-500 mt-2">
+                  <p className="text-xs text-gray-800 mt-2">
                     The supporting party sends {(100 - handicap)}% of its votes to the stronger ally in each riding they both contest.
                   </p>
                 </div>
@@ -142,7 +142,7 @@ export function AllianceModal({ isOpen, onClose, allianceConfig, onSave, onClear
                 {allianceConfig?.enabled && (
                   <button
                     onClick={handleClear}
-                    className="flex items-center gap-2 px-3 py-2 border border-neutral rounded-lg text-sm text-gray-300 hover:bg-neutral/70 transition-colors"
+                    className="flex items-center gap-2 px-3 py-2 border border-neutral rounded-lg text-sm text-gray-700 hover:bg-neutral/70 transition-colors"
                   >
                     <Slash className="w-4 h-4" />
                     Disable
@@ -160,7 +160,7 @@ export function AllianceModal({ isOpen, onClose, allianceConfig, onSave, onClear
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     canSave
                       ? 'bg-gradient-to-r from-nc to-rsp text-white hover:opacity-90'
-                      : 'bg-neutral text-gray-500 cursor-not-allowed'
+                      : 'bg-neutral text-gray-800 cursor-not-allowed'
                   }`}
                 >
                   Save alliance

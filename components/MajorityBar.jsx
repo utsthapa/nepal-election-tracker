@@ -81,11 +81,11 @@ export function MajorityBar({ totalSeats, leadingParty }) {
       <div className="relative space-y-4">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <div className="flex items-center gap-2 text-sm uppercase tracking-[0.18em] text-gray-500">
+            <div className="flex items-center gap-2 text-sm uppercase tracking-[0.18em] text-muted">
               <Sparkles className="h-4 w-4 text-amber-200" />
               <span>Path to Majority</span>
             </div>
-            <p className="mt-1 text-xs font-mono text-gray-400">
+            <p className="mt-1 text-xs font-mono text-muted">
               {TOTAL_SEATS} seats total · {MAJORITY} needed to govern
             </p>
           </div>
@@ -99,44 +99,44 @@ export function MajorityBar({ totalSeats, leadingParty }) {
 
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-lg border border-neutral/60 bg-neutral/30 px-3 py-3">
-            <p className="text-[11px] uppercase tracking-[0.12em] text-gray-500">Leading</p>
+            <p className="text-[11px] uppercase tracking-[0.12em] text-muted">Leading</p>
             <div className="mt-1 flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: partyColors[leadingParty] }} />
-              <p className="text-lg font-bold text-white">{leadingSeats}</p>
+              <p className="text-lg font-bold text-foreground">{leadingSeats}</p>
             </div>
-            <p className="text-xs font-mono text-gray-400">{formatPartyLabel(leadingParty)}</p>
+            <p className="text-xs font-mono text-muted">{formatPartyLabel(leadingParty)}</p>
           </div>
           <div className="rounded-lg border border-neutral/60 bg-neutral/30 px-3 py-3">
-            <p className="text-[11px] uppercase tracking-[0.12em] text-gray-500">Seat gap</p>
-            <p className="mt-1 text-lg font-bold text-white">
+            <p className="text-[11px] uppercase tracking-[0.12em] text-muted">Seat gap</p>
+            <p className="mt-1 text-lg font-bold text-foreground">
               {hasMajority ? `+${leadingSeats - MAJORITY}` : seatsToMajority}
             </p>
-            <p className="text-xs font-mono text-gray-400">
+            <p className="text-xs font-mono text-muted">
               {hasMajority ? 'above 138' : 'to reach 138'}
             </p>
           </div>
           <div className="rounded-lg border border-neutral/60 bg-neutral/30 px-3 py-3">
-            <p className="text-[11px] uppercase tracking-[0.12em] text-gray-500">Lead</p>
-            <p className="mt-1 text-lg font-bold text-white">
+            <p className="text-[11px] uppercase tracking-[0.12em] text-muted">Lead</p>
+            <p className="mt-1 text-lg font-bold text-foreground">
               {runnerUpSeats ? `${leadGap}` : '—'}
             </p>
-            <p className="text-xs font-mono text-gray-400">
+            <p className="text-xs font-mono text-muted">
               {runnerUpSeats ? `vs ${formatPartyLabel(runnerUpId)}` : 'waiting'}
             </p>
           </div>
           <div className="rounded-lg border border-neutral/60 bg-neutral/30 px-3 py-3">
-            <p className="text-[11px] uppercase tracking-[0.12em] text-gray-500">Coalitions</p>
-            <p className="mt-1 text-lg font-bold text-white">
+            <p className="text-[11px] uppercase tracking-[0.12em] text-muted">Coalitions</p>
+            <p className="mt-1 text-lg font-bold text-foreground">
               {!hasMajority ? coalitionCount : '—'}
             </p>
-            <p className="text-xs font-mono text-gray-400">
+            <p className="text-xs font-mono text-muted">
               {!hasMajority ? 'viable paths' : 'not needed'}
             </p>
           </div>
         </div>
 
         <div className="rounded-lg border border-neutral/60 bg-neutral/30 px-3 py-3">
-          <p className="text-[11px] uppercase tracking-[0.12em] text-gray-500">Top parties</p>
+          <p className="text-[11px] uppercase tracking-[0.12em] text-muted">Top parties</p>
           <div className="mt-2 flex flex-wrap gap-2">
             {topParties.map(([party, seats]) => (
               <span
@@ -144,8 +144,8 @@ export function MajorityBar({ totalSeats, leadingParty }) {
                 className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm"
               >
                 <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: partyColors[party] }} />
-                <span className="font-semibold text-white">{formatPartyLabel(party)}</span>
-                <span className="text-xs font-mono text-gray-400">{seats}</span>
+                <span className="font-semibold text-foreground">{formatPartyLabel(party)}</span>
+                <span className="text-xs font-mono text-muted">{seats}</span>
               </span>
             ))}
           </div>
@@ -153,7 +153,7 @@ export function MajorityBar({ totalSeats, leadingParty }) {
 
         {!hasMajority && coalitionCount > 0 && (
           <div className="rounded-lg border border-neutral/60 bg-neutral/30 px-3 py-3">
-            <p className="text-[11px] uppercase tracking-[0.12em] text-gray-500">Top coalition paths</p>
+            <p className="text-[11px] uppercase tracking-[0.12em] text-muted">Top coalition paths</p>
             <div className="mt-2 space-y-2">
               {coalitionPaths.map((coalition, index) => (
                 <div
@@ -167,12 +167,12 @@ export function MajorityBar({ totalSeats, leadingParty }) {
                         className="inline-flex items-center gap-1.5 rounded-full bg-neutral/60 px-2 py-1 text-xs"
                       >
                         <span className="h-2 w-2 rounded-full" style={{ backgroundColor: partyColors[party] }} />
-                        <span className="font-semibold text-white">{PARTIES[party]?.short || party}</span>
+                        <span className="font-semibold text-foreground">{PARTIES[party]?.short || party}</span>
                       </span>
                     ))}
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-bold text-white font-mono">{coalition.seats}</p>
+                    <p className="text-sm font-bold text-foreground font-mono">{coalition.seats}</p>
                   </div>
                 </div>
               ))}

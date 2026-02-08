@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import { useLanguage } from '../../context/LanguageContext'
 import { Mail, CheckCircle, ArrowRight, Archive } from 'lucide-react'
+import { Header } from '../../components/Header'
+import { Footer } from '../../components/Footer'
 
 export default function NewsletterPage() {
   const { language, t } = useLanguage()
@@ -23,16 +25,17 @@ export default function NewsletterPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Header />
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl mb-6">
             <Mail className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-4xl font-bold text-white mb-4">
+          <h1 className="text-4xl font-bold text-foreground mb-4">
             {t('newsletter.title')}
           </h1>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          <p className="text-xl text-muted max-w-2xl mx-auto">
             {t('newsletter.description')}
           </p>
         </div>
@@ -40,13 +43,13 @@ export default function NewsletterPage() {
         {/* Newsletter Signup */}
         {!isSubmitted ? (
           <div className="bg-surface border border-neutral rounded-2xl p-8 mb-8">
-            <h2 className="text-2xl font-bold text-white mb-6 text-center">
+            <h2 className="text-2xl font-bold text-foreground mb-6 text-center">
               {language === 'ne' ? 'हाम्रो समाचारपत्रमा सदस्यता लिनुहोस्' : 'Subscribe to our newsletter'}
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                <label htmlFor="email" className="block text-sm font-medium text-muted mb-2">
                   {t('newsletter.email')}
                 </label>
                 <input
@@ -56,7 +59,7 @@ export default function NewsletterPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={language === 'ne' ? 'तपाईंको इमेल' : 'your@email.com'}
                   required
-                  className="w-full px-4 py-3 bg-neutral border border-neutral rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                  className="w-full px-4 py-3 bg-neutral border border-neutral rounded-lg text-foreground placeholder-muted focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                 />
               </div>
 
@@ -83,13 +86,13 @@ export default function NewsletterPage() {
             </form>
 
             <div className="mt-6 pt-6 border-t border-neutral">
-              <h3 className="text-lg font-semibold text-white mb-4">
+              <h3 className="text-lg font-semibold text-foreground mb-4">
                 {language === 'ne' ? 'हाम्रो समाचारपत्रमा के प्राप्त हुनेछ' : 'What you\'ll get:'}
               </h3>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-300">
+                  <span className="text-muted">
                     {language === 'ne' 
                       ? 'हप्तावारी निर्वाचन विश्लेषण र पूर्वानुमान'
                       : 'Weekly election analysis and forecasts'
@@ -98,7 +101,7 @@ export default function NewsletterPage() {
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-300">
+                  <span className="text-muted">
                     {language === 'ne' 
                       ? 'नवीनतम मतदान अपडेट'
                       : 'Latest polling updates'
@@ -107,7 +110,7 @@ export default function NewsletterPage() {
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-300">
+                  <span className="text-muted">
                     {language === 'ne' 
                       ? 'विशेष विश्लेषण र डाटा भिजुअलाइजेसनहरू'
                       : 'Exclusive data visualizations'
@@ -116,7 +119,7 @@ export default function NewsletterPage() {
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-300">
+                  <span className="text-muted">
                     {language === 'ne' 
                       ? 'निर्वाचन समयमा विशेष अपडेट'
                       : 'Election day live coverage'
@@ -132,7 +135,7 @@ export default function NewsletterPage() {
             <h2 className="text-2xl font-bold text-green-400 mb-4">
               {language === 'ne' ? 'धन्यवाद!' : 'Successfully Subscribed!'}
             </h2>
-            <p className="text-gray-300 mb-6">
+            <p className="text-muted mb-6">
               {language === 'ne' 
                 ? 'तपाईंलाई हाम्रो समाचारपत्रमा स्वागत छ।'
                 : `You're now subscribed to our newsletter. Check ${email} for confirmation.`
@@ -143,7 +146,7 @@ export default function NewsletterPage() {
                 setIsSubmitted(false)
                 setEmail('')
               }}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-neutral hover:bg-neutral/80 text-white font-medium rounded-lg transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-neutral hover:bg-neutral/80 text-foreground font-medium rounded-lg transition-colors"
             >
               {language === 'ne' ? 'अर्कै सदस्यता गर्नुहोस्' : 'Subscribe another email'}
             </button>
@@ -153,7 +156,7 @@ export default function NewsletterPage() {
         {/* Newsletter Archive */}
         <div className="bg-surface border border-neutral rounded-xl p-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
               <Archive className="w-6 h-6" />
               {t('newsletter.archive')}
             </h2>
@@ -173,15 +176,15 @@ export default function NewsletterPage() {
                     <span className="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs font-medium">
                       {language === 'ne' ? 'समस्या' : 'Issue'}
                     </span>
-                    <span className="text-sm text-gray-400 ml-2">
+                    <span className="text-sm text-muted ml-2">
                       Week {issue}
                     </span>
                   </div>
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm text-muted">
                     January 2025
                   </span>
                 </div>
-                <p className="text-sm text-gray-300">
+                <p className="text-sm text-muted">
                   {language === 'ne' 
                     ? `हप्तावारी ${issue}: नेपालको निर्वाचन परिदृश्यको समीक्षण`
                     : `Weekly update ${issue}: Summary of Nepal election developments`
@@ -200,7 +203,7 @@ export default function NewsletterPage() {
 
         {/* Privacy Notice */}
         <div className="mt-8 p-4 bg-neutral/30 rounded-lg text-center">
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-muted">
             {language === 'ne' 
               ? 'हामी तपाईंको इमेल गोपनीपनतामा प्रयोग गर्छौं र कहिल्यै तेस्रो पार्टीको लागि प्रयोग गर्छौं।'
               : 'We respect your privacy and will never share your email with third parties. You can unsubscribe at any time.'
@@ -208,6 +211,7 @@ export default function NewsletterPage() {
           </p>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

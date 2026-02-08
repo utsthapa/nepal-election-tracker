@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { ArrowLeft, ArrowRight, Sparkles } from 'lucide-react'
 
 export const metadata = {
-  title: 'Prediction Markets (paused) - Nepal Election Simulator',
+  title: 'Prediction Markets (paused) - NepaliSoch',
   description: 'Prediction market view is paused while we focus on the simulator.',
 }
 
@@ -20,7 +20,7 @@ export default function PredictionMarketsPage() {
           Prediction markets will return after we finish the simulator.
         </h1>
         <p className="text-lg text-[rgb(var(--color-muted))]">
-          We are focusing all updates on the Nepal Election Simulator. Live odds, cross-platform probabilities, and market explainers will come back once the simulator is stable.
+          We are focusing all updates on the NepaliSoch. Live odds, cross-platform probabilities, and market explainers will come back once the simulator is stable.
         </p>
 
         <div className="rounded-3xl border border-neutral bg-surface/90 backdrop-blur-md shadow-[0_18px_55px_rgba(0,0,0,0.08)] p-6 space-y-4">

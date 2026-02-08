@@ -15,7 +15,8 @@ import {
   ChevronUp,
   Search
 } from 'lucide-react';
-import { SimpleHeader } from '../../components/SimpleHeader';
+import { Header } from '../../components/Header';
+import { Footer } from '../../components/Footer';
 import { DemographicsPanel, AgeDistributionMini } from '../../components/DemographicsPanel';
 import {
   DISTRICT_DEMOGRAPHICS,
@@ -129,16 +130,16 @@ export default function DemographicsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SimpleHeader />
+      <Header />
 
       <main className="max-w-7xl mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
             <BarChart3 className="w-8 h-8 text-blue-400" />
-            <h1 className="text-3xl font-bold text-white">Demographics</h1>
+            <h1 className="text-3xl font-bold text-foreground">Demographics</h1>
           </div>
-          <p className="text-gray-400">
+          <p className="text-muted">
             Population and age distribution data for Nepal&apos;s districts and constituencies
           </p>
         </div>
@@ -146,36 +147,36 @@ export default function DemographicsPage() {
         {/* National Overview */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-surface border border-neutral rounded-xl p-4">
-            <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">
+            <p className="text-xs uppercase tracking-wider text-muted mb-1">
               Total Population
             </p>
-            <p className="text-2xl font-bold text-white">
+            <p className="text-2xl font-bold text-foreground">
               {(nationalStats.population / 1000000).toFixed(2)}M
             </p>
-            <p className="text-xs text-gray-500">Census 2021</p>
+            <p className="text-xs text-muted">Census 2021</p>
           </div>
           <div className="bg-surface border border-neutral rounded-xl p-4">
-            <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">
+            <p className="text-xs uppercase tracking-wider text-muted mb-1">
               Districts
             </p>
-            <p className="text-2xl font-bold text-white">{nationalStats.districts}</p>
-            <p className="text-xs text-gray-500">with demographic data</p>
+            <p className="text-2xl font-bold text-foreground">{nationalStats.districts}</p>
+            <p className="text-xs text-muted">with demographic data</p>
           </div>
           <div className="bg-surface border border-neutral rounded-xl p-4">
-            <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">
+            <p className="text-xs uppercase tracking-wider text-muted mb-1">
               FPTP Constituencies
             </p>
-            <p className="text-2xl font-bold text-white">{nationalStats.constituencies}</p>
-            <p className="text-xs text-gray-500">estimated demographics</p>
+            <p className="text-2xl font-bold text-foreground">{nationalStats.constituencies}</p>
+            <p className="text-xs text-muted">estimated demographics</p>
           </div>
           <div className="bg-surface border border-neutral rounded-xl p-4">
-            <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">
+            <p className="text-xs uppercase tracking-wider text-muted mb-1">
               Gender Ratio
             </p>
-            <p className="text-2xl font-bold text-white">
+            <p className="text-2xl font-bold text-foreground">
               {((nationalStats.male / nationalStats.female) * 100).toFixed(0)}
             </p>
-            <p className="text-xs text-gray-500">males per 100 females</p>
+            <p className="text-xs text-muted">males per 100 females</p>
           </div>
         </div>
 
@@ -183,9 +184,9 @@ export default function DemographicsPage() {
         <div className="bg-surface border border-neutral rounded-xl p-6 mb-8">
           <div className="flex items-center gap-2 mb-4">
             <BookOpen className="w-5 h-5 text-green-400" />
-            <h2 className="text-xl font-semibold text-white">Data Sources</h2>
+            <h2 className="text-xl font-semibold text-foreground">Data Sources</h2>
           </div>
-          <p className="text-sm text-gray-400 mb-4">
+          <p className="text-sm text-muted mb-4">
             All demographic data is sourced from official Government of Nepal publications. Click each source for details.
           </p>
           <div className="space-y-3">
@@ -200,14 +201,14 @@ export default function DemographicsPage() {
                       {idx + 1}
                     </div>
                     <div className="text-left">
-                      <p className="text-sm font-medium text-white">{source.name}</p>
-                      <p className="text-xs text-gray-500">{source.organization}</p>
+                      <p className="text-sm font-medium text-foreground">{source.name}</p>
+                      <p className="text-xs text-muted">{source.organization}</p>
                     </div>
                   </div>
                   {expandedSource === idx ? (
-                    <ChevronUp className="w-5 h-5 text-gray-400" />
+                    <ChevronUp className="w-5 h-5 text-muted" />
                   ) : (
-                    <ChevronDown className="w-5 h-5 text-gray-400" />
+                    <ChevronDown className="w-5 h-5 text-muted" />
                   )}
                 </button>
                 {expandedSource === idx && (
@@ -217,12 +218,12 @@ export default function DemographicsPage() {
                     exit={{ height: 0, opacity: 0 }}
                     className="px-4 pb-4 border-t border-neutral"
                   >
-                    <p className="text-sm text-gray-300 mt-3 mb-3">{source.description}</p>
+                    <p className="text-sm text-foreground/80 mt-3 mb-3">{source.description}</p>
                     <div className="mb-3">
-                      <p className="text-xs text-gray-500 mb-1">Data used:</p>
+                      <p className="text-xs text-muted mb-1">Data used:</p>
                       <div className="flex flex-wrap gap-2">
                         {source.dataUsed.map((item, i) => (
-                          <span key={i} className="px-2 py-1 bg-neutral rounded text-xs text-gray-300">
+                          <span key={i} className="px-2 py-1 bg-neutral rounded text-xs text-foreground/80">
                             {item}
                           </span>
                         ))}
@@ -252,12 +253,12 @@ export default function DemographicsPage() {
           >
             <div className="flex items-center gap-2">
               <Info className="w-5 h-5 text-yellow-400" />
-              <h2 className="text-xl font-semibold text-white">{METHODOLOGY.title}</h2>
+              <h2 className="text-xl font-semibold text-foreground">{METHODOLOGY.title}</h2>
             </div>
             {showMethodology ? (
-              <ChevronUp className="w-5 h-5 text-gray-400" />
+              <ChevronUp className="w-5 h-5 text-muted" />
             ) : (
-              <ChevronDown className="w-5 h-5 text-gray-400" />
+              <ChevronDown className="w-5 h-5 text-muted" />
             )}
           </button>
           {showMethodology && (
@@ -269,7 +270,7 @@ export default function DemographicsPage() {
               {METHODOLOGY.sections.map((section, idx) => (
                 <div key={idx} className="border-l-2 border-yellow-400/30 pl-4">
                   <h3 className="text-sm font-medium text-yellow-400 mb-1">{section.heading}</h3>
-                  <p className="text-sm text-gray-300">{section.content}</p>
+                  <p className="text-sm text-foreground/80">{section.content}</p>
                 </div>
               ))}
               <div className="mt-4 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
@@ -286,32 +287,32 @@ export default function DemographicsPage() {
         <div className="bg-surface border border-neutral rounded-xl p-6 mb-8">
           <div className="flex items-center gap-2 mb-4">
             <MapPin className="w-5 h-5 text-purple-400" />
-            <h2 className="text-xl font-semibold text-white">Province Demographics</h2>
+            <h2 className="text-xl font-semibold text-foreground">Province Demographics</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {Object.entries(PROVINCE_DEMOGRAPHICS).map(([id, data]) => (
               <div key={id} className="bg-neutral/30 rounded-lg p-4">
-                <p className="text-sm font-medium text-white mb-2">
+                <p className="text-sm font-medium text-foreground mb-2">
                   {PROVINCES[id]?.name || `Province ${id}`}
                 </p>
                 <div className="space-y-1 text-xs">
                   <div className="flex justify-between">
-                    <span className="text-gray-500">Population</span>
-                    <span className="text-gray-300 font-mono">
+                    <span className="text-muted">Population</span>
+                    <span className="text-foreground/80 font-mono">
                       {(data.population / 1000000).toFixed(2)}M
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500">Median Age</span>
-                    <span className="text-gray-300 font-mono">{data.medianAge} years</span>
+                    <span className="text-muted">Median Age</span>
+                    <span className="text-foreground/80 font-mono">{data.medianAge} years</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500">Literacy</span>
-                    <span className="text-gray-300 font-mono">{(data.literacyRate * 100).toFixed(0)}%</span>
+                    <span className="text-muted">Literacy</span>
+                    <span className="text-foreground/80 font-mono">{(data.literacyRate * 100).toFixed(0)}%</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500">Urban</span>
-                    <span className="text-gray-300 font-mono">{(data.urbanPopulation * 100).toFixed(0)}%</span>
+                    <span className="text-muted">Urban</span>
+                    <span className="text-foreground/80 font-mono">{(data.urbanPopulation * 100).toFixed(0)}%</span>
                   </div>
                 </div>
               </div>
@@ -324,22 +325,22 @@ export default function DemographicsPage() {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <Users className="w-5 h-5 text-blue-400" />
-              <h2 className="text-xl font-semibold text-white">District Demographics</h2>
+              <h2 className="text-xl font-semibold text-foreground">District Demographics</h2>
             </div>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
               <input
                 type="text"
                 placeholder="Search district..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-9 pr-3 py-2 bg-neutral border border-neutral rounded-lg text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-gray-500 w-48"
+                className="pl-9 pr-3 py-2 bg-neutral border border-neutral rounded-lg text-sm text-foreground placeholder-gray-500 focus:outline-none focus:border-gray-500 w-48"
               />
             </div>
           </div>
 
           {/* Age legend */}
-          <div className="flex items-center gap-4 mb-4 text-xs text-gray-500">
+          <div className="flex items-center gap-4 mb-4 text-xs text-muted">
             <span>Age bars:</span>
             {Object.entries(AGE_GROUP_LABELS).map(([key, label]) => (
               <span key={key} className="flex items-center gap-1">
@@ -357,12 +358,12 @@ export default function DemographicsPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-neutral">
-                  <th className="text-left py-3 px-2 text-gray-400 font-medium">District</th>
-                  <th className="text-right py-3 px-2 text-gray-400 font-medium">Population</th>
-                  <th className="text-right py-3 px-2 text-gray-400 font-medium">Med. Age</th>
-                  <th className="text-right py-3 px-2 text-gray-400 font-medium">Youth %</th>
-                  <th className="text-right py-3 px-2 text-gray-400 font-medium">Literacy</th>
-                  <th className="text-center py-3 px-2 text-gray-400 font-medium">Age Distribution</th>
+                  <th className="text-left py-3 px-2 text-muted font-medium">District</th>
+                  <th className="text-right py-3 px-2 text-muted font-medium">Population</th>
+                  <th className="text-right py-3 px-2 text-muted font-medium">Med. Age</th>
+                  <th className="text-right py-3 px-2 text-muted font-medium">Youth %</th>
+                  <th className="text-right py-3 px-2 text-muted font-medium">Literacy</th>
+                  <th className="text-center py-3 px-2 text-muted font-medium">Age Distribution</th>
                 </tr>
               </thead>
               <tbody>
@@ -373,21 +374,21 @@ export default function DemographicsPage() {
                     onClick={() => setSelectedDistrict(district.name === selectedDistrict ? null : district.name)}
                   >
                     <td className="py-3 px-2">
-                      <span className="text-white font-medium">{district.name}</span>
+                      <span className="text-foreground font-medium">{district.name}</span>
                     </td>
-                    <td className="py-3 px-2 text-right text-gray-300 font-mono">
+                    <td className="py-3 px-2 text-right text-foreground/80 font-mono">
                       {district.population.toLocaleString()}
                     </td>
-                    <td className="py-3 px-2 text-right text-gray-300 font-mono">
+                    <td className="py-3 px-2 text-right text-foreground/80 font-mono">
                       {district.medianAge}
                     </td>
                     <td className="py-3 px-2 text-right font-mono">
-                      <span className={district.youthIndex > 0.55 ? 'text-green-400' : 'text-gray-300'}>
+                      <span className={district.youthIndex > 0.55 ? 'text-green-400' : 'text-foreground/80'}>
                         {(district.youthIndex * 100).toFixed(2)}%
                       </span>
                     </td>
                     <td className="py-3 px-2 text-right font-mono">
-                      <span className={district.literacyRate > 0.8 ? 'text-blue-400' : 'text-gray-300'}>
+                      <span className={district.literacyRate > 0.8 ? 'text-blue-400' : 'text-foreground/80'}>
                         {(district.literacyRate * 100).toFixed(0)}%
                       </span>
                     </td>
@@ -414,7 +415,7 @@ export default function DemographicsPage() {
           </div>
 
           {filteredDistricts.length === 0 && (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-muted">
               No districts found matching &quot;{searchTerm}&quot;
             </div>
           )}
@@ -422,12 +423,14 @@ export default function DemographicsPage() {
 
         {/* Footer note */}
         <div className="mt-8 p-4 bg-neutral/30 rounded-lg">
-          <p className="text-xs text-gray-500 text-center">
+          <p className="text-xs text-muted text-center">
             Data last updated: Census 2021 (published 2023). Constituency estimates use proportional allocation methodology.
             For official data, please refer to the <a href="https://censusnepal.cbs.gov.np" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">National Statistics Office</a>.
           </p>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 }
