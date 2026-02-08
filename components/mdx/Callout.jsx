@@ -39,7 +39,7 @@ export function Callout({ type = 'info', title, children }) {
           {title && (
             <h4 className={`font-semibold ${style.iconColor} mb-1`}>{title}</h4>
           )}
-          <div className="text-sm text-gray-300">{children}</div>
+          <div className="text-sm text-gray-700">{children}</div>
         </div>
       </div>
     </div>

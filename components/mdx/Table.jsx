@@ -18,7 +18,7 @@ Table.Head = function TableHead({ children }) {
 
 Table.Header = function TableHeader({ children }) {
   return (
-    <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+    <th className="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
       {children}
     </th>
   )
@@ -34,6 +34,6 @@ Table.Row = function TableRow({ children }) {
 
 Table.Cell = function TableCell({ children }) {
   return (
-    <td className="px-4 py-3 text-sm text-gray-300">{children}</td>
+    <td className="px-4 py-3 text-sm text-gray-700">{children}</td>
   )
 }

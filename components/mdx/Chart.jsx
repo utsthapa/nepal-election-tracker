@@ -5,7 +5,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 export function Chart({ data, type = 'bar', xKey, yKey, colors }) {
   if (!data || !Array.isArray(data) || data.length === 0) {
     return (
-      <div className="bg-neutral rounded-lg p-4 text-center text-gray-400">
+      <div className="bg-neutral rounded-lg p-4 text-center text-gray-700">
         No data available for chart
       </div>
     )

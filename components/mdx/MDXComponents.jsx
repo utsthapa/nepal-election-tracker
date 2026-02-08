@@ -17,7 +17,7 @@ export const mdxComponents = {
     <h4 className="text-lg font-semibold text-white mb-2 mt-4">{children}</h4>
   ),
   p: ({ children }) => (
-    <p className="text-gray-300 mb-4 leading-relaxed">{children}</p>
+    <p className="text-gray-700 mb-4 leading-relaxed">{children}</p>
   ),
   a: ({ href, children }) => (
     <a
@@ -30,16 +30,16 @@ export const mdxComponents = {
     </a>
   ),
   ul: ({ children }) => (
-    <ul className="list-disc list-inside mb-4 space-y-2 text-gray-300">{children}</ul>
+    <ul className="list-disc list-inside mb-4 space-y-2 text-gray-700">{children}</ul>
   ),
   ol: ({ children }) => (
-    <ol className="list-decimal list-inside mb-4 space-y-2 text-gray-300">{children}</ol>
+    <ol className="list-decimal list-inside mb-4 space-y-2 text-gray-700">{children}</ol>
   ),
   li: ({ children }) => (
     <li className="ml-4">{children}</li>
   ),
   blockquote: ({ children }) => (
-    <blockquote className="border-l-4 border-blue-500 pl-4 italic text-gray-400 mb-4">
+    <blockquote className="border-l-4 border-blue-500 pl-4 italic text-gray-700 mb-4">
       {children}
     </blockquote>
   ),
@@ -67,7 +67,7 @@ export const mdxComponents = {
     <strong className="font-bold text-white">{children}</strong>
   ),
   em: ({ children }) => (
-    <em className="italic text-gray-300">{children}</em>
+    <em className="italic text-gray-700">{children}</em>
   ),
   img: ({ src, alt }) => (
     <img

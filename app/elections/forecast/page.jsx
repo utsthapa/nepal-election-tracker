@@ -13,7 +13,7 @@ export default function ForecastPage() {
   if (!forecast) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <p className="text-gray-400">
+        <p className="text-gray-700">
           {language === 'ne' ? 'कुनै पूर्वानुमान फेला परेन' : 'No forecast available'}
         </p>
       </div>
@@ -39,7 +39,7 @@ export default function ForecastPage() {
           <h1 className="text-4xl font-bold text-white mb-2">
             {language === 'ne' ? 'निर्वाचन पूर्वानुमान' : 'Election Forecast'}
           </h1>
-          <p className="text-gray-400">
+          <p className="text-gray-700">
             {forecast.election}
           </p>
         </div>
@@ -52,10 +52,10 @@ export default function ForecastPage() {
               <h3 className="text-lg font-semibold text-white mb-2">
                 {language === 'ne' ? 'पद्धति' : 'Methodology'}
               </h3>
-              <p className="text-sm text-gray-300">
+              <p className="text-sm text-gray-700">
                 {language === 'ne' ? forecast.methodologyNe : forecast.methodology}
               </p>
-              <div className="flex items-center gap-2 mt-3 text-xs text-gray-400">
+              <div className="flex items-center gap-2 mt-3 text-xs text-gray-700">
                 <AlertCircle className="w-4 h-4" />
                 <span>
                   {language === 'ne' ? 'अपडेट:' : 'Last updated:'} {forecast.lastUpdated}
@@ -120,7 +120,7 @@ export default function ForecastPage() {
               <p className="text-2xl font-bold text-green-400">
                 {majority} {language === 'ne' ? 'सिट' : 'seats'}
               </p>
-              <p className="text-sm text-gray-400 mt-2">
+              <p className="text-sm text-gray-700 mt-2">
                 {language === 'ne' 
                   ? 'सरकार बनाउन {majority} सिट आवश्यक छ'
                   : `Needed to form government: ${majority} seats`
@@ -160,7 +160,7 @@ export default function ForecastPage() {
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between items-baseline">
-                      <span className="text-sm text-gray-400">
+                      <span className="text-sm text-gray-700">
                         {language === 'ne' ? 'पूर्वानुमान' : 'Projection'}
                       </span>
                       <span className="text-3xl font-bold text-white">
@@ -168,18 +168,18 @@ export default function ForecastPage() {
                       </span>
                     </div>
                     <div className="flex justify-between items-baseline">
-                      <span className="text-sm text-gray-400">
+                      <span className="text-sm text-gray-700">
                         {language === 'ne' ? 'दायरा' : 'Range'}
                       </span>
-                      <span className="text-lg text-gray-300">
+                      <span className="text-lg text-gray-700">
                         {data.range[0]} - {data.range[1]}
                       </span>
                     </div>
                     <div className="flex justify-between items-baseline">
-                      <span className="text-sm text-gray-400">
+                      <span className="text-sm text-gray-700">
                         {language === 'ne' ? 'सम्भावना' : 'Probability'}
                       </span>
-                      <span className="text-lg text-gray-300">
+                      <span className="text-lg text-gray-700">
                         {(data.probability * 100).toFixed(1)}%
                       </span>
                     </div>
@@ -209,7 +209,7 @@ export default function ForecastPage() {
                         <h3 className="text-xl font-bold text-white mb-2">
                           {scenarioName}
                         </h3>
-                        <p className="text-sm text-gray-400">
+                        <p className="text-sm text-gray-700">
                           {scenarioDesc}
                         </p>
                       </div>

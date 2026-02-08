@@ -133,6 +133,23 @@ export const OFFICIAL_FPTP_VOTE = {
   "Others": 9.88
 };
 
+export const OFFICIAL_PR_VOTE = {
+  "NC": 25.71,
+  "UML": 26.95,
+  "Maoist": 11.13,
+  "RSP": 10.70,
+  "RPP": 5.58,
+  "JSPN": 3.99,
+  "US": 2.83,
+  "JP": 3.74,
+  "LSP": 1.58,
+  "NUP": 2.57,
+  "Independent": 0,
+  "NMKP": 0,
+  "Janamorcha": 0,
+  "Others": 5.22
+};
+
 export const ACTUAL_2022_SEATS = {
   "FPTP": {
     "NC": 57,

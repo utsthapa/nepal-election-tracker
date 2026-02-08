@@ -109,7 +109,7 @@ export default function DistrictPageClient({ district, demographics }) {
     <main className="max-w-7xl mx-auto px-4 py-8">
       <Link
         href="/districts"
-        className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white mb-6 transition-colors"
+        className="inline-flex items-center gap-2 text-sm text-gray-700 hover:text-white mb-6 transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
         Back to Districts
@@ -131,7 +131,7 @@ export default function DistrictPageClient({ district, demographics }) {
             </span>
           )}
         </div>
-        <div className="flex flex-wrap items-center gap-3 text-gray-400">
+        <div className="flex flex-wrap items-center gap-3 text-gray-700">
           <div className="flex items-center gap-1">
             <MapPin className="w-4 h-4" />
             <span>{district.provinceName}</span>
@@ -143,13 +143,13 @@ export default function DistrictPageClient({ district, demographics }) {
           {baselineTopShare && (
             <div className="flex items-center gap-1">
               <Sparkles className="w-4 h-4 text-amber-300" />
-              <span className="text-sm text-gray-300">
+              <span className="text-sm text-gray-700">
                 {PARTIES[baselineTopShare[0]]?.short || baselineTopShare[0]} averaged {baselineTopShare[1].toFixed(2)}%
               </span>
             </div>
           )}
         </div>
-        <p className="text-sm text-gray-400 mt-3 max-w-3xl">
+        <p className="text-sm text-gray-700 mt-3 max-w-3xl">
           Review the 2022 winners, see which candidates topped each seat, and tune the sliders to
           model how small swings could reshape this district&apos;s map.
         </p>
@@ -162,7 +162,7 @@ export default function DistrictPageClient({ district, demographics }) {
             <SlidersHorizontal className="w-5 h-5 text-nc" />
             <div>
               <h2 className="text-xl font-semibold text-white">District vote-share sliders</h2>
-              <p className="text-xs text-gray-500">Grounded in 2022 constituency results for this district</p>
+              <p className="text-xs text-gray-800">Grounded in 2022 constituency results for this district</p>
             </div>
           </div>
           <PartySliders
@@ -179,7 +179,7 @@ export default function DistrictPageClient({ district, demographics }) {
 
         <div className="bg-surface border border-neutral rounded-xl p-5 space-y-4">
           <div>
-            <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">2022 winners</p>
+            <p className="text-xs uppercase tracking-wider text-gray-800 mb-1">2022 winners</p>
             <div className="flex flex-wrap gap-2">
               {Object.entries(district.winners)
                 .filter(([, count]) => count > 0)
@@ -204,7 +204,7 @@ export default function DistrictPageClient({ district, demographics }) {
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <Trophy className="w-4 h-4 text-amber-300" />
-                <span className="text-sm text-gray-300">Slider projection</span>
+                <span className="text-sm text-gray-700">Slider projection</span>
               </div>
               {projectedLeader && (
                 <span
@@ -220,24 +220,24 @@ export default function DistrictPageClient({ district, demographics }) {
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <p className="text-[11px] text-gray-500 mb-1">Projected seats</p>
+                <p className="text-[11px] text-gray-800 mb-1">Projected seats</p>
                 <p className="text-2xl font-bold text-white">
                   {Object.values(projected.seatCounts).reduce((a, b) => a + b, 0)}
                 </p>
               </div>
               <div>
-                <p className="text-[11px] text-gray-500 mb-1">Potential flips</p>
+                <p className="text-[11px] text-gray-800 mb-1">Potential flips</p>
                 <p className="text-2xl font-bold text-white">{flips}</p>
               </div>
             </div>
           </div>
 
           <div className="rounded-xl border border-neutral bg-neutral/40 p-4">
-            <p className="text-xs text-gray-500 mb-1">Turnout (2022)</p>
+            <p className="text-xs text-gray-800 mb-1">Turnout (2022)</p>
             <p className="text-xl font-semibold text-white">
               {district.totalVotes ? district.totalVotes.toLocaleString() : '—'} votes cast
             </p>
-            <p className="text-[11px] text-gray-500 mt-1">
+            <p className="text-[11px] text-gray-800 mt-1">
               Based on official totals per constituency
             </p>
           </div>
@@ -259,37 +259,37 @@ export default function DistrictPageClient({ district, demographics }) {
           <div className="flex items-center gap-2 mb-4">
             <BarChart3 className="w-5 h-5 text-blue-400" />
             <h2 className="text-xl font-semibold text-white">District demographics</h2>
-            <span className="text-xs text-gray-500 ml-2">Census 2021</span>
+            <span className="text-xs text-gray-800 ml-2">Census 2021</span>
           </div>
 
           <div className="bg-surface border border-neutral rounded-xl p-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
               <div>
-                <p className="text-xs text-gray-500 mb-1">Population</p>
+                <p className="text-xs text-gray-800 mb-1">Population</p>
                 <p className="text-xl font-bold text-white">{demographics.population.toLocaleString()}</p>
               </div>
               <div>
-                <p className="text-xs text-gray-500 mb-1">Median Age</p>
+                <p className="text-xs text-gray-800 mb-1">Median Age</p>
                 <p className="text-xl font-bold text-white">{demographics.medianAge} years</p>
               </div>
               <div>
-                <p className="text-xs text-gray-500 mb-1">Literacy Rate</p>
+                <p className="text-xs text-gray-800 mb-1">Literacy Rate</p>
                 <p className="text-xl font-bold text-white">{(demographics.literacyRate * 100).toFixed(2)}%</p>
               </div>
               <div>
-                <p className="text-xs text-gray-500 mb-1">Urban Population</p>
+                <p className="text-xs text-gray-800 mb-1">Urban Population</p>
                 <p className="text-xl font-bold text-white">{(demographics.urbanPopulation * 100).toFixed(2)}%</p>
               </div>
             </div>
 
             <div className="mb-6">
-              <p className="text-sm font-medium text-gray-300 mb-3">Age Distribution</p>
+              <p className="text-sm font-medium text-gray-700 mb-3">Age Distribution</p>
               <div className="space-y-2">
                 {Object.entries(demographics.ageGroups).map(([group, pct]) => (
                   <div key={group}>
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs text-gray-400">{AGE_GROUP_LABELS[group]}</span>
-                      <span className="text-xs font-mono text-gray-300">{(pct * 100).toFixed(2)}%</span>
+                      <span className="text-xs text-gray-700">{AGE_GROUP_LABELS[group]}</span>
+                      <span className="text-xs font-mono text-gray-700">{(pct * 100).toFixed(2)}%</span>
                     </div>
                     <div className="h-4 bg-neutral/50 rounded overflow-hidden">
                       <div
@@ -308,15 +308,15 @@ export default function DistrictPageClient({ district, demographics }) {
             <div className="grid grid-cols-3 gap-4 mb-4">
               <div className="bg-neutral/30 rounded-lg p-3 text-center">
                 <p className="text-lg font-bold text-green-400">{(getYouthIndex(demographics.ageGroups) * 100).toFixed(2)}%</p>
-                <p className="text-[10px] text-gray-500">Youth Index (Under 30)</p>
+                <p className="text-[10px] text-gray-800">Youth Index (Under 30)</p>
               </div>
               <div className="bg-neutral/30 rounded-lg p-3 text-center">
                 <p className="text-lg font-bold text-blue-400">{(demographics.voterEligible * 100).toFixed(2)}%</p>
-                <p className="text-[10px] text-gray-500">Voting Age (18+)</p>
+                <p className="text-[10px] text-gray-800">Voting Age (18+)</p>
               </div>
               <div className="bg-neutral/30 rounded-lg p-3 text-center">
                 <p className="text-lg font-bold text-purple-400">{(getDependencyRatio(demographics.ageGroups) * 100).toFixed(0)}%</p>
-                <p className="text-[10px] text-gray-500">Dependency Ratio</p>
+                <p className="text-[10px] text-gray-800">Dependency Ratio</p>
               </div>
             </div>
           </div>
@@ -328,7 +328,7 @@ export default function DistrictPageClient({ district, demographics }) {
         <div className="flex items-center gap-2 mb-4">
           <Trophy className="w-5 h-5 text-amber-400" />
           <h2 className="text-xl font-semibold text-white">Constituency detail</h2>
-          <span className="text-xs text-gray-500">
+          <span className="text-xs text-gray-800">
             Winning candidates and projected slider outcome
           </span>
         </div>

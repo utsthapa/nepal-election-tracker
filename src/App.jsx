@@ -63,20 +63,20 @@ function App() {
         <div className="mb-6">
           <div className="bg-surface rounded-xl p-4 border border-neutral flex flex-col md:flex-row md:items-center md:justify-between gap-3">
             <div>
-              <p className="text-xs text-gray-500 font-mono uppercase tracking-wider">Gathabandan Mode</p>
+              <p className="text-xs text-gray-800 font-mono uppercase tracking-wider">Gathabandan Mode</p>
               {activeAlliance ? (
                 <div className="flex flex-wrap items-center gap-3 mt-1 text-gray-200">
                   <div className="flex items-center gap-2">
                     <span className="font-semibold" style={{ color: PARTIES[allyA]?.color }}>{PARTIES[allyA]?.short || allyA}</span>
-                    <span className="text-gray-500">+</span>
+                    <span className="text-gray-800">+</span>
                     <span className="font-semibold" style={{ color: PARTIES[allyB]?.color }}>{PARTIES[allyB]?.short || allyB}</span>
                   </div>
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-gray-700">
                     Handicap {allianceConfig.handicap}% • {100 - allianceConfig.handicap}% transfer efficiency
                   </span>
                 </div>
               ) : (
-                <p className="text-sm text-gray-400 mt-1">
+                <p className="text-sm text-gray-700 mt-1">
                   No alliance active. Pair two parties to pool constituency votes with a handicap.
                 </p>
               )}
@@ -185,7 +185,7 @@ function App() {
 
         {/* Footer */}
         <footer className="mt-12 pt-6 border-t border-neutral">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-800">
             <div>
               <p className="font-mono">Nepal Election Simulator</p>
               <p className="text-xs mt-1">

@@ -18,14 +18,14 @@ export default function ElectionYearPage() {
         <main className="max-w-7xl mx-auto px-4 py-8">
           <Link
             href="/elections"
-            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white mb-6 transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-gray-700 hover:text-white mb-6 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Elections
           </Link>
           <div className="text-center py-12">
             <h1 className="text-2xl font-bold text-white mb-2">Election Not Found</h1>
-            <p className="text-gray-400">No election data available for {year}</p>
+            <p className="text-gray-700">No election data available for {year}</p>
           </div>
         </main>
       </div>
@@ -53,7 +53,7 @@ export default function ElectionYearPage() {
         {/* Back link */}
         <Link
           href="/elections"
-          className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white mb-6 transition-colors"
+          className="inline-flex items-center gap-2 text-sm text-gray-700 hover:text-white mb-6 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Elections
@@ -73,23 +73,23 @@ export default function ElectionYearPage() {
               {election.type}
             </span>
           </div>
-          <p className="text-gray-400">{election.date}</p>
+          <p className="text-gray-700">{election.date}</p>
           {election.notes && (
-            <p className="text-gray-300 mt-2 max-w-3xl">{election.notes}</p>
+            <p className="text-gray-700 mt-2 max-w-3xl">{election.notes}</p>
           )}
         </div>
 
         {/* Summary Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
           <div className="bg-surface border border-neutral rounded-xl p-4">
-            <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">
+            <p className="text-xs uppercase tracking-wider text-gray-800 mb-1">
               Total Seats
             </p>
             <p className="text-2xl font-bold text-white">{election.totalSeats}</p>
           </div>
           {hasFPTP && (
             <div className="bg-surface border border-neutral rounded-xl p-4">
-              <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">
+              <p className="text-xs uppercase tracking-wider text-gray-800 mb-1">
                 FPTP Seats
               </p>
               <p className="text-2xl font-bold text-white">{election.fptpSeats}</p>
@@ -97,18 +97,18 @@ export default function ElectionYearPage() {
           )}
           {hasPR && (
             <div className="bg-surface border border-neutral rounded-xl p-4">
-              <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">
+              <p className="text-xs uppercase tracking-wider text-gray-800 mb-1">
                 PR Seats
               </p>
               <p className="text-2xl font-bold text-white">{election.prSeats}</p>
               {election.prThreshold > 0 && (
-                <p className="text-xs text-gray-500">{election.prThreshold}% threshold</p>
+                <p className="text-xs text-gray-800">{election.prThreshold}% threshold</p>
               )}
             </div>
           )}
           {hasNominated && (
             <div className="bg-surface border border-neutral rounded-xl p-4">
-              <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">
+              <p className="text-xs uppercase tracking-wider text-gray-800 mb-1">
                 Nominated
               </p>
               <p className="text-2xl font-bold text-white">{election.nominatedSeats}</p>
@@ -122,7 +122,7 @@ export default function ElectionYearPage() {
           </div>
           {election.turnout && (
             <div className="bg-surface border border-neutral rounded-xl p-4">
-              <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">
+              <p className="text-xs uppercase tracking-wider text-gray-800 mb-1">
                 Turnout
               </p>
               <p className="text-2xl font-bold text-white">{election.turnout}</p>
@@ -139,7 +139,7 @@ export default function ElectionYearPage() {
                 <p className="text-xs uppercase tracking-wider text-nc mb-1">
                   Government Formed
                 </p>
-                <p className="text-gray-300">{election.government}</p>
+                <p className="text-gray-700">{election.government}</p>
               </div>
             </div>
           </div>
@@ -157,28 +157,28 @@ export default function ElectionYearPage() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-neutral bg-neutral/30">
-                  <th className="text-left px-6 py-3 text-xs font-semibold uppercase tracking-wider text-gray-400">
+                  <th className="text-left px-6 py-3 text-xs font-semibold uppercase tracking-wider text-gray-700">
                     Party
                   </th>
                   {hasFPTP && (
-                    <th className="text-center px-4 py-3 text-xs font-semibold uppercase tracking-wider text-gray-400">
+                    <th className="text-center px-4 py-3 text-xs font-semibold uppercase tracking-wider text-gray-700">
                       FPTP
                     </th>
                   )}
                   {hasPR && (
-                    <th className="text-center px-4 py-3 text-xs font-semibold uppercase tracking-wider text-gray-400">
+                    <th className="text-center px-4 py-3 text-xs font-semibold uppercase tracking-wider text-gray-700">
                       PR
                     </th>
                   )}
                   {hasNominated && (
-                    <th className="text-center px-4 py-3 text-xs font-semibold uppercase tracking-wider text-gray-400">
+                    <th className="text-center px-4 py-3 text-xs font-semibold uppercase tracking-wider text-gray-700">
                       Nominated
                     </th>
                   )}
-                  <th className="text-center px-4 py-3 text-xs font-semibold uppercase tracking-wider text-gray-400">
+                  <th className="text-center px-4 py-3 text-xs font-semibold uppercase tracking-wider text-gray-700">
                     Total
                   </th>
-                  <th className="text-left px-6 py-3 text-xs font-semibold uppercase tracking-wider text-gray-400">
+                  <th className="text-left px-6 py-3 text-xs font-semibold uppercase tracking-wider text-gray-700">
                     Share
                   </th>
                 </tr>
@@ -202,7 +202,7 @@ export default function ElectionYearPage() {
                           />
                           <div>
                             <p className="font-semibold text-white">{info.short}</p>
-                            <p className="text-xs text-gray-500">{info.name}</p>
+                            <p className="text-xs text-gray-800">{info.name}</p>
                           </div>
                           {hasMajority && (
                             <span className="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded border border-amber-500/30">
@@ -240,7 +240,7 @@ export default function ElectionYearPage() {
                               }}
                             />
                           </div>
-                          <span className="text-sm font-mono text-gray-400">
+                          <span className="text-sm font-mono text-gray-700">
                             {share}%
                           </span>
                         </div>
@@ -270,7 +270,7 @@ export default function ElectionYearPage() {
                   <td className="text-center px-4 py-3 font-mono font-bold text-white">
                     {election.totalSeats}
                   </td>
-                  <td className="px-6 py-3 font-mono text-gray-400">100%</td>
+                  <td className="px-6 py-3 font-mono text-gray-700">100%</td>
                 </tr>
               </tfoot>
             </table>
@@ -289,7 +289,7 @@ export default function ElectionYearPage() {
 
               return (
                 <div key={party} className="flex items-center gap-3">
-                  <div className="w-20 text-sm font-medium text-gray-300">
+                  <div className="w-20 text-sm font-medium text-gray-700">
                     {info.short}
                   </div>
                   <div className="flex-1 h-8 bg-neutral rounded-lg overflow-hidden relative">
@@ -307,7 +307,7 @@ export default function ElectionYearPage() {
                       )}
                     </div>
                     {width <= 8 && (
-                      <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs font-mono text-gray-400">
+                      <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs font-mono text-gray-700">
                         {total}
                       </span>
                     )}
@@ -319,7 +319,7 @@ export default function ElectionYearPage() {
 
           {/* Majority line */}
           <div className="mt-6 pt-4 border-t border-neutral">
-            <div className="flex items-center gap-3 text-sm text-gray-400">
+            <div className="flex items-center gap-3 text-sm text-gray-700">
               <div className="flex items-center gap-2">
                 <div className="w-4 h-0.5 bg-amber-400" />
                 <span>Majority threshold: {majorityThreshold} seats</span>
