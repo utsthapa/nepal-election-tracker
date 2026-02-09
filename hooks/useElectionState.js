@@ -52,10 +52,10 @@ export function useElectionState() {
   const [activeSignals, setActiveSignals] = useState({});
 
   // Incumbency decay factor (0-1.0, where 1.0 = 100% frustration)
-  const [incumbencyDecay, setIncumbencyDecay] = useState(0.60);
+  const [incumbencyDecay, setIncumbencyDecay] = useState(0);
 
-  // RSP momentum intensity (0-1.0 scale, default 0.85 for RSP advantage scenario)
-  const [rspProxyIntensity, setRspProxyIntensity] = useState(0.85);
+  // RSP momentum intensity (0-1.0 scale, default 0 for baseline)
+  const [rspProxyIntensity, setRspProxyIntensity] = useState(0);
 
   // Vote switching matrix between parties
   const [switchingMatrix, setSwitchingMatrix] = useState({});
