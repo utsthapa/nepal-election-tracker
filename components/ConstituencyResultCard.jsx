@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Trophy, TrendingUp, Users } from 'lucide-react';
 import { PARTIES } from '../data/constituencies';
 import { determineFPTPWinner } from '../utils/calculations';
@@ -7,21 +8,34 @@ export function ConstituencyResultCard({ constituency, coalitionParties = [], pr
   const baseMargin = constituency.margin ?? constituency.margin2022 ?? determineFPTPWinner(results2022).margin;
   const winnerInfo = PARTIES[winner2022];
 
-  // Sort parties by vote share
-  const sortedResults = Object.entries(results2022)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 5);
+  // Memoize sorted results calculation
+  const sortedResults = useMemo(() =>
+    Object.entries(results2022)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5),
+    [results2022]
+  );
 
-  // Calculate coalition share if parties selected
-  const coalitionShare = coalitionParties.length > 0
-    ? coalitionParties.reduce((sum, party) => sum + (results2022[party] || 0), 0)
-    : 0;
+  // Memoize coalition calculations
+  const coalitionAnalysis = useMemo(() => {
+    const coalitionShare = coalitionParties.length > 0
+      ? coalitionParties.reduce((sum, party) => sum + (results2022[party] || 0), 0)
+      : 0;
 
-  // Would coalition win?
-  const topNonCoalition = sortedResults.find(([party]) => !coalitionParties.includes(party));
-  const topNonCoalitionShare = topNonCoalition ? topNonCoalition[1] : 0;
-  const coalitionWouldWin = coalitionShare > topNonCoalitionShare;
-  const currentWinnerInCoalition = coalitionParties.includes(winner2022);
+    const topNonCoalition = sortedResults.find(([party]) => !coalitionParties.includes(party));
+    const topNonCoalitionShare = topNonCoalition ? topNonCoalition[1] : 0;
+    const coalitionWouldWin = coalitionShare > topNonCoalitionShare;
+    const currentWinnerInCoalition = coalitionParties.includes(winner2022);
+
+    return {
+      coalitionShare,
+      topNonCoalitionShare,
+      coalitionWouldWin,
+      currentWinnerInCoalition
+    };
+  }, [coalitionParties, results2022, sortedResults, winner2022]);
+
+  const { coalitionShare, topNonCoalitionShare, coalitionWouldWin, currentWinnerInCoalition } = coalitionAnalysis;
 
   return (
     <div className="bg-surface border border-neutral rounded-xl p-4">

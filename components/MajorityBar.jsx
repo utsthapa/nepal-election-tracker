@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { AlertTriangle, Check, Sparkles } from 'lucide-react';
 import { PARTIES } from '../data/constituencies';
 
@@ -6,12 +7,13 @@ const MAJORITY = 138;
 
 export function MajorityBar({ totalSeats, leadingParty }) {
   // Dynamic party colors for consistent accents
-  const partyColors = {};
-  const textColors = {};
-  Object.keys(totalSeats).forEach(p => {
-    partyColors[p] = PARTIES[p]?.color || '#6b7280';
-    textColors[p] = `text-${p.toLowerCase()}`;
-  });
+  const partyColors = useMemo(() => {
+    const colors = {};
+    Object.keys(totalSeats).forEach(p => {
+      colors[p] = PARTIES[p]?.color || '#6b7280';
+    });
+    return colors;
+  }, [totalSeats]);
 
   const formatPartyLabel = (partyId) => {
     const info = PARTIES[partyId];
@@ -19,9 +21,12 @@ export function MajorityBar({ totalSeats, leadingParty }) {
   };
 
   // Ordered parties by seat share
-  const sortedParties = Object.entries(totalSeats)
-    .sort((a, b) => b[1] - a[1])
-    .filter(([_, seats]) => seats > 0);
+  const sortedParties = useMemo(() =>
+    Object.entries(totalSeats)
+      .sort((a, b) => b[1] - a[1])
+      .filter(([_, seats]) => seats > 0),
+    [totalSeats]
+  );
 
   const leadingSeats = leadingParty ? totalSeats[leadingParty] || 0 : 0;
   const runnerUpSeats = sortedParties[1]?.[1] || 0;
@@ -31,50 +36,56 @@ export function MajorityBar({ totalSeats, leadingParty }) {
   const seatsToMajority = Math.max(MAJORITY - leadingSeats, 0);
   const topParties = sortedParties.slice(0, 3);
 
-  // Coalition search prioritizing the fewest parties that can clear majority (search 2-6 party combos)
-  const coalitionCandidates = sortedParties.slice(0, 8);
-  const generateCombinations = (list, size, start = 0, path = [], results = []) => {
-    if (path.length === size) {
-      results.push([...path]);
+  // Memoize expensive coalition calculations
+  const coalitionResults = useMemo(() => {
+    const coalitionCandidates = sortedParties.slice(0, 8);
+    const generateCombinations = (list, size, start = 0, path = [], results = []) => {
+      if (path.length === size) {
+        results.push([...path]);
+        return results;
+      }
+      for (let i = start; i < list.length; i++) {
+        path.push(list[i]);
+        generateCombinations(list, size, i + 1, path, results);
+        path.pop();
+      }
       return results;
-    }
-    for (let i = start; i < list.length; i++) {
-      path.push(list[i]);
-      generateCombinations(list, size, i + 1, path, results);
-      path.pop();
-    }
-    return results;
-  };
+    };
 
-  const winningCombos = [];
-  let minimalCoalitionSize = null;
-  if (!hasMajority && coalitionCandidates.length >= 2) {
-    const maxSize = Math.min(6, coalitionCandidates.length);
-    for (let size = 2; size <= maxSize; size++) {
-      const combos = generateCombinations(coalitionCandidates, size);
-      combos.forEach((combo) => {
-        const seats = combo.reduce((sum, [, seatCount]) => sum + seatCount, 0);
-        if (seats >= MAJORITY) {
-          winningCombos.push({
-            seats,
-            size,
-            surplus: seats - MAJORITY,
-            parties: combo.map(([id]) => id),
-          });
-        }
-      });
+    const winningCombos = [];
+    if (!hasMajority && coalitionCandidates.length >= 2) {
+      const maxSize = Math.min(6, coalitionCandidates.length);
+      for (let size = 2; size <= maxSize; size++) {
+        const combos = generateCombinations(coalitionCandidates, size);
+        combos.forEach((combo) => {
+          const seats = combo.reduce((sum, [, seatCount]) => sum + seatCount, 0);
+          if (seats >= MAJORITY) {
+            winningCombos.push({
+              seats,
+              size,
+              surplus: seats - MAJORITY,
+              parties: combo.map(([id]) => id),
+            });
+          }
+        });
+      }
     }
-  }
 
-  winningCombos.sort((a, b) => {
-    if (a.size !== b.size) return a.size - b.size;
-    if (a.surplus !== b.surplus) return a.surplus - b.surplus;
-    return b.seats - a.seats;
-  });
-  minimalCoalitionSize = winningCombos[0]?.size ?? null;
+    winningCombos.sort((a, b) => {
+      if (a.size !== b.size) return a.size - b.size;
+      if (a.surplus !== b.surplus) return a.surplus - b.surplus;
+      return b.seats - a.seats;
+    });
 
-  const coalitionCount = winningCombos.length;
-  const coalitionPaths = winningCombos.slice(0, Math.min(3, winningCombos.length));
+    return {
+      winningCombos,
+      minimalCoalitionSize: winningCombos[0]?.size ?? null,
+      coalitionCount: winningCombos.length,
+      coalitionPaths: winningCombos.slice(0, Math.min(3, winningCombos.length))
+    };
+  }, [sortedParties, hasMajority]);
+
+  const { winningCombos, minimalCoalitionSize, coalitionCount, coalitionPaths } = coalitionResults;
 
   return (
     <div className="relative overflow-hidden rounded-2xl border border-neutral bg-surface p-6">

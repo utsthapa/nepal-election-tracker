@@ -1,9 +1,10 @@
 'use client';
 
+import { memo } from 'react';
 import { ELECTIONS, getElectionYears } from '../data/historicalElections';
 import { Clock, TrendingUp } from 'lucide-react';
 
-export default function YearSelector({ selectedYear, onYearChange }) {
+function YearSelector({ selectedYear, onYearChange }) {
   const years = [2026, ...getElectionYears().sort((a, b) => b - a)];
   
   return (
@@ -52,3 +53,5 @@ export default function YearSelector({ selectedYear, onYearChange }) {
     </div>
   );
 }
+
+export default memo(YearSelector);

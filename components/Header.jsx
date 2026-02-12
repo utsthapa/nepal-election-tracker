@@ -10,6 +10,7 @@ import { useLanguage } from '../context/LanguageContext';
 const NAV_ITEMS = [
   { href: '/', labelKey: 'nav.simulator', label: 'Simulator' },
   { href: '/elections', labelKey: 'nav.elections', label: 'Elections' },
+  { href: '/prediction-markets', labelKey: 'nav.markets', label: 'Markets' },
   { href: '/analysis', labelKey: 'nav.analysis', label: 'Analysis' },
   { href: '/districts', labelKey: 'nav.districts', label: 'Districts' },
   { href: '/demographics', labelKey: 'nav.demographics', label: 'Demographics' },

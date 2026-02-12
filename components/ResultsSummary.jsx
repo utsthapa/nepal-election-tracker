@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
@@ -14,21 +15,32 @@ export function ResultsSummary({ fptpSeats, prSeats, totalSeats, seatIntervals =
 
   const getPartyColor = (partyId) => PARTIES[partyId]?.color || '#6b7280';
 
-  const preparePieData = (seats) => {
+  // Memoize expensive pie chart data calculations
+  const fptpData = useMemo(() => {
     return partyOrder
       .map((party) => ({
         name: formatPartyLabel(party),
         fullName: PARTIES[party]?.name || party,
-        value: seats[party] || 0,
+        value: fptpSeats[party] || 0,
         partyId: party,
         color: getPartyColor(party),
       }))
       .filter((item) => item.value > 0)
       .sort((a, b) => b.value - a.value);
-  };
+  }, [fptpSeats]);
 
-  const fptpData = preparePieData(fptpSeats);
-  const prData = preparePieData(prSeats);
+  const prData = useMemo(() => {
+    return partyOrder
+      .map((party) => ({
+        name: formatPartyLabel(party),
+        fullName: PARTIES[party]?.name || party,
+        value: prSeats[party] || 0,
+        partyId: party,
+        color: getPartyColor(party),
+      }))
+      .filter((item) => item.value > 0)
+      .sort((a, b) => b.value - a.value);
+  }, [prSeats]);
 
       const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {

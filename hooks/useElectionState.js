@@ -8,7 +8,7 @@ import {
   FPTP_SEATS,
   PR_SEATS,
   MAJORITY_THRESHOLD,
-} from '../src/utils/calculations';
+} from '../utils/calculations';
 import { allocateSeats } from '../utils/sainteLague';
 
 /**

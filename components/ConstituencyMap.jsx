@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import { constituencies, PARTIES, PROVINCES } from '../data/constituencies';
+import { MAP_CONFIG } from '../lib/config';
 import 'leaflet/dist/leaflet.css';
 
 const ConstituencyMap = ({
@@ -67,6 +68,8 @@ const ConstituencyMap = ({
   // Load GeoJSON data (both constituencies and outline)
   useEffect(() => {
     // Load both in parallel
+    let mounted = true;
+
     Promise.all([
       fetch('/maps/nepal-constituencies.geojson').then(res => {
         if (!res.ok) throw new Error('Failed to fetch constituencies GeoJSON');
@@ -78,43 +81,55 @@ const ConstituencyMap = ({
       })
     ])
       .then(([constituenciesData, outlineGeoJson]) => {
-        setOutlineData(outlineGeoJson);
-        setGeoData(constituenciesData);
+        if (mounted) {
+          setOutlineData(outlineGeoJson);
+          setGeoData(constituenciesData);
+        }
       })
       .catch(err => {
-        console.error('GeoJSON load error:', err);
-        setError('Failed to load map data');
+        if (mounted) {
+          if (process.env.NODE_ENV === 'development') {
+            console.error('GeoJSON load error:', err);
+          }
+          setError('Failed to load map data. Please refresh the page.');
+        }
       });
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   // Initialize Leaflet map
   useEffect(() => {
     if (!geoData || !outlineData || mapInstanceRef.current) return;
 
+    let mounted = true;
+
     const initMap = async () => {
       try {
         // Dynamically import Leaflet
         const L = (await import('leaflet')).default;
 
-        if (!mapContainerRef.current) return;
+        if (!mounted || !mapContainerRef.current) return;
 
         // Create map
         const map = L.map(mapContainerRef.current, {
-          center: [28.3, 84.1],
-          zoom: 7,
-          minZoom: 6,
-          maxZoom: 12,
-          maxBounds: [[26.3, 80.0], [30.5, 88.5]],
-          maxBoundsViscosity: 1.0,
+          center: MAP_CONFIG.center,
+          zoom: MAP_CONFIG.zoom,
+          minZoom: MAP_CONFIG.minZoom,
+          maxZoom: MAP_CONFIG.maxZoom,
+          maxBounds: MAP_CONFIG.maxBounds,
+          maxBoundsViscosity: MAP_CONFIG.maxBoundsViscosity,
           zoomControl: true,
         });
 
         // Add Nepal outline as background layer first (fills gaps between constituencies)
         L.geoJSON(outlineData, {
           style: {
-            fillColor: '#000000',  // Black for Nepal shape background
+            fillColor: MAP_CONFIG.backgroundColor,
             fillOpacity: 1,
-            color: '#000000',      // Matching border
+            color: MAP_CONFIG.backgroundColor,
             weight: 2,
             opacity: 1,
           },
@@ -126,9 +141,9 @@ const ConstituencyMap = ({
           const color = getColor(feature);
           return {
             fillColor: color,
-            weight: 1,
+            weight: MAP_CONFIG.strokeWidth,
             opacity: 1,
-            color: '#ffffff',  // White border for clean separation
+            color: MAP_CONFIG.borderColor,
             fillOpacity: 1,
           };
         };
@@ -147,8 +162,8 @@ const ConstituencyMap = ({
                   setTooltipPos({ x: clientX, y: clientY });
                 }
                 e.target.setStyle({
-                  weight: 2,
-                  color: '#ffffff',
+                  weight: MAP_CONFIG.hoverBorderWeight,
+                  color: MAP_CONFIG.hoverBorderColor,
                   fillOpacity: 1,
                 });
                 e.target.bringToFront();
@@ -170,13 +185,19 @@ const ConstituencyMap = ({
           },
         }).addTo(map);
 
-        mapInstanceRef.current = map;
-        geoJsonLayerRef.current = geoJsonLayer;
-        setMapReady(true);
+        if (mounted) {
+          mapInstanceRef.current = map;
+          geoJsonLayerRef.current = geoJsonLayer;
+          setMapReady(true);
+        }
 
       } catch (err) {
-        console.error('Map init error:', err);
-        setError('Failed to initialize map');
+        if (mounted) {
+          if (process.env.NODE_ENV === 'development') {
+            console.error('Map init error:', err);
+          }
+          setError('Failed to initialize map. Please try refreshing the page.');
+        }
       }
     };
 
@@ -184,12 +205,15 @@ const ConstituencyMap = ({
 
     // Cleanup
     return () => {
+      mounted = false;
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
       }
+      geoJsonLayerRef.current = null;
     };
-  }, [geoData, outlineData, getConstituencyData, onSelectConstituency]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [geoData, outlineData]);
 
   // Update colors when fptpResults changes
   useEffect(() => {
@@ -203,7 +227,8 @@ const ConstituencyMap = ({
         });
       }
     });
-  }, [fptpResults, getColor]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fptpResults]);
 
   // Format percentage
   const formatPercent = (val) => {

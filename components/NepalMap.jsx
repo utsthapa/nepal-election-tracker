@@ -8,6 +8,7 @@ import districtsData from '../public/maps/nepal-districts.geojson';
 import constituenciesData from '../public/maps/nepal-constituencies.geojson';
 import { getConstituencyDemographics, getYouthIndex, getDependencyRatio } from '../utils/demographicUtils';
 import { X, Users, UserCheck, TrendingUp, BarChart3, Vote, ArrowRight, Search, Filter } from 'lucide-react';
+import { MAP_CONFIG } from '../lib/config';
 
 const buildConstituencyLookup = () => {
   const lookup = {};
@@ -22,18 +23,15 @@ const constituencyLookup = buildConstituencyLookup();
 
 const matchConstituency = (geoId) => {
   const geoIdLower = geoId.toLowerCase();
-  console.log('Trying to match:', geoId, 'Total constituencies:', Object.keys(constituencyLookup).length);
   for (const [key, value] of Object.entries(constituencyLookup)) {
     const keyParts = key.split('-');
     const district = keyParts.slice(1, -1).join('-').toLowerCase();
     const num = keyParts[keyParts.length - 1];
 
     if (geoIdLower.includes(district) && geoIdLower.endsWith(`-${num}`)) {
-      console.log('Match found:', geoId, '=>', key);
       return value;
     }
   }
-  console.log('No match for:', geoId);
   return null;
 };
 
@@ -164,23 +162,18 @@ export default function NepalMap({
     });
 
     return data;
-  }, [constituencies, filterProvince, filterWinner, searchTerm, fptpResults, year, sortBy]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterProvince, filterWinner, searchTerm, fptpResults, year]);
 
   useEffect(() => {
-    console.log('Map useEffect triggered, viewMode:', viewMode);
-    console.log('districtsData:', districtsData ? 'loaded' : 'null');
-    console.log('constituenciesData:', constituenciesData ? 'loaded' : 'null');
-
     if (!districtsData || !constituenciesData) {
-      console.log('Data not loaded, skipping map init');
       return;
     }
 
-    console.log('Initializing map, viewMode:', viewMode, 'features:', constituenciesData?.features?.length);
+    let mounted = true;
 
     const initMap = async () => {
       const L = (await import('leaflet')).default;
-    console.log('Leaflet loaded');
 
       try {
       if (mapInstanceRef.current) {
@@ -196,12 +189,12 @@ export default function NepalMap({
       }
 
       const map = L.map(mapContainerRef.current, {
-        center: [28.3, 84.1],
-        zoom: 7,
-        minZoom: 6,
-        maxZoom: 12,
-        maxBounds: [[26.3, 80.0], [30.5, 88.5]],
-        maxBoundsViscosity: 1.0,
+        center: MAP_CONFIG.center,
+        zoom: MAP_CONFIG.zoom,
+        minZoom: MAP_CONFIG.minZoom,
+        maxZoom: MAP_CONFIG.maxZoom,
+        maxBounds: MAP_CONFIG.maxBounds,
+        maxBoundsViscosity: MAP_CONFIG.maxBoundsViscosity,
       });
 
       const districtLayer = L.geoJSON(districtsData, {
@@ -223,18 +216,23 @@ export default function NepalMap({
       const style = (feature) => {
         const constituency = matchConstituency(feature.properties.constituencyId);
         if (!constituency) {
-          console.log('No constituency found for:', feature.properties.constituencyId, 'Feature:', feature);
-          return { fillColor: '#333333', weight: 1, opacity: 1, color: '#666666', fillOpacity: 0.8 };
+          return {
+            fillColor: MAP_CONFIG.defaultFillColor,
+            weight: MAP_CONFIG.strokeWidth,
+            opacity: 1,
+            color: MAP_CONFIG.defaultStrokeColor,
+            fillOpacity: 0.6
+          };
         }
 
         const winner = getConstituencyWinner(constituency);
 
         return {
           fillColor: PARTIES[winner]?.color || '#000000',
-          weight: 1,
+          weight: MAP_CONFIG.strokeWidth,
           opacity: 1,
-          color: '#ffffff',
-          fillOpacity: 0.8,
+          color: MAP_CONFIG.borderColor,
+          fillOpacity: MAP_CONFIG.fillOpacity,
         };
       };
 
@@ -244,7 +242,6 @@ export default function NepalMap({
         zIndex: 1000,
         onEachFeature: (feature, layer) => {
           const constituency = matchConstituency(feature.properties.constituencyId);
-          console.log('Match constituency:', feature.properties.constituencyId, '=>', constituency?.id || 'null');
 
           layer.on({
             mouseover: (e) => {
@@ -253,7 +250,7 @@ export default function NepalMap({
                 const { clientX, clientY } = e.originalEvent;
                 setTooltipPos({ x: clientX, y: clientY });
               }
-              e.target.setStyle({ weight: 3, color: '#ffffff' });
+              e.target.setStyle({ weight: MAP_CONFIG.hoverBorderWeight, color: MAP_CONFIG.hoverBorderColor });
               e.target.bringToFront();
             },
             mouseout: (e) => {
@@ -265,7 +262,6 @@ export default function NepalMap({
               setTooltipPos({ x: clientX, y: clientY });
             },
             click: (e) => {
-              console.log('Click on constituency:', constituency?.id || 'null');
               if (constituency && onSelectConstituency) {
                 onSelectConstituency(constituency.id);
               }
@@ -274,35 +270,39 @@ export default function NepalMap({
         },
       }).addTo(map);
 
-      mapInstanceRef.current = map;
-      districtLayerRef.current = districtLayer;
-      constituencyLayerRef.current = constituencyLayer;
-      setMapReady(true);
-      console.log('Map initialized successfully, constituency layer features:', constituencyLayer.getLayers().length);
+      if (mounted) {
+        mapInstanceRef.current = map;
+        districtLayerRef.current = districtLayer;
+        constituencyLayerRef.current = constituencyLayer;
+        setMapReady(true);
+      }
       } catch (error) {
-        console.error('Error initializing map:', error);
+        if (mounted && process.env.NODE_ENV === 'development') {
+          console.error('Error initializing map:', error);
+        }
       }
     };
 
     initMap();
 
     return () => {
-      console.log('Cleaning up map');
+      mounted = false;
       setMapReady(false);
-      mapInstanceRef.current?.remove();
-      mapInstanceRef.current = null;
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
       districtLayerRef.current = null;
       constituencyLayerRef.current = null;
     };
-  }, [fptpResults, year, viewMode, onSelectConstituency]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fptpResults, year, viewMode]);
 
   useEffect(() => {
     if (viewMode === 'map' && mapInstanceRef.current) {
-      console.log('Invalidating map size, viewMode:', viewMode);
       setTimeout(() => {
         mapInstanceRef.current?.invalidateSize();
-        console.log('Map size invalidated');
-      }, 100);
+      }, MAP_CONFIG.mapResizeDelay || 100);
     }
   }, [viewMode]);
 

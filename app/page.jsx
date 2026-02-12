@@ -22,9 +22,17 @@ import { IDEOLOGY_COORDS } from '../data/partyMeta';
 import { BY_ELECTION_SIGNALS } from '../data/proxySignals';
 import { useLanguage } from '../context/LanguageContext';
 import { Lock, Unlock, RotateCcw, Target } from 'lucide-react';
-import NepalMap from '../components/NepalMap';
 
-// Dynamically import map component with no SSR
+// Dynamically import heavy map components with no SSR
+const NepalMap = dynamic(() => import('../components/NepalMap'), {
+  loading: () => (
+    <div className="flex items-center justify-center h-96">
+      <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
+    </div>
+  ),
+  ssr: false,
+});
+
 const ConstituencyMap = dynamic(
   () => import('../components/ConstituencyMap'),
   {

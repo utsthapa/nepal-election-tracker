@@ -1,9 +1,22 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { MapPin } from 'lucide-react';
 import { SimpleHeader } from '../../components/SimpleHeader';
-import NepalMap from '../../components/NepalMap';
 import { PARTIES } from '../../data/constituencies';
+
+// Dynamic import for heavy map component
+const NepalMap = dynamic(() => import('../../components/NepalMap'), {
+  loading: () => (
+    <div className="flex items-center justify-center h-96 bg-surface/50 rounded-xl">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500 mx-auto mb-3"></div>
+        <p className="text-muted text-sm">Loading map...</p>
+      </div>
+    </div>
+  ),
+  ssr: false,
+});
 
 export default function NepalMapPage() {
   return (

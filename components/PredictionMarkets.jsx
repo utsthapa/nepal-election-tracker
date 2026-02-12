@@ -10,16 +10,26 @@ export default function PredictionMarkets() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    let mounted = true;
+
     // Fetch prediction market data
     const fetchData = async () => {
-      setLoading(true)
+      if (mounted) {
+        setLoading(true)
+      }
       // Simulate network delay
       await new Promise(resolve => setTimeout(resolve, 500))
-      setMarkets(getPredictionMarkets())
-      setLoading(false)
+      if (mounted) {
+        setMarkets(getPredictionMarkets())
+        setLoading(false)
+      }
     }
 
     fetchData()
+
+    return () => {
+      mounted = false;
+    };
   }, [])
 
   if (loading) {

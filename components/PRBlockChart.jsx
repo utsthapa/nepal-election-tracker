@@ -1,10 +1,15 @@
+import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { PARTIES, INITIAL_NATIONAL } from '../data/constituencies';
 
 const partyOrder = Object.keys(INITIAL_NATIONAL);
 
 export function PRBlockChart({ prSeats, nationalVoteShares = {}, threshold = 3, method = 'modified' }) {
-  const totalSeats = Object.values(prSeats).reduce((a, b) => a + b, 0);
+  const totalSeats = useMemo(() =>
+    Object.values(prSeats).reduce((a, b) => a + b, 0),
+    [prSeats]
+  );
+
   const methodLabel = method === 'dhondt'
     ? "D'Hondt (1,2,3 divisors)"
     : 'Modified Sainte-Laguë (0.7,1.5,2.5...)';
@@ -22,8 +27,11 @@ export function PRBlockChart({ prSeats, nationalVoteShares = {}, threshold = 3, 
     return info ? `${info.short} (${info.name})` : partyId;
   };
 
-  // Sort parties by seats for display
-  const sortedParties = [...partyOrder].sort((a, b) => (prSeats[b] || 0) - (prSeats[a] || 0));
+  // Memoize party sorting calculation
+  const sortedParties = useMemo(() =>
+    [...partyOrder].sort((a, b) => (prSeats[b] || 0) - (prSeats[a] || 0)),
+    [prSeats]
+  );
 
   return (
     <div className="bg-surface rounded-xl p-6 border border-neutral">
