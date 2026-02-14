@@ -1,5 +1,6 @@
 # Claude data
 .claude/
+.worktrees/
 
 # Node / package managers
 node_modules/
