@@ -10,6 +10,8 @@
   --color-muted: 100 110 130;      /* secondary text */
   --accent-primary: #B91C1C;       /* deep crimson — Nepal flag red */
   --accent-secondary: #1E3A5F;     /* slate-navy */
+  --crimson-dark: #B91C1C;
+  --crimson-darker: #991B1B;
   --nc: #22c55e;
   --uml: #ef4444;
   --maoist: #991b1b;
@@ -45,6 +47,14 @@ body {
 h1, h2, h3, h4, h5, h6, .font-display {
   font-family: 'Lora', serif;
   letter-spacing: -0.01em;
+}
+
+.font-spectral {
+  font-family: 'Spectral', serif;
+}
+
+.font-baskerville {
+  font-family: 'Libre Baskerville', serif;
 }
 
 /* Noise texture overlay */
@@ -271,3 +281,61 @@ input[type="range"].slider-others::-webkit-slider-thumb { background: var(--othe
 .glow-lsp { box-shadow: 0 0 20px rgba(168, 85, 247, 0.25); }
 .glow-nup { box-shadow: 0 0 20px rgba(6, 182, 212, 0.25); }
 .glow-others { box-shadow: 0 0 20px rgba(245, 158, 11, 0.25); }
+
+/* Editorial design utilities */
+.bg-crimson-dark { background-color: var(--crimson-dark); }
+.bg-crimson-darker { background-color: var(--crimson-darker); }
+.text-crimson-dark { color: var(--crimson-dark); }
+.text-crimson-darker { color: var(--crimson-darker); }
+.border-crimson-dark { border-color: var(--crimson-dark); }
+.border-crimson-darker { border-color: var(--crimson-darker); }
+
+/* Noise texture utility */
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Link hover effects */
+a {
+  transition: color 0.2s ease;
+}
+
+/* Editorial image styles */
+.editorial-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.editorial-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.editorial-image:hover::before {
+  opacity: 1;
+}
+
+/* Typography scale */
+.text-display-xl {
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: 1.1;
+}
+
+.text-display-lg {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1.15;
+}
+
+.text-display-md {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.2;
+}

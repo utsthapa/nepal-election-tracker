@@ -6,7 +6,8 @@ import { mdxComponents } from '../../../components/mdx/MDXComponents'
 import ArticlePageClient from './ArticlePageClient'
 
 export async function generateMetadata({ params }) {
-  const article = getArticleBySlug('analysis', params.slug)
+  const { slug } = await params
+  const article = getArticleBySlug('analysis', slug)
   
   if (!article) {
     return {
@@ -17,8 +18,9 @@ export async function generateMetadata({ params }) {
   return generateArticleMetadata(article)
 }
 
-export default function ArticlePage({ params }) {
-  const article = getArticleBySlug('analysis', params.slug)
+export default async function ArticlePage({ params }) {
+  const { slug } = await params
+  const article = getArticleBySlug('analysis', slug)
 
   if (!article) {
     notFound()

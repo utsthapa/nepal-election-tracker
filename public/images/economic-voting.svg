@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e1b4b"/>
+      <stop offset="100%" style="stop-color:#312e81"/>
+    </linearGradient>
+    <linearGradient id="econ" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#fbbf24"/>
+      <stop offset="100%" style="stop-color:#f59e0b"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Chart visualization -->
+  <g transform="translate(600, 100)" opacity="0.2">
+    <polyline points="0,400 100,350 200,380 300,280 400,300 500,200" 
+              fill="none" stroke="#fbbf24" stroke-width="4"/>
+    <circle cx="0" cy="400" r="8" fill="#fbbf24"/>
+    <circle cx="100" cy="350" r="8" fill="#fbbf24"/>
+    <circle cx="200" cy="380" r="8" fill="#fbbf24"/>
+    <circle cx="300" cy="280" r="8" fill="#fbbf24"/>
+    <circle cx="400" cy="300" r="8" fill="#fbbf24"/>
+    <circle cx="500" cy="200" r="8" fill="#fbbf24"/>
+  </g>
+  
+  <!-- Main content -->
+  <g transform="translate(60, 60)">
+    <!-- Tag -->
+    <rect x="0" y="0" width="120" height="36" rx="18" fill="url(#econ)" opacity="0.9"/>
+    <text x="60" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">ECONOMICS</text>
+    
+    <!-- Title -->
+    <text x="0" y="110" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="bold" fill="#fff">
+      Economic Voting
+    </text>
+    <text x="0" y="175" font-family="system-ui, -apple-system, sans-serif" font-size="36" fill="#fbbf24">
+      Inflation ↔ GDP ↔ Elections
+    </text>
+    
+    <!-- Key metrics -->
+    <g transform="translate(0, 240)">
+      <rect x="0" y="0" width="280" height="100" rx="8" fill="#1e1b4b" stroke="#fbbf24" stroke-width="2"/>
+      <text x="20" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#fbbf24">Inflation Impact</text>
+      <text x="20" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="bold" fill="#fff">+15% opposition</text>
+      
+      <rect x="310" y="0" width="280" height="100" rx="8" fill="#1e1b4b" stroke="#fbbf24" stroke-width="2"/>
+      <text x="330" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#fbbf24">GDP Growth</text>
+      <text x="330" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="bold" fill="#fff">Incumbent boost</text>
+    </g>
+    
+    <!-- Subtitle -->
+    <text x="0" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#c7d2fe">
+      How the economy predicts electoral shifts
+    </text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="60" y="590" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#818cf8">
+    nepalelectiondata.com • Economic Voting Analysis
+  </text>
+</svg>

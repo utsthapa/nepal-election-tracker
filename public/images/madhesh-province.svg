@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#451a03"/>
+      <stop offset="100%" style="stop-color:#78350f"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b"/>
+      <stop offset="100%" style="stop-color:#d97706"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Decorative elements representing Terai/Madhesh landscape -->
+  <g opacity="0.15">
+    <ellipse cx="200" cy="500" rx="300" ry="150" fill="#f59e0b"/>
+    <ellipse cx="1000" cy="200" rx="250" ry="100" fill="#f59e0b"/>
+  </g>
+  
+  <!-- Main content -->
+  <g transform="translate(60, 60)">
+    <!-- Tag -->
+    <rect x="0" y="0" width="160" height="36" rx="18" fill="url(#accent)" opacity="0.9"/>
+    <text x="80" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">REGIONAL FOCUS</text>
+    
+    <!-- Title -->
+    <text x="0" y="110" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="bold" fill="#fff">
+      Madhesh Province
+    </text>
+    <text x="0" y="175" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="bold" fill="#fbbf24">
+      The Kingmaker
+    </text>
+    
+    <!-- Key stats -->
+    <g transform="translate(0, 240)">
+      <rect x="0" y="0" width="200" height="100" rx="8" fill="#78350f" stroke="#92400e" stroke-width="2"/>
+      <text x="100" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="bold" fill="#fbbf24" text-anchor="middle">32</text>
+      <text x="100" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#fff" text-anchor="middle">Constituencies</text>
+      
+      <rect x="230" y="0" width="200" height="100" rx="8" fill="#78350f" stroke="#92400e" stroke-width="2"/>
+      <text x="330" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="bold" fill="#fbbf24" text-anchor="middle">19%</text>
+      <text x="330" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#fff" text-anchor="middle">of Parliament</text>
+      
+      <rect x="460" y="0" width="200" height="100" rx="8" fill="#78350f" stroke="#92400e" stroke-width="2"/>
+      <text x="560" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="bold" fill="#fbbf24" text-anchor="middle">138</text>
+      <text x="560" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#fff" text-anchor="middle">Seats for Majority</text>
+    </g>
+    
+    <!-- Subtitle -->
+    <text x="0" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#fcd34d">
+      No government forms without winning here
+    </text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="60" y="590" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#d97706">
+    nepalelectiondata.com • Madhesh Political Analysis
+  </text>
+</svg>

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#581c87"/>
+      <stop offset="100%" style="stop-color:#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="timeline" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#fbbf24"/>
+      <stop offset="100%" style="stop-color:#f59e0b"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Timeline visualization -->
+  <g transform="translate(60, 300)">
+    <line x1="0" y1="0" x2="1080" y2="0" stroke="#fbbf24" stroke-width="4"/>
+    
+    <!-- Timeline points -->
+    <circle cx="0" cy="0" r="12" fill="#fbbf24"/>
+    <text x="0" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#fbbf24" text-anchor="middle">1991</text>
+    
+    <circle cx="180" cy="0" r="12" fill="#fbbf24"/>
+    <text x="180" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#fbbf24" text-anchor="middle">1994</text>
+    
+    <circle cx="360" cy="0" r="12" fill="#fbbf24"/>
+    <text x="360" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#fbbf24" text-anchor="middle">1999</text>
+    
+    <circle cx="540" cy="0" r="12" fill="#fbbf24"/>
+    <text x="540" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#fbbf24" text-anchor="middle">2008</text>
+    
+    <circle cx="720" cy="0" r="12" fill="#fbbf24"/>
+    <text x="720" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#fbbf24" text-anchor="middle">2013</text>
+    
+    <circle cx="900" cy="0" r="12" fill="#fbbf24"/>
+    <text x="900" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#fbbf24" text-anchor="middle">2017</text>
+    
+    <circle cx="1080" cy="0" r="12" fill="#fbbf24"/>
+    <text x="1080" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#fbbf24" text-anchor="middle">2022</text>
+  </g>
+  
+  <!-- Main content -->
+  <g transform="translate(60, 60)">
+    <!-- Tag -->
+    <rect x="0" y="0" width="180" height="36" rx="18" fill="url(#timeline)" opacity="0.9"/>
+    <text x="90" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">HISTORICAL ANALYSIS</text>
+    
+    <!-- Title -->
+    <text x="0" y="110" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="bold" fill="#fff">
+      30 Years of
+    </text>
+    <text x="0" y="175" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="bold" fill="#fbbf24">
+      Democracy
+    </text>
+    
+    <!-- Subtitle -->
+    <text x="0" y="230" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#ddd6fe">
+      Electoral trends from 1991 to 2022
+    </text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="60" y="590" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#a78bfa">
+    nepalelectiondata.com • Three Decades of Democratic Elections
+  </text>
+</svg>

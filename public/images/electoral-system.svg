@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a5f"/>
+      <stop offset="100%" style="stop-color:#0d1f33"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#dc143c"/>
+      <stop offset="100%" style="stop-color:#b91c3c"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Decorative pattern -->
+  <g opacity="0.1">
+    <circle cx="100" cy="100" r="200" fill="#dc143c"/>
+    <circle cx="1100" cy="530" r="250" fill="#dc143c"/>
+  </g>
+  
+  <!-- Nepal flag-inspired sun and moon symbols -->
+  <g transform="translate(900, 150)">
+    <!-- Moon shape -->
+    <path d="M0,40 Q30,0 60,40 Q30,25 0,40" fill="#fff" opacity="0.3"/>
+  </g>
+  
+  <!-- Main content area -->
+  <g transform="translate(60, 60)">
+    <!-- Title -->
+    <text x="0" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="bold" fill="#fff">
+      Nepal's Electoral System
+    </text>
+    
+    <!-- Subtitle -->
+    <text x="0" y="140" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#94a3b8">
+      Understanding the Mixed FPTP + PR Method
+    </text>
+    
+    <!-- Visual representation of seats -->
+    <g transform="translate(0, 220)">
+      <!-- FPTP Section -->
+      <rect x="0" y="0" width="400" height="120" rx="8" fill="url(#accent)" opacity="0.9"/>
+      <text x="20" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="bold" fill="#fff">FPTP</text>
+      <text x="20" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#fff" opacity="0.9">First-Past-The-Post</text>
+      <text x="20" y="100" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="bold" fill="#fff">165 Seats</text>
+      
+      <!-- Plus sign -->
+      <text x="440" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="bold" fill="#fff">+</text>
+      
+      <!-- PR Section -->
+      <rect x="500" y="0" width="400" height="120" rx="8" fill="#2563eb" opacity="0.9"/>
+      <text x="520" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="bold" fill="#fff">PR</text>
+      <text x="520" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#fff" opacity="0.9">Proportional Representation</text>
+      <text x="520" y="100" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="bold" fill="#fff">110 Seats</text>
+      
+      <!-- Equals sign -->
+      <text x="940" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="bold" fill="#fff">=</text>
+      
+      <!-- Total -->
+      <rect x="980" y="0" width="100" height="120" rx="8" fill="#059669" opacity="0.9"/>
+      <text x="1000" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="bold" fill="#fff">275</text>
+    </g>
+    
+    <!-- Sainte-Laguë mention -->
+    <text x="0" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#64748b">
+      Seat allocation using the Sainte-Laguë method • 3% national threshold
+    </text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="60" y="590" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#64748b">
+    nepalelectiondata.com • Comprehensive Election Analysis
+  </text>
+</svg>

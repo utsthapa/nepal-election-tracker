@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e1b4b"/>
+      <stop offset="100%" style="stop-color:#312e81"/>
+    </linearGradient>
+    <linearGradient id="youth" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4"/>
+      <stop offset="100%" style="stop-color:#3b82f6"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Abstract youth representation - dynamic shapes -->
+  <g opacity="0.2">
+    <circle cx="150" cy="100" r="180" fill="#06b6d4"/>
+    <circle cx="1050" cy="500" r="220" fill="#3b82f6"/>
+  </g>
+  
+  <!-- Main content -->
+  <g transform="translate(60, 60)">
+    <!-- Tag -->
+    <rect x="0" y="0" width="140" height="36" rx="18" fill="url(#youth)" opacity="0.9"/>
+    <text x="70" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">DEMOGRAPHICS</text>
+    
+    <!-- Title -->
+    <text x="0" y="120" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="bold" fill="#fff">
+      The Youth Vote
+    </text>
+    <text x="0" y="185" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="bold" fill="#fff">
+      Revolution
+    </text>
+    
+    <!-- Stats -->
+    <g transform="translate(0, 260)">
+      <text x="0" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="bold" fill="#06b6d4">23%</text>
+      <text x="0" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#94a3b8">of total electorate</text>
+      
+      <text x="250" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="bold" fill="#3b82f6">2.3M</text>
+      <text x="250" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#94a3b8">first-time voters</text>
+      
+      <text x="500" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="bold" fill="#8b5cf6">40</text>
+      <text x="500" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#94a3b8">swing constituencies</text>
+    </g>
+    
+    <!-- Subtitle -->
+    <text x="0" y="400" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#cbd5e1">
+      How Nepal's young voters are reshaping the political landscape
+    </text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="60" y="590" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#64748b">
+    nepalelectiondata.com • Youth Voter Analysis 2026
+  </text>
+</svg>

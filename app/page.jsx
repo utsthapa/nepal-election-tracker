@@ -1,514 +1,223 @@
 'use client'
 
-import { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
-import { useElectionState } from '../hooks/useElectionState';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { ArrowUpRight, BarChart3, Calendar } from 'lucide-react';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
-import { PartySliders } from '../components/PartySliders';
-import { ConstituencyTable } from '../components/ConstituencyTable';
-import { SeatDrawer } from '../components/SeatDrawer';
-import { PRBlockChart } from '../components/PRBlockChart';
-import { MajorityBar } from '../components/MajorityBar';
-import { CoalitionBuilder } from '../components/CoalitionBuilder';
-import { ResultsSummary } from '../components/ResultsSummary';
-import { AllianceModal } from '../components/AllianceModal';
-import { WelcomeModal } from '../components/WelcomeModal';
-import { BayesianControlPanel } from '../components/BayesianControlPanel';
-import { SwitchingMatrix } from '../components/SwitchingMatrix';
-import YearSelector from '../components/YearSelector';
-import { PARTIES } from '../data/constituencies';
-import { IDEOLOGY_COORDS } from '../data/partyMeta';
-import { BY_ELECTION_SIGNALS } from '../data/proxySignals';
-import { useLanguage } from '../context/LanguageContext';
-import { Lock, Unlock, RotateCcw, Target } from 'lucide-react';
+import { ELECTIONS } from '../data/historicalElections';
 
-// Dynamically import heavy map components with no SSR
-const NepalMap = dynamic(() => import('../components/NepalMap'), {
-  loading: () => (
-    <div className="flex items-center justify-center h-96">
-      <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
-    </div>
-  ),
-  ssr: false,
-});
-
-const ConstituencyMap = dynamic(
-  () => import('../components/ConstituencyMap'),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="w-full h-[500px] bg-surface rounded-lg border border-neutral flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500 mx-auto mb-3"></div>
-          <p className="text-muted text-sm">Loading map...</p>
+// Article card component
+function ArticleCard({ title, excerpt, category, date, href, delay = 0 }) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay }}
+      className="border-t-2 border-gray-200 pt-6 hover:border-red-600 transition-colors"
+    >
+      <Link href={href} className="block group">
+        <div className="mb-3">
+          <span className="text-xs font-bold tracking-widest uppercase text-red-600">
+            {category}
+          </span>
         </div>
+        <h2 className="text-3xl font-display font-bold leading-tight mb-3 text-gray-900 group-hover:text-red-600 transition-colors">
+          {title}
+        </h2>
+        <p className="text-gray-600 leading-relaxed mb-3">
+          {excerpt}
+        </p>
+        <div className="flex items-center gap-2 text-sm text-gray-500">
+          <Calendar className="w-4 h-4" />
+          <time>{date}</time>
+        </div>
+      </Link>
+    </motion.article>
+  );
+}
+
+// 2022 Results widget
+function ResultsWidget() {
+  const election2022 = ELECTIONS[2022];
+  if (!election2022) return null;
+
+  return (
+    <div className="border-2 border-gray-200 rounded-lg p-8 hover:border-red-600 transition-colors">
+      <div className="flex items-center gap-2 mb-6">
+        <BarChart3 className="w-5 h-5 text-red-600" />
+        <h3 className="text-sm font-bold tracking-widest uppercase text-red-600">2022 Results</h3>
       </div>
-    )
-  }
-);
+
+      <h4 className="text-2xl font-display font-bold mb-6">
+        General Election Results
+      </h4>
+
+      <div className="space-y-3 mb-6">
+        {Object.entries(election2022.results.Total)
+          .sort(([, a], [, b]) => b - a)
+          .slice(0, 5)
+          .map(([party, seats]) => (
+            <div key={party} className="flex items-center gap-3">
+              <div className="flex-1">
+                <div className="flex justify-between items-center mb-1">
+                  <span className="font-semibold">{party}</span>
+                  <span className="font-data font-bold">{seats}</span>
+                </div>
+                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-red-600 rounded-full"
+                    style={{ width: `${(seats / election2022.totalSeats) * 100}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+      </div>
+
+      <Link
+        href="/elections/2022"
+        className="inline-flex items-center gap-2 text-sm font-semibold text-red-600 hover:text-red-700 transition-colors"
+      >
+        Full Results & Analysis
+        <ArrowUpRight className="w-4 h-4" />
+      </Link>
+    </div>
+  );
+}
 
 export default function HomePage() {
-  const { t } = useLanguage();
-  const {
-    fptpSliders,
-    prSliders,
-    adjustedFptpSliders,
-    adjustedPrSliders,
-    overrides,
-    selectedConstituency,
-    updateFptpSlider,
-    updatePrSlider,
-    resetSliders,
-    overrideConstituency,
-    clearOverride,
-    clearAllOverrides,
-    selectConstituency,
-    closeDrawer,
-    fptpResults,
-    fptpSeats,
-    prSeats,
-    nationalVoteShares,
-    totalSeats,
-    seatIntervals,
-    seatWinProbabilities,
-    femaleQuota,
-    stabilityIndex,
-    leadingParty,
-    hasMajority,
-    allianceConfig,
-    setAlliance,
-    clearAlliance,
-    activeSignals,
-    toggleSignal,
-    addRecentSignal,
-    incumbencyDecay,
-    setIncumbencyDecay,
-    rspProxyIntensity,
-    setRspProxyIntensity,
-    switchingMatrix,
-    updateSwitching,
-    prMethod,
-    setPrMethod,
-    iterationCount,
-    setIterationCount,
-    slidersLocked,
-    setSlidersLocked,
-  } = useElectionState();
-
-  const [isAllianceModalOpen, setAllianceModalOpen] = useState(false);
-  const [isWelcomeModalOpen, setWelcomeModalOpen] = useState(true);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setWelcomeModalOpen(!localStorage.getItem('hasSeenWelcomeModal'));
-    }
-  }, []);
-  const [viewMode, setViewMode] = useState('map');
-  const [nepalMapMode, setNepalMapMode] = useState('map');
-  const [selectedYear, setSelectedYear] = useState(2026);
-  const [rspStartingPoint, setRspStartingPoint] = useState(false);
-  const [selectedParty, setSelectedParty] = useState('RSP');
-
-  const activeAlliance = allianceConfig?.enabled && (allianceConfig.parties?.length === 2);
-  const [allyA, allyB] = allianceConfig?.parties || [];
-  const majorityProb = leadingParty ? (seatIntervals?.[leadingParty]?.majorityProb || 0) : 0;
-
-  const partyColors = {};
-  Object.keys(PARTIES).forEach(p => {
-    partyColors[p] = `text-${p.toLowerCase()}`;
-  });
-
-  const formatPartyLabel = (partyId) => {
-    const info = PARTIES[partyId];
-    return info ? `${info.short} (${info.name})` : partyId;
-  };
-
-  const handleApplySwitching = () => {
-    const newFptpSliders = { ...fptpSliders };
-    const newPrSliders = { ...prSliders };
-
-    Object.entries(switchingMatrix).forEach(([fromParty, targets]) => {
-      if (!targets) return;
-      Object.entries(targets).forEach(([toParty, percentage]) => {
-        if (!percentage || percentage <= 0) return;
-
-        const pct = percentage / 100;
-
-        const fptpFromValue = newFptpSliders[fromParty] || 0;
-        const fptpToValue = newFptpSliders[toParty] || 0;
-        const fptpTransfer = fptpFromValue * pct;
-
-        newFptpSliders[fromParty] = fptpFromValue - fptpTransfer;
-        newFptpSliders[toParty] = fptpToValue + fptpTransfer;
-
-        const prFromValue = newPrSliders[fromParty] || 0;
-        const prToValue = newPrSliders[toParty] || 0;
-        const prTransfer = prFromValue * pct;
-
-        newPrSliders[fromParty] = prFromValue - prTransfer;
-        newPrSliders[toParty] = prToValue + prTransfer;
-      });
-    });
-
-    Object.entries(newFptpSliders).forEach(([party, value]) => {
-      updateFptpSlider(party, value);
-    });
-
-    Object.entries(newPrSliders).forEach(([party, value]) => {
-      updatePrSlider(party, value);
-    });
-  };
-
-  const handleClearSwitching = () => {
-    Object.keys(switchingMatrix).forEach(fromParty => {
-      Object.keys(switchingMatrix[fromParty] || {}).forEach(toParty => {
-        updateSwitching(fromParty, toParty, 0);
-      });
-    });
-  };
-
-  const handleApplySimulationControls = () => {
-    const newFptpSliders = { ...fptpSliders };
-    const newPrSliders = { ...prSliders };
-
-    if (rspStartingPoint) {
-      const partyPrShare = prSliders[selectedParty] || 0;
-      newFptpSliders[selectedParty] = partyPrShare;
-    }
-
-    const normalizeSliders = (sliders) => {
-      const total = Object.values(sliders).reduce((sum, val) => sum + val, 0);
-      if (total === 0) return sliders;
-      const normalized = {};
-      Object.entries(sliders).forEach(([party, value]) => {
-        normalized[party] = (value / total) * 100;
-      });
-      return normalized;
-    };
-
-    const normalizedFptpSliders = normalizeSliders(newFptpSliders);
-    const normalizedPrSliders = normalizeSliders(newPrSliders);
-
-    Object.entries(normalizedFptpSliders).forEach(([party, value]) => {
-      updateFptpSlider(party, value);
-    });
-
-    Object.entries(normalizedPrSliders).forEach(([party, value]) => {
-      updatePrSlider(party, value);
-    });
-  };
-
-  const handleResetSimulationControls = () => {
-    setRspStartingPoint(false);
-    setSelectedParty('RSP');
-    setSlidersLocked(true);
-    setIncumbencyDecay(0);
-    setRspProxyIntensity(0);
-  };
-
-  const computeCompatibility = (a, b) => {
-    const pa = IDEOLOGY_COORDS[a];
-    const pb = IDEOLOGY_COORDS[b];
-    if (!pa || !pb) return null;
-    const d = Math.sqrt(
-      Math.pow(pa.econ - pb.econ, 2) +
-      Math.pow(pa.federal - pb.federal, 2) +
-      Math.pow(pa.geo - pb.geo, 2)
-    );
-    const score = Math.max(0, 100 - d * 100);
-    return { distance: d, score };
-  };
-  const compatibility = activeAlliance ? computeCompatibility(allyA, allyB) : null;
-
-  const handleReset = () => {
-    resetSliders();
-    clearAllOverrides();
-    clearAlliance();
-    setSlidersLocked(true);
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <Header />
 
-      <main className="max-w-7xl mx-auto px-4 py-6">
-        {/* Simulator status bar: leading party + majority + reset */}
-        {selectedYear === 2026 && (
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-4 bg-surface rounded-lg border border-neutral px-4 py-3">
-            <div className="flex items-center gap-6">
-              {leadingParty && (
-                <div>
-                  <p className="section-label">Leading</p>
-                  <p className={`text-lg font-bold ${partyColors[leadingParty] || 'text-foreground'}`}>
-                    {formatPartyLabel(leadingParty)}
-                  </p>
-                  <p className="text-sm font-mono text-muted">
-                    {totalSeats[leadingParty]} seats
-                  </p>
-                </div>
-              )}
-              <div className="flex items-center gap-2">
-                <Target
-                  className={`w-5 h-5 ${hasMajority ? 'text-green-500' : 'text-muted'}`}
-                />
-                <span className={`text-sm font-medium ${hasMajority ? 'text-green-500' : 'text-muted'}`}>
-                  {hasMajority ? t('simulator.majority') : t('simulator.hung')}
+      <main className="max-w-7xl mx-auto px-4 py-12">
+        {/* Masthead */}
+        <div className="text-center mb-16 pb-12 border-b-4 border-gray-200">
+          <h1 className="font-spectral text-6xl md:text-7xl font-bold text-gray-900 mb-4">
+            NepaliSoch
+          </h1>
+          <p className="text-lg text-gray-600 tracking-[0.3em] uppercase font-medium">
+            Data-Driven Nepal Politics
+          </p>
+          <div className="mt-6 flex items-center justify-center gap-6 text-sm text-gray-500 font-data">
+            <span>February 13, 2026</span>
+            <span>•</span>
+            <span>Kathmandu, Nepal</span>
+          </div>
+        </div>
+
+        {/* Hero Article */}
+        <div className="mb-20">
+          <article className="mb-12">
+            <div className="relative h-[400px] bg-gradient-to-br from-red-900 via-gray-900 to-blue-900 mb-6 rounded flex items-end">
+              <div className="p-8">
+                <span className="inline-block px-3 py-1 text-xs font-bold tracking-widest uppercase bg-white text-red-600 mb-4">
+                  Featured Analysis
                 </span>
               </div>
             </div>
-            <button
-              onClick={handleReset}
-              className="flex items-center gap-2 px-4 py-2 bg-neutral/50 hover:bg-neutral rounded-lg text-muted hover:text-foreground transition-colors text-sm font-medium"
-            >
-              <RotateCcw className="w-4 h-4" />
-              Reset
-            </button>
-          </div>
-        )}
-
-        {/* Alliance / Gathabandan panel */}
-        {selectedYear === 2026 && (
-          <div className="mb-6">
-            <div className="bg-surface rounded-lg p-4 border border-neutral flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-              <div>
-                <p className="section-label">
-                  {t('simulator.gathabandan')}
-                </p>
-                {activeAlliance ? (
-                  <div className="flex flex-wrap items-center gap-3 mt-1 text-foreground">
-                    <div className="flex items-center gap-2">
-                      <span className="font-semibold" style={{ color: PARTIES[allyA]?.color }}>
-                        {PARTIES[allyA]?.short || allyA}
-                      </span>
-                      <span className="text-muted">+</span>
-                      <span className="font-semibold" style={{ color: PARTIES[allyB]?.color }}>
-                        {PARTIES[allyB]?.short || allyB}
-                      </span>
-                    </div>
-                    <span className="text-xs text-muted">
-                      Handicap {allianceConfig.handicap}% • {100 - allianceConfig.handicap}% transfer efficiency
-                    </span>
-                    {compatibility && (
-                      <span className="text-xs text-muted">
-                        Compatibility score: {compatibility.score.toFixed(1)}/100
-                      </span>
-                    )}
-                  </div>
-                ) : (
-                  <p className="text-sm text-muted mt-1">
-                    No alliance active. Pair two parties to pool constituency votes with a handicap.
-                  </p>
-                )}
-              </div>
-
-              <div className="flex items-center gap-2">
-                {activeAlliance && (
-                  <button
-                    onClick={clearAlliance}
-                    className="px-3 py-2 rounded-lg text-sm border border-neutral text-foreground hover:bg-neutral/50 transition-colors"
-                  >
-                    Disable
-                  </button>
-                )}
-                <button
-                  onClick={() => setAllianceModalOpen(true)}
-                  className="px-4 py-2 rounded-lg text-sm font-medium bg-gradient-to-r from-nc to-rsp text-white hover:opacity-90 transition-opacity"
-                >
-                  Configure
-                </button>
-              </div>
+            <h1 className="text-5xl md:text-6xl font-display font-bold leading-tight mb-4 text-gray-900">
+              Nepal&apos;s Political Landscape in 2026: What the Data Tells Us
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-600 leading-relaxed mb-4">
+              As coalition politics continues to shape governance, new polling data reveals shifting voter sentiment across key constituencies. An in-depth analysis of what&apos;s driving change.
+            </p>
+            <div className="flex items-center gap-3 text-sm text-gray-500">
+              <Calendar className="w-4 h-4" />
+              <time>February 12, 2026</time>
             </div>
-          </div>
-        )}
-
-        {/* Nepal Map */}
-        <div className="mb-6">
-          <YearSelector selectedYear={selectedYear} onYearChange={setSelectedYear} />
-          <NepalMap
-            fptpResults={selectedYear === 2026 ? fptpResults : null}
-            onSelectConstituency={selectConstituency}
-            viewMode={nepalMapMode}
-            onViewModeChange={setNepalMapMode}
-            year={selectedYear}
-          />
+          </article>
         </div>
 
-        {/* FPTP and PR Sliders */}
-        {selectedYear === 2026 && (
-          <>
-            <div className="mb-6">
-              <div className="flex justify-center mb-3">
-                <button
-                  onClick={() => setSlidersLocked(!slidersLocked)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
-                    slidersLocked
-                      ? 'border-uml bg-uml/20 text-uml'
-                      : 'border-neutral text-muted hover:border-foreground/30 hover:text-foreground'
-                  }`}
-                  title={slidersLocked ? 'Unlock sliders (FPTP and PR move independently)' : 'Lock sliders (FPTP and PR move together)'}
-                >
-                  {slidersLocked ? <Lock className="w-4 h-4" /> : <Unlock className="w-4 h-4" />}
-                  {slidersLocked ? 'Sliders Locked' : 'Sliders Unlocked'}
-                </button>
-              </div>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <PartySliders
-                  title={t('simulator.fptp')}
-                  subtitle="Affects 165 constituency seats"
-                  sliders={adjustedFptpSliders}
-                  fptpSeats={fptpSeats}
-                  prSeats={prSeats}
-                  totalSeats={totalSeats}
-                  onSliderChange={updateFptpSlider}
-                  showFptp={true}
-                />
+        {/* Articles Grid */}
+        <div className="mb-20">
+          <h2 className="text-sm font-bold tracking-widest uppercase text-red-600 mb-8 pb-3 border-b-2 border-red-600">
+            Latest Analysis
+          </h2>
 
-                <PartySliders
-                  title={t('simulator.pr')}
-                  subtitle="Affects 110 proportional seats (3% threshold)"
-                  sliders={adjustedPrSliders}
-                  fptpSeats={fptpSeats}
-                  prSeats={prSeats}
-                  totalSeats={totalSeats}
-                  onSliderChange={updatePrSlider}
-                  showPr={true}
-                />
-              </div>
-            </div>
-
-            {/* Bayesian controls + switching matrix */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-              <div className="lg:col-span-2">
-              <BayesianControlPanel
-                onApplySimulationControls={handleApplySimulationControls}
-                onResetSimulationControls={handleResetSimulationControls}
-                rspStartingPoint={rspStartingPoint}
-                onRspStartingPointChange={setRspStartingPoint}
-                selectedParty={selectedParty}
-                onSelectedPartyChange={setSelectedParty}
-                incumbencyDecay={incumbencyDecay}
-                onIncumbencyDecayChange={setIncumbencyDecay}
-                rspProxyIntensity={rspProxyIntensity}
-                onRspProxyIntensityChange={setRspProxyIntensity}
-                iterationCount={iterationCount}
-                onIterationCountChange={setIterationCount}
-                activeSignals={activeSignals}
-                onToggleSignal={toggleSignal}
-                onAddPreset={addRecentSignal}
-              />
-              </div>
-              <SwitchingMatrix
-                matrix={switchingMatrix}
-                onChange={updateSwitching}
-                onApply={handleApplySwitching}
-                onClear={handleClearSwitching}
-              />
-            </div>
-          </>
-        )}
-
-        {/* Summary Charts */}
-        {selectedYear === 2026 && (
-          <>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-              <MajorityBar
-                totalSeats={totalSeats}
-                leadingParty={leadingParty}
-              />
-
-              <PRBlockChart
-                prSeats={prSeats}
-                nationalVoteShares={nationalVoteShares}
-                method={prMethod}
-              />
-            </div>
-
-            {/* Coalition builder */}
-            <div className="mb-6">
-              <CoalitionBuilder
-                totalSeats={totalSeats}
-                fptpResults={fptpResults}
-              />
-            </div>
-          </>
-        )}
-
-        {/* Constituency Table/Map and Results */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          <div className="lg:col-span-3">
-            {selectedYear === 2026 && viewMode === 'table' && (
-              <ConstituencyTable
-                fptpResults={fptpResults}
-                overrides={overrides}
-                onSelectConstituency={selectConstituency}
-              />
-            )}
-          </div>
-
-          <div className="lg:col-span-4">
-            {selectedYear === 2026 && (
-              <ResultsSummary
-                fptpSeats={fptpSeats}
-                prSeats={prSeats}
-                totalSeats={totalSeats}
-                seatIntervals={seatIntervals}
-              />
-            )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-12">
+            <ArticleCard
+              title="Understanding Nepal's Electoral System"
+              excerpt="A deep dive into the mixed member proportional representation system and its impact on coalition formation."
+              category="Explainer"
+              date="February 10, 2026"
+              href="/analysis/understanding-nepals-electoral-system"
+              delay={0.2}
+            />
+            <ArticleCard
+              title="Regional Voting Patterns Emerge"
+              excerpt="How geography and identity politics continue to shape electoral outcomes across provinces."
+              category="Data Analysis"
+              date="February 9, 2026"
+              href="/analysis/regional-voting-patterns"
+              delay={0.3}
+            />
+            <ArticleCard
+              title="Youth Voter Trends"
+              excerpt="First-time voters could swing key constituencies in the next election."
+              category="Demographics"
+              date="February 8, 2026"
+              href="/analysis/youth-voter-trends"
+              delay={0.4}
+            />
+            <ArticleCard
+              title="Coalition Stability Index"
+              excerpt="Measuring government longevity through data-driven metrics."
+              category="Methodology"
+              date="February 7, 2026"
+              href="/analysis/coalition-stability"
+              delay={0.5}
+            />
+            <ArticleCard
+              title="Madhesh Province Analysis"
+              excerpt="The kingmaker region that determines national outcomes."
+              category="Regional Focus"
+              date="February 6, 2026"
+              href="/analysis/madhesh-province-analysis"
+              delay={0.6}
+            />
+            <ArticleCard
+              title="Economic Voting Patterns"
+              excerpt="How inflation and GDP growth correlate with electoral shifts."
+              category="Economics"
+              date="February 5, 2026"
+              href="/analysis/economic-voting"
+              delay={0.7}
+            />
           </div>
         </div>
 
-        {/* Override indicator */}
-        {selectedYear === 2026 && Object.keys(overrides).length > 0 && (
-          <div className="mt-6 p-4 bg-others/10 border border-others/30 rounded-lg flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <span className="text-others text-2xl">⚡</span>
-              <div>
-                <p className="text-others font-medium">
-                  {Object.keys(overrides).length} constituency{Object.keys(overrides).length > 1 ? 'ies' : ''} manually overridden
-                </p>
-                <p className="text-others/60 text-sm">
-                  These seats are detached from global slider adjustments
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={clearAllOverrides}
-              className="px-4 py-2 bg-others/20 hover:bg-others/30 text-others rounded-lg text-sm font-medium transition-colors"
-            >
-              Clear All Overrides
-            </button>
+        {/* Widgets */}
+        <div className="mb-20">
+          <h2 className="text-sm font-bold tracking-widest uppercase text-red-600 mb-8 pb-3 border-b-2 border-red-600">
+            Data & Tools
+          </h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <ResultsWidget />
           </div>
-        )}
+        </div>
+
+        {/* CTA */}
+        <div className="bg-white border-2 border-gray-200 rounded-lg p-12 text-center">
+          <h2 className="text-4xl font-display font-bold mb-4">
+            Explore Our Interactive Tools
+          </h2>
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            Run election simulations, analyze polling data, and explore demographic trends.
+          </p>
+          <Link
+            href="/simulator"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-red-600 text-white font-bold rounded hover:bg-red-700 transition-colors text-lg"
+          >
+            Launch Election Simulator
+            <ArrowUpRight className="w-5 h-5" />
+          </Link>
+        </div>
       </main>
 
       <Footer />
-
-      {/* Seat Override Drawer */}
-      {selectedYear === 2026 && (
-        <SeatDrawer
-          constituency={selectedConstituency}
-          isOpen={!!selectedConstituency}
-          onClose={closeDrawer}
-          onOverride={overrideConstituency}
-          onClearOverride={clearOverride}
-        />
-      )}
-
-      {/* Alliance Modal */}
-      <AllianceModal
-        isOpen={isAllianceModalOpen}
-        onClose={() => setAllianceModalOpen(false)}
-        allianceConfig={allianceConfig}
-        onSave={setAlliance}
-        onClear={clearAlliance}
-      />
-
-      {/* Welcome Modal */}
-      <WelcomeModal
-        isOpen={isWelcomeModalOpen}
-        onClose={() => setWelcomeModalOpen(false)}
-      />
     </div>
   );
 }

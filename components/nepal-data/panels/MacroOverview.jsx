@@ -16,6 +16,11 @@ export default function MacroOverview() {
   const [timeRange, setTimeRange] = useState('All');
   const [inflationView, setInflationView] = useState('annual');
 
+  // Debug: Check if data is loaded
+  console.log('YEARS:', YEARS);
+  console.log('MACRO_INDICATORS:', MACRO_INDICATORS);
+  console.log('GDP growth data:', MACRO_INDICATORS?.gdp?.growth);
+
   // Time range filter
   const timeRangeObj = useMemo(() => {
     const presets = {

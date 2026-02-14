@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e293b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#dc143c"/>
+      <stop offset="100%" style="stop-color:#991b1b"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Decorative circles -->
+  <circle cx="200" cy="150" r="300" fill="#dc143c" opacity="0.05"/>
+  <circle cx="1000" cy="500" r="250" fill="#dc143c" opacity="0.05"/>
+  
+  <!-- Nepal map outline (simplified) -->
+  <g transform="translate(800, 100)" opacity="0.15">
+    <path d="M50,20 L80,30 L100,25 L120,40 L110,80 L130,120 L100,150 L90,200 L70,220 L60,250 L40,240 L30,200 L20,150 L40,100 L30,60 Z" 
+          fill="#fff" stroke="#fff" stroke-width="2"/>
+  </g>
+  
+  <!-- Main content -->
+  <g transform="translate(60, 60)">
+    <!-- Logo/icon -->
+    <circle cx="40" cy="40" r="30" fill="url(#accent)"/>
+    <text x="40" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="bold" fill="#fff" text-anchor="middle">N</text>
+    
+    <!-- Title -->
+    <text x="0" y="140" font-family="system-ui, -apple-system, sans-serif" font-size="64" font-weight="bold" fill="#fff">
+      Welcome to Nepal Votes
+    </text>
+    
+    <!-- Subtitle -->
+    <text x="0" y="210" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#94a3b8">
+      Your comprehensive guide to Nepal's electoral landscape
+    </text>
+    
+    <!-- Feature boxes -->
+    <g transform="translate(0, 280)">
+      <!-- Box 1 -->
+      <rect x="0" y="0" width="260" height="140" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="20" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#fff">📊 Data Analysis</text>
+      <text x="20" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#94a3b8">In-depth analysis of</text>
+      <text x="20" y="105" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#94a3b8">voting patterns &amp; trends</text>
+      
+      <!-- Box 2 -->
+      <rect x="290" y="0" width="260" height="140" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="310" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#fff">🗳️ Election Simulator</text>
+      <text x="310" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#94a3b8">Interactive seat</text>
+      <text x="310" y="105" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#94a3b8">allocation calculator</text>
+      
+      <!-- Box 3 -->
+      <rect x="580" y="0" width="260" height="140" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="600" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#fff">📍 Constituency Maps</text>
+      <text x="600" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#94a3b8">Explore all 165</text>
+      <text x="600" y="105" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#94a3b8">parliamentary seats</text>
+      
+      <!-- Box 4 -->
+      <rect x="870" y="0" width="210" height="140" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="890" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#fff">📈 Forecasts</text>
+      <text x="890" y="80" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#94a3b8">Data-driven</text>
+      <text x="890" y="105" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#94a3b8">predictions</text>
+    </g>
+  </g>
+  
+  <!-- Footer -->
+  <text x="60" y="590" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#64748b">
+    nepalelectiondata.com • Making Nepal's democracy more accessible
+  </text>
+</svg>

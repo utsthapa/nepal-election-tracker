@@ -4,8 +4,6 @@ import { useState, useRef, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PARTIES, PROVINCES, constituencies } from '../data/constituencies';
 import { getHistoricalWinner, getHistoricalResults, HISTORICAL_CONSTITUENCIES } from '../data/historicalConstituencies';
-import districtsData from '../public/maps/nepal-districts.geojson';
-import constituenciesData from '../public/maps/nepal-constituencies.geojson';
 import { getConstituencyDemographics, getYouthIndex, getDependencyRatio } from '../utils/demographicUtils';
 import { X, Users, UserCheck, TrendingUp, BarChart3, Vote, ArrowRight, Search, Filter } from 'lucide-react';
 import { MAP_CONFIG } from '../lib/config';
@@ -96,11 +94,46 @@ export default function NepalMap({
   const [filterWinner, setFilterWinner] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('margin');
+  const [districtsData, setDistrictsData] = useState(null);
+  const [constituenciesData, setConstituenciesData] = useState(null);
+  const [geoJsonError, setGeoJsonError] = useState(null);
 
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const districtLayerRef = useRef(null);
   const constituencyLayerRef = useRef(null);
+
+  // Fetch GeoJSON data
+  useEffect(() => {
+    let mounted = true;
+    
+    Promise.all([
+      fetch('/maps/nepal-districts.geojson').then(res => {
+        if (!res.ok) throw new Error('Failed to fetch districts GeoJSON');
+        return res.json();
+      }),
+      fetch('/maps/nepal-constituencies.geojson').then(res => {
+        if (!res.ok) throw new Error('Failed to fetch constituencies GeoJSON');
+        return res.json();
+      })
+    ])
+      .then(([districts, constituencies]) => {
+        if (mounted) {
+          setDistrictsData(districts);
+          setConstituenciesData(constituencies);
+        }
+      })
+      .catch(err => {
+        if (mounted) {
+          console.error('GeoJSON load error:', err);
+          setGeoJsonError('Failed to load map data. Please refresh the page.');
+        }
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const getConstituencyWinner = useMemo(() => (constituency) => {
     if (year === 2026 && fptpResults && fptpResults[constituency.id]) {
