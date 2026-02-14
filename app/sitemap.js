@@ -9,6 +9,7 @@ const routes = [
   '/polls',
   '/analysis',
   '/demographics',
+  '/nepal-data',
   '/districts',
   '/about',
   '/newsletter',

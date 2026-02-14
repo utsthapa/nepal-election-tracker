@@ -14,6 +14,7 @@ const NAV_ITEMS = [
   { href: '/analysis', labelKey: 'nav.analysis', label: 'Analysis' },
   { href: '/districts', labelKey: 'nav.districts', label: 'Districts' },
   { href: '/demographics', labelKey: 'nav.demographics', label: 'Demographics' },
+  { href: '/nepal-data', labelKey: 'nav.nepalData', label: 'Nepal Data' },
   { href: '/about', labelKey: 'nav.about', label: 'About' },
 ];
 
