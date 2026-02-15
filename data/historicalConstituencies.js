@@ -3,7 +3,11 @@
 
 import { constituencies } from './constituencies.js';
 import { 
+  ELECTION_1991, PARTIES_1991,
+  ELECTION_1994, PARTIES_1994,
   ELECTION_1999, PARTIES_1999,
+  ELECTION_2008, PARTIES_2008,
+  ELECTION_2013, PARTIES_2013,
   ELECTION_2017, PARTIES_2017 
 } from './historical/index.js';
 
@@ -66,19 +70,75 @@ export const HISTORICAL_CONSTITUENCIES = {
   },
   2013: {
     // 2013 Constituent Assembly - 240 constituencies (different boundaries)
-    constituencies: [],
+    // NATIONAL DATA ONLY - Constituency data to be extracted from Wikipedia/ANFREL
+    year: 2013,
+    name: "2013 Constituent Assembly Election",
+    date: "2013-11-19",
+    description: "Constituent Assembly Election 2070 (2013) - Second CA election",
+    totalSeats: 575,
+    fptpSeats: 240,
+    prSeats: 335,
+    system: "Mixed (FPTP + PR)",
+    
+    // Reference to available data
+    data: ELECTION_2013,
+    parties: PARTIES_2013,
+    
+    // Constituency access
+    constituencies: Object.entries(ELECTION_2013.constituencies).map(([id, c]) => ({
+      id,
+      ...c
+    })),
+    constituencyCount: ELECTION_2013.totalConstituencies,
+    
+    // Accessor functions
+    getWinner: (constituencyId) => ELECTION_2013.getWinner(constituencyId),
+    getResults: (constituencyId) => ELECTION_2013.getResults(constituencyId),
+    getConstituency: (constituencyId) => ELECTION_2013.getConstituency(constituencyId),
+    
+    // National results
+    getNationalResults: () => ELECTION_2013.summary,
+    
+    // GeoJSON availability
+    geojsonAvailable: false,
     geojsonPath: '/maps/nepal-constituencies-2013.geojson',
-    getWinner: (constituencyId) => null,
-    getResults: (constituencyId) => null,
-    // TODO: Add 2013 CA election results from Wikipedia/ECN
+    notes: "National-level data only. Constituency data to be extracted from Wikipedia/ANFREL. 240 constituencies (different from current 165)."
   },
   2008: {
     // 2008 Constituent Assembly - 240 constituencies (same as 2013)
-    constituencies: [],
+    // NATIONAL DATA ONLY - Constituency data to be extracted from Wikipedia/Carter Center
+    year: 2008,
+    name: "2008 Constituent Assembly Election",
+    date: "2008-04-10",
+    description: "Constituent Assembly Election 2064 (2008) - First CA election",
+    totalSeats: 575,
+    fptpSeats: 240,
+    prSeats: 335,
+    system: "Mixed (FPTP + PR)",
+    
+    // Reference to available data
+    data: ELECTION_2008,
+    parties: PARTIES_2008,
+    
+    // Constituency access
+    constituencies: Object.entries(ELECTION_2008.constituencies).map(([id, c]) => ({
+      id,
+      ...c
+    })),
+    constituencyCount: ELECTION_2008.totalConstituencies,
+    
+    // Accessor functions
+    getWinner: (constituencyId) => ELECTION_2008.getWinner(constituencyId),
+    getResults: (constituencyId) => ELECTION_2008.getResults(constituencyId),
+    getConstituency: (constituencyId) => ELECTION_2008.getConstituency(constituencyId),
+    
+    // National results
+    getNationalResults: () => ELECTION_2008.summary,
+    
+    // GeoJSON availability
+    geojsonAvailable: false,
     geojsonPath: '/maps/nepal-constituencies-2013.geojson',
-    getWinner: (constituencyId) => null,
-    getResults: (constituencyId) => null,
-    // TODO: Add 2008 CA election results from Carter Center/ECN
+    notes: "National-level data only. Constituency data to be extracted from Wikipedia/Carter Center. 240 constituencies (different from current 165)."
   },
   1999: {
     // 1999 General Election - 205 constituencies (pre-2015 constitution)
@@ -116,19 +176,71 @@ export const HISTORICAL_CONSTITUENCIES = {
   },
   1994: {
     // 1994 Mid-term Election - 205 constituencies
-    constituencies: [],
-    geojsonPath: '/maps/nepal-constituencies-1990s.geojson',
-    getWinner: (constituencyId) => null,
-    getResults: (constituencyId) => null,
-    // TODO: Add 1994 results from IPU Parline/Wikipedia
+    // NATIONAL DATA ONLY - Constituency data to be extracted from PDF
+    year: 1994,
+    name: "1994 Mid-term Election",
+    date: "1994-11-15",
+    description: "House of Representatives Election 2051 (1994) - Mid-term election",
+    totalSeats: 205,
+    system: "FPTP",
+    
+    // Reference to available data
+    data: ELECTION_1994,
+    parties: PARTIES_1994,
+    
+    // Constituency access
+    constituencies: Object.entries(ELECTION_1994.constituencies).map(([id, c]) => ({
+      id,
+      ...c
+    })),
+    constituencyCount: ELECTION_1994.totalConstituencies,
+    
+    // Accessor functions
+    getWinner: (constituencyId) => ELECTION_1994.getWinner(constituencyId),
+    getResults: (constituencyId) => ELECTION_1994.getResults(constituencyId),
+    getConstituency: (constituencyId) => ELECTION_1994.getConstituency(constituencyId),
+    
+    // National results
+    getNationalResults: () => ELECTION_1994.summary,
+    
+    // GeoJSON availability
+    geojsonAvailable: false,
+    geojsonPath: null,
+    notes: "National-level data only. Constituency data to be extracted from PDF. Historical boundaries (205 constituencies) differ from current."
   },
   1991: {
     // 1991 General Election - 205 constituencies (first democratic election)
-    constituencies: [],
-    geojsonPath: '/maps/nepal-constituencies-1990s.geojson',
-    getWinner: (constituencyId) => null,
-    getResults: (constituencyId) => null,
-    // TODO: Add 1991 results from IPU Parline/Wikipedia
+    // NATIONAL DATA ONLY - Constituency data to be extracted from PDF
+    year: 1991,
+    name: "1991 General Election",
+    date: "1991-05-12",
+    description: "House of Representatives Election 2048 (1991) - First democratic election since 1959",
+    totalSeats: 205,
+    system: "FPTP",
+    
+    // Reference to available data
+    data: ELECTION_1991,
+    parties: PARTIES_1991,
+    
+    // Constituency access
+    constituencies: Object.entries(ELECTION_1991.constituencies).map(([id, c]) => ({
+      id,
+      ...c
+    })),
+    constituencyCount: ELECTION_1991.totalConstituencies,
+    
+    // Accessor functions
+    getWinner: (constituencyId) => ELECTION_1991.getWinner(constituencyId),
+    getResults: (constituencyId) => ELECTION_1991.getResults(constituencyId),
+    getConstituency: (constituencyId) => ELECTION_1991.getConstituency(constituencyId),
+    
+    // National results
+    getNationalResults: () => ELECTION_1991.summary,
+    
+    // GeoJSON availability
+    geojsonAvailable: false,
+    geojsonPath: null,
+    notes: "National-level data only. Constituency data to be extracted from PDF. Historical boundaries (205 constituencies) differ from current."
   },
 };
 
@@ -137,8 +249,8 @@ export function getHistoricalConstituency(year, constituencyId) {
   const yearData = HISTORICAL_CONSTITUENCIES[year];
   if (!yearData) return null;
   
-  // For years with new data structure (1999, 2017)
-  if (year === 1999 || year === 2017) {
+  // For years with new data structure (1991, 1994, 1999, 2008, 2013, 2017)
+  if ([1991, 1994, 1999, 2008, 2013, 2017].includes(year)) {
     return yearData.getConstituency(constituencyId);
   }
   

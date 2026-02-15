@@ -4,6 +4,7 @@ import { generateArticleMetadata } from '../../../lib/metadata'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { mdxComponents } from '../../../components/mdx/MDXComponents'
 import ArticlePageClient from './ArticlePageClient'
+import remarkGfm from 'remark-gfm'
 
 export async function generateMetadata({ params }) {
   const { slug } = await params
@@ -34,6 +35,12 @@ export default async function ArticlePage({ params }) {
       <MDXRemote
         source={content}
         components={mdxComponents}
+        options={{
+          parseFrontmatter: false,
+          mdxOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        }}
       />
     </ArticlePageClient>
   )
