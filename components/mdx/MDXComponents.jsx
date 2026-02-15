@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { CodeBlock } from './CodeBlock'
 import { Chart } from './Chart'
 import { Table } from './Table'
@@ -70,12 +71,14 @@ export const mdxComponents = {
     <em className="italic text-[rgb(100,110,130)]">{children}</em>
   ),
   img: ({ src, alt }) => (
-    <img
-      src={src}
-      alt={alt}
-      className="rounded-lg w-full my-4"
-      loading="lazy"
-    />
+    <div className="relative w-full aspect-video my-4">
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="rounded-lg object-cover"
+      />
+    </div>
   ),
   table: ({ children }) => (
     <div className="overflow-x-auto mb-4">

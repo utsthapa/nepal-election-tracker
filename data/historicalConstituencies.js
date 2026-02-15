@@ -2,7 +2,10 @@
 // This file contains constituency-level election results for different years
 
 import { constituencies } from './constituencies.js';
-import { ELECTION_1999, PARTIES_1999 } from './historical/index.js';
+import { 
+  ELECTION_1999, PARTIES_1999,
+  ELECTION_2017, PARTIES_2017 
+} from './historical/index.js';
 
 export const HISTORICAL_CONSTITUENCIES = {
   2026: {
@@ -27,21 +30,39 @@ export const HISTORICAL_CONSTITUENCIES = {
   },
   2017: {
     // 2017 General Election - 165 constituencies (similar to 2022)
-    // Same boundaries as 2022 (165 constituencies)
-    constituencies: [], // Will be loaded from 2017_HOR.csv when available
+    // PARTIAL DATASET - 24 constituencies from available CSV
+    year: 2017,
+    name: "2017 General Election",
+    date: "2017-11-26/12-07",
+    description: "House of Representatives Election 2074 (2017) - First under 2015 Constitution",
+    totalSeats: 275,
+    fptpSeats: 165,
+    prSeats: 110,
+    system: "Mixed (FPTP + PR)",
+    
+    // Reference to available data
+    data: ELECTION_2017,
+    parties: PARTIES_2017,
+    
+    // Constituency access
+    constituencies: Object.entries(ELECTION_2017.constituencies).map(([id, c]) => ({
+      id,
+      ...c
+    })),
+    constituencyCount: ELECTION_2017.totalConstituencies,
+    
+    // Accessor functions
+    getWinner: (constituencyId) => ELECTION_2017.getWinner(constituencyId),
+    getResults: (constituencyId) => ELECTION_2017.getResults(constituencyId),
+    getConstituency: (constituencyId) => ELECTION_2017.getConstituency(constituencyId),
+    
+    // National results
+    getNationalResults: () => ELECTION_2017.summary,
+    
+    // GeoJSON availability
+    geojsonAvailable: true,
     geojsonPath: '/maps/nepal-constituencies.geojson',
-    getWinner: (constituencyId) => {
-      // Load from 2017_HOR.csv
-      // Return winner party ID for constituency
-      const c = constituencies.find(c => c.id === constituencyId);
-      return c?.winner2017;
-    },
-    getResults: (constituencyId) => {
-      // Load from 2017_HOR.csv
-      // Return full results array for constituency
-      const c = constituencies.find(c => c.id === constituencyId);
-      return c?.results2017;
-    },
+    notes: "Partial data available (24 constituencies). Same boundaries as 2022."
   },
   2013: {
     // 2013 Constituent Assembly - 240 constituencies (different boundaries)
@@ -116,8 +137,8 @@ export function getHistoricalConstituency(year, constituencyId) {
   const yearData = HISTORICAL_CONSTITUENCIES[year];
   if (!yearData) return null;
   
-  // For 1999, use the new data structure
-  if (year === 1999) {
+  // For years with new data structure (1999, 2017)
+  if (year === 1999 || year === 2017) {
     return yearData.getConstituency(constituencyId);
   }
   

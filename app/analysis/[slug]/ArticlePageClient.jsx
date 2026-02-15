@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { format } from 'date-fns'
 import { useLanguage } from '../../../context/LanguageContext'
@@ -63,11 +64,12 @@ export default function ArticlePageClient({ article, relatedArticles, children }
 
         {/* Featured Image */}
         {article.featuredImage && (
-          <div className="mb-8 rounded-xl overflow-hidden">
-            <img
+          <div className="mb-8 rounded-xl overflow-hidden relative aspect-video">
+            <Image
               src={article.featuredImage}
               alt={title}
-              className="w-full h-auto"
+              fill
+              className="object-cover"
             />
           </div>
         )}

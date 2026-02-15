@@ -24,7 +24,9 @@ export default function DataExportButton({
     const csvContent = convertToCSV(data);
 
     if (!csvContent) {
-      console.error('Failed to convert data to CSV');
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Failed to convert data to CSV');
+      }
       return;
     }
 

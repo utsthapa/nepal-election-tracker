@@ -125,7 +125,9 @@ export default function NepalMap({
       })
       .catch(err => {
         if (mounted) {
-          console.error('GeoJSON load error:', err);
+          if (process.env.NODE_ENV === 'development') {
+            console.error('GeoJSON load error:', err);
+          }
           setGeoJsonError('Failed to load map data. Please refresh the page.');
         }
       });

@@ -16,11 +16,6 @@ export default function MacroOverview() {
   const [timeRange, setTimeRange] = useState('All');
   const [inflationView, setInflationView] = useState('annual');
 
-  // Debug: Check if data is loaded
-  console.log('YEARS:', YEARS);
-  console.log('MACRO_INDICATORS:', MACRO_INDICATORS);
-  console.log('GDP growth data:', MACRO_INDICATORS?.gdp?.growth);
-
   // Time range filter
   const timeRangeObj = useMemo(() => {
     const presets = {
@@ -252,7 +247,7 @@ export default function MacroOverview() {
           <li className="flex gap-2">
             <span className="text-blue-600 font-bold">•</span>
             <span>
-              <strong>GDP Growth:</strong> Nepal's economy grew by{' '}
+              <strong>GDP Growth:</strong> Nepal&apos;s economy grew by{' '}
               {MACRO_INDICATORS.gdp.growth[14]}% in 2024, showing recovery
               from the COVID-19 impact.
             </span>

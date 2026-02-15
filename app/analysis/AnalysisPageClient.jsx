@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { format } from 'date-fns'
 import { Calendar, Tag, TrendingUp } from 'lucide-react'
@@ -98,11 +99,12 @@ export default function AnalysisPageClient({ articles, categories, tags }) {
               >
                 <article className="bg-surface border border-neutral rounded-xl overflow-hidden hover:border-blue-500/50 transition-all h-full flex flex-col">
                   {article.featuredImage && (
-                    <div className="aspect-video bg-neutral overflow-hidden">
-                      <img
+                    <div className="aspect-video bg-neutral overflow-hidden relative">
+                      <Image
                         src={article.featuredImage}
                         alt={title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     </div>
                   )}

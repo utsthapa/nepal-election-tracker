@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Header from '@/components/Header';
 import PageHeader from '@/components/nepal-data/shared/PageHeader';
 import QuickStatsBar from '@/components/nepal-data/shared/QuickStatsBar';
@@ -5,6 +6,12 @@ import CollapsibleSection from '@/components/nepal-data/shared/CollapsibleSectio
 import DataSources from '@/components/nepal-data/shared/DataSources';
 import MacroOverview from '@/components/nepal-data/panels/MacroOverview';
 import ExternalSectorPanel from '@/components/nepal-data/panels/ExternalSectorPanel';
+import DemographicsNational from '@/components/nepal-data/panels/DemographicsNational';
+import PovertyPanel from '@/components/nepal-data/panels/PovertyPanel';
+import TourismPanel from '@/components/nepal-data/panels/TourismPanel';
+import EnergyEnvironmentPanel from '@/components/nepal-data/panels/EnergyEnvironmentPanel';
+import ProvincialComparison from '@/components/nepal-data/panels/ProvincialComparison';
+import InternationalComparison from '@/components/nepal-data/panels/InternationalComparison';
 import { MACRO_INDICATORS, EXTERNAL_SECTOR, DATA_METADATA } from '@/data/nepalMacroData';
 
 /**
@@ -134,106 +141,64 @@ export default function NepalDataPage() {
               <ExternalSectorPanel />
             </CollapsibleSection>
 
-            {/* Demographics - Placeholder for future implementation */}
+            {/* Demographics */}
             <CollapsibleSection
               id="demographics"
               title="Demographics (National)"
               subtitle="Population, life expectancy, urbanization, and literacy"
               defaultExpanded={false}
             >
-              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-8 text-center">
-                <p className="text-gray-700 mb-2">
-                  <span className="font-semibold">Coming Soon:</span> National demographics panel
-                </p>
-                <p className="text-sm text-gray-600">
-                  Population trends, vital statistics, education metrics, and urbanization analysis
-                </p>
-              </div>
+              <DemographicsNational />
             </CollapsibleSection>
 
-            {/* Poverty & Inequality - Placeholder */}
+            {/* Poverty & Inequality */}
             <CollapsibleSection
               id="poverty"
               title="Poverty & Inequality"
               subtitle="Poverty rates, Gini index, and income distribution"
               defaultExpanded={false}
             >
-              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-8 text-center">
-                <p className="text-gray-700 mb-2">
-                  <span className="font-semibold">Coming Soon:</span> Poverty and inequality analysis
-                </p>
-                <p className="text-sm text-gray-600">
-                  Poverty headcount ratios, multidimensional poverty, Gini coefficient, and income shares
-                </p>
-              </div>
+              <PovertyPanel />
             </CollapsibleSection>
 
-            {/* Tourism - Placeholder */}
+            {/* Tourism */}
             <CollapsibleSection
               id="tourism"
               title="Tourism"
               subtitle="Annual arrivals, monthly patterns, and source countries"
               defaultExpanded={false}
             >
-              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-8 text-center">
-                <p className="text-gray-700 mb-2">
-                  <span className="font-semibold">Coming Soon:</span> Tourism statistics and trends
-                </p>
-                <p className="text-sm text-gray-600">
-                  Tourist arrivals, seasonal patterns, source country breakdown, and tourism receipts
-                </p>
-              </div>
+              <TourismPanel />
             </CollapsibleSection>
 
-            {/* Energy & Environment - Placeholder */}
+            {/* Energy & Environment */}
             <CollapsibleSection
               id="energy-environment"
               title="Energy & Environment"
               subtitle="Electricity access, CO2 emissions, and renewable energy"
               defaultExpanded={false}
             >
-              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-8 text-center">
-                <p className="text-gray-700 mb-2">
-                  <span className="font-semibold">Coming Soon:</span> Energy and environment indicators
-                </p>
-                <p className="text-sm text-gray-600">
-                  Electrification rates, CO2 emissions per capita, renewable energy share, and energy use
-                </p>
-              </div>
+              <EnergyEnvironmentPanel />
             </CollapsibleSection>
 
-            {/* Provincial Comparison - Placeholder */}
+            {/* Provincial Comparison */}
             <CollapsibleSection
               id="provincial-comparison"
               title="Provincial Comparison"
               subtitle="Compare metrics across Nepal's 7 provinces"
               defaultExpanded={false}
             >
-              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-8 text-center">
-                <p className="text-gray-700 mb-2">
-                  <span className="font-semibold">Coming Soon:</span> Provincial comparison dashboard
-                </p>
-                <p className="text-sm text-gray-600">
-                  GDP share, poverty rates, literacy, electrification, and development indicators by province
-                </p>
-              </div>
+              <ProvincialComparison />
             </CollapsibleSection>
 
-            {/* International Comparison - Placeholder */}
+            {/* International Comparison */}
             <CollapsibleSection
               id="international-comparison"
               title="International Comparison"
               subtitle="Nepal vs South Asian neighbors and income groups"
               defaultExpanded={false}
             >
-              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-8 text-center">
-                <p className="text-gray-700 mb-2">
-                  <span className="font-semibold">Coming Soon:</span> International benchmarking
-                </p>
-                <p className="text-sm text-gray-600">
-                  Compare Nepal with India, Bangladesh, Sri Lanka, and regional income groups
-                </p>
-              </div>
+              <InternationalComparison />
             </CollapsibleSection>
           </div>
 
@@ -244,9 +209,9 @@ export default function NepalDataPage() {
           <div className="mt-12 text-center text-sm text-gray-500">
             <p>
               This dashboard is part of the Nepal Election Simulator project.{' '}
-              <a href="/" className="text-blue-600 hover:text-blue-700 underline">
+              <Link href="/" className="text-blue-600 hover:text-blue-700 underline">
                 Return to homepage
-              </a>
+              </Link>
             </p>
           </div>
         </div>
