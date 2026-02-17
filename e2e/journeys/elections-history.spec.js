@@ -15,8 +15,8 @@ test.describe('Elections history journey', () => {
     const electionsPage = new ElectionsPage(page);
     await electionsPage.goto();
 
-    const yearLinks = await electionsPage.getYearLinks();
-    expect(yearLinks.length).toBeGreaterThan(0);
+    // Use Playwright's retrying assertion instead of .all() which doesn't retry
+    await expect(page.getByRole('link', { name: /\b(19|20)\d{2}\b/ }).first()).toBeVisible();
   });
 
   test('navigating to 2022 election shows results', async ({ page }) => {
