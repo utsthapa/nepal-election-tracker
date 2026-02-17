@@ -1,132 +1,249 @@
+
+
 ---
-title: "Measuring Coalition Stability: A Data-Driven Approach"
-excerpt: "We've developed a quantitative framework to predict government longevity based on ideology, seat distribution, and historical patterns."
-author: "Methodology Team"
-date: "2026-02-07"
-category: "Methodology"
-tags: ["coalitions", "political-science", "methodology"]
-featuredImage: "/images/coalition-stability.svg"
+title: "Can Math Predict When Nepal's Next Government Will Fall?"
+excerpt: "Nepal's governments last an average of 14 months. We built a model to figure out why some survive and others don't — and what it tells us about the coalitions likely to form after the next election."
+author: "Data Journalism Team"
+date: "2026-02-17"
+category: "Analysis"
+tags: ["coalitions", "political-science", "methodology", "government-stability"]
+featuredImage: ""
 featured: false
 ---
 
-# Measuring Coalition Stability: A Data-Driven Approach
+# Can Math Predict When Nepal's Next Government Will Fall?
 
-In Nepal's multi-party democracy, coalition governments are the norm, not the exception. Since the restoration of democracy in 2006, the average government has lasted just 14 months. But some coalitions endure while others collapse within weeks. Can data science predict which governments will survive?
+Here's a fun exercise. Pick any year since Nepal restored multiparty democracy. Now guess whether the government that started that year was still in power 18 months later.
 
-## The Coalition Stability Index
+If you guessed no, you're probably right. Since 2006, the average Nepali government has lasted just 14 months. Some didn't even make it past the honeymoon phase — collapsing in weeks. Others clung on for nearly two years before the math finally caught up with them.
 
-We've developed the Coalition Stability Index (CSI), a composite metric that predicts government longevity with 78% accuracy. The index combines five key factors:
+But here's the thing: not all coalitions are created equal. Some combinations of parties are structurally more durable than others. And if you look closely enough at the data — at ideology, at seat distribution, at the history of who's worked with whom — patterns start to show up. Patterns strong enough to build a predictive model around.
 
-### 1. Ideological Coherence Score (30% weight)
+So we did. We built what we're calling the Coalition Stability Index, or CSI, a composite score that tries to predict how long a given government will last. It's not perfect. No model of human behavior is. But in backtesting against post-2006 governments, it predicted duration within a reasonable range about 78% of the time.
 
-We position each party in a three-dimensional ideological space:
-- **Economic axis**: Market-oriented vs. State-interventionist
-- **Federal axis**: Centralist vs. Autonomist
-- **Geopolitical axis**: India-aligned vs. China-aligned vs. Balanced
+That's not a crystal ball. But it's a lot better than guessing.
 
-Coalitions with lower ideological distance scores are significantly more stable. A one-unit decrease in ideological distance correlates with a 3.2-month increase in government duration.
+## Why coalition math matters more than ever
 
-**Current Coalition Ratings:**
-- NC-UML coalition: Distance score 2.1 (moderate coherence)
-- NC-Maoist coalition: Distance score 1.7 (high coherence)
-- UML-Maoist coalition: Distance score 1.4 (very high coherence)
-- Multi-party rainbow coalition: Distance score 3.8 (low coherence)
+Nepal's party system has been getting more fragmented, not less. In 2017, the effective number of parties — a standard political science measure that accounts for both the number of parties and their relative size — sat at a manageable level. UML dominated with 121 seats, or 44% of the House. NC held 63. The Maoists had 53. Three parties controlled over 86% of all seats.
 
-### 2. Seat Distribution Index (25% weight)
+By 2022, that picture had shattered. UML dropped to 78 seats. NC climbed to 89, but that was still only 32.4% of the chamber. The Maoists fell hard, to just 32 seats. And suddenly there were new players demanding a seat at the table: the Rastriya Swatantra Party burst onto the scene with 20 seats, the RPP grabbed 14, and the JSPN took 12.
 
-The mathematical relationship between seat distribution and stability follows a clear pattern:
+The effective number of parties hit 4.75 — the most fragmented parliament in Nepal's democratic history.
 
-**Optimal distribution**: One dominant party with 40-45% of coalition seats, plus 2-3 smaller partners
-- Provides clear leadership while maintaining coalition discipline
-- Historical average duration: 22 months
+More fragmentation means more coalition partners. More coalition partners means more veto players. More veto players means more ways for a government to fall apart. It's not rocket science, but it is math. And the math has been getting harder.
 
-**Sub-optimal distributions**:
-- Equal partners (each with 25-35%): High instability, average duration 9 months
-- Dominant hegemon (>60%): Technically stable but often sheds partners; average duration 16 months
-- Fragmented (4+ parties, none >30%): Extreme instability, average duration 7 months
+## The five ingredients of a stable coalition
 
-### 3. Historical Partnership Score (20% weight)
+So what separates the coalitions that last from the ones that don't? We identified five factors, each weighted according to how predictive it's been historically.
 
-Parties that have successfully governed together before are 2.4x more likely to sustain a coalition. We track:
-- Previous coalition participation
-- Duration of past partnerships
-- Manner of coalition termination (policy vs. power struggle)
+### Ideological coherence is the single biggest predictor
 
-**Relationship strength matrix:**
-- NC-UML: 0.73 (strong history, but often competitive)
-- NC-Maoist: 0.81 (strongest historical partnership)
-- UML-Maoist: 0.64 (ideologically close but historically competitive)
+This carries 30% of the weight in our model, and for good reason. It's the factor that most consistently separates durable governments from short-lived ones.
 
-### 4. External Support Reliability (15% weight)
+We position each major party in a three-dimensional ideological space. The axes aren't arbitrary — they reflect the three cleavages that actually drive Nepali politics:
 
-In hung parliaments, external support from non-coalition parties becomes crucial. Our analysis shows:
-- **Formal written agreements**: 71% reliability over 12 months
-- **Informal understanding**: 42% reliability
-- **Issue-by-issue support**: 23% reliability
+**Economic policy**: Where does a party fall on the spectrum from market-oriented to state-interventionist? NC leans market. UML and the Maoists lean state. RSP is somewhere in between, with a technocratic flavor.
 
-### 5. Leader Compatibility Index (10% weight)
+**Federalism**: How much power should provinces and local governments have? This is where the Madhesh-based parties diverge sharply from, say, UML, which has historically favored a stronger center.
 
-While harder to quantify, leadership chemistry matters. We use:
-- Previous joint public statements (NLP sentiment analysis)
-- Cross-party candidate endorsements
-- Social network analysis of political relationships
+**Geopolitical orientation**: The India-China axis is real in Nepali politics, even if politicians don't always say it out loud. Different parties have different comfort levels with each neighbor.
 
-## Real-World Application
+We calculate the average ideological distance between all parties in a coalition. The result? A one-unit decrease in ideological distance correlates with a 3.2-month increase in government duration.
 
-**Scenario 1: NC-UML Coalition**
-- Ideological coherence: 6.2/10
-- Seat distribution: 8.1/10 (near-optimal)
-- Historical partnership: 7.3/10
-- External support: 5.4/10 (fragile)
-- Leader compatibility: 6.8/10
-- **CSI Score: 68.2** → Predicted duration: 16-18 months
+That's a big deal. It means that if you could somehow move a coalition from "moderate coherence" to "high coherence" on our scale, you'd buy yourself roughly an extra quarter of a year in power.
 
-**Scenario 2: NC-Maoist-JSPN Coalition**
-- Ideological coherence: 7.8/10
-- Seat distribution: 6.9/10 (acceptable)
-- Historical partnership: 8.1/10
-- External support: 7.2/10 (stronger)
-- Leader compatibility: 7.4/10
-- **CSI Score: 75.8** → Predicted duration: 21-24 months
+Here's how current potential coalitions stack up:
 
-**Scenario 3: Five-Party Rainbow Coalition**
-- Ideological coherence: 3.2/10 (very low)
-- Seat distribution: 4.1/10 (fragmented)
-- Historical partnership: 5.6/10 (mixed)
-- External support: 3.8/10 (unreliable)
-- Leader compatibility: 4.9/10
-- **CSI Score: 42.4** → Predicted duration: 6-9 months
+| Coalition | Ideological Distance | Coherence Level |
+|-----------|---------------------|-----------------|
+| UML-Maoist | 1.4 | Very high |
+| NC-Maoist | 1.7 | High |
+| NC-UML | 2.1 | Moderate |
+| Multi-party rainbow | 3.8 | Low |
 
-## Policy Implications
+The UML-Maoist pairing scores best on ideology. They're both left-leaning, both historically skeptical of too much provincial autonomy, both comfortable with a strong state role in the economy. On paper, they should be natural partners.
 
-The CSI reveals a fundamental tension in Nepal's democracy:
+But — and this is important — ideology isn't everything. If it were, UML and the Maoists would have governed together happily for years. They haven't. Which brings us to factor two.
 
-**Representation vs. Stability Trade-off**
-- Ideologically coherent coalitions are more stable but may exclude important constituencies
-- Broadly representative coalitions struggle to maintain policy coherence
+### The Goldilocks problem of seat distribution
 
-**The Sweet Spot**
-Our data suggests optimal coalitions share three characteristics:
-1. 2-3 core ideologically-aligned parties
-2. One dominant partner with 40-45% of coalition seats
-3. Formal written agreements on key policy areas
+This factor gets 25% of the weight, and it reveals something counterintuitive: the most stable coalitions aren't the ones where partners are equals. They're the ones where one party is clearly in charge.
 
-## Beyond Seat-Counting
+Think of it this way. When two parties each hold 30-35% of coalition seats, every decision becomes a negotiation. Who gets the finance ministry? Whose policy agenda takes priority? Who gets credit for successes? Neither party has enough leverage to break a deadlock, so deadlocks pile up until someone walks.
 
-Traditional political analysis focuses on seat arithmetic. Our framework reveals that **qualitative factors** (ideology, relationships, leadership) are equally predictive of coalition success.
+The historical data is stark:
 
-Parties that optimize only for seat maximization often create unstable governments. Those that balance seats with ideological coherence and partnership quality build enduring coalitions.
+| Distribution Pattern | Avg. Duration |
+|---------------------|---------------|
+| One dominant party (40-45%) + 2-3 smaller partners | 22 months |
+| Dominant hegemon (>60%) | 16 months |
+| Equal partners (25-35% each) | 9 months |
+| Fragmented (4+ parties, none >30%) | 7 months |
 
-## Limitations and Caveats
+The sweet spot is a coalition where one party holds 40-45% of the seats — enough to set the agenda and provide clear leadership, but not so much that smaller partners feel irrelevant. When the smaller parties still matter for survival, they stay engaged. When they don't, they start looking for the exit.
 
-The CSI has limitations:
-- Cannot predict exogenous shocks (corruption scandals, external crises)
-- Assumes rational actors; doesn't account for personality-driven politics
-- Historical data limited to post-2006 period
-- Regional party dynamics incompletely modeled
+Look at the 2022 numbers through this lens. NC's 89 seats made it the largest party, but in a 275-seat house, that's only 32.4%. To hit that 40-45% sweet spot within a coalition, NC would need partners who collectively hold somewhere around 100-130 seats — but NC itself would need to represent the plurality within that group. That's achievable with the Maoists (32 seats) and maybe one smaller party. It gets much harder if you need four or five partners, because then you're in fragmented territory.
 
-Despite these constraints, the index provides a rigorous, data-driven framework for understanding coalition politics in Nepal.
+The 2022 parliament, with its ENP of 4.75, was basically designed to produce suboptimal coalitions. That's not a criticism of voters. It's just the math.
+
+### Past partnerships predict future stability
+
+Here's where things get interesting. We gave historical partnership patterns 20% of the weight, and the data shows something that political scientists have long suspected: parties that have successfully governed together before are 2.4 times more likely to sustain a new coalition.
+
+Why? Partly it's institutional memory. Bureaucrats and party functionaries who've worked across party lines before know how to manage the friction. Partly it's trust — or at least the absence of active distrust. And partly it's just that successful partnerships create a template. People know what to expect.
+
+We built a relationship strength matrix based on three sub-factors: how many times parties have been in coalition together, how long those coalitions lasted, and how they ended. A coalition that dissolved over a genuine policy disagreement scores better than one that blew up because someone wanted the prime ministership for themselves.
+
+The scores:
+
+| Partnership | Strength Score | Notes |
+|------------|---------------|-------|
+| NC-Maoist | 0.81 | Strongest historical partnership |
+| NC-UML | 0.73 | Strong but often competitive |
+| UML-Maoist | 0.64 | Ideologically close, historically competitive |
+
+NC and the Maoists score highest. That might surprise people who remember the civil war, when these two parties were literally trying to destroy each other. But post-2006, they've found workable arrangements more often than any other pairing. The Comprehensive Peace Agreement, the first Constituent Assembly, the transition to the republic — NC and the Maoists were partners for most of it.
+
+NC and UML score well too, but their relationship is more complicated. They're the two parties that have most often competed for the same voters — urban, educated, middle-class Nepalis who want stable governance. Partners in government, rivals at the ballot box. That tension shows up in the data.
+
+And then there's UML-Maoist. Ideologically, they should be best friends. In practice, they've spent more time competing for the left-wing vote than cooperating. Their 0.64 score reflects a relationship with potential but limited track record.
+
+### External support is unreliable — but some forms are less unreliable than others
+
+In a fragmented parliament, the parties inside the coalition often don't have enough seats to pass legislation on their own. They need external support — votes from parties that aren't formally part of the government but agree to back it on confidence motions and key bills.
+
+We gave this factor 15% of the weight. And the data here is pretty clear about one thing: the formality of the arrangement matters enormously.
+
+| Type of External Support | 12-Month Reliability |
+|-------------------------|---------------------|
+| Formal written agreement | 71% |
+| Informal understanding | 42% |
+| Issue-by-issue support | 23% |
+
+A formal written agreement — where the supporting party gets specific policy commitments in exchange for votes — holds up about 71% of the time over a year. That's not great, but it's workable. An informal understanding, the kind sealed with a handshake and a press conference, drops to 42%. And issue-by-issue support? You're basically flipping a coin with slightly bad odds.
+
+This matters for post-2022 coalition building because with six or seven parties holding meaningful seat shares, any government is likely to need some form of external support. The question isn't whether they'll need it — it's whether they can lock it down in writing.
+
+### Leadership chemistry: hard to measure, impossible to ignore
+
+This gets only 10% of the weight, and honestly, that's partly because it's the hardest factor to quantify. But we'd be kidding ourselves if we pretended it didn't matter.
+
+We use three proxies: sentiment analysis of joint public statements between party leaders, patterns of cross-party endorsements during elections, and social network analysis of political relationships. None of these is perfect. A leader can smile for the cameras and plot a coup behind closed doors. We know that.
+
+But the proxies do capture something real. Leaders who've publicly praised each other, who've campaigned for each other's candidates, who share social connections beyond the purely transactional — they tend to hold coalitions together longer. Not always. But on average.
+
+## Putting it all together: three scenarios
+
+Let's run three plausible post-election coalition scenarios through the model and see what comes out.
+
+### Scenario 1: NC-UML coalition
+
+This is the "grand coalition" option — Nepal's two largest parties joining forces.
+
+| Factor | Score (out of 10) | Weight |
+|--------|------------------|--------|
+| Ideological coherence | 6.2 | 30% |
+| Seat distribution | 8.1 | 25% |
+| Historical partnership | 7.3 | 20% |
+| External support | 5.4 | 15% |
+| Leader compatibility | 6.8 | 10% |
+| **Composite CSI** | **68.2** | |
+
+**Predicted duration: 16-18 months**
+
+The seat distribution score is strong here because in most scenarios, one of these two parties would clearly be the senior partner, avoiding the equal-partners trap. The ideological coherence is middling — they agree on enough to govern but disagree on enough to fight. The external support score is weak because a grand coalition of the two biggest parties tends to push smaller parties into opposition, leaving fewer options if cracks appear.
+
+Sixteen to eighteen months. Enough to pass a budget, maybe two. Not enough to implement a full policy agenda.
+
+### Scenario 2: NC-Maoist-JSPN coalition
+
+This brings together Nepal's strongest historical partnership (NC-Maoist) with a Madhesh-based party that adds geographic and ethnic diversity.
+
+| Factor | Score (out of 10) | Weight |
+|--------|------------------|--------|
+| Ideological coherence | 7.8 | 30% |
+| Seat distribution | 6.9 | 25% |
+| Historical partnership | 8.1 | 20% |
+| External support | 7.2 | 15% |
+| Leader compatibility | 7.4 | 10% |
+| **Composite CSI** | **75.8** | |
+
+**Predicted duration: 21-24 months**
+
+This is the model's favorite. The NC-Maoist relationship is the strongest in the dataset. Adding JSPN brings in Madhesh representation without dramatically increasing ideological distance — JSPN's policy priorities (federal autonomy, Madhesh development) don't fundamentally conflict with NC or Maoist positions. The external support score is higher because this coalition leaves potential allies (RSP, smaller parties) available for issue-by-issue backing.
+
+Twenty-one to twenty-four months would be impressive by Nepali standards. It would mean a government lasting nearly a full two years — long enough to actually do things.
+
+### Scenario 3: Five-party rainbow coalition
+
+Everyone gets a seat at the table. Everyone gets a ministry. Everyone gets a veto.
+
+| Factor | Score (out of 10) | Weight |
+|--------|------------------|--------|
+| Ideological coherence | 3.2 | 30% |
+| Seat distribution | 4.1 | 25% |
+| Historical partnership | 5.6 | 20% |
+| External support | 3.8 | 15% |
+| Leader compatibility | 4.9 | 10% |
+| **Composite CSI** | **42.4** | |
+
+**Predicted duration: 6-9 months**
+
+Ouch. The model really doesn't like this one. Low ideological coherence (too many parties pulling in too many directions), fragmented seat distribution (no clear leader), and unreliable external support (who's left to provide it when everyone's already inside?).
+
+Six to nine months. Barely enough time to agree on a cabinet, let alone govern.
+
+## The representation-stability tradeoff
+
+Here's the uncomfortable truth buried in these numbers: the coalitions that best represent Nepal's diversity tend to be the least stable. And the coalitions that are most stable tend to leave important voices out.
+
+A five-party rainbow coalition that includes hill parties, Madhesh parties, left parties, centrist parties, and new entrants like RSP would be wonderfully representative. It would look like Nepal. But it would also probably collapse before it could accomplish anything meaningful.
+
+A tight NC-Maoist partnership would be stable and effective. But it would leave out UML's voters, Madhesh-specific concerns (unless JSPN is included), and the 7.3% of voters who backed RSP in 2022 precisely because they were sick of the old parties.
+
+There's no easy answer here. Our model can tell you which coalitions will last. It can't tell you which ones *should* form. That's a values question, not a data question.
+
+## What the model can't see
+
+Let's be honest about the limitations. There are several, and they're not small.
+
+**Exogenous shocks.** The model assumes a relatively stable external environment. It can't predict a corruption scandal that takes down a key leader, a border crisis with India, an earthquake, or a global pandemic. Any of these could shorten or (less commonly) lengthen a coalition's life in ways no historical pattern would capture.
+
+**Personality-driven politics.** We give leadership chemistry only 10% of the weight partly because it's hard to measure, but also because the proxy variables we use are imperfect. A leader's ego, their tolerance for compromise, their willingness to accept a subordinate role — these things matter enormously and are almost impossible to quantify until they blow up a government.
+
+**Limited historical data.** We're working with post-2006 governments, which gives us a reasonable but not huge dataset. Nepal's pre-2006 democratic periods (1991-2002) offer some additional data points, but the political context was different enough — no federalism, different party system, active monarchy — that direct comparisons are tricky.
+
+**The RSP question.** The Rastriya Swatantra Party didn't exist before 2022. It won 20 seats in its first election, drawing voters who were explicitly rejecting the established parties. We have no historical partnership data for RSP. We don't know how it behaves in coalition. We can estimate its ideological position based on its platform and its leaders' statements, but that's less reliable than observing actual governing behavior. RSP is a wild card that the model handles with wide uncertainty bands.
+
+**Regional dynamics.** Our model treats national-level coalition politics as the primary unit of analysis. But Nepal's 2015 constitution created seven provinces, each with its own political dynamics. A party that's a reliable coalition partner at the national level might be a fierce competitor at the provincial level, and those tensions can spill over. We're working on incorporating provincial-level data, but it's not there yet.
+
+## What three decades of data actually tell us
+
+Step back from the model for a second and look at the big picture.
+
+Nepal has held eight elections since 1991. Turnout peaked at 78.3% in 2013 — the second Constituent Assembly election, when the stakes felt existential — and hit a low of 61% in 2022. The party system has gone from a rough two-party structure (NC and UML dominated the 1990s) to the most fragmented parliament in the country's history.
+
+Every single government since 2006 has been a coalition. Not one party has won a majority on its own. The closest anyone came was UML in 2017, when it won 121 seats — 44% of the house, impressive but still short of the 138 needed for a majority.
+
+And yet. Despite the instability, despite the musical chairs of prime ministers, despite the frustration that drives turnout down and new parties up — the system keeps working. Elections happen on schedule. Losers concede. Power transfers peacefully. The 2015 constitution, for all the controversy around it, has held.
+
+The instability isn't a sign that democracy is failing. It's a sign that no single party or coalition has figured out how to build a durable majority. That's a problem, sure. But it's a democracy problem, not an autocracy problem. And there's a difference.
+
+## Where we go from here
+
+Our model suggests that the most stable coalition Nepal can realistically build right now involves two to three ideologically compatible parties, with one clearly in the driver's seat, bound by a formal written agreement on policy priorities. The NC-Maoist-JSPN combination scores highest, but an NC-UML pairing is also viable if the seat distribution works out.
+
+What we don't know is whether voters will deliver a parliament that makes any of these configurations possible. The 2022 election produced the most fragmented result ever. If that trend continues — if ENP keeps climbing, if new parties keep splintering the vote — then even the "best" coalitions will be built on increasingly shaky arithmetic.
+
+And there's a deeper question the model can't answer: Is 14 months of average government duration actually a problem? Or is it just what democracy looks like in a country with genuine ideological diversity, strong regional identities, and a political culture that hasn't yet settled into stable alignments?
+
+We're not sure. The data tells us what's likely. It doesn't tell us what's acceptable. That's for Nepali voters to decide.
+
+What we can say with confidence is this: the next coalition's survival won't be determined on the day it's formed. It'll be determined by the choices made in the weeks before — who's in, who's out, how formal the agreements are, and whether the partners picked each other for the right reasons.
+
+The math doesn't lie. But it also doesn't govern. People do.
 
 ---
 
-*Full methodology, source code, and data available at [github.com/nepalisoch/coalition-stability-model](/methodology)*
+*Full methodology, source code, and historical coalition data are available in our [GitHub repository](/methodology). We'll be updating the Coalition Stability Index as new data becomes available and as the model is refined. Questions, critiques, and suggestions are welcome — this is a living project, and we'd rather be corrected than wrong.*

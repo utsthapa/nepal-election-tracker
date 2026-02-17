@@ -1,393 +1,246 @@
 ---
-title: "The Sainte-Laguë Method: How Nepal Allocates Proportional Representation Seats"
-excerpt: "A mathematical deep-dive into the formula that converts vote percentages into parliamentary seats, with worked examples and visual explanations."
-author: "Electoral Systems Team"
-date: "2026-02-10"
-category: "Methodology"
-tags: ["electoral-system", "mathematics", "proportional-representation", "sainte-lague"]
-featuredImage: "/images/sainte-lague.svg"
-featured: true
+title: "The Math That Decides Who Gets a Seat in Nepal's Parliament"
+excerpt: "Nepal uses a century-old formula to turn millions of votes into 110 parliamentary seats. Here's how it actually works — and why it matters more than you think."
+author: "Data Journalism Team"
+date: "2026-02-17"
+category: "Analysis"
+tags: ["electoral-system", "proportional-representation", "sainte-lague", "methodology"]
+featuredImage: ""
+featured: false
 ---
 
-# The Sainte-Laguë Method: How Nepal Allocates Proportional Representation Seats
+You can't have 0.72 of a parliamentary seat.
 
-Nepal uses a mixed electoral system: 165 seats via First-Past-The-Post (FPTP), and 110 seats via Proportional Representation (PR). But how exactly are those 110 PR seats divided among parties?
+That sounds obvious, but it's actually the core problem at the heart of every proportional representation system on Earth. When a party wins 35.2% of the vote and there are 110 seats to hand out, simple multiplication gives you 38.72 seats. That fraction — that stubborn remainder that won't resolve into a whole human being sitting in a chair in the legislature — is where the real politics of electoral math begins.
 
-The answer: The **Sainte-Laguë method**, a mathematical formula that converts vote percentages into seat allocations.
+Nepal's answer to this problem is a formula invented by a French mathematician in 1910. It's called the Sainte-Laguë method, and it quietly determines the composition of roughly 40% of Nepal's House of Representatives. Most voters have never heard of it. But in a parliament where the effective number of parties hit 4.75 in 2022 — the most fragmented in Nepal's democratic history — the difference between one allocation method and another can determine who forms a government.
 
-This article explains the math, shows worked examples, and explores why this method was chosen over alternatives.
+Here's how it works, why Nepal chose it, and what it means for the country's politics.
 
-## The Problem: Vote Shares Don't Equal Seat Shares
+## Nepal's parliament is actually two elections in one
 
-**Scenario**: Five parties compete for 110 PR seats. Vote shares:
-- Party A: 35.2%
-- Party B: 28.7%
-- Party C: 18.3%
-- Party D: 12.4%
-- Party E: 5.4%
+Before we get to the math, some quick context. Nepal doesn't run a single election. It runs two, simultaneously, on the same day.
 
-**Question**: How many seats does each party get?
+The first is straightforward: 165 constituencies, each electing one representative through First-Past-The-Post. Whoever gets the most votes wins. Simple. Brutal. Sometimes wildly disproportionate.
 
-**Naive approach**: Multiply vote share by 110 seats:
-- Party A: 35.2% × 110 = 38.72 seats (?!)
-- Party B: 28.7% × 110 = 31.57 seats
-- Party C: 18.3% × 110 = 20.13 seats
-- Party D: 12.4% × 110 = 13.64 seats
-- Party E: 5.4% × 110 = 5.94 seats
+The second is the PR election. Every voter casts a separate ballot for a political party (not a candidate), and those votes get converted into 110 seats using the Sainte-Laguë method. The PR seats exist specifically to correct the disproportionalities that FPTP creates.
 
-**Problem**: You can't have 0.72 of a seat! We need an allocation method that:
-1. Gives whole numbers
-2. Adds up to exactly 110
-3. Fairly represents vote shares
-4. Treats parties equally
+Together, the 275-seat House of Representatives is supposed to balance local representation with national proportionality. That's the theory, anyway. Whether it works depends a lot on the math.
 
-## Enter Sainte-Laguë: The Solution
+## The formula is simpler than you'd expect
 
-The Sainte-Laguë method (also called Webster method) solves this by allocating seats one at a time using a **priority quotient**.
+The Sainte-Laguë method allocates seats one at a time. Each round, every party gets a score — a quotient — calculated by dividing their total votes by a number that increases as they win seats.
 
-**Formula**:
-```
-Quotient = Votes / (2s + 1)
-```
+The formula:
 
-Where:
-- `Votes` = number of votes the party received
-- `s` = seats already allocated to that party
+**Quotient = Votes ÷ (2s + 1)**
 
-**Process**:
-1. Calculate quotient for each party (starting with s=0)
-2. Give one seat to party with highest quotient
-3. Recalculate quotient for that party (now s=1)
-4. Repeat until all 110 seats allocated
+Where *s* is the number of seats that party has already been allocated.
 
-## Worked Example: Step-by-Step
+So a party starting with zero seats divides its votes by 1. After winning its first seat, it divides by 3. After its second, by 5. Then 7, 9, 11, and so on. The divisor sequence is just odd numbers: 1, 3, 5, 7, 9, 11...
 
-Let's allocate 10 seats among 3 parties:
+Each round, the party with the highest quotient wins the next seat. Their quotient drops. Everyone else stays the same. Repeat 110 times. Done.
 
-**Votes**:
+That's it. That's the whole method.
+
+## Let's actually do the math
+
+Abstract formulas are boring. Let's allocate some seats.
+
+Three parties. Ten seats. Here are the votes:
+
 - Party A: 10,000 votes (50%)
 - Party B: 6,000 votes (30%)
 - Party C: 4,000 votes (20%)
-- **Total**: 20,000 votes
 
-### Round 1: All parties start with 0 seats (s=0)
+**Round 1:** Everyone starts at zero seats, so everyone divides by 1.
 
-| Party | Votes | s | Divisor (2s+1) | Quotient |
-|-------|-------|---|----------------|----------|
-| A     | 10,000| 0 | 1              | 10,000   |
-| B     | 6,000 | 0 | 1              | 6,000    |
-| C     | 4,000 | 0 | 1              | 4,000    |
+| Party | Votes | Seats so far | Divisor (2s+1) | Quotient |
+|-------|-------|-------------|----------------|----------|
+| A     | 10,000| 0           | 1              | **10,000** |
+| B     | 6,000 | 0           | 1              | 6,000    |
+| C     | 4,000 | 0           | 1              | 4,000    |
 
-**Winner**: Party A (highest quotient: 10,000)
-**Seat 1 → Party A**
+Party A wins Seat 1. Its quotient now gets recalculated.
 
-### Round 2: Party A now has 1 seat (s=1)
+**Round 2:** Party A divides by 3 now.
 
-| Party | Votes | s | Divisor (2s+1) | Quotient |
-|-------|-------|---|----------------|----------|
-| A     | 10,000| 1 | 3              | 3,333    |
-| B     | 6,000 | 0 | 1              | 6,000    |
-| C     | 4,000 | 0 | 1              | 4,000    |
+| Party | Votes | Seats so far | Divisor (2s+1) | Quotient |
+|-------|-------|-------------|----------------|----------|
+| A     | 10,000| 1           | 3              | 3,333    |
+| B     | 6,000 | 0           | 1              | **6,000** |
+| C     | 4,000 | 0           | 1              | 4,000    |
 
-**Winner**: Party B (highest quotient: 6,000)
-**Seat 2 → Party B**
+Party B wins Seat 2. Notice what happened: Party A had 10,000 votes but its quotient dropped below Party B's. The method is self-correcting.
 
-### Round 3: A has 1, B has 1
+**Round 3:**
 
-| Party | Votes | s | Divisor (2s+1) | Quotient |
-|-------|-------|---|----------------|----------|
-| A     | 10,000| 1 | 3              | 3,333    |
-| B     | 6,000 | 1 | 3              | 2,000    |
-| C     | 4,000 | 0 | 1              | 4,000    |
+| Party | Votes | Seats so far | Divisor (2s+1) | Quotient |
+|-------|-------|-------------|----------------|----------|
+| A     | 10,000| 1           | 3              | 3,333    |
+| B     | 6,000 | 1           | 3              | 2,000    |
+| C     | 4,000 | 0           | 1              | **4,000** |
 
-**Winner**: Party C (highest quotient: 4,000)
-**Seat 3 → Party C**
+Party C wins Seat 3. Every party now has one seat.
 
-### Round 4: A has 1, B has 1, C has 1
+**Round 4:**
 
-| Party | Votes | s | Divisor (2s+1) | Quotient |
-|-------|-------|---|----------------|----------|
-| A     | 10,000| 1 | 3              | 3,333    |
-| B     | 6,000 | 1 | 3              | 2,000    |
-| C     | 4,000 | 1 | 3              | 1,333    |
+| Party | Votes | Seats so far | Divisor (2s+1) | Quotient |
+|-------|-------|-------------|----------------|----------|
+| A     | 10,000| 1           | 3              | **3,333** |
+| B     | 6,000 | 1           | 3              | 2,000    |
+| C     | 4,000 | 1           | 3              | 1,333    |
 
-**Winner**: Party A (highest quotient: 3,333)
-**Seat 4 → Party A**
+Party A wins again. And the process continues — each time, the leading party's quotient drops, letting others catch up.
 
-### Continuing the process...
+**Final result after 10 rounds:**
 
-**Seats 5-10**:
-- Seat 5 → A (quotient: 2,000)
-- Seat 6 → B (quotient: 2,000)  *tie with A, resolved by lot*
-- Seat 7 → C (quotient: 1,333)
-- Seat 8 → A (quotient: 1,429)
-- Seat 9 → B (quotient: 1,200)
-- Seat 10 → A (quotient: 1,111)
+- Party A: 5 seats (50% of votes → 50% of seats)
+- Party B: 3 seats (30% of votes → 30% of seats)
+- Party C: 2 seats (20% of votes → 20% of seats)
 
-**Final allocation**:
-- Party A: **5 seats** (50% votes → 50% seats) ✓
-- Party B: **3 seats** (30% votes → 30% seats) ✓
-- Party C: **2 seats** (20% votes → 20% seats) ✓
+Perfect proportionality. In this case, at least.
 
-Perfect proportionality!
+## Why odd numbers? What's special about 1, 3, 5, 7?
 
-## Why 2s + 1? The Math Behind the Formula
+Here's the intuition: each new seat a party wins makes the next one harder to get. The divisor jumps by 2 each time, which means a party's quotient drops steeply after each win. That steep drop is what prevents big parties from hoarding seats in the early rounds.
 
-The divisor sequence (1, 3, 5, 7, 9, 11...) represents odd numbers.
+Compare this to the D'Hondt method, which is the other major allocation system used around the world. D'Hondt uses divisors of 1, 2, 3, 4, 5, 6... The gaps are smaller, which means a large party's quotient stays higher for longer. The result? D'Hondt systematically gives a slight bonus to bigger parties.
 
-**Intuition**: Each party's quotient decreases as they gain seats, making it harder to win additional seats. This prevents large parties from hoarding seats early.
+The difference isn't academic. It changes who sits in parliament.
 
-**Comparison to alternatives**:
+## What the 2022 election actually looked like
 
-**D'Hondt method** (used in many European countries):
-- Divisor: 1, 2, 3, 4, 5, 6...
-- Favors larger parties slightly
+Let's apply this to real data. In the 2022 election, here's how the PR votes broke down among parties that crossed the 3% threshold:
 
-**Sainte-Laguë**:
-- Divisor: 1, 3, 5, 7, 9, 11...
-- Neutral to party size
+| Party | PR Votes | Vote % |
+|-------|----------|--------|
+| UML   | 2,519,976 | 26.61% |
+| NC    | 2,518,582 | 26.59% |
+| RSP   | 1,235,586 | 13.05% |
+| Maoist Centre | 1,214,247 | 12.82% |
+| RPP   | 648,354   | 6.85%  |
+| JSPN  | 636,212   | 6.72%  |
+| JP    | 412,500   | 4.36%  |
 
-**Modified Sainte-Laguë** (used in Norway, Sweden):
-- Divisor: 1.4, 3, 5, 7, 9, 11...
-- Slightly disfavors very small parties (raises first divisor)
+Look at those top two numbers. UML and NC were separated by fewer than 1,400 votes out of more than 9 million cast. That's a margin of 0.02 percentage points. And yet UML ended up with 34 PR seats to NC's 32 — a two-seat gap that looks a lot bigger than a 1,400-vote difference.
 
-Nepal uses **standard Sainte-Laguë** (1, 3, 5, 7...), which is considered the most proportional method.
+Here's how Sainte-Laguë allocated the 110 seats:
 
-## The 3% Electoral Threshold
-
-Before seats are allocated, parties must cross the **3% national vote threshold**.
-
-**Example with threshold**:
-
-**Votes** (1 million total):
-- Party A: 350,000 (35%)
-- Party B: 280,000 (28%)
-- Party C: 180,000 (18%)
-- Party D: 120,000 (12%)
-- Party E: 40,000 (4%)
-- Party F: 30,000 (3%)  ← Below threshold!
-
-**Result**: Party F's 30,000 votes are excluded. The 110 seats are divided only among parties that crossed 3%.
-
-**Recalculated base** (970,000 votes):
-- Party A: 350,000 / 970,000 = 36.08%
-- Party B: 280,000 / 970,000 = 28.87%
-- Party C: 180,000 / 970,000 = 18.56%
-- Party D: 120,000 / 970,000 = 12.37%
-- Party E: 40,000 / 970,000 = 4.12%
-
-Seats are allocated based on these adjusted percentages.
-
-**Implication**: Votes for sub-threshold parties are "wasted." This incentivizes strategic voting and coalition formation.
-
-## Real-World Example: Nepal 2022 PR Allocation
-
-**National PR votes** (2022 election):
-
-| Party | Votes | % | Above 3%? |
-|-------|-------|---|-----------|
-| NC    | 2,518,582 | 26.59% | ✓ |
-| UML   | 2,519,976 | 26.61% | ✓ |
-| Maoist| 1,214,247 | 12.82% | ✓ |
-| RSP   | 1,235,586 | 13.05% | ✓ |
-| RPP   | 648,354   | 6.85%  | ✓ |
-| JSPN  | 636,212   | 6.72%  | ✓ |
-| JP    | 412,500   | 4.36%  | ✓ |
-| Others| 283,450   | 2.99%  | ✗ |
-
-**Total qualifying votes**: 9,185,457 (97.01%)
-
-**Sainte-Laguë allocation** (110 seats):
-
-| Party | Votes | Seats | Seat % | Vote % | Diff |
-|-------|-------|-------|--------|--------|------|
-| NC    | 2,518,582 | 32 | 29.09% | 26.59% | +2.50% |
+| Party | Votes | PR Seats | Seat % | Vote % | Difference |
+|-------|-------|----------|--------|--------|------------|
 | UML   | 2,519,976 | 34 | 30.91% | 26.61% | +4.30% |
-| Maoist| 1,214,247 | 14 | 12.73% | 12.82% | -0.09% |
+| NC    | 2,518,582 | 32 | 29.09% | 26.59% | +2.50% |
+| Maoist Centre | 1,214,247 | 14 | 12.73% | 12.82% | -0.09% |
 | RSP   | 1,235,586 | 13 | 11.82% | 13.05% | -1.23% |
 | RPP   | 648,354   | 7  | 6.36%  | 6.85%  | -0.49% |
 | JSPN  | 636,212   | 6  | 5.45%  | 6.72%  | -1.27% |
 | JP    | 412,500   | 4  | 3.64%  | 4.36%  | -0.72% |
 
-**Average deviation**: 1.51% (very proportional!)
+The average deviation between vote share and seat share? Just 1.51 percentage points. That's really good. For context, pure FPTP systems routinely produce deviations of 10-15 percentage points.
 
-**Observations**:
-- UML slightly overrepresented (+4.3%)
-- RSP slightly underrepresented (-1.2%)
-- Overall very close to vote shares
+But "really good" isn't "perfect." UML got overrepresented by 4.3 points. JSPN got shortchanged by 1.27 points. These are rounding artifacts — inevitable when you're converting continuous percentages into discrete seats. The question isn't whether there's some distortion. There always will be. The question is whether the distortion is systematic or random.
 
-This is the hallmark of Sainte-Laguë: **maximum proportionality**.
+With Sainte-Laguë, it's mostly random. And that matters.
 
-## Sainte-Laguë vs D'Hondt: A Comparison
+## What if Nepal used D'Hondt instead?
 
-If Nepal used **D'Hondt** instead, with the same 2022 votes:
+Run the same 2022 votes through D'Hondt and you get a slightly different parliament:
 
-| Party | Sainte-Laguë | D'Hondt | Difference |
-|-------|--------------|---------|------------|
-| NC    | 32           | 33      | +1         |
-| UML   | 34           | 34      | 0          |
-| Maoist| 14           | 14      | 0          |
-| RSP   | 13           | 13      | 0          |
-| RPP   | 7            | 7       | 0          |
-| JSPN  | 6            | 6       | 0          |
-| JP    | 4            | 3       | -1         |
+| Party | Sainte-Laguë | D'Hondt | Change |
+|-------|--------------|---------|--------|
+| NC    | 32           | 33      | +1     |
+| UML   | 34           | 34      | 0      |
+| Maoist Centre | 14   | 14      | 0      |
+| RSP   | 13           | 13      | 0      |
+| RPP   | 7            | 7       | 0      |
+| JSPN  | 6            | 6       | 0      |
+| JP    | 4            | 3       | -1     |
 
-**Result**: D'Hondt gives 1 more seat to NC (largest party), 1 fewer to JP (smallest qualifying party).
+One seat shifts from the smallest qualifying party (JP, with 4.36% of votes) to the largest (NC, with 26.59%). That's D'Hondt doing what D'Hondt does: giving a small bonus to big parties at the expense of small ones.
 
-**Why D'Hondt favors larger parties**:
-- Lower initial divisor (1 vs 1)
-- Smaller gaps between divisors (1,2,3 vs 1,3,5)
-- Larger parties maintain higher quotients longer
+One seat doesn't sound like much. But in a parliament where the effective number of parties is 4.75 and coalition math is everything, a single seat can be the difference between a viable coalition and a failed one. In 2022, the eventual governing coalition had a working majority of just a handful of seats. Move one here, one there, and the whole calculus shifts.
 
-**Why Nepal chose Sainte-Laguë**:
-- More proportional
-- Better represents smaller parties
-- Reduces wasted votes
-- Internationally recognized as fairest method
+## The 3% threshold: democracy's bouncer
 
-## Edge Cases and Tie-Breaking
+Before Sainte-Laguë even kicks in, there's a gate to pass through. Parties need at least 3% of the national PR vote to qualify for seats.
 
-### What if two parties have identical quotients?
+In 2022, parties that fell below 3% collectively received about 283,450 votes — roughly 3% of the total. Those votes just... disappeared. They didn't count toward any seat allocation. The voters who cast them got FPTP representation in their local constituencies, but their PR votes were effectively wasted.
 
-**Example**: Party A and Party B both have quotient of 2,500 for the final seat.
+This creates an interesting tension. The whole point of PR is to ensure every vote counts. But the threshold means some votes don't. The justification is practical: without a threshold, you'd get a parliament full of micro-parties with one or two seats each, making coalition-building nearly impossible.
 
-**Nepal's rule**: Determined by lot (random draw).
+Is 3% the right number? Germany uses 5%. Israel uses 3.25%. Turkey uses 7% (which has been widely criticized as too high). Nepal's 3% is on the lower end internationally, which means it's relatively permissive. In 2022, seven parties cleared it. That's a lot of parties — but not an unmanageable number.
 
-**Practical occurrence**: Rare. In 2022, no ties occurred.
+The threshold also creates strategic incentives. If you're a voter whose preferred party is polling at 2.5%, you face a dilemma: vote your conscience and risk wasting your ballot, or vote strategically for a larger party you're less enthusiastic about. This is the same logic that drives third-party anxiety in American elections, just with a different mechanism.
 
-### What if rounding creates 109 or 111 seats?
+## How PR corrects FPTP's distortions
 
-**Can't happen mathematically**. Sainte-Laguë always allocates exactly the specified number of seats because it's an iterative process (allocate one seat at a time, stop at 110).
+Here's where the two halves of Nepal's electoral system interact in interesting ways.
 
-**Contrast with largest remainder methods**, which can require correction adjustments.
+In 2022, the FPTP results alone gave NC 57 seats, UML 44, and Maoist Centre 18 out of 165. Those numbers don't look too far off from the parties' national vote shares — but that's partly coincidence. FPTP can produce wildly disproportionate outcomes depending on how votes are distributed geographically.
 
-### What about female quota requirements?
+The PR seats act as a corrective. UML picked up 34 additional seats through PR, bringing its total to 78 (28.4% of the 275-seat house). NC got 32 more, reaching 89 (32.4%). And critically, parties like RSP — which won 20 total seats, with 13 coming through PR — got parliamentary representation that FPTP alone would have denied them.
 
-The PR list must include **at least 1 woman in every 2 candidates**.
+RSP's story is actually the best argument for why PR matters. The party didn't exist before 2022. It emerged as a genuine grassroots force, winning 13.05% of the PR vote. Under a pure FPTP system, a new party with geographically dispersed support would struggle to win individual constituencies. PR gave RSP a voice proportional to its actual support. Whether you like RSP's politics or not, that's democracy working as designed.
 
-**Process**:
-1. Sainte-Laguë determines total seats per party
-2. Within each party's allocation, seats go to candidates in list order
-3. If a party fails to meet gender quota, their list is invalidated (hasn't happened due to pre-election enforcement)
+## The gender quota adds another layer
 
-**Example**: UML wins 34 PR seats
-- List: Candidate 1 (M), 2 (F), 3 (M), 4 (F), 5 (M), 6 (F)...
-- Seats go to candidates 1-34 in order
-- Quota check: At least 17 must be women ✓
+Nepal's PR system doesn't just allocate seats to parties. It also enforces gender representation. Each party's PR candidate list must alternate between men and women — at least one woman for every two candidates.
 
-## Why Proportional Representation Matters
+So when UML wins 34 PR seats, those seats go to the first 34 candidates on UML's pre-submitted list. And because the list alternates by gender, at least 17 of those 34 seats go to women.
 
-**Without PR** (pure FPTP):
-- 2022 FPTP results: NC 57, UML 44, Maoist 18
-- UML got 26.6% of national votes but only 26.7% of FPTP seats
+This is a separate mechanism from Sainte-Laguë itself. The allocation formula determines *how many* seats each party gets. The candidate list determines *who* fills those seats. But the two systems work together to produce a parliament that's both proportionally representative of party support and more gender-balanced than FPTP alone would deliver.
 
-**With PR** (110 seats):
-- Corrects disproportionality
-- UML gets 34 additional PR seats → total 78 (28.4% of 275)
+## Edge cases: what happens when things get weird
 
-**Combined system benefits**:
-- FPTP provides local representation
-- PR provides proportionality
-- Smaller parties get parliamentary voice
-- Reduces winner-take-all extremism
+**Ties.** What if two parties have identical quotients when the last seat is being allocated? It's theoretically possible, though rare with millions of votes in play. Nepal's rule is simple: draw lots. Flip a coin, essentially. In 2022, it didn't come up. But in a close election with smaller vote totals, it could.
 
-## Interactive Example: Try It Yourself
+**Can you end up with 109 or 111 seats?** No. This is one of Sainte-Laguë's nice properties. Because seats are allocated one at a time — stop at exactly 110 — you always get exactly the right number. Some other methods, like largest remainder systems, can require awkward adjustments. Sainte-Laguë doesn't have that problem.
 
-**Scenario**: 10 seats to allocate
+**What about the Alabama Paradox?** This is a famous quirk in apportionment math where increasing the total number of seats can actually *decrease* a party's allocation. It's theoretically possible with Sainte-Laguë but essentially never happens when you're allocating 100+ seats. Nepal's 110 PR seats are well within the safe zone.
 
-| Party | Votes |
-|-------|-------|
-| Red   | 4,200 |
-| Blue  | 3,100 |
-| Green | 2,700 |
+## The mathematical properties (for the nerds)
 
-**Step 1**: Calculate first round quotients (all have s=0, divisor=1)
-- Red: 4,200 / 1 = 4,200 ✓ **Seat 1**
-- Blue: 3,100 / 1 = 3,100
-- Green: 2,700 / 1 = 2,700
+I'll keep this brief, but Sainte-Laguë has some properties that mathematicians find satisfying.
 
-**Step 2**: Recalculate (Red now has s=1, divisor=3)
-- Red: 4,200 / 3 = 1,400
-- Blue: 3,100 / 1 = 3,100 ✓ **Seat 2**
-- Green: 2,700 / 1 = 2,700
+**Monotonicity:** If a party gains votes while everyone else stays the same, it can't lose seats. Sounds obvious, but not all allocation methods guarantee this.
 
-**Step 3**: Continue...
+**House monotonicity:** If you increase the total number of seats, no party loses seats. Again, not guaranteed by every method.
 
-**Final result**:
-- Red: 5 seats (42% votes → 50% seats)
-- Blue: 3 seats (31% votes → 30% seats)
-- Green: 2 seats (27% votes → 20% seats)
+**Minimum deviation:** The Balinski-Young theorem shows that Sainte-Laguë minimizes the maximum deviation from exact proportionality. In plain English: of all the divisor methods, it gets closest to giving every party exactly the seat share their vote share deserves.
 
-## Mathematical Properties
+That last property is the big one. It's why Sainte-Laguë is generally considered the fairest divisor method available. Not the simplest. Not the most intuitive. The fairest.
 
-Sainte-Laguë satisfies several fairness criteria:
+## Who else uses this system?
 
-**1. Monotonicity**: If a party gains votes while others stay constant, it cannot lose seats.
+Nepal isn't alone. New Zealand uses Sainte-Laguë for its MMP system (which is structurally similar to Nepal's mixed system). Germany uses it for certain calculations. Norway and Sweden use a modified version where the first divisor is 1.4 instead of 1, which slightly penalizes very small parties.
 
-**2. House monotonicity**: If total seats increase, no party loses seats.
+On the other side, most of Europe and Latin America use D'Hondt. Spain, Belgium, Switzerland, Portugal — they all give that small bonus to larger parties. The choice between the two methods isn't random. It reflects a country's priorities. Do you want maximum proportionality, even if it means more parties in parliament? Or do you want a slight tilt toward governability?
 
-**3. Population pair-wise consistency**: If two party vote shares are compared in isolation, their relative seat share should match their relative vote share.
+Nepal chose proportionality. Given that the country's parliament already had an effective number of parties of 4.75 in 2022 — and that coalition politics has become the norm rather than the exception — that choice has real consequences. More parties get seats. Coalitions get more complicated. But the parliament more accurately reflects what voters actually want.
 
-**4. Balinsky-Young Theorem**: Sainte-Laguë minimizes the maximum deviation from exact proportionality.
+## The misconceptions that won't die
 
-**What it doesn't satisfy**:
+**"It's too complicated."** The formula is division. Your phone can do it. Voters don't need to understand the algorithm any more than they need to understand how their car's engine works. They just need to trust that it converts their votes into seats fairly. And the data shows it does.
 
-**Alabama paradox** immunity: Increasing total seats could (theoretically) decrease a party's allocation. In practice, almost never happens with 100+ seats.
+**"PR creates too many small parties."** The 3% threshold exists precisely to prevent this. Seven or eight parties in parliament isn't fragmentation — it's pluralism. Germany has a similar number. So does New Zealand. These are functional democracies.
 
-## Comparative International Use
+**"FPTP is more democratic because you know your representative."** This one has some merit — there is value in having a local representative you can hold accountable. That's why Nepal kept 165 FPTP seats. But FPTP alone can give a party with 38% of the vote a 53% majority in parliament. That's not democratic either. The mixed system tries to get the best of both.
 
-**Countries using Sainte-Laguë**:
-- New Zealand
-- Germany (for overhang seats)
-- Norway (modified)
-- Sweden (modified)
-- Bosnia & Herzegovina
-- Nepal
-- Iraq
+## What we know and what we don't
 
-**Countries using D'Hondt**:
-- Spain
-- Belgium
-- Switzerland
-- Portugal
-- Most of Latin America
+Here's what the data tells us clearly: Sainte-Laguë does what it's supposed to do. In 2022, the average deviation between vote share and seat share was 1.51 percentage points. That's about as good as you can get when converting percentages into whole numbers.
 
-**Why the split?**
-- Sainte-Laguë: Favored in multi-party systems valuing proportionality
-- D'Hondt: Favored when some governability bonus for large parties is desired
+We also know the system has shaped Nepal's party dynamics. The combination of PR seats and a low threshold gave RSP a meaningful parliamentary presence in its very first election. It gave smaller parties like RPP and JSPN seats roughly proportional to their support. And it prevented any single party from translating a plurality of votes into an outright majority.
 
-**Nepal's choice**: Reflects commitment to inclusive democracy and multiparty representation.
+What we don't know is harder to pin down. Does the proportionality of Sainte-Laguë make coalition politics more stable or less? Nepal has had plenty of unstable coalitions, but it's hard to separate the effect of the allocation method from the effect of, well, everything else going on in Nepali politics. The 2022 parliament was the most fragmented in the country's history. Was that because of Sainte-Laguë, or because voters genuinely wanted more choices? Probably both, in proportions we can't precisely measure.
 
-## Common Misconceptions
+There's also an open question about whether the 3% threshold is set correctly. Lower it and you get more representation but more fragmentation. Raise it and you get cleaner coalition math but more wasted votes. Nepal's current threshold seems to be in a reasonable range, but "reasonable" is a judgment call, not a mathematical certainty.
 
-**Myth 1**: "Sainte-Laguë is too complicated."
+The formula itself — Votes ÷ (2s + 1) — is elegant in the way that good math often is. It solves a genuinely hard problem with a genuinely simple mechanism. But no formula, however elegant, can solve the political problems that come after the seats are allocated. That part is still up to the politicians.
 
-**Reality**: The math is simple (division). Computers calculate instantly. Voters don't need to understand the formula, only that seats match votes fairly.
-
-**Myth 2**: "PR creates too many small parties."
-
-**Reality**: The 3% threshold prevents extreme fragmentation. Nepal has 7-8 significant parties, similar to other democracies.
-
-**Myth 3**: "FPTP is more representative because it's local."
-
-**Reality**: FPTP creates disproportionality (party with 40% votes can win 60% of seats). PR + FPTP balances local representation with national proportionality.
-
-**Myth 4**: "Largest remainder methods are simpler."
-
-**Reality**: Sainte-Laguë is iterative (easier to compute) and avoids quota calculation complexity.
-
-## Conclusion: Elegant Mathematics for Fair Representation
-
-The Sainte-Laguë method achieves what seems impossible: converting continuous vote percentages into discrete seat counts while maintaining proportionality.
-
-The formula `Votes / (2s + 1)` elegantly balances:
-- Rewarding popular parties
-- Representing smaller parties fairly
-- Avoiding mathematical paradoxes
-- Maintaining democratic legitimacy
-
-Next time you see "NC: 32 PR seats, UML: 34 PR seats," you'll know those numbers weren't arbitrary—they're the output of a century-old mathematical formula designed to translate the will of the people into parliamentary representation with maximum fairness.
+And if Nepal's recent history is any guide, that's where things get interesting.
 
 ---
 
-*Mathematical note: All calculations verified using official Election Commission data. Interactive calculators available at our [tools page](/tools).*
+*All calculations use official Election Commission of Nepal data. For an interactive Sainte-Laguë calculator, visit our [tools page](/tools).*

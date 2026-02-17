@@ -1,119 +1,174 @@
 ---
-title: "Welcome to Nepal Votes"
-titleNe: "नेपाल भोट्समा स्वागत छ"
-slug: "welcome-to-nepal-votes"
-category: "forecasts"
-author: "Nepal Votes Team"
-authorNe: "नेपाल भोट्स टोली"
-date: "2025-01-28"
-tags: ["introduction", "forecasts", "nepal-elections"]
+title: "Nepal Deserves Better Election Coverage. We're Going to Try."
+excerpt: "Nepal has held nine national elections since 1991, survived a civil war and the abolition of its monarchy, and still doesn't have a single dedicated data-driven election analysis platform. We're fixing that."
+author: "Data Journalism Team"
+date: "2026-02-17"
+category: "Analysis"
+tags: ["introduction", "forecasts", "nepal-elections", "methodology"]
 featuredImage: "/images/welcome.svg"
-excerpt: "Welcome to Nepal Votes, your source for data-driven election analysis, polls, and forecasts for Nepal."
-excerptNe: "नेपाल भोट्समा स्वागत छ, नेपालको लागि डाटा-आधारित निर्वाचन विश्लेषण, मतदान, र पूर्वानुमानको स्रोत।"
-language: "both"
-readTime: 5
+featured: true
 ---
 
-# Welcome to Nepal Votes
+# Nepal Deserves Better Election Coverage. We're Going to Try.
 
-We're excited to launch Nepal Votes, a data-driven platform dedicated to election analysis, polling, and political forecasting for Nepal.
+Here's a number that should bother you: Nepal has held nine national elections across three decades — seven parliamentary, two constituent assembly — and there still isn't a single platform that systematically tracks, models, and forecasts its elections using data. Not one.
 
-## Our Mission
+That changes today.
 
-Nepal Votes brings the rigor of data journalism to Nepal's political landscape. Inspired by FiveThirtyEight's approach to politics and elections, we aim to provide:
+Nepal Votes is a data-driven election analysis project. We build statistical models, aggregate polls, and dig into the numbers behind Nepali politics. Think of us as the nerdy friend who actually reads the Election Commission reports so you don't have to. We're launching now, well ahead of the next general election, because the work of understanding an electorate doesn't start on election day. It starts years before.
 
-- **Accurate Forecasts**: Statistical models that project election outcomes
-- **Polling Analysis**: Aggregation and interpretation of public opinion polls
-- **Historical Context**: Deep dives into Nepal's electoral history
-- **Demographic Insights**: Understanding how population trends affect politics
+And we have a lot of ground to cover.
 
-## What You'll Find Here
+## Why Nepal needs a data operation
 
-### Election Simulator
+Let me paint a picture. Since 1991, Nepal has cycled through democratic elections, a royal coup, a decade-long Maoist insurgency that killed roughly 17,000 people, the abolition of a 240-year-old monarchy, two constituent assemblies, a new federal constitution in 2015, and the rise of entirely new political forces like the Rastriya Swatantra Party in 2022. Through all of it — the chaos, the violence, the constitutional rewrites — Nepalis kept showing up to vote.
 
-Our interactive simulator lets you explore different electoral scenarios. Adjust vote shares for major parties and see how the Sainte-Laguë method distributes proportional representation seats.
+That's remarkable. And it's remarkably under-analyzed.
 
-### Historical Elections
+Most election coverage in Nepal follows a familiar pattern: horse-race journalism in the weeks before an election, breathless seat-by-seat reporting on election night, and then... nothing. Very little systematic analysis of what happened, why it happened, or what it means for the next cycle. The data exists — the Election Commission of Nepal publishes detailed results, the National Statistics Office runs a census — but almost nobody is stitching it together into a coherent picture.
 
-Explore results from Nepal's parliamentary and constituent assembly elections dating back to 1991. Understand how political fortunes have shifted over time.
+We think that's a problem. Not just for political junkies, but for democracy itself. When voters don't have access to good information about how their political system actually works, they're flying blind. When journalists don't have data infrastructure to draw on, they default to anecdote and conventional wisdom. And conventional wisdom in Nepali politics is wrong about as often as it's right.
 
-### Demographics
+So we're building the infrastructure.
 
-District-level and constituency-level demographic data from the 2021 Census, helping you understand the electorate.
+## What we actually believe
 
-## Methodology
+Before we get into what we're building, let me tell you what we believe — our editorial priors, if you want to get fancy about it.
 
-We believe in transparency. All our models, data sources, and methodologies are documented and available for review.
+**Data first, narrative second.** We start with numbers and let them guide us to conclusions. We don't start with a thesis and go hunting for data to support it. Sometimes the data tells a boring story. We'll tell it anyway.
 
-<Callout type="info" title="Data Sources">
-Our primary data sources include the Election Commission of Nepal, the National Statistics Office, and reputable polling organizations. All data is cited and linked to its original source.
-</Callout>
+**Uncertainty is not a weakness.** If our model says a party has a 60% chance of winning a seat, that means there's a 40% chance they lose it. We'll be explicit about what we know, what we think, and what we're guessing. If we don't know something, we'll say so. You'd be surprised how rarely that happens in political analysis.
 
-## What's Coming
+**Show your work.** Every model we build, every dataset we use, every methodological choice we make — it's all documented and available for review. If you think we're wrong, we want you to be able to tell us exactly where and why.
 
-We're just getting started. In the coming months, we'll be adding:
+**Nepal's democracy is interesting on its own terms.** We're not here to grade Nepal against some Western benchmark. Nepal's political system has its own logic, its own constraints, its own history. A country that went from absolute monarchy to federal democratic republic in less than 20 years is running an experiment unlike almost any other in the world. We want to understand it on its own terms.
 
-- Live polling aggregation
-- Advanced forecasting models
-- Real-time election results
-- Newsletter with weekly updates
-- Interactive data visualizations
+## The tools we're building
 
-## Get Involved
+### An election simulator you can actually play with
 
-Follow us for updates, subscribe to our newsletter, and join the conversation about Nepal's political future.
+Here's a question: if the Nepali Congress gets 30% of the proportional representation vote instead of 25%, how many seats does that translate to?
+
+The answer isn't straightforward. Nepal uses a mixed electoral system — 165 seats decided by first-past-the-post in single-member constituencies, and 110 seats distributed through proportional representation using the Sainte-Laguë method. (Quick explainer: Sainte-Laguë is a formula for allocating seats proportionally. You divide each party's total votes by 1, then 3, then 5, then 7, and so on, and seats go to the highest quotients. It tends to favor mid-sized parties slightly more than some alternatives.)
+
+The interaction between these two systems creates outcomes that aren't always intuitive. A party can win 38% of the vote and end up with 53% of the seats, as the Nepali Congress did in 1999. Or a party can win the most FPTP seats but still need coalition partners because the PR allocation doesn't give them enough to govern alone, which is basically what's happened in every election since 2008.
+
+Our simulator lets you adjust party vote shares and see, in real time, how seats would be allocated under different scenarios. It's not a crystal ball — it's a tool for thinking clearly about how Nepal's electoral math actually works.
+
+### A historical elections database
+
+We've compiled results from every national election since 1991. That's the 1991, 1994, and 1999 House of Representatives elections; the 2008 and 2013 Constituent Assembly elections; and the 2017 and 2022 House of Representatives elections under the new federal constitution.
+
+Why does this matter? Because patterns only show up over time. You can't understand the 2022 election without understanding 2017. You can't understand 2017 without understanding how the 2015 Constitution reshuffled the entire political map by creating seven provinces and 165 new constituencies. And you can't understand any of it without going back to 1991, when Nepal held its first genuinely free election after three decades of the Panchayat system.
+
+Thirty-plus years of data. Seven parliamentary elections. Two constituent assemblies. That's enough to start seeing real trends — and to separate signal from noise.
+
+### Demographic data down to the constituency level
+
+The 2021 Census gave us the most detailed picture of Nepal's population we've ever had. We've mapped that data onto electoral constituencies so you can see, district by district, who lives where — age distribution, urbanization rates, literacy, caste and ethnic composition.
+
+This matters because Nepal's electorate is changing fast. The country is urbanizing rapidly. Youth under 30 make up a huge share of the voting-age population but have historically turned out at lower rates. The Madhesh plains have different demographic profiles than the hill districts, and both look nothing like the mountain constituencies. Understanding these differences isn't just academic — it's the foundation of any serious election forecast.
+
+## What three decades of elections tell us
+
+Since we're launching with historical data, let me give you a taste of what the numbers actually show. Think of this as a preview of the kind of analysis we'll be doing regularly.
+
+### The party system has fragmented — and that's probably fine
+
+In 1991, two parties — the Nepali Congress and the UML — won 83% of FPTP seats between them. By 2022, that number had dropped to around 55%. New parties keep breaking through. The Maoists went from insurgents to the largest party in parliament in 2008. The Rastriya Swatantra Party didn't exist before 2022 and won 20 FPTP seats in its first election.
+
+The conventional wisdom says this fragmentation is bad — that it makes governance harder, coalitions less stable, and voters more confused. And there's something to that. Nepal has had more than 30 governments since 1990. That's a lot of prime ministers.
+
+But here's the thing: fragmentation also means the system is responsive. New grievances produce new parties. New parties win seats. The political class can't just ignore voters because there's always someone willing to compete for their support. That's not dysfunction. That's competition.
+
+The real question isn't whether fragmentation is good or bad in the abstract. It's whether Nepal's institutions — the Election Commission, the courts, the constitutional framework — can manage that competition without things falling apart. So far, the answer has mostly been yes. Messy, contentious, frustrating — but yes.
+
+### Turnout is declining, and we should pay attention
+
+Nepal's voter turnout peaked at around 66% in 2008, the first election after the end of the civil war and the abolition of the monarchy. By 2022, it had dropped to about 61%.
+
+A five-percentage-point decline over 14 years doesn't sound like a crisis. And maybe it isn't. Turnout declines are common in maturing democracies — the initial excitement of new elections wears off, and voting becomes routine rather than revolutionary.
+
+But the decline isn't evenly distributed. Urban constituencies, particularly in the Kathmandu Valley, have seen sharper drops than rural areas. Young voters appear to be checking out faster than older cohorts. And in some constituencies, turnout differences of even a few percentage points can flip outcomes in a competitive FPTP race.
+
+We don't have enough granular data yet to say definitively what's driving the decline. Is it disillusionment with coalition politics? Frustration with corruption? The simple fact that for many young Nepalis, election day means traveling back to their home district, which is expensive and inconvenient? Probably all of the above, in different proportions for different people. We'll be digging into this.
+
+### Geography is destiny (sort of)
+
+Nepal's electoral map is shaped by its physical geography in ways that are hard to overstate. The country stretches from the flat Madhesh plains along the Indian border to the middle hills to the high Himalayas, and each zone votes differently.
+
+The Madhesh has historically been a stronghold for regional parties — the various iterations of the Madheshi political movement that have demanded greater autonomy and representation. The hills are where the Nepali Congress and UML have traditionally dominated. Mountain constituencies are small in population but can be decisive in close elections.
+
+The 2015 Constitution's federal restructuring scrambled some of these patterns by creating new provinces that cut across traditional geographic lines. Province 2 (Madhesh Province) is overwhelmingly plains-based; Karnali Province is almost entirely mountainous. But other provinces — Bagmati, Lumbini, Sudurpashchim — contain significant portions of both hills and plains, forcing parties to build cross-geographic coalitions.
+
+We'll be tracking how these geographic patterns hold up, shift, or break down as Nepal's internal migration patterns continue to reshape where people actually live versus where they're registered to vote.
+
+### The FPTP-PR gap tells a story
+
+Here's something that doesn't get enough attention: the gap between what parties win in FPTP constituencies and what they get through PR allocation.
+
+In theory, the PR system is supposed to correct for the disproportionality inherent in FPTP. A party that wins 25% of the vote should get roughly 25% of the PR seats, even if FPTP gave them more or fewer seats than that share would suggest.
+
+In practice, the correction is imperfect. Larger parties tend to benefit from FPTP's winner-take-all dynamics and then get additional PR seats on top. Smaller parties that can't win individual constituencies rely almost entirely on PR for their representation. The result is a parliament that's more proportional than a pure FPTP system would produce, but less proportional than a pure PR system.
+
+This matters for forecasting. To project a parliament's composition, you can't just model one system — you have to model both, and their interaction. That's what our models will do.
+
+## What we don't know (and won't pretend to)
+
+Let's be honest about our limitations.
+
+**Polling data in Nepal is sparse.** Unlike the United States or India, Nepal doesn't have a robust culture of pre-election polling by independent organizations. The polls that do exist often have unclear methodologies, small sample sizes, and questionable representativeness. We'll aggregate what's available, but we'll also be upfront about the quality of the inputs. A model is only as good as the data feeding it.
+
+**Nepal's political environment changes fast.** Coalition realignments, party splits, and new entrants can reshape the political map between elections in ways that historical data can't fully predict. The Rastriya Swatantra Party's 2022 performance is a perfect example — no model built on pre-2022 data would have predicted it, because the party literally didn't exist.
+
+**We're building this in public.** Our models will improve over time. Our first forecasts will be rougher than our later ones. We'll make mistakes, and when we do, we'll own them and explain what went wrong. That's not a caveat — it's a commitment.
+
+## The road to the next election
+
+Nepal's next general election hasn't been scheduled yet. Under the constitution, it needs to happen by late 2027 at the latest, assuming the current parliament serves its full term. Given Nepal's history — no parliament has completed a full five-year term since 1999 — there's a decent chance it comes earlier.
+
+Whenever it happens, we want to be ready. That means building models now, testing them against historical data, refining our methodology, and establishing a baseline understanding of the electorate before the campaign starts.
+
+Between now and then, here's what we're working on:
+
+**Polling aggregation.** As polls become available, we'll aggregate them using a methodology that accounts for pollster quality, sample size, and historical accuracy. We'll publish our aggregation methods so you can evaluate them yourself.
+
+**Forecasting models.** We're building statistical models that incorporate historical voting patterns, demographic data, incumbency effects, and polling data to project seat outcomes. These models will produce probability distributions, not point predictions — because anyone who tells you they know exactly what's going to happen in a Nepali election is either lying or delusional.
+
+**Real-time election results.** On election night, we'll provide live results as they come in, with context about what they mean and how they compare to our projections.
+
+**Regular analysis.** Even between elections, there's plenty to analyze — by-elections, local elections, party conventions, demographic shifts, policy debates. We'll be writing about all of it.
+
+## A note on our approach to uncertainty
+
+I want to spend a moment on this because it's core to what we do.
+
+Political prediction is hard. Anyone who lived through 2008 — when the Maoists shocked everyone by winning the largest share of Constituent Assembly seats — knows that Nepali politics can surprise you. The 2022 election, which produced a hung parliament and the unexpected rise of RSP, reinforced that lesson.
+
+Our models won't eliminate uncertainty. They'll try to quantify it. When we say a party has a 70% chance of winning a particular seat, we're saying that in 70 out of 100 simulations of that race, given what we know, that party comes out on top. The other 30 times? Someone else wins. Both outcomes are consistent with our model.
+
+This is a fundamentally different approach from the typical election prediction you see in Nepali media, which tends to be either vaguely qualitative ("the NC is expected to do well in the hills") or falsely precise ("the UML will win 85 seats"). We're trying to be specific about what we think will happen while being honest about how confident we are.
+
+If that sounds wishy-washy, consider the alternative: pretending to know things you don't. We'd rather be honestly uncertain than confidently wrong.
+
+## Who we are
+
+Nepal Votes is a small team of people who care about both data and Nepali politics — a combination that's rarer than it should be. We come from backgrounds in data science, journalism, and political analysis. We're not affiliated with any political party, and we don't have a preferred outcome. We want to understand what's happening, not advocate for what should happen.
+
+Our primary data sources are the Election Commission of Nepal, the National Statistics Office (particularly the 2021 Census), and whatever reputable polling data becomes available. All our data is cited and linked to original sources. If you catch an error, tell us. We'll fix it.
+
+## So what's next?
+
+In the coming weeks and months, we'll be publishing:
+
+Deep dives into historical election data — what patterns hold up across multiple elections, and which ones don't. Constituency-level analyses that go beyond national trends to understand local dynamics. Demographic profiles of Nepal's electorate, mapped onto the current constituency boundaries. And eventually, as the next election approaches, forecasts.
+
+We're building this thing in the open. The models will get better. The analysis will get sharper. The data will get richer. But we wanted to start now, because the conversation about Nepal's next election is already happening — and it deserves to be grounded in evidence.
+
+Nepal's democracy is 35 years old. It's survived things that would have broken most political systems. It's produced messy, frustrating, sometimes inspiring outcomes. And it's generated a mountain of data that almost nobody has bothered to analyze systematically.
+
+We're going to bother.
 
 ---
 
-*नेपाल भोट्समा स्वागत छ*
-
-हामी नेपाल भोट्स सुरु गर्न पाउँदा उत्साहित छौं, जुन नेपालको निर्वाचन विश्लेषण, मतदान, र राजनीतिक पूर्वानुमानको लागि समर्पित डाटा-आधारित प्लेटफर्म हो।
-
-## हाम्रो मिशन
-
-नेपाल भोट्स ले नेपालको राजनीतिक परिदृश्यमा डाटा पत्रकारिताको कडापन ल्याउँछ। FiveThirtyEight को राजनीति र निर्वाचनको दृष्टिकोणबाट प्रेरित, हामी प्रदान गर्न चाहन्छौं:
-
-- **सटीक पूर्वानुमान**: निर्वाचन परिणामहरू प्रक्षेपण गर्ने सांख्यिकीय मोडेलहरू
-- **मतदान विश्लेषण**: सार्वजनिक राय मतदानको संकलन र व्याख्या
-- **ऐतिहासिक सन्दर्भ**: १९९१ देखि नेपालको निर्वाचन इतिहासमा गहिराइ
-- **जनसांख्यिकी अन्तर्दृष्टि**: जनसंख्या प्रवृत्तिहरूले राजनीतिलाई कसरी असर गर्छ भनेरे बुझ्नुहोस्
-
-## यहाँ के भेट्नुहुनेछ
-
-### निर्वाचन प्रतिरूपक
-
-हाम्रो अन्तरक्रियात्मक प्रतिरूपकले तपाईंलाई विभिन्न निर्वाचन परिदृश्यहरू अन्वेषण गर्न अनुमति दिन्छ। प्रमुख दलहरूको लागि मत शेयर समायोजन गर्नुहोस् र सेन्ट-लाग्यू विधिले अनुपातिक प्रतिनिधित्व सिटहरू कसरी वितरण गर्छ भनेरे हेर्नुहोस्।
-
-### ऐतिहासिक निर्वाचन
-
-१९९१ देखि नेपालको संसदीय र संविधान सभा निर्वाचनको नतिजाहरू अन्वेषण गर्नुहोस्। समयमा राजनीतिक भाग्य कसरी बदलियो भनेरे बुझ्नुहोस्।
-
-### जनसांख्यिकी
-
-२०२१ को जनगणनाबाट जिल्ला-स्तर र निर्वाचन क्षेत्र-स्तरको जनसांख्यिकी डाटा, मतदाताहरूलाई बुझ्न मद्दत गर्दै।
-
-## पद्धति
-
-हामी पारदर्शितामा विश्वास गर्छौं। हाम्रा सबै मोडेलहरू, डाटा स्रोतहरू, र पद्धतिहरू कागजात गरिएका छन् र समीक्षाको लागि उपलब्ध छन्।
-
-<Callout type="info" title="डाटा स्रोतहरू">
-हाम्रा प्राथमिक डाटा स्रोतहरूमा निर्वाचन आयोग नेपाल, राष्ट्रिय तथ्यांक कार्यालय, र प्रतिष्ठित मतदान संगठनहरू समावेश छन्। सबै डाटा उद्धृत गरिएको छ र यसको मूल स्रोतमा लिंक गरिएको छ।
-</Callout>
-
-## के आउँदैछ
-
-हामी सुरु गरिरहेका छौं। आगामी महिनाहरूमा, हामी थप्नेछौं:
-
-- प्रत्यक्ष मतदान संकलन
-- उन्नत पूर्वानुमान मोडेलहरू
-- वास्तविक समय निर्वाचन नतिजाहरू
-- हप्तावारी अपडेटसहित समाचारपत्र
-- अन्तरक्रियात्मक डाटा भिजुअलाइजेसनहरू
-
-## सहभागी हुनुहोस्
-
-अपडेटहरूको लागि हामीलाई फलो गर्नुहोस्, हाम्रो समाचारपत्रमा सदस्यता लिनुहोस्, र नेपालको राजनीतिक भविष्यको बारेमा वार्तालापमा सहभागी हुनुहोस्।
-
-
-
-
+*Have questions, feedback, or data tips? Get in touch. Subscribe to our newsletter for weekly updates. And if you're a data nerd who cares about Nepali politics, we want to hear from you.*
