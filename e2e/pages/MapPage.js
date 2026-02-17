@@ -9,10 +9,11 @@ export class MapPage {
 
   async goto() {
     await this.page.goto('/nepal-map');
+    await this.page.waitForLoadState('networkidle');
   }
 
   async waitForMapReady() {
-    // Wait for loading text to disappear
+    await this.mapContainer.waitFor({ state: 'visible', timeout: 30000 });
     await this.loadingSpinner.waitFor({ state: 'hidden', timeout: 30000 });
   }
 }
