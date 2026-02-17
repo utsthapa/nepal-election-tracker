@@ -14,6 +14,11 @@ export class SimulatorPage {
     });
     await this.page.goto('/simulator');
     await this.page.waitForLoadState('networkidle');
+    // Dismiss the guided flow to reveal the full dashboard (Reset/Export buttons)
+    const fullDashboardBtn = this.page.getByRole('button', { name: /use full dashboard/i });
+    if (await fullDashboardBtn.isVisible()) {
+      await fullDashboardBtn.click();
+    }
   }
 
   async clickReset() {

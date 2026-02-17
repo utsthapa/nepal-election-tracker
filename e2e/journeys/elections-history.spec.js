@@ -23,6 +23,6 @@ test.describe('Elections history journey', () => {
     const electionsPage = new ElectionsPage(page);
     await electionsPage.navigateToYear('2022');
 
-    await expect(page.getByText(/2022/)).toBeVisible();
+    await expect(page.getByText(/2022/).first()).toBeVisible();
   });
 });

@@ -23,6 +23,6 @@ test.describe('Nepal Map exploration journey', () => {
     const mapPage = new MapPage(page);
     await mapPage.goto();
 
-    await expect(page.getByText(/77 districts/i)).toBeVisible();
+    await expect(page.getByText(/77 districts/i).first()).toBeVisible();
   });
 });
