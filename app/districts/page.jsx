@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { Search, MapPin } from 'lucide-react';
 import Link from 'next/link';
-import { Search, MapPin, Users } from 'lucide-react';
-import { Header } from '../../components/Header';
+import { useState, useMemo } from 'react';
+
 import { Footer } from '../../components/Footer';
+import { Header } from '../../components/Header';
 import { PARTIES, PROVINCES, constituencies } from '../../data/constituencies';
 
 export default function DistrictsPage() {
@@ -32,14 +33,14 @@ export default function DistrictsPage() {
     });
 
     return Object.values(districtMap).sort((a, b) => {
-      if (a.province !== b.province) return a.province - b.province;
+      if (a.province !== b.province) {return a.province - b.province;}
       return a.name.localeCompare(b.name);
     });
   }, []);
 
   // Filter districts based on search
   const filteredDistricts = useMemo(() => {
-    if (!searchQuery.trim()) return districts;
+    if (!searchQuery.trim()) {return districts;}
     const query = searchQuery.toLowerCase();
     return districts.filter(
       (d) =>

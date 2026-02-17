@@ -9,7 +9,7 @@ import { getTrendIcon, getTrendColor } from '@/utils/macroDataUtils';
  * @param {Array} stats - Array of stat objects with { label, value, change, reverseColors }
  */
 export default function QuickStatsBar({ stats = [] }) {
-  if (!stats || stats.length === 0) return null;
+  if (!stats || stats.length === 0) {return null;}
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">

@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import { ChevronDown, ChevronRight, ExternalLink } from 'lucide-react';
+import { useState } from 'react';
 
 /**
  * Data Sources Component
@@ -13,7 +13,7 @@ import { ChevronDown, ChevronRight, ExternalLink } from 'lucide-react';
 export default function DataSources({ sources = [], notes = [] }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  if (!sources || sources.length === 0) return null;
+  if (!sources || sources.length === 0) {return null;}
 
   return (
     <div className="mt-12 border-t border-gray-200 pt-8">

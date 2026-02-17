@@ -1,0 +1,464 @@
+{
+  "election_year": 2026,
+  "election_date": "2026-03-05",
+  "election_type": "House of Representatives (Pratinidhi Sabha)",
+  "total_constituencies": 165,
+  "total_candidates": 3484,
+  "total_parties": 68,
+  "registered_voters": 18903689,
+  "fptp_seats": 165,
+  "pr_seats": 110,
+  "total_seats": 275,
+  
+  "summary": {
+    "party_candidates": 2397,
+    "independent_candidates": 1087,
+    "women_candidates": 395,
+    "men_candidates": 3088,
+    "other_gender": 1,
+    "candidates_under_35": 583,
+    "candidates_36_to_50": 1610,
+    "candidates_51_to_65": 1090,
+    "candidates_above_65": 201
+  },
+
+  "parties": [
+    {
+      "name": "Nepali Congress",
+      "abbreviation": "NC",
+      "symbol": "Tree",
+      "ideology": ["Social democracy", "Democratic socialism", "Third Way"],
+      "leader": "Gagan Kumar Thapa",
+      "leader_seat": "Sarlahi-4",
+      "seats_contested": 165,
+      "male_candidates": 154,
+      "female_candidates": 11,
+      "pm_candidate": "Gagan Kumar Thapa",
+      "key_candidates": [
+        {"name": "Gagan Kumar Thapa", "constituency": "Sarlahi-4", "position": "Party President"},
+        {"name": "Dr. Shekhar Koirala", "constituency": "Morang-6"},
+        {"name": "Dr. Minendra Rijal", "constituency": "Morang-2"},
+        {"name": "Bimalendra Nidhi", "constituency": "Dhanusha-3"},
+        {"name": "Uday Shamsher Rana", "constituency": "Lalitpur-1"},
+        {"name": "Dr. Prakasharan Mahat", "constituency": "Nuwakot-1"},
+        {"name": "NP Saud", "constituency": "Kanchanpur-2"},
+        {"name": "Gyanendra Bahadur Karki", "constituency": "Sunsari-4"},
+        {"name": "Vijay Gachchdar", "constituency": "Sunsari-3"},
+        {"name": "Deepak Giri", "constituency": "Dang-3"},
+        {"name": "Yogendra Chaudhary", "constituency": "Dang-1"},
+        {"name": "Kiran Kishore Ghimire", "constituency": "Dang-2"},
+        {"name": "Prakash Khatri", "constituency": "Gorkha-1"},
+        {"name": "Govind Bhattarai", "constituency": "Tanahun-1"},
+        {"name": "Bharat Dhakal", "constituency": "Syangja-1"},
+        {"name": "Ajayababu Shiwakoti", "constituency": "Dolakha"},
+        {"name": "Chandra Bhandari", "constituency": "Gulmi-1"},
+        {"name": "Chatur Bahadur Chand", "constituency": "Baitadi"},
+        {"name": "Janakraj Chaudhary", "constituency": "Kailali-1"},
+        {"name": "Mukta Kumari Yadav", "constituency": "Dhanusha-1"}
+      ],
+      "notable": "106 new faces, 11 women candidates. Sher Bahadur Deuba not contesting."
+    },
+    {
+      "name": "Communist Party of Nepal (Unified Marxist-Leninist)",
+      "abbreviation": "CPN-UML",
+      "symbol": "Sun",
+      "ideology": ["Marxism-Leninism", "People's Multiparty Democracy"],
+      "leader": "K.P. Sharma Oli",
+      "leader_seat": "Jhapa-5",
+      "seats_contested": 164,
+      "male_candidates": 154,
+      "female_candidates": 10,
+      "pm_candidate": "K.P. Sharma Oli",
+      "key_candidates": [
+        {"name": "K.P. Sharma Oli", "constituency": "Jhapa-5", "position": "Party Chairperson"},
+        {"name": "Ishwar Pokharel", "constituency": "Kathmandu-5", "position": "Senior Leader"},
+        {"name": "Shankar Pokharel", "constituency": "Dang-2"},
+        {"name": "Bishnuprasad Paudel", "constituency": "Rupandehi-2"},
+        {"name": "Mahesh Basnet", "constituency": "Bhaktapur-2"},
+        {"name": "Rajan Bhattarai", "constituency": "Kathmandu-4"},
+        {"name": "Asmin Ghimire", "constituency": "Chitwan-2"},
+        {"name": "Prithvisubba Gurung", "constituency": "Lamjung-1"},
+        {"name": "Bainbahadur Adhikari Kshetri", "constituency": "Kaski-1"},
+        {"name": "Dhruvakumar Shahi", "constituency": "Surkhet-1"},
+        {"name": "Lekhraj Bhatt", "constituency": "Kailali-4"},
+        {"name": "Dr. Deepak Prakash Bhatt", "constituency": "Kanchanpur-3"},
+        {"name": "Jhapat Bahadur Bohara", "constituency": "Achham-1"},
+        {"name": "Raghubeer Mahaset", "constituency": "Dhanusha-4"},
+        {"name": "Krishnakumar Shrestha", "constituency": "Bara-4"},
+        {"name": "Pradeep Yadav", "constituency": "Parsa-1"},
+        {"name": "Suhang Nemwang", "constituency": "Ilam-2"},
+        {"name": "Devraj Ghimire", "constituency": "Jhapa-2"},
+        {"name": "Sherdhan Rai", "constituency": "Bhojpur-1"},
+        {"name": "Bhagwati Chaudhary", "constituency": "Sunsari-3"}
+      ],
+      "notable": "More than half are new entrants. Withdrew from Manang-1 in favor of NC."
+    },
+    {
+      "name": "Rastriya Swatantra Party",
+      "abbreviation": "RSP",
+      "symbol": "Bell",
+      "ideology": ["Progressive liberalism"],
+      "leader": "Rabi Lamichhane",
+      "leader_seat": "Chitwan-2",
+      "seats_contested": 164,
+      "male_candidates": 148,
+      "female_candidates": 16,
+      "pm_candidate": "Balendra Shah (Balen)",
+      "key_candidates": [
+        {"name": "Rabi Lamichhane", "constituency": "Chitwan-2", "position": "Party President"},
+        {"name": "Balendra Shah (Balen)", "constituency": "Jhapa-5", "position": "PM Candidate, Former Kathmandu Mayor"},
+        {"name": "Sobita Gautam", "constituency": "Chitwan-3"},
+        {"name": "Shishir Khanal", "constituency": "Kathmandu-6"},
+        {"name": "Dr. Toshima Karki", "constituency": "Lalitpur-3"},
+        {"name": "Ranju Darshana", "constituency": "Kathmandu-1"},
+        {"name": "Biraj Bhakta Shrestha", "constituency": "Kathmandu-8"},
+        {"name": "Pukar Bam", "constituency": "Kathmandu-4"},
+        {"name": "Swarnim Wagle", "constituency": "Tanahun-1"},
+        {"name": "Sagar Dhakal", "constituency": "Gulmi-1"},
+        {"name": "Amaresh Kumar Singh", "constituency": "Sarlahi-4"},
+        {"name": "Nisha Dangi", "constituency": "Jhapa-1"},
+        {"name": "Indira Ranamagar", "constituency": "Jhapa-2"},
+        {"name": "Hari Dhakal", "constituency": "Chitwan-1"},
+        {"name": "Rajiv Khatri", "constituency": "Bhaktapur-2"},
+        {"name": "Dr. Bikram Timilsina", "constituency": "Nuwakot-1"},
+        {"name": "Buddharatna Maharjan", "constituency": "Lalitpur-1"},
+        {"name": "Om Prakash Rawal", "constituency": "Achham-1"},
+        {"name": "Dipak Bohara", "constituency": "Kanchanpur-2"},
+        {"name": "Mohan Acharya", "constituency": "Kapilvastu-1"}
+      ],
+      "notable": "164 candidates (Manang candidate didn't file). Bibeksheel Sajha merged into RSP."
+    },
+    {
+      "name": "Nepali Communist Party",
+      "abbreviation": "NCP",
+      "symbol": "Star",
+      "ideology": ["Marxism-Leninism"],
+      "leader": "Pushpa Kamal Dahal (Prachanda)",
+      "leader_seat": "Eastern Rukum-1",
+      "seats_contested": 164,
+      "male_candidates": 152,
+      "female_candidates": 12,
+      "pm_candidate": "Pushpa Kamal Dahal",
+      "key_candidates": [
+        {"name": "Pushpa Kamal Dahal (Prachanda)", "constituency": "Eastern Rukum-1", "position": "Party Leader"},
+        {"name": "Narayan Kaji Shrestha", "constituency": "Gorkha-2"},
+        {"name": "Dev Gurung", "constituency": "Lamjung-1"},
+        {"name": "Pampha Bhusal", "constituency": "Lalitpur-3"},
+        {"name": "Lekhraj Bhatta", "constituency": "Kailali-1"},
+        {"name": "Barshaman Pun", "constituency": "Rolpa-1"},
+        {"name": "Janardan Sharma", "constituency": "Western Rukum-1"},
+        {"name": "Top Bahadur Rayamajhi", "constituency": "Arghakhanchi-1"},
+        {"name": "Rekha Sharma", "constituency": "Dang-2"},
+        {"name": "Shakti Bahadur Basnet", "constituency": "Salyan-1"},
+        {"name": "Onsari Gharti", "constituency": "Sindhuli-2"},
+        {"name": "Agni Sapkota", "constituency": "Sindhupalchok-1"},
+        {"name": "Khadga Bahadur Bishwakarma", "constituency": "Kalikot-1"}
+      ],
+      "notable": "Formed from merger of CPN (Maoist Centre), CPN (Unified Socialist) and 8 other leftist groups."
+    },
+    {
+      "name": "Rastriya Prajatantra Party",
+      "abbreviation": "RPP",
+      "symbol": "Plow",
+      "ideology": ["Constitutional monarchism", "Economic liberalism", "Hindu nationalism"],
+      "leader": "Rajendra Prasad Lingden",
+      "leader_seat": "Jhapa-3",
+      "seats_contested": 163,
+      "male_candidates": 155,
+      "female_candidates": 8,
+      "pm_candidate": "Rajendra Prasad Lingden",
+      "key_candidates": [
+        {"name": "Rajendra Prasad Lingden", "constituency": "Jhapa-3", "position": "Party Chairperson"},
+        {"name": "Bikram Pandey", "constituency": "Chitwan-3"},
+        {"name": "Dharmendra Bastola", "constituency": "Surkhet-1"},
+        {"name": "Budhhiman Tamang", "constituency": "Kathmandu-7"},
+        {"name": "Surya Bahadur KC", "constituency": "Banke-2"}
+      ],
+      "notable": "Unified with RPP Nepal. Withdrew from Manang-1 and Rupandehi-2. Advocates constitutional monarchy and Hindu state."
+    },
+    {
+      "name": "People's Socialist Party, Nepal",
+      "abbreviation": "PSP-N",
+      "symbol": "Umbrella",
+      "ideology": ["Democratic socialism", "Social democracy", "Regionalism"],
+      "leader": "Upendra Yadav",
+      "leader_seat": "Saptari-3",
+      "seats_contested": 94,
+      "male_candidates": 86,
+      "female_candidates": 8,
+      "key_candidates": [
+        {"name": "Upendra Yadav", "constituency": "Saptari-3", "position": "Party Chairperson"},
+        {"name": "Abhishek Pratap Shah", "constituency": "Kapilvastu-2"},
+        {"name": "Amrita Agrahari", "constituency": "Parsa-4"}
+      ],
+      "notable": "Focus on Madhesh and Janajati issues."
+    },
+    {
+      "name": "Janamat Party",
+      "abbreviation": "JP",
+      "symbol": "Horn",
+      "ideology": ["Social democracy", "Regionalism", "Madheshi interests"],
+      "leader": "C.K. Raut",
+      "leader_seat": "Saptari-2",
+      "seats_contested": 61,
+      "male_candidates": 57,
+      "female_candidates": 4,
+      "key_candidates": [
+        {"name": "C.K. Raut", "constituency": "Saptari-2", "position": "Party Chairperson"}
+      ],
+      "notable": "Advocates for Madhesh rights and regional autonomy."
+    },
+    {
+      "name": "Pragatisheel Loktantrik Party",
+      "abbreviation": "PLP",
+      "symbol": "Eye",
+      "ideology": ["Democratic socialism", "Progressive socialism"],
+      "leader": "Durga Sob",
+      "leader_seat": "Did not contest",
+      "seats_contested": 82,
+      "male_candidates": 80,
+      "female_candidates": 2,
+      "key_candidates": [
+        {"name": "Janardan Sharma", "constituency": "Western Rukum-1"},
+        {"name": "Baburam Bhattarai", "constituency": "Gorkha-2 (withdrew)"}
+      ],
+      "notable": "Formed by leaders from CPN (Maoist Centre) who disagreed with NCP merger."
+    },
+    {
+      "name": "Nepal Majdoor Kisan Party",
+      "abbreviation": "NMKP",
+      "symbol": "Hammer and Sickle",
+      "ideology": ["Juche", "Maoism"],
+      "leader": "Narayan Man Bijukchhe",
+      "leader_seat": "Did not contest",
+      "seats_contested": 120,
+      "male_candidates": 66,
+      "female_candidates": 54,
+      "notable": "Strong presence in Bhaktapur."
+    },
+    {
+      "name": "Rastriya Janamorcha",
+      "abbreviation": "RJM",
+      "symbol": "Flag",
+      "ideology": ["Marxism-Leninism"],
+      "leader": "Chitra Bahadur K.C.",
+      "leader_seat": "Party list",
+      "seats_contested": 70,
+      "male_candidates": 61,
+      "female_candidates": 9,
+      "notable": "Alliance with NCP in Baglung district."
+    },
+    {
+      "name": "Ujyaalo Nepal Party",
+      "abbreviation": "UNP",
+      "symbol": "Light Bulb",
+      "ideology": ["Social democracy", "Progressivism"],
+      "leader": "Kul Man Ghising",
+      "leader_seat": "Kathmandu-3",
+      "seats_contested": 105,
+      "male_candidates": 99,
+      "female_candidates": 6,
+      "key_candidates": [
+        {"name": "Kul Man Ghising", "constituency": "Kathmandu-3", "position": "Party Chairperson, Former NEA Managing Director"}
+      ],
+      "notable": "Focus on electricity and development. RSP merger agreement collapsed."
+    },
+    {
+      "name": "Aam Janata Party",
+      "abbreviation": "AJP",
+      "symbol": "Mobile Phone",
+      "ideology": ["Marxism-Leninism-Maoism"],
+      "leader": "Prabhu Sah",
+      "leader_seat": "Rautahat-3",
+      "seats_contested": 98,
+      "male_candidates": 76,
+      "female_candidates": 25,
+      "notable": "Strong presence in Terai region."
+    },
+    {
+      "name": "Shram Sanskriti Party",
+      "abbreviation": "SSP",
+      "symbol": "Soil in Hands",
+      "ideology": ["Green politics", "Localism", "Agrarianism"],
+      "leader": "Harka Sampang",
+      "leader_seat": "Sunsari-1",
+      "seats_contested": 109,
+      "male_candidates": 102,
+      "female_candidates": 7,
+      "key_candidates": [
+        {"name": "Harka Sampang", "constituency": "Sunsari-1", "position": "Party Leader, Former Dharan Mayor"}
+      ],
+      "notable": "Focus on local development and environmental issues."
+    },
+    {
+      "name": "Mongol National Organisation",
+      "abbreviation": "MNO",
+      "symbol": "Bow and Arrow",
+      "ideology": ["Secularism", "Regionalism", "Janajati interests"],
+      "leader": "Budhhalal Meche",
+      "leader_seat": "Ilam-1",
+      "seats_contested": 113,
+      "male_candidates": 98,
+      "female_candidates": 15,
+      "notable": "Advocates for Janajati rights."
+    },
+    {
+      "name": "People's Socialist Party",
+      "abbreviation": "PSP",
+      "symbol": "Janto (Hand Mill)",
+      "ideology": ["Democratic socialism", "Secularism", "Regionalism"],
+      "leader": "Ashok Rai",
+      "leader_seat": "Did not contest",
+      "seats_contested": 19,
+      "male_candidates": 18,
+      "female_candidates": 1,
+      "notable": "Formed from merger of Loktantrik Samajwadi, Terai Madhesh Loktantrik, and Janata Pragatisheel parties."
+    },
+    {
+      "name": "Nagrik Unmukti Party",
+      "abbreviation": "NUP",
+      "symbol": "Chain",
+      "ideology": ["Social democracy", "Tharu interests"],
+      "leader": "Resham Lal Chaudhary",
+      "leader_seat": "Candidacy voided",
+      "seats_contested": 26,
+      "male_candidates": 22,
+      "female_candidates": 4,
+      "notable": "Advocates for Tharu community rights."
+    },
+    {
+      "name": "Rastriya Mukti Party Nepal",
+      "abbreviation": "RMPN",
+      "symbol": "Torch",
+      "ideology": ["Social democracy", "Regionalism"],
+      "leader": "Rajendra Mahato",
+      "leader_seat": "Sarlahi-2",
+      "seats_contested": 33,
+      "male_candidates": 30,
+      "female_candidates": 3,
+      "notable": "Focus on Madhesh issues."
+    },
+    {
+      "name": "CPN (Maoist)",
+      "abbreviation": "CPN-M",
+      "symbol": "Rose",
+      "ideology": ["Marxism-Leninism-Maoism"],
+      "leader": "Netra Bikram Chand (Biplav)",
+      "leader_seat": "Did not contest",
+      "seats_contested": 130,
+      "male_candidates": 126,
+      "female_candidates": 4,
+      "notable": "Former underground outfit now contesting elections."
+    },
+    {
+      "name": "Rastriya Pariwartan Party",
+      "abbreviation": "RPP",
+      "symbol": "Flute",
+      "ideology": ["Progressivism"],
+      "leader": "Rajesh Portel",
+      "leader_seat": "Did not contest",
+      "seats_contested": 17,
+      "male_candidates": 15,
+      "female_candidates": 2,
+      "notable": "New political formation."
+    },
+    {
+      "name": "Janadesh Party",
+      "abbreviation": "JP",
+      "symbol": "Book",
+      "ideology": ["Regionalism"],
+      "leader": "Raman Kumar Karn",
+      "leader_seat": "Mahottari-2",
+      "seats_contested": 4,
+      "male_candidates": 4,
+      "female_candidates": 0,
+      "notable": "Focus on Madhesh region."
+    }
+  ],
+
+  "key_battlegrounds": [
+    {
+      "constituency": "Jhapa-5",
+      "significance": "High-profile contest",
+      "candidates": [
+        {"name": "K.P. Sharma Oli", "party": "CPN-UML"},
+        {"name": "Balendra Shah (Balen)", "party": "RSP"},
+        {"name": "Mandhara Chimariya", "party": "Nepali Congress"}
+      ]
+    },
+    {
+      "constituency": "Chitwan-2",
+      "significance": "RSP Leader contest",
+      "candidates": [
+        {"name": "Rabi Lamichhane", "party": "RSP"},
+        {"name": "Asmin Ghimire", "party": "CPN-UML"}
+      ]
+    },
+    {
+      "constituency": "Sarlahi-4",
+      "significance": "NC President contest",
+      "candidates": [
+        {"name": "Gagan Kumar Thapa", "party": "Nepali Congress"},
+        {"name": "Amaresh Kumar Singh", "party": "RSP"},
+        {"name": "Amanesh Kumar Yadav", "party": "CPN-UML"}
+      ]
+    },
+    {
+      "constituency": "Kathmandu-5",
+      "significance": "UML Senior Leader",
+      "candidates": [
+        {"name": "Ishwar Pokharel", "party": "CPN-UML"},
+        {"name": "Sasmita Pokharel", "party": "RSP"}
+      ]
+    },
+    {
+      "constituency": "Kathmandu-3",
+      "significance": "Kulman's high-profile debut",
+      "candidates": [
+        {"name": "Kul Man Ghising", "party": "Ujyaalo Nepal Party"},
+        {"name": "Santosh Chalise", "party": "Nepali Congress"}
+      ]
+    },
+    {
+      "constituency": "Sunsari-1",
+      "significance": "Harka Sampang's local stronghold test",
+      "candidates": [
+        {"name": "Harka Sampang", "party": "Shram Sanskriti Party"},
+        {"name": "Ashok Kumar Rai", "party": "Janata Samajbadi Party"}
+      ]
+    }
+  ],
+
+  "notable_independents": [
+    {"name": "Dr. Mahabir Pun", "constituency": "Kaski-2", "notable": "Magsaysay Award winner"},
+    {"name": "Sushila Karki", "constituency": "", "notable": "Former Chief Justice, Interim PM"}
+  ],
+
+  "election_timeline": {
+    "2025-09-08": "Gen Z protests across Nepal",
+    "2025-09-12": "Federal Parliament dissolved, Sushila Karki sworn in as interim PM",
+    "2025-10-06": "Legislature dissolved, Cabinet announces election date",
+    "2025-11-21": "Last date to register on electoral roll",
+    "2025-11-26": "Last day for party registration at Election Commission",
+    "2025-12-28_29": "Parties submit preliminary closed list for proportional representation",
+    "2026-01-19": "Election code of conduct starts",
+    "2026-01-20": "Candidate nomination for FPTP",
+    "2026-01-23": "Candidate list for FPTP finalized and published",
+    "2026-02-03": "Closed list for proportional representation finalized and published",
+    "2026-02-16": "Campaigning officially starts",
+    "2026-03-03": "Campaigning ends",
+    "2026-03-05": "Election Day"
+  },
+
+  "sources": [
+    "https://election.gov.np",
+    "https://kathmandupost.com",
+    "https://ekantipur.com",
+    "https://en.wikipedia.org/wiki/2026_Nepalese_general_election",
+    "https://safemeofcl.org/nepali-congress-candidate-list-2082/",
+    "https://safemeofcl.org/uml-candidate-list-2082/",
+    "https://khojsamachar.com/rsp-candidates-list-164-constituencies/"
+  ],
+
+  "last_updated": "2026-02-15"
+}

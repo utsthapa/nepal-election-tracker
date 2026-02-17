@@ -32,7 +32,7 @@ export default function HeatmapChart({
 
   // Get color intensity based on value
   const getColor = (value) => {
-    if (!value) return '#f3f4f6'; // gray-100
+    if (!value) {return '#f3f4f6';} // gray-100
 
     const normalized = (value - minValue) / (maxValue - minValue);
 

@@ -1,9 +1,10 @@
 'use client';
 
+import { Trophy, Users, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
-import { Calendar, Trophy, Users, TrendingUp } from 'lucide-react';
-import { Header } from '../../components/Header';
+
 import { Footer } from '../../components/Footer';
+import { Header } from '../../components/Header';
 import { ELECTIONS, getElectionYears, getPartyInfo } from '../../data/historicalElections';
 
 export default function ElectionsPage() {
@@ -80,8 +81,8 @@ export default function ElectionsPage() {
                             <span
                               className={`px-2 py-0.5 rounded text-xs font-medium ${
                                 isCA
-                                  ? 'bg-amber-500/20 text-amber-600 dark:text-amber-300 border border-amber-500/30'
-                                  : 'bg-blue-500/20 text-blue-600 dark:text-blue-300 border border-blue-500/30'
+                                  ? 'bg-amber-500/20 text-amber-700 border border-amber-500/30'
+                                  : 'bg-blue-500/20 text-blue-700 border border-blue-500/30'
                               }`}
                             >
                               {isCA ? 'Constituent Assembly' : 'General Election'}
@@ -155,7 +156,7 @@ export default function ElectionsPage() {
                             .map(([party, seats]) => {
                               const info = getPartyInfo(party);
                               const width = (seats / election.totalSeats) * 100;
-                              if (width < 1) return null;
+                              if (width < 1) {return null;}
                               return (
                                 <div
                                   key={party}

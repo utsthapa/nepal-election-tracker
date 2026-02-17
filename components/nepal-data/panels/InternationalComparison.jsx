@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
+
 import ComparativeBarChart from '../charts/ComparativeBarChart';
 import ChartContainer from '../shared/ChartContainer';
 import { REGIONAL_COMPARISON, INCOME_GROUP_COMPARISON, INTERNATIONAL_METADATA } from '@/data/internationalComparisons';

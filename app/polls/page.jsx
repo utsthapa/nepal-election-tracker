@@ -1,5 +1,5 @@
-import { getLatestPolls, getPollTrends } from '../../data/polls'
 import PollsPageClient from './PollsPageClient'
+import { getLatestPolls, getPollTrends } from '../../data/polls'
 
 export const metadata = {
   title: 'Polls | NepaliSoch',

@@ -14,6 +14,13 @@ export const HISTORICAL_PARTIES = {
   LSP: { name: 'Loktantrik Samajbadi Party', short: 'LSP', color: '#a855f7' },
   NUP: { name: 'Nagarik Unmukti Party', short: 'NUP', color: '#06b6d4' },
 
+  // 2026 new parties
+  NCP: { name: 'Nepali Communist Party', short: 'NCP', color: '#dc2626' },
+  PLP: { name: 'Pragatisheel Loktantrik Party', short: 'PLP', color: '#f59e0b' },
+  UNP: { name: 'Ujyaalo Nepal Party', short: 'UNP', color: '#eab308' },
+  PSP: { name: "People's Socialist Party", short: 'PSP', color: '#84cc16' },
+  RMPN: { name: 'Rastriya Mukti Party Nepal', short: 'RMPN', color: '#f43f5e' },
+
   // 2017 era parties
   RJPN: { name: 'Rastriya Janata Party Nepal', short: 'RJPN', color: '#f59e0b' },
   FSFN: { name: 'Federal Socialist Forum Nepal', short: 'FSFN', color: '#84cc16' },
@@ -32,6 +39,45 @@ export const HISTORICAL_PARTIES = {
 };
 
 export const ELECTIONS = {
+  2026: {
+    year: 2026,
+    name: '2026 General Election (Upcoming)',
+    type: 'House of Representatives',
+    date: 'March 5, 2026 (Falgun 21, 2082 BS)',
+    totalSeats: 275,
+    fptpSeats: 165,
+    prSeats: 110,
+    turnout: 'TBD',
+    prThreshold: 3,
+    notes: 'Early election following Gen Z protests. 3,484 candidates from 68 parties contesting. Major parties: NC (165 seats), UML (164), RSP (164), NCP (164). Key battles: Jhapa-5 (Oli vs Balen), Chitwan-2 (Lamichhane).',
+    candidates: {
+      total: 3484,
+      parties: 2397,
+      independents: 1087,
+      women: 395,
+      men: 3088,
+    },
+    majorParties: [
+      { name: 'Nepali Congress', leader: 'Gagan Kumar Thapa', seats: 165, pmCandidate: 'Gagan Kumar Thapa' },
+      { name: 'CPN-UML', leader: 'K.P. Sharma Oli', seats: 164, pmCandidate: 'K.P. Sharma Oli' },
+      { name: 'Rastriya Swatantra Party', leader: 'Rabi Lamichhane', seats: 164, pmCandidate: 'Balendra Shah' },
+      { name: 'Nepali Communist Party', leader: 'Pushpa Kamal Dahal', seats: 164, pmCandidate: 'Pushpa Kamal Dahal' },
+      { name: 'Rastriya Prajatantra Party', leader: 'Rajendra Prasad Lingden', seats: 163, pmCandidate: 'Rajendra Prasad Lingden' },
+    ],
+    keyBattlegrounds: [
+      { constituency: 'Jhapa-5', candidates: 'K.P. Oli (UML) vs Balen Shah (RSP) vs Mandhara Chimariya (NC)' },
+      { constituency: 'Chitwan-2', candidates: 'Rabi Lamichhane (RSP) vs Asmin Ghimire (UML)' },
+      { constituency: 'Sarlahi-4', candidates: 'Gagan Thapa (NC) vs Amaresh Singh (RSP)' },
+      { constituency: 'Kathmandu-5', candidates: 'Ishwar Pokharel (UML) vs Sasmita Pokharel (RSP)' },
+    ],
+    results: {
+      FPTP: { NC: 0, UML: 0, Maoist: 0, RSP: 0, RPP: 0, JSPN: 0, NCP: 0, JP: 0, Others: 0 },
+      PR: { NC: 0, UML: 0, Maoist: 0, RSP: 0, RPP: 0, JSPN: 0, NCP: 0, JP: 0, Others: 0 },
+      Total: { NC: 0, UML: 0, Maoist: 0, RSP: 0, RPP: 0, JSPN: 0, NCP: 0, JP: 0, Others: 0 },
+    },
+    government: 'Election scheduled for March 5, 2026. Results pending.',
+  },
+
   2022: {
     year: 2022,
     name: '2022 General Election',

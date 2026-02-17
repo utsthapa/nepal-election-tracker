@@ -1,0 +1,38 @@
+---
+name: Code Quality Issue
+description: Report code quality or technical debt
+title: '[QUALITY] '
+labels: ['technical-debt', 'code-quality']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for code quality issues, refactoring needs, or technical debt.
+
+  - type: textarea
+    id: issue
+    attributes:
+      label: Issue Description
+      description: Describe the code quality issue
+      placeholder: |
+        Example: Component X has 500 lines and does too many things
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: category
+    attributes:
+      label: Issue Category
+      options:
+        - label: Performance - Slow rendering, unnecessary re-renders
+        - label: Maintainability - Hard to understand or modify
+        - label: Accessibility - Missing ARIA labels, keyboard nav
+        - label: Type Safety - Missing types or any usage
+        - label: Best Practices - Not following React/Next.js patterns
+        - label: Testing - Missing tests
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: How should this be fixed?

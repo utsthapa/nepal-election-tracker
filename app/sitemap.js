@@ -1,6 +1,6 @@
-import { getAllArticles } from '../lib/content'
+import { getAllArticles } from '../lib/content';
 
-const baseUrl = 'https://nepalvotes.com'
+const baseUrl = 'https://nepalvotes.com';
 
 const routes = [
   '',
@@ -13,24 +13,29 @@ const routes = [
   '/districts',
   '/about',
   '/newsletter',
-]
+];
 
 export default function sitemap() {
-  const articles = getAllArticles()
-  
-  const staticRoutes = routes.map((route) => ({
+  const articles = getAllArticles();
+
+  const staticRoutes = routes.map(route => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'daily',
     priority: route === '' ? 1 : 0.8,
-  }))
+  }));
 
-  const articleRoutes = articles.map((article) => ({
-    url: `${baseUrl}/analysis/${article.slug}`,
-    lastModified: new Date(article.date),
-    changeFrequency: 'weekly',
-    priority: 0.7,
-  }))
+  const articleRoutes = articles.map(article => {
+    const date = article.date ? new Date(article.date) : new Date();
+    const validDate = isNaN(date.getTime()) ? new Date() : date;
 
-  return [...staticRoutes, ...articleRoutes]
+    return {
+      url: `${baseUrl}/analysis/${article.slug}`,
+      lastModified: validDate,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    };
+  });
+
+  return [...staticRoutes, ...articleRoutes];
 }

@@ -1,18 +1,19 @@
 'use client';
 
 import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
-import { constituencies, PARTIES, PROVINCES } from '../data/constituencies';
+
+import { constituencies, PARTIES } from '../data/constituencies';
 import { MAP_CONFIG } from '../lib/config';
 import 'leaflet/dist/leaflet.css';
 
 const ConstituencyMap = ({
   onSelectConstituency,
-  selectedConstituencyId,
+  selectedConstituencyId: _selectedConstituencyId,
   fptpResults
 }) => {
   const [geoData, setGeoData] = useState(null);
-  const [hoveredConstituency, setHoveredConstituency] = useState(null);
-  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
+  const [, setHoveredConstituency] = useState(null);
+  const [, setTooltipPos] = useState({ x: 0, y: 0 });
   const [mapReady, setMapReady] = useState(false);
   const [error, setError] = useState(null);
 
@@ -72,11 +73,11 @@ const ConstituencyMap = ({
 
     Promise.all([
       fetch('/maps/nepal-constituencies.geojson').then(res => {
-        if (!res.ok) throw new Error('Failed to fetch constituencies GeoJSON');
+        if (!res.ok) {throw new Error('Failed to fetch constituencies GeoJSON');}
         return res.json();
       }),
       fetch('/maps/nepal-outline.geojson').then(res => {
-        if (!res.ok) throw new Error('Failed to fetch outline GeoJSON');
+        if (!res.ok) {throw new Error('Failed to fetch outline GeoJSON');}
         return res.json();
       })
     ])
@@ -102,7 +103,7 @@ const ConstituencyMap = ({
 
   // Initialize Leaflet map
   useEffect(() => {
-    if (!geoData || !outlineData || mapInstanceRef.current) return;
+    if (!geoData || !outlineData || mapInstanceRef.current) {return;}
 
     let mounted = true;
 
@@ -111,7 +112,7 @@ const ConstituencyMap = ({
         // Dynamically import Leaflet
         const L = (await import('leaflet')).default;
 
-        if (!mounted || !mapContainerRef.current) return;
+        if (!mounted || !mapContainerRef.current) {return;}
 
         // Create map
         const map = L.map(mapContainerRef.current, {
@@ -217,7 +218,7 @@ const ConstituencyMap = ({
 
   // Update colors when fptpResults changes
   useEffect(() => {
-    if (!geoJsonLayerRef.current) return;
+    if (!geoJsonLayerRef.current) {return;}
 
     geoJsonLayerRef.current.eachLayer((layer) => {
       const feature = layer.feature;
@@ -229,12 +230,6 @@ const ConstituencyMap = ({
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fptpResults]);
-
-  // Format percentage
-  const formatPercent = (val) => {
-    if (val === undefined || val === null) return '-';
-    return `${(val * 100).toFixed(1)}%`;
-  };
 
   // Error state
   if (error) {

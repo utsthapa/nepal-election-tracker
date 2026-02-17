@@ -1,13 +1,34 @@
-'use client';
-
-import { useParams } from 'next/navigation';
+import { ArrowLeft, Trophy, Info } from 'lucide-react';
 import Link from 'next/link';
-import { ArrowLeft, Trophy, Users, TrendingUp, Calendar, Info } from 'lucide-react';
+
 import { SimpleHeader } from '../../../components/SimpleHeader';
 import { ELECTIONS, getPartyInfo } from '../../../data/historicalElections';
 
-export default function ElectionYearPage() {
-  const params = useParams();
+// Generate static params for all election years
+export function generateStaticParams() {
+  return Object.keys(ELECTIONS).map((year) => ({
+    year: year,
+  }));
+}
+
+// Generate metadata for each election year
+export function generateMetadata({ params }) {
+  const year = parseInt(params.year, 10);
+  const election = ELECTIONS[year];
+  
+  if (!election) {
+    return {
+      title: 'Election Not Found',
+    };
+  }
+  
+  return {
+    title: `${election.name} | Elections`,
+    description: `Election results for ${election.name}. Total seats: ${election.totalSeats}, Turnout: ${election.turnout || 'N/A'}`,
+  };
+}
+
+export default function ElectionYearPage({ params }) {
   const year = parseInt(params.year, 10);
   const election = ELECTIONS[year];
 
@@ -18,13 +39,13 @@ export default function ElectionYearPage() {
         <main className="max-w-7xl mx-auto px-4 py-8">
           <Link
             href="/elections"
-            className="inline-flex items-center gap-2 text-sm text-gray-700 hover:text-white mb-6 transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-gray-700 hover:text-gray-900 mb-6 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Elections
           </Link>
           <div className="text-center py-12">
-            <h1 className="text-2xl font-bold text-white mb-2">Election Not Found</h1>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">Election Not Found</h1>
             <p className="text-gray-700">No election data available for {year}</p>
           </div>
         </main>
@@ -53,7 +74,7 @@ export default function ElectionYearPage() {
         {/* Back link */}
         <Link
           href="/elections"
-          className="inline-flex items-center gap-2 text-sm text-gray-700 hover:text-white mb-6 transition-colors"
+          className="inline-flex items-center gap-2 text-sm text-gray-700 hover:text-gray-900 mb-6 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Elections
@@ -62,12 +83,12 @@ export default function ElectionYearPage() {
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-3xl font-bold text-white">{election.name}</h1>
+            <h1 className="text-3xl font-bold text-gray-900">{election.name}</h1>
             <span
               className={`px-2 py-0.5 rounded text-xs font-medium ${
                 isCA
-                  ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                  : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+                  ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                  : 'bg-blue-100 text-blue-900 border border-blue-300'
               }`}
             >
               {election.type}
@@ -82,50 +103,50 @@ export default function ElectionYearPage() {
         {/* Summary Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
           <div className="bg-surface border border-neutral rounded-xl p-4">
-            <p className="text-xs uppercase tracking-wider text-gray-800 mb-1">
+            <p className="text-xs uppercase tracking-wider text-gray-600 mb-1">
               Total Seats
             </p>
-            <p className="text-2xl font-bold text-white">{election.totalSeats}</p>
+            <p className="text-2xl font-bold text-gray-900">{election.totalSeats}</p>
           </div>
           {hasFPTP && (
             <div className="bg-surface border border-neutral rounded-xl p-4">
-              <p className="text-xs uppercase tracking-wider text-gray-800 mb-1">
+              <p className="text-xs uppercase tracking-wider text-gray-600 mb-1">
                 FPTP Seats
               </p>
-              <p className="text-2xl font-bold text-white">{election.fptpSeats}</p>
+              <p className="text-2xl font-bold text-gray-900">{election.fptpSeats}</p>
             </div>
           )}
           {hasPR && (
             <div className="bg-surface border border-neutral rounded-xl p-4">
-              <p className="text-xs uppercase tracking-wider text-gray-800 mb-1">
+              <p className="text-xs uppercase tracking-wider text-gray-600 mb-1">
                 PR Seats
               </p>
-              <p className="text-2xl font-bold text-white">{election.prSeats}</p>
+              <p className="text-2xl font-bold text-gray-900">{election.prSeats}</p>
               {election.prThreshold > 0 && (
-                <p className="text-xs text-gray-800">{election.prThreshold}% threshold</p>
+                <p className="text-xs text-gray-600">{election.prThreshold}% threshold</p>
               )}
             </div>
           )}
           {hasNominated && (
             <div className="bg-surface border border-neutral rounded-xl p-4">
-              <p className="text-xs uppercase tracking-wider text-gray-800 mb-1">
+              <p className="text-xs uppercase tracking-wider text-gray-600 mb-1">
                 Nominated
               </p>
-              <p className="text-2xl font-bold text-white">{election.nominatedSeats}</p>
+              <p className="text-2xl font-bold text-gray-900">{election.nominatedSeats}</p>
             </div>
           )}
-          <div className="bg-surface border border-amber-500/30 rounded-xl p-4">
-            <p className="text-xs uppercase tracking-wider text-amber-300 mb-1">
+          <div className="bg-amber-100 border border-amber-300 rounded-xl p-4">
+            <p className="text-xs uppercase tracking-wider text-amber-800 mb-1">
               Majority
             </p>
-            <p className="text-2xl font-bold text-amber-400">{majorityThreshold}</p>
+            <p className="text-2xl font-bold text-amber-900">{majorityThreshold}</p>
           </div>
           {election.turnout && (
             <div className="bg-surface border border-neutral rounded-xl p-4">
-              <p className="text-xs uppercase tracking-wider text-gray-800 mb-1">
+              <p className="text-xs uppercase tracking-wider text-gray-600 mb-1">
                 Turnout
               </p>
-              <p className="text-2xl font-bold text-white">{election.turnout}</p>
+              <p className="text-2xl font-bold text-gray-900">{election.turnout}</p>
             </div>
           )}
         </div>
@@ -148,8 +169,8 @@ export default function ElectionYearPage() {
         {/* Results Table */}
         <div className="bg-surface border border-neutral rounded-2xl overflow-hidden mb-8">
           <div className="px-6 py-4 border-b border-neutral">
-            <h2 className="text-lg font-semibold text-white flex items-center gap-2">
-              <Trophy className="w-5 h-5 text-amber-400" />
+            <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+              <Trophy className="w-5 h-5 text-amber-600" />
               Official Seat Distribution
             </h2>
           </div>
@@ -201,32 +222,32 @@ export default function ElectionYearPage() {
                             style={{ backgroundColor: info.color }}
                           />
                           <div>
-                            <p className="font-semibold text-white">{info.short}</p>
-                            <p className="text-xs text-gray-800">{info.name}</p>
+                            <p className="font-semibold text-gray-900">{info.short}</p>
+                            <p className="text-xs text-gray-600">{info.name}</p>
                           </div>
                           {hasMajority && (
-                            <span className="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded border border-amber-500/30">
+                            <span className="text-xs bg-amber-100 text-amber-900 px-2 py-0.5 rounded border border-amber-300">
                               Majority
                             </span>
                           )}
                         </div>
                       </td>
                       {hasFPTP && (
-                        <td className="text-center px-4 py-4 font-mono text-white">
+                        <td className="text-center px-4 py-4 font-mono text-gray-900">
                           {fptp || '-'}
                         </td>
                       )}
                       {hasPR && (
-                        <td className="text-center px-4 py-4 font-mono text-white">
+                        <td className="text-center px-4 py-4 font-mono text-gray-900">
                           {pr || '-'}
                         </td>
                       )}
                       {hasNominated && (
-                        <td className="text-center px-4 py-4 font-mono text-white">
+                        <td className="text-center px-4 py-4 font-mono text-gray-900">
                           {nominated || '-'}
                         </td>
                       )}
-                      <td className="text-center px-4 py-4 font-mono font-bold text-white">
+                      <td className="text-center px-4 py-4 font-mono font-bold text-gray-900">
                         {total}
                       </td>
                       <td className="px-6 py-4">
@@ -251,23 +272,23 @@ export default function ElectionYearPage() {
               </tbody>
               <tfoot>
                 <tr className="bg-neutral/30 border-t border-neutral">
-                  <td className="px-6 py-3 font-semibold text-white">Total</td>
+                  <td className="px-6 py-3 font-semibold text-gray-900">Total</td>
                   {hasFPTP && (
-                    <td className="text-center px-4 py-3 font-mono font-bold text-white">
+                    <td className="text-center px-4 py-3 font-mono font-bold text-gray-900">
                       {election.fptpSeats}
                     </td>
                   )}
                   {hasPR && (
-                    <td className="text-center px-4 py-3 font-mono font-bold text-white">
+                    <td className="text-center px-4 py-3 font-mono font-bold text-gray-900">
                       {election.prSeats}
                     </td>
                   )}
                   {hasNominated && (
-                    <td className="text-center px-4 py-3 font-mono font-bold text-white">
+                    <td className="text-center px-4 py-3 font-mono font-bold text-gray-900">
                       {election.nominatedSeats}
                     </td>
                   )}
-                  <td className="text-center px-4 py-3 font-mono font-bold text-white">
+                  <td className="text-center px-4 py-3 font-mono font-bold text-gray-900">
                     {election.totalSeats}
                   </td>
                   <td className="px-6 py-3 font-mono text-gray-700">100%</td>
@@ -279,7 +300,7 @@ export default function ElectionYearPage() {
 
         {/* Visual seat distribution */}
         <div className="bg-surface border border-neutral rounded-2xl p-6">
-          <h2 className="text-lg font-semibold text-white mb-4">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">
             Parliament Composition
           </h2>
           <div className="space-y-3">

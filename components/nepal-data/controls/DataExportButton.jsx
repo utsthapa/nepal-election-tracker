@@ -18,7 +18,7 @@ export default function DataExportButton({
   variant = 'secondary',
 }) {
   const handleExport = () => {
-    if (!data) return;
+    if (!data) {return;}
 
     // Convert data to CSV
     const csvContent = convertToCSV(data);
@@ -72,11 +72,11 @@ export default function DataExportButton({
  * Helper: Convert data to CSV string
  */
 function convertToCSV(data) {
-  if (!data) return '';
+  if (!data) {return '';}
 
   // Handle array of objects
   if (Array.isArray(data)) {
-    if (data.length === 0) return '';
+    if (data.length === 0) {return '';}
 
     const headers = Object.keys(data[0]);
     const csvRows = [];

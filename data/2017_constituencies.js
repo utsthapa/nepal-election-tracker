@@ -10,7 +10,7 @@
 
 // Existing constituencies (with placeholder 2017 data)
 const constituencies_2017 = constituencies.filter(c => {
-  c.id === 'P1-Jhapa-5' || c.id === 'P3-Chitwan-2' || c.id === 'P3-Kathmandu-1' ||
+  return c.id === 'P1-Jhapa-5' || c.id === 'P3-Chitwan-2' || c.id === 'P3-Kathmandu-1' ||
   c.id === 'P3-Kathmandu-2' || c.id === 'P1-Chitwan-1' || c.id === 'P3-Chitwan-3' ||
   c.id === 'P3-Chitwan-4' || c.id === 'P3-Kathmandu-5' ||
   c.id === 'P1-Chitwan-6' || c.id === 'P3-Chitwan-7' ||

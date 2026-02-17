@@ -1,0 +1,1416 @@
+[
+  {
+    "constituency": "Taplejung 1",
+    "winner": "Mani Lama",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Taplejung 2",
+    "winner": "Ambika Sawa",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Panchthar 1",
+    "winner": "Dipak Prakash Baskota",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Panchthar 2",
+    "winner": "Padma Sundar Lawati",
+    "party": "RPP (Chand)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Ilam 1",
+    "winner": "Jhala Nath Khanal",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Ilam 2",
+    "winner": "Kul Bahadur Gurung",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Ilam 3",
+    "winner": "Padam Bhandari",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Jhapa 1",
+    "winner": "Pushpa Raj Pokharel",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Jhapa 2",
+    "winner": "Chandra Prakash Mainali",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Jhapa 3",
+    "winner": "Devi Prasad Ojha",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Jhapa 4",
+    "winner": "Chakra Prasad Bastola",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Jhapa 5",
+    "winner": "Radha Krishna Mainali",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Jhapa 6",
+    "winner": "K.P. Sharma Oli",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Sankhuwasabha 1",
+    "winner": "Dedh Raj Khadka",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Sankhuwasabha 2",
+    "winner": "Hari Bairagi Dahal",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Tehrathum 1",
+    "winner": "Surendra Kumar Phambo",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Bhojpur 1",
+    "winner": "Hemraj Rai",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Bhojpur 2",
+    "winner": "Dhan Harka Rai",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dhankuta 1",
+    "winner": "Rakam Chemjong",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dhankuta 2",
+    "winner": "Surya Bahadur Thapa",
+    "party": "Rastriya Prajatantra Party",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Morang 1",
+    "winner": "Girija Prasad Koirala",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Morang 2",
+    "winner": "Bharat Mohan Adhikari",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Morang 3",
+    "winner": "Badri Narayan Basnet",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Morang 4",
+    "winner": "Harka Man Tamang",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Morang 5",
+    "winner": "Kamal Prasad Koirala",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Morang 6",
+    "winner": "Guru Prasad Baral",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Morang 7",
+    "winner": "Shailaja Acharya",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Sunsari 1",
+    "winner": "Lila Shrestha Subba",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Sunsari 2",
+    "winner": "Bijay Kumar Gachhadar",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Sunsari 3",
+    "winner": "Laxman Prasad Mehta",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Sunsari 4",
+    "winner": "Hari Nath Bastola",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Sunsari 5",
+    "winner": "Jagadish Prasad Kusiyat",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Solukhumbu 1",
+    "winner": "Bal Bahadur K.C.",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Khotang 1",
+    "winner": "Tanka Rai",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Khotang 2",
+    "winner": "Ashok Kumar Rai",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Okhaldhunga 1",
+    "winner": "Chandra Kanta Dahal",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Udayapur 1",
+    "winner": "Laxmi Narayan Chaudhary",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Udayapur 2",
+    "winner": "Bishnu Bahadur Raut",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Saptari 1",
+    "winner": "Jay Prakash Gupta",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Saptari 2",
+    "winner": "Gajendra Narayan Singh",
+    "party": "Nepal Sadbhawana Party",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Saptari 3",
+    "winner": "Anis Ansari",
+    "party": "Nepal Sadbhawana Party",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Saptari 4",
+    "winner": "Dan Lal Chaudhary",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Saptari 5",
+    "winner": "Ganga Prasad Chaudhary",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Siraha 1",
+    "winner": "Padma Narayan Chaudhary",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Siraha 2",
+    "winner": "Narendra Raj Pokharel",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Siraha 3",
+    "winner": "Suresh Chandra Das",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Siraha 4",
+    "winner": "Raj Dev Gohit",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Siraha 5",
+    "winner": "Pradip Giri",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dolakha 1",
+    "winner": "Bhim Bahadur Tamang",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dolakha 2",
+    "winner": "Wangche Sherpa",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Ramechhap 1",
+    "winner": "Dev Shankar Paudel",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Ramechhap 2",
+    "winner": "Padhma Shankar Adhikari",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Sindhuli 1",
+    "winner": "Bipin Koirala",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Sindhuli 2",
+    "winner": "Hem Raj Dahal",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Sindhuli 3",
+    "winner": "Dhruba Prakash Sharma",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dhanusha 1",
+    "winner": "Ram Chandra Jha",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dhanusha 2",
+    "winner": "Lila Koirala",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dhanusha 3",
+    "winner": "Ananda Prasad Dhungana",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dhanusha 4",
+    "winner": "Bimalendra Nidhi",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dhanusha 5",
+    "winner": "Ram Lakhan Mahato",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Mahottari 1",
+    "winner": "Mahendra Yadav",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Mahottari 2",
+    "winner": "Mahendra Raya",
+    "party": "RPP (Chand)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Mahottari 3",
+    "winner": "Ram Vilas Yadav",
+    "party": "Rastriya Prajatantra Party",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Mahottari 4",
+    "winner": "Sharat Singh Bhandari",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Sarlahi 1",
+    "winner": "Mahindra Ray Yadav",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Sarlahi 2",
+    "winner": "Mina Pandey",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Sarlahi 3",
+    "winner": "Ram Hari Joshi",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Sarlahi 4",
+    "winner": "Khobari Raya Yadav",
+    "party": "RPP (Chand)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Sarlahi 5",
+    "winner": "Mahantha Thakur",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Rasuwa 1",
+    "winner": "Ram Krishna Udpadhyaya",
+    "party": "RPP (Chand)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dhading 1",
+    "winner": "Budhhiman Tamang",
+    "party": "Rastriya Prajatantra Party",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dhading 2",
+    "winner": "Ganga Lal Tuladhar",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dhading 3",
+    "winner": "Rajendra Prasad Pandey",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Nuwakot 1",
+    "winner": "Prakash Chandra Lohani",
+    "party": "Rastriya Prajatantra Party",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Nuwakot 2",
+    "winner": "Ram Saran Mahat",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Nuwakot 3",
+    "winner": "Arjun Narasingha K.C.",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kathmandu 1",
+    "winner": "Narayan Prasad Dhakal",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kathmandu 2",
+    "winner": "Bidhya Devi Bhandari",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kathmandu 3",
+    "winner": "Man Mohan Adhikari",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kathmandu 4",
+    "winner": "Padma Ratna Tuladhar",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kathmandu 5",
+    "winner": "Rajendra Prasad Shrestha",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kathmandu 6",
+    "winner": "Sahana Pradhan",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kathmandu 7",
+    "winner": "Krishna Gopal Shrestha",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Bhaktapur 1",
+    "winner": "Narayan Man Bijukchhe",
+    "party": "Nepal Workers Peasants Party",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Bhaktapur 2",
+    "winner": "Asha Kaji Basukala",
+    "party": "Nepal Workers Peasants Party",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Lalitpur 1",
+    "winner": "Mitha Ram Sharma",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Lalitpur 2",
+    "winner": "Siddhi Lal Singh",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Lalitpur 3",
+    "winner": "Raghuji Pant",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kavrepalanchok 1",
+    "winner": "Shiva Kumar Deuja",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kavrepalanchok 2",
+    "winner": "Keshab Prasad Badal",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kavrepalanchok 3",
+    "winner": "Govinda Nath Upreti",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Sindhupalchok 1",
+    "winner": "Amrit Kumar Bohara",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Sindhupalchok 2",
+    "winner": "Bishnu Bikram Thapa",
+    "party": "Rastriya Prajatantra Party",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Sindhupalchok 3",
+    "winner": "Pashupati S.J.B. Rana",
+    "party": "Rastriya Prajatantra Party",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Makwanpur 1",
+    "winner": "Kamal Thapa",
+    "party": "Rastriya Prajatantra Party",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Makwanpur 2",
+    "winner": "Birodh Khatiwada",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Makwanpur 3",
+    "winner": "Hiranya Lal Shrestha",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Rautahat 1",
+    "winner": "Bajra Kishor Singh",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Rautahat 2",
+    "winner": "Mohammad Aftab Alam",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Rautahat 3",
+    "winner": "Harihar Prasad Yadav",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Rautahat 4",
+    "winner": "Uddhav Dhakal",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Bara 1",
+    "winner": "Mukunda Neupane",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Bara 2",
+    "winner": "Radhe Chandra Yadav",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Bara 3",
+    "winner": "Purusottam Poudel",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Bara 4",
+    "winner": "Salim Miya Ansari",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Parsa 1",
+    "winner": "Rajiv Parajuli",
+    "party": "Rastriya Prajatantra Party",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Parsa 2",
+    "winner": "Ram Chandra Prasad Kushwaha",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Parsa 3",
+    "winner": "Surendra Prasad Chaudhary",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Parsa 4",
+    "winner": "Ramesh Rijal",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Chitwan 1",
+    "winner": "Jagrit Prasad Bhetwal",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Chitwan 2",
+    "winner": "Kashi Nath Adhikari",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Chitwan 3",
+    "winner": "Gangadhar Lamsal",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Chitwan 4",
+    "winner": "Tirtha Bhusal",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Gorkha 1",
+    "winner": "Chiranjibi Wagle",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Gorkha 2",
+    "winner": "Kamala Devi Panta",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Gorkha 3",
+    "winner": "Chin Kaji Shrestha",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Manang 1",
+    "winner": "Palten Gurung",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Lamjung 1",
+    "winner": "Ram Chandra Adhikari",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Lamjung 2",
+    "winner": "Ram Bahadur Gurung",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kaski 1",
+    "winner": "Khagaraj Adhikari",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kaski 2",
+    "winner": "Tula Bahadur Gurung",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kaski 3",
+    "winner": "Krishna Bahadur Gurung",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Tanahu 1",
+    "winner": "Govinda Raj Joshi",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Tanahu 2",
+    "winner": "Ram Chandra Poudel",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Tanahu 3",
+    "winner": "Amar Raj Kaini",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Syangja 1",
+    "winner": "Trilochan Sharma Dhakal",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Syangja 2",
+    "winner": "Dhruba Raj Lamsal",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Syangja 3",
+    "winner": "Mahendra Thapa",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Gulmi 1",
+    "winner": "Ramnath Dhakal",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Gulmi 2",
+    "winner": "Kamal Raj Shrestha",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Gulmi 3",
+    "winner": "Tanka Prasad Pokharel",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Palpa 1",
+    "winner": "Dal Bahadur Rana Magar",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Palpa 2",
+    "winner": "Som Prasad Pandey",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Palpa 3",
+    "winner": "Bishnu Prasad Paudel",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Arghakhanchi 1",
+    "winner": "Rewati Prasad Bhusal",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Arghakhanchi 2",
+    "winner": "Dhundhi Raj Sharma",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Nawalparasi 1",
+    "winner": "Mahendra Dhoj G.C.",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Nawalparasi 2",
+    "winner": "Majhi Lal Tharu Thanet",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Nawalparasi 3",
+    "winner": "Hridayesh Tripathi",
+    "party": "Nepal Sadbhawana Party",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Nawalparasi 4",
+    "winner": "Devendra Raj Kandel",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Rupandehi 1",
+    "winner": "Duryodhan Singh",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Rupandehi 2",
+    "winner": "Ghanashyam Bhusal",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Rupandehi 3",
+    "winner": "Modanath Prasrit",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Rupandehi 4",
+    "winner": "Jyotendra Mohan Chaudhary",
+    "party": "RPP (Chand)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Rupandehi 5",
+    "winner": "Sarbendra Nath Shukla",
+    "party": "Rastriya Prajatantra Party",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kapilvastu 1",
+    "winner": "Kamlesh Kumar Sharma",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kapilvastu 2",
+    "winner": "Dip Kumar Upadhaya",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kapilvastu 3",
+    "winner": "Bishnu Raj Acharya",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Mustang 1",
+    "winner": "Sushil Man Sherchan",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Myagdi 1",
+    "winner": "Nil Bahadur Tilija",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Baglung 1",
+    "winner": "Govinda Adhikari",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Baglung 2",
+    "winner": "Min Bahadur Khatri",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Baglung 3",
+    "winner": "Pari Thapa",
+    "party": "Rastriya Janamorcha",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Parbat 1",
+    "winner": "Indu Sharma Paudel",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Parbat 2",
+    "winner": "Dev Bahadur Paudel Chhettri",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Rukum 1",
+    "winner": "Krishna Prasad Gautam",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Rukum 2",
+    "winner": "Gopalji Jang Shahi",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Rolpa 1",
+    "winner": "Balaram Gharti Magar",
+    "party": "Rastriya Prajatantra Party",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Rolpa 2",
+    "winner": "Surendra Hamal",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Pyuthan 1",
+    "winner": "Shiva Raj Subedi",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Pyuthan 2",
+    "winner": "Nava Raj Subedi",
+    "party": "Rastriya Janamorcha",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Salyan 1",
+    "winner": "Rajendra Bahadur Shah",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Salyan 2",
+    "winner": "Chhabi Prasad Devkota",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dang Deukhuri 1",
+    "winner": "Hari Prasad Chaudhary",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dang Deukhuri 2",
+    "winner": "Bal Dev Sharma",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dang Deukhuri 3",
+    "winner": "Shankar Pokharel",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dang Deukhuri 4",
+    "winner": "Khum Bahadur Khadka",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dolpa 1",
+    "winner": "Moti Prasad Pahadi",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Mugu 1",
+    "winner": "Hasta Bahadur Malla",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Jumla 1",
+    "winner": "Bhakta Bahadur Rokaya",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kalikot 1",
+    "winner": "Yagya Raj Neupane",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Humla 1",
+    "winner": "Chakra Bahadur Shahi",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Jajarkot 1",
+    "winner": "Jhalak Nath Wagle",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Jajarkot 2",
+    "winner": "Dipak Jung Shah",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dailekh 1",
+    "winner": "Ganesh Bahadur Khadka",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dailekh 2",
+    "winner": "Binod Kumar Shah",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Surkhet 1",
+    "winner": "Purna Bahadur Khadka",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Surkhet 2",
+    "winner": "Yam Lal Kandel",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Surkhet 3",
+    "winner": "Shiv Raj Joshi",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Banke 1",
+    "winner": "Prem Bahadur Bhandari",
+    "party": "RPP (Chand)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Banke 2",
+    "winner": "Shanti SJB Rana",
+    "party": "Rastriya Prajatantra Party",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Banke 3",
+    "winner": "Fateh Singh Tharu",
+    "party": "RPP (Chand)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Bardiya 1",
+    "winner": "Bam Dev Gautam",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Bardiya 2",
+    "winner": "Shyam Dhakal",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Bardiya 3",
+    "winner": "Kashi Ram Tharu",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Bajura 1",
+    "winner": "Hikmat Bahadur Shahi",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Bajhang 1",
+    "winner": "Bhanu Bhakta Joshi",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Bajhang 2",
+    "winner": "Naresh Bahadur Singh",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Achham 1",
+    "winner": "Bhim Bahadur Rawal",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Achham 2",
+    "winner": "Bhim Bahadur Kathayat",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Doti 1",
+    "winner": "Bhakta Bahadur Balayar",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Doti 2",
+    "winner": "Siddha Raj Ojha",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kailali 1",
+    "winner": "Himanchal Raj Bhattarai",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kailali 2",
+    "winner": "Ram Janam Chaudhary",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kailali 3",
+    "winner": "Chandra Chaudhary",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kailali 4",
+    "winner": "Maheshwar Pathak",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Dadeldhura 1",
+    "winner": "Sher Bahadur Deuba",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Baitadi 1",
+    "winner": "Keshav Bahadur Chand",
+    "party": "Nepali Congress",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Baitadi 2",
+    "winner": "Lokendra Bahadur Chand",
+    "party": "RPP (Chand)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kanchanpur 1",
+    "winner": "Ram Kumar Gyawali",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kanchanpur 2",
+    "winner": "Bhojraj Joshi",
+    "party": "CPN (Marxist\u2013Leninist)",
+    "votes": null,
+    "percentage": null
+  },
+  {
+    "constituency": "Kanchanpur 3",
+    "winner": "Urbadutta Pant",
+    "party": "CPN (UML)",
+    "votes": null,
+    "percentage": null
+  }
+]

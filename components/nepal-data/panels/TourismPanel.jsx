@@ -1,12 +1,13 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import TimeSeriesChart from '../charts/TimeSeriesChart';
+
 import HeatmapChart from '../charts/HeatmapChart';
-import ChartContainer from '../shared/ChartContainer';
+import TimeSeriesChart from '../charts/TimeSeriesChart';
 import TimeRangeSelector from '../controls/TimeRangeSelector';
-import { transformTimeSeriesData, filterByTimeRange } from '@/utils/macroDataUtils';
+import ChartContainer from '../shared/ChartContainer';
 import { YEARS, TOURISM, DATA_METADATA } from '@/data/nepalMacroData';
+import { transformTimeSeriesData, filterByTimeRange } from '@/utils/macroDataUtils';
 
 /**
  * Tourism Panel

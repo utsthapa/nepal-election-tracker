@@ -1,13 +1,10 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
   BarChart3,
   Users,
   MapPin,
-  TrendingUp,
   BookOpen,
   ExternalLink,
   Info,
@@ -15,21 +12,21 @@ import {
   ChevronUp,
   Search
 } from 'lucide-react';
-import { Header } from '../../components/Header';
+import { useState, useMemo } from 'react';
+
 import { Footer } from '../../components/Footer';
-import { DemographicsPanel, AgeDistributionMini } from '../../components/DemographicsPanel';
+import { Header } from '../../components/Header';
+import { PROVINCES } from '../../data/constituencies';
 import {
   DISTRICT_DEMOGRAPHICS,
   PROVINCE_DEMOGRAPHICS,
   AGE_GROUP_LABELS
 } from '../../data/demographics';
 import {
-  getConstituencyDemographics,
   getYouthIndex,
   getDependencyRatio,
   getAgeGroupColor
 } from '../../utils/demographicUtils';
-import { constituencies, PROVINCES } from '../../data/constituencies';
 
 // Data sources with descriptions
 const DATA_SOURCES = [
@@ -108,7 +105,7 @@ export default function DemographicsPage() {
 
   // Filter districts by search
   const filteredDistricts = useMemo(() => {
-    if (!searchTerm) return districts;
+    if (!searchTerm) {return districts;}
     const term = searchTerm.toLowerCase();
     return districts.filter(d => d.name.toLowerCase().includes(term));
   }, [districts, searchTerm]);
@@ -197,7 +194,7 @@ export default function DemographicsPage() {
                   className="w-full flex items-center justify-between p-4 hover:bg-neutral/30 transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold text-sm">
+                    <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center text-blue-800 font-bold text-sm">
                       {idx + 1}
                     </div>
                     <div className="text-left">
@@ -273,8 +270,8 @@ export default function DemographicsPage() {
                   <p className="text-sm text-foreground/80">{section.content}</p>
                 </div>
               ))}
-              <div className="mt-4 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-                <p className="text-xs text-yellow-400">
+              <div className="mt-4 p-3 bg-yellow-100 border border-yellow-300 rounded-lg">
+                <p className="text-xs text-yellow-900">
                   <strong>Transparency Note:</strong> These are estimates based on the best available public data.
                   Actual constituency-level demographics may differ. We encourage verification with official sources for critical analysis.
                 </p>
@@ -342,7 +339,7 @@ export default function DemographicsPage() {
           {/* Age legend */}
           <div className="flex items-center gap-4 mb-4 text-xs text-muted">
             <span>Age bars:</span>
-            {Object.entries(AGE_GROUP_LABELS).map(([key, label]) => (
+            {Object.entries(AGE_GROUP_LABELS).map(([key]) => (
               <span key={key} className="flex items-center gap-1">
                 <span
                   className="w-2 h-2 rounded-full"

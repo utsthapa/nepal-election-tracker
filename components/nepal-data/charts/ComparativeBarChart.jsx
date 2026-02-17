@@ -11,7 +11,8 @@ import {
   ResponsiveContainer,
   Cell,
 } from 'recharts';
-import { formatCurrency, formatPercentage, formatNumber } from '@/utils/macroDataUtils';
+
+import { formatCurrency, formatNumber } from '@/utils/macroDataUtils';
 
 /**
  * Comparative Bar Chart Component
@@ -70,7 +71,7 @@ export default function ComparativeBarChart({
 
   // Custom tooltip
   const CustomTooltip = ({ active, payload, label }) => {
-    if (!active || !payload || payload.length === 0) return null;
+    if (!active || !payload || payload.length === 0) {return null;}
 
     return (
       <div className="bg-white border border-gray-300 rounded-lg shadow-lg p-4">

@@ -1,5 +1,6 @@
-import { useMemo } from 'react';
 import { motion } from 'framer-motion';
+import { useMemo } from 'react';
+
 import { PARTIES, INITIAL_NATIONAL } from '../data/constituencies';
 
 const partyOrder = Object.keys(INITIAL_NATIONAL);
@@ -12,7 +13,7 @@ export function PRBlockChart({ prSeats, nationalVoteShares = {}, threshold = 3, 
 
   const methodLabel = method === 'dhondt'
     ? "D'Hondt (1,2,3 divisors)"
-    : 'Modified Sainte-Laguë (0.7,1.5,2.5...)';
+    : 'Sainte-Laguë (1,3,5,7...)';
 
   // Dynamic color classes
   const bgColors = {};
@@ -54,7 +55,7 @@ export function PRBlockChart({ prSeats, nationalVoteShares = {}, threshold = 3, 
             const seats = prSeats[party] || 0;
             const percentage = totalSeats > 0 ? (seats / 110) * 100 : 0;
 
-            if (seats === 0) return null;
+            if (seats === 0) {return null;}
 
             return (
               <motion.div

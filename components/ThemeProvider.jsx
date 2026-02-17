@@ -25,7 +25,7 @@ export function ThemeProvider({ children }) {
 
   // Persist and apply theme
   useEffect(() => {
-    if (!mounted) return
+    if (!mounted) {return}
     document.documentElement.setAttribute('data-theme', theme)
     localStorage.setItem('theme', theme)
   }, [theme, mounted])

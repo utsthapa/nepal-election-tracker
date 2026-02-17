@@ -1,8 +1,9 @@
 import Image from 'next/image'
-import { CodeBlock } from './CodeBlock'
-import { Chart } from './Chart'
-import { Table } from './Table'
+
 import { Callout } from './Callout'
+import { Chart } from './Chart'
+import { CodeBlock } from './CodeBlock'
+import { Table } from './Table'
 
 export const mdxComponents = {
   h1: ({ children }) => (

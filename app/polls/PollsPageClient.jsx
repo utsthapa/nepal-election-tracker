@@ -1,10 +1,11 @@
 'use client'
 
-import Link from 'next/link'
 import { format } from 'date-fns'
 import { BarChart3, TrendingUp, Users, AlertCircle } from 'lucide-react'
-import { PARTIES } from '../../data/constituencies'
+import Link from 'next/link'
+
 import { useLanguage } from '../../context/LanguageContext'
+import { PARTIES } from '../../data/constituencies'
 
 export default function PollsPageClient({ polls, trends }) {
   const { language, t } = useLanguage()
@@ -118,7 +119,7 @@ export default function PollsPageClient({ polls, trends }) {
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs font-medium">
+                      <span className="px-2 py-1 bg-blue-100 text-blue-900 rounded text-xs font-medium">
                         {poll.rating}
                       </span>
                       <span className="text-xs text-gray-800">

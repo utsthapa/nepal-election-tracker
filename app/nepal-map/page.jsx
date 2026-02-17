@@ -1,7 +1,8 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { MapPin } from 'lucide-react';
+import dynamic from 'next/dynamic';
+
 import { SimpleHeader } from '../../components/SimpleHeader';
 import { PARTIES } from '../../data/constituencies';
 

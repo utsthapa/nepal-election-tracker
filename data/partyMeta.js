@@ -12,6 +12,8 @@ export const PARTY_FEMALE_SHARE = {
   LSP: 0.30,
   NUP: 0.33,
   Independent: 0.25,
+  NMKP: 0.28,
+  Janamorcha: 0.30,
   Others: 0.30,
 };
 
@@ -29,8 +31,10 @@ export const IDEOLOGY_COORDS = {
   LSP: { econ: 0.05, federal: 0.28, geo: 0.05 },
   NUP: { econ: 0.00, federal: 0.32, geo: 0.05 },
   Independent: { econ: 0.05, federal: 0.15, geo: 0.05 },
+  NMKP: { econ: -0.60, federal: -0.10, geo: -0.05 },
+  Janamorcha: { econ: -0.50, federal: -0.15, geo: -0.10 },
   Others: { econ: 0.00, federal: 0.00, geo: 0.00 },
 };
 
-export const ALTERNATIVE_PARTIES = ['RSP', 'JP', 'Independent', 'NUP'];
+export const ALTERNATIVE_PARTIES = ['RSP', 'JP', 'Independent', 'NUP', 'NMKP', 'Janamorcha'];
 

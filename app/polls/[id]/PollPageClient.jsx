@@ -1,10 +1,12 @@
 'use client'
 
-import Link from 'next/link'
 import { format } from 'date-fns'
-import { PARTIES } from '../../../data/constituencies'
-import { useLanguage } from '../../../context/LanguageContext'
 import { ArrowLeft, TrendingUp, Users, AlertCircle, Calendar } from 'lucide-react'
+import Link from 'next/link'
+
+import { useLanguage } from '../../../context/LanguageContext'
+import { PARTIES } from '../../../data/constituencies'
+
 
 export default function PollPageClient({ poll }) {
   const { language, t } = useLanguage()
@@ -32,9 +34,9 @@ export default function PollPageClient({ poll }) {
         <div className="bg-surface border border-neutral rounded-xl p-6 mb-6">
           <div className="flex items-center gap-2 mb-4">
             <span className={`px-3 py-1 rounded-full text-sm font-bold ${
-              poll.rating.startsWith('A') ? 'bg-green-500/20 text-green-400' :
-              poll.rating.startsWith('B') ? 'bg-yellow-500/20 text-yellow-400' :
-              'bg-red-500/20 text-red-400'
+              poll.rating.startsWith('A') ? 'bg-green-100 text-green-900' :
+              poll.rating.startsWith('B') ? 'bg-yellow-100 text-yellow-900' :
+              'bg-red-100 text-red-900'
             }`}>
               {poll.rating}
             </span>
@@ -99,8 +101,8 @@ export default function PollPageClient({ poll }) {
             {methodology}
           </p>
           {notes && (
-            <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
-              <p className="text-sm text-blue-300">
+            <div className="bg-blue-100 border border-blue-300 rounded-lg p-4">
+              <p className="text-sm text-blue-900">
                 <strong>{language === 'ne' ? 'टिप्पणी:' : 'Notes:'}</strong> {notes}
               </p>
             </div>
@@ -168,8 +170,8 @@ export default function PollPageClient({ poll }) {
         </div>
 
         {/* Disclaimer */}
-        <div className="mt-6 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-          <p className="text-sm text-yellow-400">
+        <div className="mt-6 p-4 bg-yellow-100 border border-yellow-300 rounded-lg">
+          <p className="text-sm text-yellow-900">
             <strong>{language === 'ne' ? 'अस्वीकरण:' : 'Disclaimer:'}</strong> {language === 'ne'
               ? 'यो मतदान एक नमूना हो र वास्तविक निर्वाचन परिणाम परिनामलाई प्रतिबिम्बित गर्न सक्छ। मतदानहरूमा त्रुटि हुन्छ र यो जानकारी मात्र सन्दर्भको लागि प्रदान गरिएको हो।'
               : 'This poll is a sample and may not reflect actual election results. Polls have margins of error and this information is provided for reference purposes only.'

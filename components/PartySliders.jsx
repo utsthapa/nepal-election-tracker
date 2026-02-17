@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
+
 import { PARTIES, INITIAL_NATIONAL } from '../data/constituencies';
+import { getPartyBgColor, getPartyTextColor, getPartySliderClass } from '../lib/partyColors';
 
 const partyOrder = Object.keys(INITIAL_NATIONAL);
 
@@ -54,16 +56,8 @@ export function PartySliders({
 
 function PartySlider({ party, value, fptpSeats, prSeats, totalSeats, onChange, delay, showFptp, showPr }) {
   const partyInfo = PARTIES[party];
-  const colorClass = `slider-${party.toLowerCase()}`;
+  const colorClass = getPartySliderClass(party);
   const fillPercent = Math.max(0, Math.min(100, value ?? 0));
-
-  // Dynamic color classes
-  const bgColors = {};
-  const textColors = {};
-  Object.keys(PARTIES).forEach(p => {
-    bgColors[p] = `bg-${p.toLowerCase()}`;
-    textColors[p] = `text-${p.toLowerCase()}`;
-  });
 
   // Show relevant seat count based on slider type
   const relevantSeats = showFptp ? fptpSeats : showPr ? prSeats : totalSeats;
@@ -78,7 +72,7 @@ function PartySlider({ party, value, fptpSeats, prSeats, totalSeats, onChange, d
     >
       <div className="flex items-center justify-between mb-1">
         <div className="flex items-center gap-2">
-          <div className={`w-2.5 h-2.5 rounded-full ${bgColors[party]}`} />
+          <div className={`w-2.5 h-2.5 rounded-full ${getPartyBgColor(party)}`} />
           <div className="leading-tight">
             <span className="block text-xs font-medium text-foreground">
               {partyInfo.short}
@@ -89,14 +83,14 @@ function PartySlider({ party, value, fptpSeats, prSeats, totalSeats, onChange, d
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <span className={`font-mono text-sm font-bold ${textColors[party]}`}>
+          <span className={`font-mono text-sm font-bold ${getPartyTextColor(party)}`}>
             {(value ?? 0).toFixed(2)}%
           </span>
           <motion.span
             key={relevantSeats}
             initial={{ scale: 1.2 }}
             animate={{ scale: 1 }}
-            className={`font-mono text-xs ${textColors[party]}`}
+            className={`font-mono text-xs ${getPartyTextColor(party)}`}
           >
             {seatLabel}: {relevantSeats}
           </motion.span>
@@ -115,6 +109,11 @@ function PartySlider({ party, value, fptpSeats, prSeats, totalSeats, onChange, d
           style={{
             background: `linear-gradient(to right, ${partyInfo.color} 0%, ${partyInfo.color} ${fillPercent}%, #1e293b ${fillPercent}%, #1e293b 100%)`,
           }}
+          aria-label={`${partyInfo.name} vote share`}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(value ?? 0)}
+          aria-valuetext={`${(value ?? 0).toFixed(2)}%`}
         />
       </div>
     </motion.div>

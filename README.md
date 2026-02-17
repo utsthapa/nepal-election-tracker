@@ -6,7 +6,7 @@ A comprehensive Next.js application for simulating, analyzing, and forecasting N
 
 - **Interactive Constituency Map** - Visualize election results across all 165 constituencies with hover details
 - **Election Simulator** - Adjust party vote shares and see real-time seat projections using Sainte-Laguë method
-- **Forecast Dashboard** - View election forecasts with Bayesian modeling and demographic signals
+- **Forecast Dashboard** - View election forecasts with demographic modeling and historical patterns
 - **Historical Data** - Access 2022 election results with partial 2017 data
 - **Demographic Analysis** - Explore constituency-level population, urbanization, and literacy data
 - **Polling Aggregation** - Track public opinion polls over time
@@ -73,7 +73,7 @@ npm start
   ConstituencyMap.jsx   # Leaflet-based map
   NepalMap.jsx          # SVG-based map
   ElectionSimulator.jsx # Main simulator UI
-  BayesianControlPanel  # Forecast controls
+  AdvancedControls.jsx  # Advanced simulation settings
   [... 20+ more]
 
 /data                   # Election data & GeoJSON
@@ -121,15 +121,15 @@ npm start
 
 ### Election Simulator
 
-Uses the **Modified Sainte-Laguë method** (divisor: 1.4, 1, 3, 5, 7...) for proportional representation seat allocation, matching Nepal's electoral system. Supports:
+Uses the **Sainte-Laguë method** (divisor: 1, 3, 5, 7...) for proportional representation seat allocation, matching Nepal's electoral system. Supports:
 - Separate FPTP and PR vote adjustments
 - Constituency-level overrides
 - Alliance/coalition simulations
 - Vote transfer matrices
 
-### Bayesian Forecasting
+### Demographic Forecasting
 
-Incorporates demographic signals (youth, urban, literacy) as priors for constituency-level predictions, with adjustable confidence parameters.
+Incorporates demographic patterns (age groups, urban/rural, provincial, literacy levels) for constituency-level predictions with scenario-based modeling.
 
 ### Interactive Maps
 

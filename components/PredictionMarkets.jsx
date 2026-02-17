@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
 import { TrendingUp, ExternalLink, Activity, Clock, ArrowUpRight } from 'lucide-react'
+import Link from 'next/link'
+import { useState, useEffect } from 'react'
+
 import { getPredictionMarkets } from '../data/predictionMarkets'
 
 export default function PredictionMarkets() {

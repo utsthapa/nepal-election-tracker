@@ -68,12 +68,19 @@ export function calculateAdjustedResults(baseline, globalShifts, initialValues =
   parties.forEach(party => {
     // Calculate shift: (current slider - initial slider) / 100
     const shift = (globalShifts[party] - initialValues[party]) / 100;
-    // Apply shift to baseline, clamped between 0.01 and 0.99
-    adjusted[party] = Math.max(0.01, Math.min(0.99, baseline[party] + shift));
+    // Apply shift to baseline, clamped between 0 and 1
+    adjusted[party] = Math.max(0, Math.min(1, baseline[party] + shift));
   });
 
   // Normalize to sum to 1
   const total = Object.values(adjusted).reduce((a, b) => a + b, 0);
+  if (total <= 0) {
+    const equalShare = 1 / parties.length;
+    parties.forEach(party => {
+      adjusted[party] = equalShare;
+    });
+    return adjusted;
+  }
   parties.forEach(party => {
     adjusted[party] = adjusted[party] / total;
   });
@@ -166,14 +173,16 @@ export function calculateAllFPTPResults(
  */
 export function countFPTPSeats(fptpResults) {
   const counts = {};
-  // Initialize counts for all parties
-  Object.keys(PARTIES).forEach(party => {
+  // Initialize counts for simulator parties and fold small parties into Others
+  Object.keys(INITIAL_NATIONAL).forEach(party => {
     counts[party] = 0;
   });
 
   Object.values(fptpResults).forEach(result => {
     if (counts.hasOwnProperty(result.winner)) {
       counts[result.winner]++;
+    } else if (counts.hasOwnProperty('Others')) {
+      counts.Others++;
     }
   });
 

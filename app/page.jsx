@@ -1,10 +1,11 @@
 'use client'
 
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import { ArrowUpRight, BarChart3, Calendar } from 'lucide-react';
-import { Header } from '../components/Header';
+import Link from 'next/link';
+
 import { Footer } from '../components/Footer';
+import { Header } from '../components/Header';
 import { ELECTIONS } from '../data/historicalElections';
 
 // Article card component
@@ -40,7 +41,7 @@ function ArticleCard({ title, excerpt, category, date, href, delay = 0 }) {
 // 2022 Results widget
 function ResultsWidget() {
   const election2022 = ELECTIONS[2022];
-  if (!election2022) return null;
+  if (!election2022) {return null;}
 
   return (
     <div className="border-2 border-gray-200 rounded-lg p-8 hover:border-red-600 transition-colors">
@@ -92,20 +93,7 @@ export default function HomePage() {
       <Header />
 
       <main className="max-w-7xl mx-auto px-4 py-12">
-        {/* Masthead */}
-        <div className="text-center mb-16 pb-12 border-b-4 border-gray-200">
-          <h1 className="font-spectral text-6xl md:text-7xl font-bold text-gray-900 mb-4">
-            NepaliSoch
-          </h1>
-          <p className="text-lg text-gray-600 tracking-[0.3em] uppercase font-medium">
-            Data-Driven Nepal Politics
-          </p>
-          <div className="mt-6 flex items-center justify-center gap-6 text-sm text-gray-500 font-data">
-            <span>February 13, 2026</span>
-            <span>•</span>
-            <span>Kathmandu, Nepal</span>
-          </div>
-        </div>
+
 
         {/* Hero Article */}
         <div className="mb-20">

@@ -1,12 +1,8 @@
-import { useMemo, useState } from 'react';
 import { Users, Target, RotateCcw } from 'lucide-react';
+import { useMemo, useState } from 'react';
+
 import { PARTIES } from '../data/constituencies';
 import { MAJORITY_THRESHOLD, TOTAL_SEATS } from '../utils/calculations';
-
-function formatPartyLabel(partyId) {
-  const info = PARTIES[partyId];
-  return info ? `${info.short} (${info.name})` : partyId;
-}
 
 export function CoalitionBuilder({ totalSeats, fptpResults }) {
   const [selectedParties, setSelectedParties] = useState([]);
@@ -21,7 +17,7 @@ export function CoalitionBuilder({ totalSeats, fptpResults }) {
       if (isSelected) {
         return current.filter((p) => p !== party);
       }
-      if (current.length >= 4) return current;
+      if (current.length >= 4) {return current;}
       return [...current, party];
     });
   };
@@ -118,15 +114,15 @@ export function CoalitionBuilder({ totalSeats, fptpResults }) {
           <p className="text-2xl font-bold text-foreground mt-1">{coalitionTotals.combinedSeats}</p>
           <p className="text-xs font-mono text-muted">Across FPTP + PR</p>
         </div>
-        <div className="rounded-xl border-amber-500/30 bg-amber-500/10 p-3">
-          <p className="text-[11px] uppercase tracking-[0.12em] text-amber-200">To majority</p>
+        <div className="rounded-xl border-amber-300 bg-amber-100 p-3">
+          <p className="text-[11px] uppercase tracking-[0.12em] text-amber-900">To majority</p>
           <div className="flex items-baseline gap-2 mt-1">
-            <p className="text-2xl font-bold text-amber-100">
+            <p className="text-2xl font-bold text-amber-950">
               {coalitionTotals.seatsNeeded === 0 ? 'Locked' : coalitionTotals.seatsNeeded}
             </p>
-            <Target className="w-4 h-4 text-amber-200" />
+            <Target className="w-4 h-4 text-amber-800" />
           </div>
-          <p className="text-xs font-mono text-amber-100/80">
+          <p className="text-xs font-mono text-amber-800">
             {coalitionTotals.seatsNeeded === 0 ? 'Clears 138' : 'Seats to reach 138'}
           </p>
         </div>

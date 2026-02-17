@@ -1,0 +1,10 @@
+{
+  "enabledPlugins": {
+    "ralph-loop@claude-plugins-official": true
+  },
+  "permissions": {
+    "allow": [
+      "Bash(taskkill:*)"
+    ]
+  }
+}

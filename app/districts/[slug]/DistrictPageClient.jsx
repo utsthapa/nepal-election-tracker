@@ -1,7 +1,5 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import Link from 'next/link';
 import {
   ArrowLeft,
   MapPin,
@@ -11,16 +9,19 @@ import {
   SlidersHorizontal,
   Sparkles,
 } from 'lucide-react';
-import { PartySliders } from '../../../components/PartySliders';
+import Link from 'next/link';
+import { useMemo, useState } from 'react';
+
 import { ConstituencyResultCard } from '../../../components/ConstituencyResultCard';
 import { DistrictCoalitionBuilder } from '../../../components/DistrictCoalitionBuilder';
+import { PartySliders } from '../../../components/PartySliders';
 import { PARTIES, INITIAL_NATIONAL } from '../../../data/constituencies';
+import { AGE_GROUP_LABELS } from '../../../data/demographics';
 import {
   adjustZeroSumSliders,
   calculateAdjustedResults,
   determineFPTPWinner,
 } from '../../../utils/calculations';
-import { AGE_GROUP_LABELS } from '../../../data/demographics';
 import { getYouthIndex, getDependencyRatio, getAgeGroupColor } from '../../../utils/demographicUtils';
 
 const orderedParties = Object.keys(INITIAL_NATIONAL);
@@ -96,7 +97,7 @@ export default function DistrictPageClient({ district, demographics }) {
       if (current.includes(party)) {
         return current.filter((p) => p !== party);
       }
-      if (current.length >= 4) return current;
+      if (current.length >= 4) {return current;}
       return [...current, party];
     });
   };

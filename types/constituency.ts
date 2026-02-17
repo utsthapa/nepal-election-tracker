@@ -9,7 +9,8 @@ export interface Constituency {
   province: number;                     // Province number (1-7)
   winner2022: string;                   // Winning party in 2022
   results2022: Record<string, number>;  // Party vote shares in 2022
-  totalVotes2022: number;               // Total votes cast in 2022
+  totalVotes2022?: number;              // Total votes cast in 2022 (preferred)
+  totalVotes?: number;                  // Alias for totalVotes2022 (for backward compatibility)
   margin?: number;                      // Victory margin (percentage)
   turnout?: number;                     // Voter turnout (percentage)
   demographics?: Demographics;          // Demographic data

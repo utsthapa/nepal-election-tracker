@@ -1,10 +1,11 @@
 'use client'
 
-import { useState } from 'react'
-import { useLanguage } from '../../context/LanguageContext'
 import { Mail, CheckCircle, ArrowRight, Archive } from 'lucide-react'
-import { Header } from '../../components/Header'
+import { useState } from 'react'
+
 import { Footer } from '../../components/Footer'
+import { Header } from '../../components/Header'
+import { useLanguage } from '../../context/LanguageContext'
 
 export default function NewsletterPage() {
   const { language, t } = useLanguage()
@@ -130,9 +131,9 @@ export default function NewsletterPage() {
             </div>
           </div>
         ) : (
-          <div className="bg-green-500/10 border border-green-500/30 rounded-2xl p-8 mb-8 text-center">
-            <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-green-400 mb-4">
+          <div className="bg-green-100 border border-green-300 rounded-2xl p-8 mb-8 text-center">
+            <CheckCircle className="w-16 h-16 text-green-700 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-green-900 mb-4">
               {language === 'ne' ? 'धन्यवाद!' : 'Successfully Subscribed!'}
             </h2>
             <p className="text-muted mb-6">
@@ -173,7 +174,7 @@ export default function NewsletterPage() {
               <div key={issue} className="bg-neutral rounded-lg p-4 hover:bg-neutral/80 transition-colors">
                 <div className="flex items-start justify-between mb-2">
                   <div>
-                    <span className="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs font-medium">
+                    <span className="px-2 py-1 bg-blue-100 text-blue-900 rounded text-xs font-medium">
                       {language === 'ne' ? 'समस्या' : 'Issue'}
                     </span>
                     <span className="text-sm text-muted ml-2">

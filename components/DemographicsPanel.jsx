@@ -1,7 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Users, UserCheck, TrendingUp, TrendingDown, Info, BarChart3 } from 'lucide-react';
+import { Users, UserCheck, Info, BarChart3 } from 'lucide-react';
+
+import { AGE_GROUP_LABELS } from '../data/demographics';
 import {
   getConstituencyDemographics,
   formatAgeDataForChart,
@@ -11,10 +13,9 @@ import {
   compareToNationalAverage,
   getAgeGroupColor
 } from '../utils/demographicUtils';
-import { AGE_GROUP_LABELS } from '../data/demographics';
 
 // Age pyramid bar component
-function AgeBar({ group, label, percentage, population, isHighlighted, comparison }) {
+function AgeBar({ group, label, percentage, population, isHighlighted: _isHighlighted, comparison }) {
   const color = getAgeGroupColor(group);
   // Scale bar width: max age group is typically ~35%, so scale to show relative proportions
   // Using 40% as the max reference to make bars visually comparable
@@ -67,10 +68,10 @@ function AgeBar({ group, label, percentage, population, isHighlighted, compariso
 // Stat card component
 function StatCard({ icon: Icon, label, value, subValue, color = 'blue' }) {
   const colorClasses = {
-    blue: 'bg-blue-500/20 text-blue-400',
-    green: 'bg-green-500/20 text-green-400',
-    yellow: 'bg-yellow-500/20 text-yellow-400',
-    purple: 'bg-purple-500/20 text-purple-400'
+    blue: 'bg-blue-100 text-blue-900',
+    green: 'bg-green-100 text-green-900',
+    yellow: 'bg-yellow-100 text-yellow-900',
+    purple: 'bg-purple-100 text-purple-900'
   };
 
   return (
@@ -125,7 +126,7 @@ export function DemographicsPanel({ constituencyId, constituencyName }) {
         </div>
         <div className="text-right">
           <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium ${
-            demographics.confidence === 'high' ? 'bg-green-500/20 text-green-400' : 'bg-yellow-500/20 text-yellow-400'
+            demographics.confidence === 'high' ? 'bg-green-100 text-green-900' : 'bg-yellow-100 text-yellow-900'
           }`}>
             {demographics.confidence === 'high' ? 'District match' : 'Estimated'}
           </span>
@@ -175,21 +176,21 @@ export function DemographicsPanel({ constituencyId, constituencyName }) {
       {/* Age Indices */}
       <div className="grid grid-cols-3 gap-3 mb-6">
         <div className="bg-neutral/30 rounded-lg p-3 text-center">
-          <div className="text-lg font-bold font-mono text-green-400">
+          <div className="text-lg font-bold font-mono text-green-700">
             {(youthIndex * 100).toFixed(2)}%
           </div>
           <div className="text-[10px] text-gray-800">Youth Index</div>
           <div className="text-[9px] text-gray-600">(Under 30)</div>
         </div>
         <div className="bg-neutral/30 rounded-lg p-3 text-center">
-          <div className="text-lg font-bold font-mono text-yellow-400">
+          <div className="text-lg font-bold font-mono text-yellow-700">
             {demographics.medianAge}
           </div>
           <div className="text-[10px] text-gray-800">Median Age</div>
           <div className="text-[9px] text-gray-600">(years)</div>
         </div>
         <div className="bg-neutral/30 rounded-lg p-3 text-center">
-          <div className="text-lg font-bold font-mono text-purple-400">
+          <div className="text-lg font-bold font-mono text-purple-700">
             {(dependencyRatio * 100).toFixed(0)}%
           </div>
           <div className="text-[10px] text-gray-800">Dependency</div>
@@ -203,25 +204,25 @@ export function DemographicsPanel({ constituencyId, constituencyName }) {
         <div className="grid grid-cols-2 gap-2">
           <div className="flex items-center justify-between bg-neutral/20 rounded px-3 py-2">
             <span className="text-xs text-gray-700">Young (18-29)</span>
-            <span className="text-sm font-mono text-green-400">
+            <span className="text-sm font-mono text-green-700">
               {votingBreakdown.youngVoters.toLocaleString()}
             </span>
           </div>
           <div className="flex items-center justify-between bg-neutral/20 rounded px-3 py-2">
             <span className="text-xs text-gray-700">Prime (30-44)</span>
-            <span className="text-sm font-mono text-yellow-400">
+            <span className="text-sm font-mono text-yellow-700">
               {votingBreakdown.primeAge.toLocaleString()}
             </span>
           </div>
           <div className="flex items-center justify-between bg-neutral/20 rounded px-3 py-2">
             <span className="text-xs text-gray-700">Middle (45-59)</span>
-            <span className="text-sm font-mono text-orange-400">
+            <span className="text-sm font-mono text-orange-700">
               {votingBreakdown.middleAge.toLocaleString()}
             </span>
           </div>
           <div className="flex items-center justify-between bg-neutral/20 rounded px-3 py-2">
             <span className="text-xs text-gray-700">Senior (60+)</span>
-            <span className="text-sm font-mono text-red-400">
+            <span className="text-sm font-mono text-red-700">
               {votingBreakdown.seniors.toLocaleString()}
             </span>
           </div>
@@ -258,7 +259,7 @@ export function DemographicsPanel({ constituencyId, constituencyName }) {
 export function DemographicsCompact({ constituencyId }) {
   const demographics = getConstituencyDemographics(constituencyId);
 
-  if (!demographics) return null;
+  if (!demographics) {return null;}
 
   const youthIndex = getYouthIndex(demographics.ageGroups);
 
@@ -272,7 +273,7 @@ export function DemographicsCompact({ constituencyId }) {
       </div>
       <div className="flex items-center gap-1">
         <span className="text-gray-600">Youth:</span>
-        <span className={`font-mono ${youthIndex > 0.55 ? 'text-green-400' : 'text-gray-700'}`}>
+        <span className={`font-mono ${youthIndex > 0.55 ? 'text-green-700' : 'text-gray-700'}`}>
           {(youthIndex * 100).toFixed(0)}%
         </span>
       </div>
@@ -288,7 +289,7 @@ export function DemographicsCompact({ constituencyId }) {
 export function AgeDistributionMini({ constituencyId }) {
   const demographics = getConstituencyDemographics(constituencyId);
 
-  if (!demographics) return null;
+  if (!demographics) {return null;}
 
   return (
     <div className="flex h-4 rounded overflow-hidden bg-neutral/30 w-32">

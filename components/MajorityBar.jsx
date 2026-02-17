@@ -1,5 +1,6 @@
-import { useMemo } from 'react';
 import { AlertTriangle, Check, Sparkles } from 'lucide-react';
+import { useMemo } from 'react';
+
 import { PARTIES } from '../data/constituencies';
 
 const TOTAL_SEATS = 275;
@@ -72,8 +73,8 @@ export function MajorityBar({ totalSeats, leadingParty }) {
     }
 
     winningCombos.sort((a, b) => {
-      if (a.size !== b.size) return a.size - b.size;
-      if (a.surplus !== b.surplus) return a.surplus - b.surplus;
+      if (a.size !== b.size) {return a.size - b.size;}
+      if (a.surplus !== b.surplus) {return a.surplus - b.surplus;}
       return b.seats - a.seats;
     });
 
@@ -85,7 +86,7 @@ export function MajorityBar({ totalSeats, leadingParty }) {
     };
   }, [sortedParties, hasMajority]);
 
-  const { winningCombos, minimalCoalitionSize, coalitionCount, coalitionPaths } = coalitionResults;
+  const { coalitionCount, coalitionPaths } = coalitionResults;
 
   return (
     <div className="relative overflow-hidden rounded-2xl border border-neutral bg-surface p-6">
@@ -93,14 +94,14 @@ export function MajorityBar({ totalSeats, leadingParty }) {
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <div className="flex items-center gap-2 text-sm uppercase tracking-[0.18em] text-muted">
-              <Sparkles className="h-4 w-4 text-amber-200" />
+              <Sparkles className="h-4 w-4 text-amber-600" />
               <span>Path to Majority</span>
             </div>
             <p className="mt-1 text-xs font-mono text-muted">
               {TOTAL_SEATS} seats total · {MAJORITY} needed to govern
             </p>
           </div>
-          <div className={`flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 ${hasMajority ? 'bg-green-500/10 text-green-200' : 'bg-amber-500/10 text-amber-200'}`}>
+          <div className={`flex items-center gap-2 rounded-full border px-4 py-2 ${hasMajority ? 'bg-green-100 text-green-900 border-green-300' : 'bg-amber-100 text-amber-900 border-amber-300'}`}>
             {hasMajority ? <Check className="h-4 w-4" /> : <AlertTriangle className="h-4 w-4" />}
             <span className="text-sm font-semibold">
               {hasMajority ? 'Stable majority' : 'Hung parliament'}
@@ -192,14 +193,14 @@ export function MajorityBar({ totalSeats, leadingParty }) {
         )}
 
         {!hasMajority && coalitionCount === 0 && (
-          <div className="flex items-start gap-2 rounded-lg border border-amber-400/30 bg-amber-500/10 px-3 py-3 text-amber-100">
+          <div className="flex items-start gap-2 rounded-lg border border-amber-300 bg-amber-100 px-3 py-3 text-amber-900">
             <AlertTriangle className="h-4 w-4 mt-0.5" />
             <p className="text-sm">No coalition clears 138 yet. Increase the leading party or add more parties.</p>
           </div>
         )}
 
         {hasMajority && (
-          <div className="flex items-center gap-2 rounded-lg border border-green-500/40 bg-green-500/10 px-3 py-3 text-green-200">
+          <div className="flex items-center gap-2 rounded-lg border border-green-300 bg-green-100 px-3 py-3 text-green-900">
             <Check className="h-4 w-4" />
             <p className="text-sm">{formatPartyLabel(leadingParty)} governs alone with a {leadingSeats - MAJORITY} seat buffer.</p>
           </div>

@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useRef, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Search } from 'lucide-react';
+import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
+
 import { PARTIES, PROVINCES, constituencies } from '../data/constituencies';
-import { getHistoricalWinner, getHistoricalResults, HISTORICAL_CONSTITUENCIES } from '../data/historicalConstituencies';
-import { getConstituencyDemographics, getYouthIndex, getDependencyRatio } from '../utils/demographicUtils';
-import { X, Users, UserCheck, TrendingUp, BarChart3, Vote, ArrowRight, Search, Filter } from 'lucide-react';
+import { getHistoricalWinner, getHistoricalResults } from '../data/historicalConstituencies';
 import { MAP_CONFIG } from '../lib/config';
 
 const buildConstituencyLookup = () => {
@@ -51,34 +51,10 @@ const buildDistrictDominance = () => {
       .sort((a, b) => b[1] - a[1])[0][0];
   }
 
-  return { dominantParties, districtPartyCounts };
+  return { dominantParties };
 };
 
-const { dominantParties, districtPartyCounts } = buildDistrictDominance();
-
-function StatCard({ icon: Icon, label, value, subValue, color = 'blue' }) {
-  const colorClasses = {
-    blue: 'bg-blue-500/20 text-blue-600',
-    green: 'bg-green-500/20 text-green-600',
-    yellow: 'bg-yellow-500/20 text-yellow-600',
-    purple: 'bg-purple-500/20 text-purple-600'
-  };
-
-  return (
-    <div className="bg-neutral/30 rounded-lg p-3">
-      <div className="flex items-center gap-2 mb-1">
-        <div className={`p-1.5 rounded ${colorClasses[color]}`}>
-          <Icon className="w-3.5 h-3.5" />
-        </div>
-        <span className="text-xs text-muted">{label}</span>
-      </div>
-      <div className="text-lg font-bold font-mono text-foreground">{value}</div>
-      {subValue && (
-        <div className="text-[10px] text-muted font-mono">{subValue}</div>
-      )}
-    </div>
-  );
-}
+const { dominantParties } = buildDistrictDominance();
 
 export default function NepalMap({
   fptpResults = null,
@@ -93,10 +69,9 @@ export default function NepalMap({
   const [filterProvince, setFilterProvince] = useState(null);
   const [filterWinner, setFilterWinner] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortBy, setSortBy] = useState('margin');
   const [districtsData, setDistrictsData] = useState(null);
   const [constituenciesData, setConstituenciesData] = useState(null);
-  const [geoJsonError, setGeoJsonError] = useState(null);
+  const [, setGeoJsonError] = useState(null);
 
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
@@ -109,11 +84,11 @@ export default function NepalMap({
     
     Promise.all([
       fetch('/maps/nepal-districts.geojson').then(res => {
-        if (!res.ok) throw new Error('Failed to fetch districts GeoJSON');
+        if (!res.ok) {throw new Error('Failed to fetch districts GeoJSON');}
         return res.json();
       }),
       fetch('/maps/nepal-constituencies.geojson').then(res => {
-        if (!res.ok) throw new Error('Failed to fetch constituencies GeoJSON');
+        if (!res.ok) {throw new Error('Failed to fetch constituencies GeoJSON');}
         return res.json();
       })
     ])
@@ -137,7 +112,7 @@ export default function NepalMap({
     };
   }, []);
 
-  const getConstituencyWinner = useMemo(() => (constituency) => {
+  const getConstituencyWinner = useCallback((constituency) => {
     if (year === 2026 && fptpResults && fptpResults[constituency.id]) {
       const result = fptpResults[constituency.id];
       return result?.winner || constituency.winner2022;
@@ -148,7 +123,7 @@ export default function NepalMap({
     return constituency.winner2022;
   }, [fptpResults, year]);
 
-  const getConstituencyResults = useMemo(() => (constituency) => {
+  const getConstituencyResults = useCallback((constituency) => {
     if (year === 2026 && fptpResults && fptpResults[constituency.id]) {
       const result = fptpResults[constituency.id];
       return result?.adjusted || constituency.results2022;
@@ -230,6 +205,12 @@ export default function NepalMap({
         maxZoom: MAP_CONFIG.maxZoom,
         maxBounds: MAP_CONFIG.maxBounds,
         maxBoundsViscosity: MAP_CONFIG.maxBoundsViscosity,
+        zoomControl: false,           // Disable zoom buttons
+        scrollWheelZoom: false,       // Disable scroll wheel zoom
+        doubleClickZoom: false,       // Disable double click zoom
+        touchZoom: false,             // Disable touch zoom
+        dragging: false,              // Disable panning
+        keyboard: false,              // Disable keyboard navigation
       });
 
       const districtLayer = L.geoJSON(districtsData, {
@@ -296,7 +277,7 @@ export default function NepalMap({
               const { clientX, clientY } = e.originalEvent;
               setTooltipPos({ x: clientX, y: clientY });
             },
-            click: (e) => {
+            click: () => {
               if (constituency && onSelectConstituency) {
                 onSelectConstituency(constituency.id);
               }
@@ -352,32 +333,12 @@ export default function NepalMap({
     return constituency.winner2022;
   };
 
-  const getHoveredResults = (constituency) => {
-    if (year === 2026 && fptpResults && fptpResults[constituency.id]) {
-      const result = fptpResults[constituency.id];
-      return result?.adjusted || constituency.results2022;
-    }
-    if (year !== 2022) {
-      return getHistoricalResults(year, constituency.id) || constituency.results2022;
-    }
-    return constituency.results2022;
-  };
+  const getHoveredResults = (constituency) => getConstituencyResults(constituency);
 
   const getWinnerPercentage = (constituency) => {
     const results = getHoveredResults(constituency);
     const winner = getHoveredWinner(constituency);
     return results[winner] || 0;
-  };
-
-  const getMargin = (constituency) => {
-    const results = getHoveredResults(constituency);
-    const entries = Object.entries(results).sort((a, b) => b[1] - a[1]);
-    if (entries.length >= 2) {
-      const [firstParty, firstShare] = entries[0];
-      const [secondParty, secondShare] = entries[1];
-      return firstShare - secondShare;
-    }
-    return 0;
   };
 
   return (

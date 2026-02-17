@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+
 import TimeSeriesChart from '../charts/TimeSeriesChart';
-import ChartContainer from '../shared/ChartContainer';
 import TimeRangeSelector from '../controls/TimeRangeSelector';
-import { transformTimeSeriesData, filterByTimeRange } from '@/utils/macroDataUtils';
+import ChartContainer from '../shared/ChartContainer';
 import { YEARS, DEMOGRAPHICS_NATIONAL, DATA_METADATA } from '@/data/nepalMacroData';
+import { transformTimeSeriesData, filterByTimeRange } from '@/utils/macroDataUtils';
 
 /**
  * Demographics National Panel

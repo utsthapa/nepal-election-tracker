@@ -1,13 +1,15 @@
 'use client'
 
-import { getLatestForecast } from '../../../data/forecasts'
-import { PARTIES } from '../../../data/constituencies'
-import { useLanguage } from '../../../context/LanguageContext'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts'
 import { TrendingUp, AlertCircle, Info } from 'lucide-react'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts'
+
+import { useLanguage } from '../../../context/LanguageContext'
+import { PARTIES } from '../../../data/constituencies'
+import { getLatestForecast } from '../../../data/forecasts'
+
 
 export default function ForecastPage() {
-  const { language, t } = useLanguage()
+  const { language } = useLanguage()
   const forecast = getLatestForecast()
 
   if (!forecast) {
@@ -36,7 +38,7 @@ export default function ForecastPage() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">
             {language === 'ne' ? 'निर्वाचन पूर्वानुमान' : 'Election Forecast'}
           </h1>
           <p className="text-gray-700">
@@ -45,11 +47,11 @@ export default function ForecastPage() {
         </div>
 
         {/* Methodology Info */}
-        <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-6 mb-8">
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-8">
           <div className="flex items-start gap-3">
-            <Info className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
+            <Info className="w-5 h-5 text-blue-700 flex-shrink-0 mt-0.5" />
             <div>
-              <h3 className="text-lg font-semibold text-white mb-2">
+              <h3 className="text-lg font-semibold text-blue-900 mb-2">
                 {language === 'ne' ? 'पद्धति' : 'Methodology'}
               </h3>
               <p className="text-sm text-gray-700">
@@ -67,7 +69,7 @@ export default function ForecastPage() {
 
         {/* Forecast Chart */}
         <div className="bg-surface border border-neutral rounded-xl p-6 mb-8">
-          <h2 className="text-2xl font-bold text-white mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
             {language === 'ne' ? 'सिट पूर्वानुमान' : 'Seat Projections'}
           </h2>
           <ResponsiveContainer width="100%" height={400}>
@@ -110,14 +112,14 @@ export default function ForecastPage() {
         </div>
 
         {/* Majority Line */}
-        <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-6 mb-8">
+        <div className="bg-green-100 border border-green-300 rounded-xl p-6 mb-8">
           <div className="flex items-center gap-3">
-            <TrendingUp className="w-6 h-6 text-green-400" />
+            <TrendingUp className="w-6 h-6 text-green-700" />
             <div>
-              <h3 className="text-lg font-semibold text-white mb-1">
+              <h3 className="text-lg font-semibold text-gray-900 mb-1">
                 {language === 'ne' ? 'बहुमत आवश्यकता' : 'Majority Threshold'}
               </h3>
-              <p className="text-2xl font-bold text-green-400">
+              <p className="text-2xl font-bold text-green-800">
                 {majority} {language === 'ne' ? 'सिट' : 'seats'}
               </p>
               <p className="text-sm text-gray-700 mt-2">
@@ -132,7 +134,7 @@ export default function ForecastPage() {
 
         {/* Party Projections */}
         <div className="bg-surface border border-neutral rounded-xl p-6 mb-8">
-          <h2 className="text-2xl font-bold text-white mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
             {language === 'ne' ? 'दल-वार पूर्वानुमान' : 'Party Projections'}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -145,7 +147,7 @@ export default function ForecastPage() {
                   key={party}
                   className={`rounded-xl p-4 ${
                     isAboveMajority 
-                      ? 'bg-green-500/10 border-2 border-green-500/50' 
+                      ? 'bg-green-100 border-2 border-green-400' 
                       : 'bg-neutral border border-neutral'
                   }`}
                 >
@@ -154,7 +156,7 @@ export default function ForecastPage() {
                       className="w-4 h-4 rounded-full"
                       style={{ backgroundColor: partyInfo?.color || '#6b7280' }}
                     />
-                    <span className="font-bold text-white">
+                    <span className="font-bold text-gray-900">
                       {partyInfo?.short || party}
                     </span>
                   </div>
@@ -163,7 +165,7 @@ export default function ForecastPage() {
                       <span className="text-sm text-gray-700">
                         {language === 'ne' ? 'पूर्वानुमान' : 'Projection'}
                       </span>
-                      <span className="text-3xl font-bold text-white">
+                      <span className="text-3xl font-bold text-gray-900">
                         {data.seats}
                       </span>
                     </div>
@@ -193,7 +195,7 @@ export default function ForecastPage() {
         {/* Scenarios */}
         {forecast.scenarios && forecast.scenarios.length > 0 && (
           <div className="bg-surface border border-neutral rounded-xl p-6">
-            <h2 className="text-2xl font-bold text-white mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
               {language === 'ne' ? 'परिदृश्यहरू' : 'Scenarios'}
             </h2>
             <div className="space-y-4">
@@ -206,7 +208,7 @@ export default function ForecastPage() {
                   <div key={index} className="bg-neutral rounded-xl p-6">
                     <div className="flex items-start justify-between mb-4">
                       <div>
-                        <h3 className="text-xl font-bold text-white mb-2">
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">
                           {scenarioName}
                         </h3>
                         <p className="text-sm text-gray-700">
@@ -214,12 +216,12 @@ export default function ForecastPage() {
                         </p>
                       </div>
                       {winnerInfo && (
-                        <div className="flex items-center gap-2 px-4 py-2 bg-blue-500/20 rounded-lg">
+                        <div className="flex items-center gap-2 px-4 py-2 bg-blue-100 rounded-lg">
                           <div
                             className="w-3 h-3 rounded-full"
                             style={{ backgroundColor: winnerInfo.color }}
                           />
-                          <span className="text-sm font-bold text-blue-400">
+                          <span className="text-sm font-bold text-blue-900">
                             {winnerInfo.short} {language === 'ne' ? 'जित्छ' : 'wins'}
                           </span>
                         </div>
@@ -251,8 +253,8 @@ export default function ForecastPage() {
         )}
 
         {/* Disclaimer */}
-        <div className="mt-8 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-          <p className="text-sm text-yellow-400">
+        <div className="mt-8 p-4 bg-yellow-100 border border-yellow-300 rounded-lg">
+          <p className="text-sm text-yellow-900">
             <strong>{language === 'ne' ? 'अस्वीकरण:' : 'Disclaimer:'}</strong> {language === 'ne'
               ? 'यो पूर्वानुमान सांख्यिक मोडेलहरूमा आधारित छ र वास्तविक परिणामा भिन्न हुन सक्छ। मतदान र जनसांख्यिकी परिवर्तनहरू अपडेट हुन सक्छन्।'
               : 'This forecast is based on statistical models and may not reflect actual election results. Polls and demographics can change over time.'

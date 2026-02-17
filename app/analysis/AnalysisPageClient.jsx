@@ -1,15 +1,16 @@
-'use client'
+'use client';
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { format } from 'date-fns'
-import { Calendar, Tag, TrendingUp } from 'lucide-react'
-import { useLanguage } from '../../context/LanguageContext'
-import { Header } from '../../components/Header'
-import { Footer } from '../../components/Footer'
+import { format } from 'date-fns';
+import { Calendar, Tag, TrendingUp } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { Footer } from '../../components/Footer';
+import { Header } from '../../components/Header';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function AnalysisPageClient({ articles, categories, tags }) {
-  const { language, t } = useLanguage()
+  const { language, t } = useLanguage();
 
   return (
     <div className="min-h-screen bg-background">
@@ -17,14 +18,11 @@ export default function AnalysisPageClient({ articles, categories, tags }) {
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-foreground mb-2">
-            {t('nav.analysis')}
-          </h1>
+          <h1 className="text-4xl font-bold text-foreground mb-2">{t('nav.analysis')}</h1>
           <p className="text-muted">
-            {language === 'ne' 
+            {language === 'ne'
               ? 'नेपाळको निर्वाचन विश्लेषण, पूर्वानुमान, र राजनीतिक टिप्पणी'
-              : 'In-depth election analysis, forecasts, and political commentary for Nepal'
-            }
+              : 'In-depth election analysis, forecasts, and political commentary for Nepal'}
           </p>
         </div>
 
@@ -42,9 +40,7 @@ export default function AnalysisPageClient({ articles, categories, tags }) {
           <div className="bg-surface border border-neutral rounded-xl p-4">
             <div className="flex items-center gap-3 mb-2">
               <Tag className="w-5 h-5 text-green-400" />
-              <span className="text-sm text-muted uppercase tracking-wider">
-                {t('meta.tags')}
-              </span>
+              <span className="text-sm text-muted uppercase tracking-wider">{t('meta.tags')}</span>
             </div>
             <p className="text-3xl font-bold text-foreground">{tags.length}</p>
           </div>
@@ -69,7 +65,7 @@ export default function AnalysisPageClient({ articles, categories, tags }) {
           <div className="flex flex-wrap gap-2">
             <Link
               href="/analysis"
-              className="px-4 py-2 bg-blue-500/20 text-blue-400 rounded-lg text-sm font-medium hover:bg-blue-500/30 transition-colors"
+              className="px-4 py-2 bg-blue-100 text-blue-900 rounded-lg text-sm font-medium hover:bg-blue-200 transition-colors"
             >
               {t('common.all')}
             </Link>
@@ -88,15 +84,12 @@ export default function AnalysisPageClient({ articles, categories, tags }) {
         {/* Articles Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {articles.map(article => {
-            const title = language === 'ne' && article.titleNe ? article.titleNe : article.title
-            const excerpt = language === 'ne' && article.excerptNe ? article.excerptNe : article.excerpt
+            const title = language === 'ne' && article.titleNe ? article.titleNe : article.title;
+            const excerpt =
+              language === 'ne' && article.excerptNe ? article.excerptNe : article.excerpt;
 
             return (
-              <Link
-                key={article.slug}
-                href={`/analysis/${article.slug}`}
-                className="group"
-              >
+              <Link key={article.slug} href={`/analysis/${article.slug}`} className="group">
                 <article className="bg-surface border border-neutral rounded-xl overflow-hidden hover:border-blue-500/50 transition-all h-full flex flex-col">
                   {article.featuredImage && (
                     <div className="aspect-video bg-neutral overflow-hidden relative">
@@ -110,30 +103,30 @@ export default function AnalysisPageClient({ articles, categories, tags }) {
                   )}
                   <div className="p-4 flex-1 flex flex-col">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs font-medium">
+                      <span className="px-2 py-1 bg-blue-100 text-blue-900 rounded text-xs font-medium">
                         {article.category}
                       </span>
                       <span className="text-xs text-muted">
-                        {format(new Date(article.date), 'MMM d, yyyy')}
+                        {article.date && !isNaN(new Date(article.date).getTime())
+                          ? format(new Date(article.date), 'MMM d, yyyy')
+                          : 'Date unavailable'}
                       </span>
                     </div>
                     <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-blue-400 transition-colors line-clamp-2">
                       {title}
                     </h3>
-                    <p className="text-sm text-muted line-clamp-3 flex-1">
-                      {excerpt}
-                    </p>
+                    <p className="text-sm text-muted line-clamp-3 flex-1">{excerpt}</p>
                     <div className="mt-3 text-xs text-muted">
                       {article.readTime} {t('meta.readTime')}
                     </div>
                   </div>
                 </article>
               </Link>
-            )
+            );
           })}
         </div>
       </div>
       <Footer />
     </div>
-  )
+  );
 }

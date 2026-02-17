@@ -1,9 +1,9 @@
-import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronUp, ChevronDown, Filter, Search, Users } from 'lucide-react';
-import { PARTIES, PROVINCES, constituencies } from '../data/constituencies';
+import { ChevronUp, ChevronDown, Search, Users } from 'lucide-react';
+import { useState, useMemo } from 'react';
+
 import { AgeDistributionMini } from './DemographicsPanel';
-import { getConstituencyDemographics, getYouthIndex } from '../utils/demographicUtils';
+import { PARTIES, PROVINCES, constituencies } from '../data/constituencies';
 
 export function ConstituencyTable({ fptpResults, overrides, onSelectConstituency }) {
   const constituenciesData = useMemo(() => {
@@ -84,7 +84,7 @@ const results = useMemo(() => {
   };
 
   const SortIcon = ({ column }) => {
-    if (sortBy !== column) return null;
+    if (sortBy !== column) {return null;}
     return sortAsc ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />;
   };
 
@@ -152,7 +152,7 @@ const results = useMemo(() => {
             className="px-3 py-2 bg-surface border border-neutral rounded-lg text-sm text-foreground focus:outline-none focus:border-foreground"
           >
             <option value="">All Parties</option>
-            {Object.entries(PARTIES).map(([id, party]) => (
+            {Object.entries(PARTIES).map(([id, _party]) => (
               <option key={id} value={id}>{getPartyLabel(id)}</option>
             ))}
           </select>
@@ -315,7 +315,7 @@ const results = useMemo(() => {
       <div className="p-4 border-t border-neutral bg-neutral/30">
         <div className="flex flex-wrap items-center gap-4 text-xs">
           <span className="text-muted">Parties:</span>
-          {Object.entries(PARTIES).map(([id, party]) => (
+          {Object.entries(PARTIES).map(([id, _party]) => (
             <div key={id} className="flex items-center gap-1">
               <div className={`w-3 h-3 rounded ${bgColors[id]}`} />
               <span className="text-muted">{getPartyLabel(id)}</span>

@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+
 import DistrictPageClient from './DistrictPageClient';
 import { SimpleHeader } from '../../../components/SimpleHeader';
 import { constituencies, INITIAL_NATIONAL, PARTIES, PROVINCES } from '../../../data/constituencies';
@@ -47,7 +48,7 @@ const getDistrictData = (slug) => {
     (c) => slugifyDistrict(c.district) === slug
   );
 
-  if (districtSeats.length === 0) return null;
+  if (districtSeats.length === 0) {return null;}
 
   const winners = orderedParties.reduce((acc, party) => {
     acc[party] = 0;

@@ -1,10 +1,11 @@
 'use client'
 
-import { useLanguage } from '../../context/LanguageContext'
-import Link from 'next/link'
 import { BarChart3, Code, Users, Target, Globe } from 'lucide-react'
-import { Header } from '../../components/Header'
+import Link from 'next/link'
+
 import { Footer } from '../../components/Footer'
+import { Header } from '../../components/Header'
+import { useLanguage } from '../../context/LanguageContext'
 
 export default function AboutPage() {
   const { language, t } = useLanguage()
@@ -181,11 +182,11 @@ export default function AboutPage() {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold text-foreground mb-3">Bayesian Simulation Model</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-3">Election Simulation Model</h3>
               <p className="text-muted leading-relaxed mb-3">
                 {language === 'ne'
-                  ? 'हाम्रो सिमुलेसनले Bayes\' theorem आधारित दृष्टिकोण अपनाउँछ। यसले नयाँ सूचना पुरानो डाटासँग एकीकृत गर्छ।'
-                  : 'Our simulation uses a Bayesian approach that incorporates prior knowledge with new information. The model updates beliefs based on evidence from polls, by-elections, and coalition dynamics.'
+                  ? 'हाम्रो सिमुलेसनले ऐतिहासिक डाटा र जनसांख्यिकी विश्लेषण प्रयोग गर्छ। यसले मतदान ढाँचा र गठबन्धन गतिशीलताको आधारमा परिणाम अनुमान गर्छ।'
+                  : 'Our simulation uses historical data and demographic analysis to predict outcomes. The model incorporates voting patterns, coalition dynamics, and voter migration between parties.'
                 }
               </p>
               <ul className="space-y-2 text-sm text-muted">
@@ -353,7 +354,7 @@ export default function AboutPage() {
 
           <div className="grid gap-4">
             {[
-              { icon: BarChart3, color: 'blue', title: { en: 'Real-time Polling Integration', ne: 'रियल-टाइम पोलिङ एकीकरण' }, desc: { en: 'Automatically aggregate public polls and integrate them into the simulation as Bayesian priors.', ne: 'सार्वजनिक मतदानलाई स्वचालित रूपमा संकलन गर्ने र सिमुलेसनमा एकीकृत गर्ने प्रणाली।' } },
+              { icon: BarChart3, color: 'blue', title: { en: 'Real-time Polling Integration', ne: 'रियल-टाइम पोलिङ एकीकरण' }, desc: { en: 'Automatically aggregate public polls and integrate them into the simulation model.', ne: 'सार्वजनिक मतदानलाई स्वचालित रूपमा संकलन गर्ने र सिमुलेसनमा एकीकृत गर्ने प्रणाली।' } },
               { icon: Users, color: 'purple', title: { en: 'Historical Comparisons', ne: 'ऐतिहासिक तुलना' }, desc: { en: 'Compare 2017 and 2022 elections, analyze trends, and visualize time-series data across multiple cycles.', ne: '२०१७ र २०२२ चुनाव बीचको तुलना, प्रवृत्ति विश्लेषण, र समय-श्रृंखला चार्टहरू।' } },
               { icon: Globe, color: 'green', title: { en: 'Advanced Demographic Cross-Tabs', ne: 'उन्नत जनसांख्यिकी क्रस-ट्याबहरू' }, desc: { en: 'Voter profiles and party support by age, gender, education, and income level across constituencies.', ne: 'उमेर, लिङ्ग, शिक्षा, र आय स्तर अनुसार मतदाता प्रोफाइल र पार्टी समर्थन।' } },
               { icon: Code, color: 'amber', title: { en: 'Mobile App Development', ne: 'मोबाइल एप विकास' }, desc: { en: 'Native apps for iOS and Android with offline mode and push notifications for updates.', ne: 'iOS र Android लागि नेटिभ एप, अफलाइन मोड, र पुश सूचनाहरू।' } },

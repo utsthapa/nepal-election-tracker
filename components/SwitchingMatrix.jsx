@@ -1,4 +1,5 @@
 import { ArrowRightLeft, Check, X } from 'lucide-react';
+
 import { PARTIES } from '../data/constituencies';
 
 const FLOW_PRESETS = [
@@ -6,7 +7,7 @@ const FLOW_PRESETS = [
   { from: 'NC', to: 'RSP', label: 'NC ➜ RSP' },
   { from: 'Maoist', to: 'RSP', label: 'Maoist ➜ RSP' },
   { from: 'RPP', to: 'RSP', label: 'RPP ➜ RSP' },
-  { from: 'JSP', to: 'RSP', label: 'JSP ➜ RSP' },
+  { from: 'JSPN', to: 'RSP', label: 'JSPN ➜ RSP' },
   { from: 'Others', to: 'RSP', label: 'Others ➜ RSP' },
   { from: 'Maoist', to: 'NC', label: 'Maoist ➜ NC' },
   { from: 'NC', to: 'UML', label: 'NC ➜ UML' },
@@ -43,8 +44,8 @@ export function SwitchingMatrix({ matrix = {}, onChange, onApply, onClear }) {
             <div key={`${from}-${to}`} className="flex items-center justify-between gap-3 rounded-lg border border-neutral px-3 py-2">
               <div className="flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: PARTIES[from]?.color }} />
-                <span className="text-sm text-gray-200">{label}</span>
-                <span className="text-xs text-gray-800">(of {PARTIES[from]?.short || from} voters)</span>
+                <span className="text-sm text-gray-700">{label}</span>
+                <span className="text-xs text-gray-500">(of {PARTIES[from]?.short || from} voters)</span>
               </div>
               <div className="flex items-center gap-2">
                 <input
@@ -54,7 +55,7 @@ export function SwitchingMatrix({ matrix = {}, onChange, onApply, onClear }) {
                   step="1"
                   value={value}
                   onChange={(e) => handleChange(from, to, parseFloat(e.target.value))}
-                  className="w-20 px-2 py-1 bg-neutral border border-neutral rounded text-right text-sm text-gray-200 focus:outline-none focus:border-gray-500"
+                  className="w-20 px-2 py-1 bg-neutral border border-neutral rounded text-right text-sm text-gray-900 focus:outline-none focus:border-gray-500"
                 />
                 <span className="text-xs text-gray-700">%</span>
               </div>

@@ -1,17 +1,18 @@
-'use client'
+'use client';
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { format } from 'date-fns'
-import { useLanguage } from '../../../context/LanguageContext'
-import { Calendar, Clock, User, ArrowLeft, Share2 } from 'lucide-react'
+import { format } from 'date-fns';
+import { Calendar, Clock, User, ArrowLeft, Share2 } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
-export default function ArticlePageClient({ article, relatedArticles, children }) {
-  const { language } = useLanguage()
+import { useLanguage } from '../../../context/LanguageContext';
 
-  const title = language === 'ne' && article.titleNe ? article.titleNe : article.title
-  const excerpt = language === 'ne' && article.excerptNe ? article.excerptNe : article.excerpt
-  const author = language === 'ne' && article.authorNe ? article.authorNe : article.author
+export default function ArticlePageClient({ article, relatedArticles, htmlContent }) {
+  const { language } = useLanguage();
+
+  const title = language === 'ne' && article.titleNe ? article.titleNe : article.title;
+  const excerpt = language === 'ne' && article.excerptNe ? article.excerptNe : article.excerpt;
+  const author = language === 'ne' && article.authorNe ? article.authorNe : article.author;
 
   return (
     <div className="min-h-screen bg-background">
@@ -28,23 +29,20 @@ export default function ArticlePageClient({ article, relatedArticles, children }
         {/* Article Header */}
         <header className="mb-8">
           <div className="flex items-center gap-2 mb-4">
-            <span className="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm font-medium">
+            <span className="px-3 py-1 bg-blue-100 text-blue-900 rounded-full text-sm font-medium">
               {article.category}
             </span>
-            {article.tags && article.tags.map(tag => (
-              <span key={tag} className="px-3 py-1 bg-neutral text-gray-700 rounded-full text-sm">
-                {tag}
-              </span>
-            ))}
+            {article.tags &&
+              article.tags.map(tag => (
+                <span key={tag} className="px-3 py-1 bg-neutral text-gray-700 rounded-full text-sm">
+                  {tag}
+                </span>
+              ))}
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
-            {title}
-          </h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">{title}</h1>
 
-          <p className="text-xl text-gray-700 mb-6 leading-relaxed">
-            {excerpt}
-          </p>
+          <p className="text-xl text-gray-700 mb-6 leading-relaxed">{excerpt}</p>
 
           <div className="flex flex-wrap items-center gap-6 text-sm text-gray-700">
             <div className="flex items-center gap-2">
@@ -53,11 +51,17 @@ export default function ArticlePageClient({ article, relatedArticles, children }
             </div>
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4" />
-              <span>{format(new Date(article.date), 'MMMM d, yyyy')}</span>
+              <span>
+                {article.date && !isNaN(new Date(article.date).getTime())
+                  ? format(new Date(article.date), 'MMMM d, yyyy')
+                  : 'Date unavailable'}
+              </span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4" />
-              <span>{article.readTime} {language === 'ne' ? 'मिनेट पढ्ने' : 'min read'}</span>
+              <span>
+                {article.readTime} {language === 'ne' ? 'मिनेट पढ्ने' : 'min read'}
+              </span>
             </div>
           </div>
         </header>
@@ -65,19 +69,15 @@ export default function ArticlePageClient({ article, relatedArticles, children }
         {/* Featured Image */}
         {article.featuredImage && (
           <div className="mb-8 rounded-xl overflow-hidden relative aspect-video">
-            <Image
-              src={article.featuredImage}
-              alt={title}
-              fill
-              className="object-cover"
-            />
+            <Image src={article.featuredImage} alt={title} fill className="object-cover" />
           </div>
         )}
 
-        {/* Article Content */}
-        <div className="prose prose-invert max-w-none mb-12">
-          {children}
-        </div>
+        {/* Article Content - content is from trusted local MDX files, not user input */}
+        <div
+          className="prose prose-invert max-w-none mb-12"
+          dangerouslySetInnerHTML={{ __html: htmlContent }}
+        />
 
         {/* Share Section */}
         <div className="border-t border-neutral pt-8 mb-12">
@@ -91,7 +91,10 @@ export default function ArticlePageClient({ article, relatedArticles, children }
                 className="px-4 py-2 bg-neutral hover:bg-neutral/80 rounded-lg text-sm font-medium transition-colors"
                 onClick={() => {
                   if (typeof window !== 'undefined') {
-                    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(window.location.href)}`, '_blank')
+                    window.open(
+                      `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(window.location.href)}`,
+                      '_blank'
+                    );
                   }
                 }}
               >
@@ -101,7 +104,10 @@ export default function ArticlePageClient({ article, relatedArticles, children }
                 className="px-4 py-2 bg-neutral hover:bg-neutral/80 rounded-lg text-sm font-medium transition-colors"
                 onClick={() => {
                   if (typeof window !== 'undefined') {
-                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank')
+                    window.open(
+                      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`,
+                      '_blank'
+                    );
                   }
                 }}
               >
@@ -111,7 +117,7 @@ export default function ArticlePageClient({ article, relatedArticles, children }
                 className="px-4 py-2 bg-neutral hover:bg-neutral/80 rounded-lg text-sm font-medium transition-colors"
                 onClick={() => {
                   if (typeof window !== 'undefined' && navigator?.clipboard) {
-                    navigator.clipboard.writeText(window.location.href)
+                    navigator.clipboard.writeText(window.location.href);
                   }
                 }}
               >
@@ -129,12 +135,14 @@ export default function ArticlePageClient({ article, relatedArticles, children }
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {relatedArticles.map(relatedArticle => {
-                const relatedTitle = language === 'ne' && relatedArticle.titleNe 
-                  ? relatedArticle.titleNe 
-                  : relatedArticle.title
-                const relatedExcerpt = language === 'ne' && relatedArticle.excerptNe 
-                  ? relatedArticle.excerptNe 
-                  : relatedArticle.excerpt
+                const relatedTitle =
+                  language === 'ne' && relatedArticle.titleNe
+                    ? relatedArticle.titleNe
+                    : relatedArticle.title;
+                const relatedExcerpt =
+                  language === 'ne' && relatedArticle.excerptNe
+                    ? relatedArticle.excerptNe
+                    : relatedArticle.excerpt;
 
                 return (
                   <Link
@@ -146,20 +154,18 @@ export default function ArticlePageClient({ article, relatedArticles, children }
                       <h4 className="text-lg font-bold text-white mb-2 group-hover:text-blue-400 transition-colors line-clamp-2">
                         {relatedTitle}
                       </h4>
-                      <p className="text-sm text-gray-700 line-clamp-3 flex-1">
-                        {relatedExcerpt}
-                      </p>
+                      <p className="text-sm text-gray-700 line-clamp-3 flex-1">{relatedExcerpt}</p>
                       <div className="text-xs text-gray-800 mt-2">
                         {format(new Date(relatedArticle.date), 'MMM d, yyyy')}
                       </div>
                     </article>
                   </Link>
-                )
+                );
               })}
             </div>
           </div>
         )}
       </article>
     </div>
-  )
+  );
 }

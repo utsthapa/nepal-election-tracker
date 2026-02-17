@@ -1,8 +1,10 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Unlink, Link2, RotateCcw, BarChart3, Vote } from 'lucide-react';
+import { X, Unlink, Link2, RotateCcw, BarChart3, Vote, Users, Trophy } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { PARTIES, INITIAL_NATIONAL } from '../data/constituencies';
+
 import { DemographicsPanel } from './DemographicsPanel';
+import { PARTIES, INITIAL_NATIONAL } from '../data/constituencies';
+import { get2026Candidates, getBattlegroundInfo } from '../utils/election2026Data';
 
 const partyOrder = Object.keys(INITIAL_NATIONAL);
 
@@ -25,16 +27,16 @@ export function SeatDrawer({
     }
   }, [constituency]);
 
-  if (!constituency) return null;
+  if (!constituency) {return null;}
 
   const handleSliderChange = (party, value) => {
-    if (!localResults || Object.keys(localResults).length === 0) return;
+    if (!localResults || Object.keys(localResults).length === 0) {return;}
 
     const newValue = parseFloat(value) / 100;
     const otherParties = partyOrder.filter(p => p !== party);
     const currentSum = otherParties.reduce((sum, p) => sum + (localResults[p] || 0), 0);
 
-    if (currentSum === 0) return;
+    if (currentSum === 0) {return;}
 
     const remaining = 1 - newValue;
     const newResults = { [party]: newValue };
@@ -60,7 +62,7 @@ export function SeatDrawer({
   const handleDetachToggle = () => {
     if (isDetached) {
       onClearOverride(constituency.id);
-      setLocalResults(constituency.results2022);
+      setLocalResults(constituency.currentResults || constituency.results2022 || {});
     }
     setIsDetached(!isDetached);
   };
@@ -142,7 +144,7 @@ export function SeatDrawer({
                   onClick={() => setActiveTab('voting')}
                   className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-colors ${
                     activeTab === 'voting'
-                      ? 'text-blue-400 border-b-2 border-blue-400 bg-blue-500/10'
+                      ? 'text-blue-800 border-b-2 border-blue-600 bg-blue-100'
                       : 'text-gray-700 hover:text-gray-200 hover:bg-neutral/50'
                   }`}
                 >
@@ -150,10 +152,21 @@ export function SeatDrawer({
                   Voting
                 </button>
                 <button
+                  onClick={() => setActiveTab('candidates')}
+                  className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-colors ${
+                    activeTab === 'candidates'
+                      ? 'text-purple-800 border-b-2 border-purple-600 bg-purple-100'
+                      : 'text-gray-700 hover:text-gray-200 hover:bg-neutral/50'
+                  }`}
+                >
+                  <Users className="w-4 h-4" />
+                  2026 Candidates
+                </button>
+                <button
                   onClick={() => setActiveTab('demographics')}
                   className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-colors ${
                     activeTab === 'demographics'
-                      ? 'text-green-400 border-b-2 border-green-400 bg-green-500/10'
+                      ? 'text-green-800 border-b-2 border-green-600 bg-green-100'
                       : 'text-gray-700 hover:text-gray-200 hover:bg-neutral/50'
                   }`}
                 >
@@ -171,6 +184,11 @@ export function SeatDrawer({
                   constituencyId={constituency.id}
                   constituencyName={constituency.name}
                 />
+              )}
+
+              {/* Candidates Tab */}
+              {activeTab === 'candidates' && (
+                <Candidates2026Tab constituencyName={constituency.name} />
               )}
 
               {/* Voting Tab */}
@@ -192,8 +210,8 @@ export function SeatDrawer({
                   onClick={handleDetachToggle}
                   className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
                     isDetached
-                      ? 'bg-amber-500/20 text-amber-400 hover:bg-amber-500/30'
-                      : 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
+                      ? 'bg-amber-100 text-amber-900 hover:bg-amber-200'
+                      : 'bg-blue-100 text-blue-900 hover:bg-blue-200'
                   }`}
                 >
                   {isDetached ? 'Reattach' : 'Detach'}
@@ -284,7 +302,7 @@ export function SeatDrawer({
                   }
                   const sorted = Object.entries(localResults).sort((a, b) => b[1] - a[1]);
                   const winner = sorted[0];
-                  if (!winner) return null;
+                  if (!winner) {return null;}
                   const runnerUp = sorted[1];
                   const margin = runnerUp ? winner[1] - runnerUp[1] : winner[1];
 
@@ -322,6 +340,82 @@ export function SeatDrawer({
         </>
       )}
     </AnimatePresence>
+  );
+}
+
+// Sub-component for 2026 Candidates Tab
+function Candidates2026Tab({ constituencyName }) {
+  const [candidates, setCandidates] = useState([]);
+  const [battleground, setBattleground] = useState(null);
+
+  useEffect(() => {
+    if (constituencyName) {
+      const constituencyCandidates = get2026Candidates(constituencyName);
+      setCandidates(constituencyCandidates);
+      setBattleground(getBattlegroundInfo(constituencyName));
+    }
+  }, [constituencyName]);
+
+  if (!constituencyName) {return null;}
+
+  return (
+    <div className="space-y-4">
+      {/* Battleground Badge */}
+      {battleground && (
+        <div className="bg-amber-100 border border-amber-300 rounded-lg p-3">
+          <div className="flex items-center gap-2">
+            <Trophy className="w-4 h-4 text-amber-800" />
+            <span className="text-sm font-medium text-amber-900">Key Battleground</span>
+            <span className="text-xs text-amber-700">{battleground.significance}</span>
+          </div>
+        </div>
+      )}
+
+      {/* Candidates List */}
+      <div>
+        <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
+          <Users className="w-4 h-4" />
+          2026 Candidates ({candidates.length})
+        </h4>
+        
+        {candidates.length === 0 ? (
+          <p className="text-sm text-gray-500 italic">
+            No candidate data available for this constituency yet.
+          </p>
+        ) : (
+          <div className="space-y-2">
+            {candidates.map((candidate, idx) => (
+              <div
+                key={idx}
+                className="flex items-center justify-between p-3 bg-neutral/30 rounded-lg"
+              >
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-3 h-3 rounded-full"
+                    style={{ backgroundColor: candidate.color }}
+                  />
+                  <div>
+                    <p className="text-sm font-medium text-white">{candidate.name}</p>
+                    <p className="text-xs text-gray-400">{candidate.party}</p>
+                  </div>
+                </div>
+                {candidate.position && (
+                  <span className="text-xs bg-blue-100 text-blue-900 px-2 py-1 rounded">
+                    {candidate.position}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Note */}
+      <div className="text-xs text-gray-500 mt-4 pt-3 border-t border-neutral">
+        <p>Data source: Election Commission of Nepal (2026)</p>
+        <p className="mt-1">Showing major party candidates. Total candidates may include independents and smaller parties.</p>
+      </div>
+    </div>
   );
 }
 

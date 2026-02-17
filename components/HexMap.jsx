@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+
 import { constituencies, PARTIES } from '../data/constituencies';
 
 const HEX_SIZE = 28;

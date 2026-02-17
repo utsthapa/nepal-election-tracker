@@ -1,12 +1,13 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+
 import TimeSeriesChart from '../charts/TimeSeriesChart';
-import ChartContainer from '../shared/ChartContainer';
-import TimeRangeSelector from '../controls/TimeRangeSelector';
 import MetricToggle from '../controls/MetricToggle';
-import { transformTimeSeriesData, filterByTimeRange } from '@/utils/macroDataUtils';
+import TimeRangeSelector from '../controls/TimeRangeSelector';
+import ChartContainer from '../shared/ChartContainer';
 import { YEARS, MACRO_INDICATORS, DATA_METADATA } from '@/data/nepalMacroData';
+import { transformTimeSeriesData, filterByTimeRange } from '@/utils/macroDataUtils';
 
 /**
  * Macro Overview Panel

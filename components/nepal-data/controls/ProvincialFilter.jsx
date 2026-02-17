@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { Check } from 'lucide-react';
 
 /**
@@ -22,7 +21,7 @@ export default function ProvincialFilter({
   const allSelected = selected.length === provinceIds.length;
 
   const handleToggle = (provinceId) => {
-    if (!onChange) return;
+    if (!onChange) {return;}
 
     const newSelected = selected.includes(provinceId)
       ? selected.filter(id => id !== provinceId)
@@ -32,7 +31,7 @@ export default function ProvincialFilter({
   };
 
   const handleSelectAll = () => {
-    if (!onChange) return;
+    if (!onChange) {return;}
 
     if (allSelected) {
       onChange([]);

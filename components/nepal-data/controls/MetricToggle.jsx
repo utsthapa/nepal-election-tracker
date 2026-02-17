@@ -15,7 +15,7 @@ export default function MetricToggle({
   onChange,
   label,
 }) {
-  if (!options || options.length === 0) return null;
+  if (!options || options.length === 0) {return null;}
 
   const handleClick = (value) => {
     if (onChange && value !== selected) {

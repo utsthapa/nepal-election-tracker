@@ -1,5 +1,6 @@
+import { Target, CheckCircle } from 'lucide-react';
 import { useMemo } from 'react';
-import { Users, Target, TrendingUp, CheckCircle } from 'lucide-react';
+
 import { PARTIES } from '../data/constituencies';
 
 export function DistrictCoalitionBuilder({
@@ -12,7 +13,7 @@ export function DistrictCoalitionBuilder({
     const parties = new Set();
     constituencies.forEach((c) => {
       Object.keys(c.results2022).forEach((p) => {
-        if (c.results2022[p] > 0.05) parties.add(p);
+        if (c.results2022[p] > 0.05) {parties.add(p);}
       });
     });
     return Array.from(parties)
@@ -81,8 +82,8 @@ export function DistrictCoalitionBuilder({
 
   const handleToggle = (party) => {
     const isSelected = selectedParties.includes(party);
-    if (isSelected && selectedParties.length <= 2) return;
-    if (!isSelected && selectedParties.length >= 4) return;
+    if (isSelected && selectedParties.length <= 2) {return;}
+    if (!isSelected && selectedParties.length >= 4) {return;}
     onToggleParty(party);
   };
 
@@ -129,7 +130,7 @@ export function DistrictCoalitionBuilder({
                   className="h-2.5 w-2.5 rounded-full"
                   style={{ backgroundColor: partyColor }}
                 />
-                <span className="text-sm text-gray-100 font-semibold">
+                <span className="text-sm text-gray-900 font-semibold">
                   {PARTIES[party]?.short || party}
                 </span>
               </div>
@@ -152,14 +153,14 @@ export function DistrictCoalitionBuilder({
                 of {constituencies.length}
               </p>
             </div>
-            <div className="rounded-xl border border-green-500/30 bg-green-500/10 p-3">
-              <p className="text-[11px] uppercase tracking-wider text-green-200">
+            <div className="rounded-xl border border-green-300 bg-green-100 p-3">
+              <p className="text-[11px] uppercase tracking-wider text-green-800">
                 Potential Flips
               </p>
-              <p className="text-2xl font-bold text-green-100 mt-1">
+              <p className="text-2xl font-bold text-green-900 mt-1">
                 {analysis.potentialFlips}
               </p>
-              <p className="text-xs font-mono text-green-100/80">seats could flip</p>
+              <p className="text-xs font-mono text-green-700">seats could flip</p>
             </div>
             <div className="rounded-xl border border-white/10 bg-white/5 p-3">
               <p className="text-[11px] uppercase tracking-wider text-gray-800">
@@ -214,12 +215,12 @@ export function DistrictCoalitionBuilder({
                       />
                       <span className="text-sm text-white font-medium">{c.name}</span>
                       {c.currentWinnerInCoalition && (
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-100 text-blue-900 border border-blue-300">
                           Held
                         </span>
                       )}
                       {c.wouldWin && !c.currentWinnerInCoalition && (
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-500/20 text-green-300 border border-green-500/30">
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-100 text-green-900 border border-green-300">
                           Would Flip
                         </span>
                       )}

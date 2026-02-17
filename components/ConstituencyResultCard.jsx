@@ -1,5 +1,6 @@
-import { useMemo } from 'react';
 import { Trophy, TrendingUp, Users } from 'lucide-react';
+import { useMemo } from 'react';
+
 import { PARTIES } from '../data/constituencies';
 import { determineFPTPWinner } from '../utils/calculations';
 

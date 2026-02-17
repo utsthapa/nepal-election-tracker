@@ -1,17 +1,18 @@
 import Link from 'next/link';
+
 import Header from '@/components/Header';
-import PageHeader from '@/components/nepal-data/shared/PageHeader';
-import QuickStatsBar from '@/components/nepal-data/shared/QuickStatsBar';
+import DemographicsNational from '@/components/nepal-data/panels/DemographicsNational';
+import EnergyEnvironmentPanel from '@/components/nepal-data/panels/EnergyEnvironmentPanel';
+import ExternalSectorPanel from '@/components/nepal-data/panels/ExternalSectorPanel';
+import InternationalComparison from '@/components/nepal-data/panels/InternationalComparison';
+import MacroOverview from '@/components/nepal-data/panels/MacroOverview';
+import PovertyPanel from '@/components/nepal-data/panels/PovertyPanel';
+import ProvincialComparison from '@/components/nepal-data/panels/ProvincialComparison';
+import TourismPanel from '@/components/nepal-data/panels/TourismPanel';
 import CollapsibleSection from '@/components/nepal-data/shared/CollapsibleSection';
 import DataSources from '@/components/nepal-data/shared/DataSources';
-import MacroOverview from '@/components/nepal-data/panels/MacroOverview';
-import ExternalSectorPanel from '@/components/nepal-data/panels/ExternalSectorPanel';
-import DemographicsNational from '@/components/nepal-data/panels/DemographicsNational';
-import PovertyPanel from '@/components/nepal-data/panels/PovertyPanel';
-import TourismPanel from '@/components/nepal-data/panels/TourismPanel';
-import EnergyEnvironmentPanel from '@/components/nepal-data/panels/EnergyEnvironmentPanel';
-import ProvincialComparison from '@/components/nepal-data/panels/ProvincialComparison';
-import InternationalComparison from '@/components/nepal-data/panels/InternationalComparison';
+import PageHeader from '@/components/nepal-data/shared/PageHeader';
+import QuickStatsBar from '@/components/nepal-data/shared/QuickStatsBar';
 import { MACRO_INDICATORS, EXTERNAL_SECTOR, DATA_METADATA } from '@/data/nepalMacroData';
 
 /**

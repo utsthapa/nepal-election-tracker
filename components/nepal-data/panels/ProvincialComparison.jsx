@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
+
 import ComparativeBarChart from '../charts/ComparativeBarChart';
 import ChartContainer from '../shared/ChartContainer';
 import { PROVINCIAL_DATA, PROVINCIAL_METADATA } from '@/data/provincialMacroData';

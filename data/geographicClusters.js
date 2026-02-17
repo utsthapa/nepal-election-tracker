@@ -54,20 +54,29 @@ export const GEOGRAPHIC_CLUSTERS = {
     'P3-Bhaktapur-1',
     'P3-Bhaktapur-2',
     // Major urban centers in other provinces
-    'P1-Biratnagar-1',  // Morang district - major urban center
-    'P1-Biratnagar-2',  // Morang district - major urban center
-    'P1-Biratnagar-3',  // Morang district - major urban center
-    'P1-Biratnagar-4',  // Morang district - major urban center
-    'P4-Pokhara-1',    // Kaski district - major urban center
-    'P4-Pokhara-2',    // Kaski district - major urban center
-    'P5-Butwal-1',     // Rupandehi district - major urban center
-    'P5-Butwal-2',     // Rupandehi district - major urban center
-    'P2-Birgunj-1',    // Parsa district - major urban center
-    'P2-Birgunj-2',    // Parsa district - major urban center
-    'P2-Janakpur-1',   // Dhanusha district - major urban center
-    'P2-Janakpur-2',   // Dhanusha district - major urban center
-    'P5-Nepalgunj-1',  // Banke district - major urban center
-    'P5-Nepalgunj-2',  // Banke district - major urban center
+    'P1-Morang-1',     // Morang district - major urban center (Biratnagar area)
+    'P1-Morang-2',     // Morang district - major urban center
+    'P1-Morang-3',     // Morang district - major urban center
+    'P1-Morang-4',     // Morang district - major urban center
+    'P4-Kaski-1',      // Kaski district - major urban center (Pokhara)
+    'P4-Kaski-2',      // Kaski district - major urban center
+    'P4-Kaski-3',      // Kaski district - major urban center
+    'P5-Rupandehi-1',  // Rupandehi district - major urban center (Butwal)
+    'P5-Rupandehi-2',  // Rupandehi district - major urban center
+    'P5-Rupandehi-3',  // Rupandehi district - major urban center
+    'P5-Rupandehi-4',  // Rupandehi district - major urban center
+    'P5-Rupandehi-5',  // Rupandehi district - major urban center
+    'P2-Parsa-1',      // Parsa district - major urban center (Birgunj)
+    'P2-Parsa-2',      // Parsa district - major urban center
+    'P2-Parsa-3',      // Parsa district - major urban center
+    'P2-Parsa-4',      // Parsa district - major urban center
+    'P2-Dhanusha-1',   // Dhanusha district - major urban center (Janakpur)
+    'P2-Dhanusha-2',   // Dhanusha district - major urban center
+    'P2-Dhanusha-3',   // Dhanusha district - major urban center
+    'P2-Dhanusha-4',   // Dhanusha district - major urban center
+    'P5-Banke-1',      // Banke district - major urban center (Nepalgunj)
+    'P5-Banke-2',      // Banke district - major urban center
+    'P5-Banke-3',      // Banke district - major urban center
   ],
 
   // TERAI URBAN: Urban areas in Terai belt with moderate urbanization
@@ -138,9 +147,8 @@ export const GEOGRAPHIC_CLUSTERS = {
     'P5-Palpa-3',
     'P5-Gulmi-1',
     'P5-Gulmi-2',
-    'P5-Pythan-1',
-    'P5-Pythan-2',
-    'P5-Pythan-3',
+    'P5-Pyuthan-1',
+    'P5-Pyuthan-2',
     'P5-Syangja-1',
     'P5-Syangja-2',
     
@@ -209,11 +217,8 @@ export const GEOGRAPHIC_CLUSTERS = {
     'P4-Myagdi-2',
     
     // Province 5 - Hill districts
-    'P5-Pythan-1',
-    'P5-Pythan-2',
-    'P5-Pythan-3',
-    'P5-Syangja-1',
-    'P5-Syangja-2',
+    'P5-Pyuthan-1',
+    'P5-Pyuthan-2',
     'P5-Arghakhanchi-1',
     'P5-Arghakhanchi-2',
     'P5-Palpa-1',
@@ -255,8 +260,8 @@ export const GEOGRAPHIC_CLUSTERS = {
     'P6-Jumla-1',
     'P6-Kalikot-1',
     'P6-Mugu-1',
-    'P6-Rukum East-1',
-    'P6-Rukum West-1',
+    'P6-Rukum-1',
+    'P6-Rukum-2',
     'P6-Salyan-1',
     'P6-Surkhet-1',
     'P6-Surkhet-2',

@@ -2,6 +2,8 @@
  * Type definitions for election results and calculations
  */
 
+import type { DemographicVotingPatterns, DemographicTurnout, DemographicScenario } from './demographics';
+
 export interface ElectionResult {
   constituencyId: string;
   winner: string;
@@ -90,16 +92,6 @@ export interface SimulationResult {
   mostLikelyOutcome: SeatAllocation[];
 }
 
-export interface BayesianForecast {
-  constituencyId: string;
-  baselineVotes: Record<string, number>;
-  priorAdjustment: Record<string, number>;
-  demographicSignal: Record<string, number>;
-  finalPrediction: Record<string, number>;
-  uncertainty: number;
-  confidence: 'high' | 'medium' | 'low';
-}
-
 export interface PollData {
   id: string;
   date: string;
@@ -147,4 +139,11 @@ export interface ElectionState {
   selectedConstituency: string | null;
   prMethod: 'modified' | 'standard';
   year: number;
+
+  // Demographic modeling
+  demographicMode: boolean;
+  demographicPatterns: DemographicVotingPatterns | null;
+  demographicTurnout: DemographicTurnout | null;
+  activeScenario: string | null;  // ID of currently loaded scenario
+  savedScenarios: DemographicScenario[];  // User's custom scenarios
 }

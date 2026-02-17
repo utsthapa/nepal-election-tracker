@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { useState } from 'react';
+
 import { LanguageToggle } from './LanguageToggle';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -24,7 +25,7 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const isActive = (href) => {
-    if (href === '/') return pathname === '/';
+    if (href === '/') {return pathname === '/';}
     return pathname.startsWith(href);
   };
 

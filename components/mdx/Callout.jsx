@@ -2,28 +2,28 @@ import { Info, AlertTriangle, CheckCircle, AlertCircle } from 'lucide-react'
 
 const calloutStyles = {
   info: {
-    bg: 'bg-blue-500/10',
-    border: 'border-blue-500/30',
+    bg: 'bg-blue-100',
+    border: 'border-blue-300',
     icon: Info,
-    iconColor: 'text-blue-400',
+    iconColor: 'text-blue-700',
   },
   warning: {
-    bg: 'bg-yellow-500/10',
-    border: 'border-yellow-500/30',
+    bg: 'bg-yellow-100',
+    border: 'border-yellow-300',
     icon: AlertTriangle,
-    iconColor: 'text-yellow-400',
+    iconColor: 'text-yellow-800',
   },
   success: {
-    bg: 'bg-green-500/10',
-    border: 'border-green-500/30',
+    bg: 'bg-green-100',
+    border: 'border-green-300',
     icon: CheckCircle,
-    iconColor: 'text-green-400',
+    iconColor: 'text-green-700',
   },
   error: {
-    bg: 'bg-red-500/10',
-    border: 'border-red-500/30',
+    bg: 'bg-red-100',
+    border: 'border-red-300',
     icon: AlertCircle,
-    iconColor: 'text-red-400',
+    iconColor: 'text-red-700',
   },
 }
 
@@ -39,7 +39,7 @@ export function Callout({ type = 'info', title, children }) {
           {title && (
             <h4 className={`font-semibold ${style.iconColor} mb-1`}>{title}</h4>
           )}
-          <div className="text-sm text-gray-700">{children}</div>
+          <div className="text-sm text-gray-900">{children}</div>
         </div>
       </div>
     </div>

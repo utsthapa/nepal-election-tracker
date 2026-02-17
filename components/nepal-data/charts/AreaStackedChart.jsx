@@ -10,7 +10,8 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { formatCurrency, formatPercentage, formatNumber } from '@/utils/macroDataUtils';
+
+import { formatCurrency, formatNumber } from '@/utils/macroDataUtils';
 
 /**
  * Stacked Area Chart Component
@@ -65,7 +66,7 @@ export default function AreaStackedChart({
 
   // Custom tooltip
   const CustomTooltip = ({ active, payload, label }) => {
-    if (!active || !payload || payload.length === 0) return null;
+    if (!active || !payload || payload.length === 0) {return null;}
 
     // Calculate total for percentage display
     const total = payload.reduce((sum, entry) => sum + (entry.value || 0), 0);

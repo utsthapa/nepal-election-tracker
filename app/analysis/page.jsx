@@ -1,5 +1,5 @@
-import { getAllArticles, getAllCategories, getAllTags } from '../../lib/content'
 import AnalysisPageClient from './AnalysisPageClient'
+import { getAllArticles, getAllCategories, getAllTags } from '../../lib/content'
 
 export const metadata = {
   title: 'Analysis | NepaliSoch',
@@ -7,7 +7,7 @@ export const metadata = {
 }
 
 export default function AnalysisPage() {
-  const articles = getAllArticles().map(({ content, ...meta }) => meta)
+  const articles = getAllArticles().map(({ content: _content, ...meta }) => meta)
   const categories = getAllCategories()
   const tags = getAllTags()
 

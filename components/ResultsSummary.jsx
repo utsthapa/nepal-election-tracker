@@ -1,13 +1,14 @@
-import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
+import { useMemo } from 'react';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+
 import { PARTIES, INITIAL_NATIONAL, ACTUAL_2022_SEATS } from '../data/constituencies';
 
 const partyOrder = Object.keys(INITIAL_NATIONAL);
 const BASELINE_SEATS = ACTUAL_2022_SEATS.Total;
 
-export function ResultsSummary({ fptpSeats, prSeats, totalSeats, seatIntervals = {} }) {
+export function ResultsSummary({ fptpSeats, prSeats, totalSeats }) {
   const formatPartyLabel = (partyId) => {
     const info = PARTIES[partyId];
     return info ? `${info.short}` : partyId;

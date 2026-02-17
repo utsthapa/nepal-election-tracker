@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X, Link2, Slash } from 'lucide-react';
+import { useEffect, useState } from 'react';
+
 import { PARTIES, INITIAL_NATIONAL } from '../data/constituencies';
 
 const partyOrder = Object.keys(INITIAL_NATIONAL);
@@ -21,7 +22,7 @@ export function AllianceModal({ isOpen, onClose, allianceConfig, onSave, onClear
   const canSave = partyA && partyB && partyA !== partyB;
 
   const handleSave = () => {
-    if (!canSave) return;
+    if (!canSave) {return;}
     onSave({
       parties: [partyA, partyB],
       handicap: Number(handicap),
@@ -83,7 +84,7 @@ export function AllianceModal({ isOpen, onClose, allianceConfig, onSave, onClear
                       <select
                         value={partyA}
                         onChange={(e) => setPartyA(e.target.value)}
-                        className="w-full bg-neutral border border-neutral rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-gray-500"
+                        className="w-full bg-neutral border border-neutral rounded-lg px-3 py-2 text-sm text-gray-900 focus:outline-none focus:border-gray-500"
                       >
                         <option value="">Choose party</option>
                         {partyOrder.map(party => (
@@ -103,7 +104,7 @@ export function AllianceModal({ isOpen, onClose, allianceConfig, onSave, onClear
                       <select
                         value={partyB}
                         onChange={(e) => setPartyB(e.target.value)}
-                        className="w-full bg-neutral border border-neutral rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-gray-500"
+                        className="w-full bg-neutral border border-neutral rounded-lg px-3 py-2 text-sm text-gray-900 focus:outline-none focus:border-gray-500"
                       >
                         <option value="">Choose party</option>
                         {partyOrder.map(party => (
@@ -151,7 +152,7 @@ export function AllianceModal({ isOpen, onClose, allianceConfig, onSave, onClear
                   )}
                   <button
                     onClick={onClose}
-                    className="px-4 py-2 rounded-lg text-sm bg-neutral text-gray-200 hover:bg-neutral/80 transition-colors"
+                    className="px-4 py-2 rounded-lg text-sm bg-neutral text-gray-900 hover:bg-neutral/80 transition-colors"
                   >
                     Cancel
                   </button>

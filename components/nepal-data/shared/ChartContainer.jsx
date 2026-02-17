@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import { Download, Info } from 'lucide-react';
+import { useState } from 'react';
 
 /**
  * Chart Container Component
@@ -29,7 +29,7 @@ export default function ChartContainer({
   const [showInfo, setShowInfo] = useState(false);
 
   const handleExport = () => {
-    if (!exportData) return;
+    if (!exportData) {return;}
 
     // Convert data to CSV
     const csvContent = convertToCSV(exportData);
