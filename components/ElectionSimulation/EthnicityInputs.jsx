@@ -19,8 +19,8 @@ const SEGMENTS = ETHNIC_GROUPS.map(id => ({
 export default function EthnicityInputs({ patterns, turnout, onUpdatePattern, onUpdateTurnout }) {
   const [expandedSegment, setExpandedSegment] = useState('brahminChhetri');
 
-  const toggleSegment = (segmentId) => {
-    setExpandedSegment(current => current === segmentId ? null : segmentId);
+  const toggleSegment = segmentId => {
+    setExpandedSegment(current => (current === segmentId ? null : segmentId));
   };
 
   return (
@@ -33,8 +33,8 @@ export default function EthnicityInputs({ patterns, turnout, onUpdatePattern, on
           turnoutRate={turnout?.[segment.id]}
           isExpanded={expandedSegment === segment.id}
           onToggle={() => toggleSegment(segment.id)}
-          onUpdatePattern={(partyShares) => onUpdatePattern(segment.id, partyShares)}
-          onUpdateTurnout={(rate) => onUpdateTurnout(segment.id, rate)}
+          onUpdatePattern={partyShares => onUpdatePattern(segment.id, partyShares)}
+          onUpdateTurnout={rate => onUpdateTurnout(segment.id, rate)}
         />
       ))}
     </div>
@@ -51,12 +51,14 @@ function SegmentSection({
   onUpdateTurnout,
 }) {
   const handleSliderChange = (party, value) => {
-    if (!pattern) return;
+    if (!pattern) {
+      return;
+    }
     const newPattern = adjustZeroSumSliders(pattern, party, value);
     onUpdatePattern(newPattern);
   };
 
-  const handleTurnoutChange = (e) => {
+  const handleTurnoutChange = e => {
     const value = parseFloat(e.target.value);
     if (!isNaN(value)) {
       onUpdateTurnout(Math.max(0, Math.min(100, value)));
@@ -72,23 +74,16 @@ function SegmentSection({
         className="w-full px-4 py-2.5 bg-gray-50 flex items-center justify-between"
       >
         <div className="text-left flex items-center gap-2">
-          <span
-            className="w-3 h-3 rounded-full"
-            style={{ backgroundColor: segment.color }}
-          />
+          <span className="w-3 h-3 rounded-full" style={{ backgroundColor: segment.color }} />
           <div>
-            <div className="font-medium text-sm text-gray-900">
-              {segment.label}
-            </div>
+            <div className="font-medium text-sm text-gray-900">{segment.label}</div>
             <div className="text-xs text-gray-500">
               Turnout: {turnoutRate?.toFixed(1) || '65.0'}%
             </div>
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-xs text-green-600">
-            {total.toFixed(0)}%
-          </span>
+          <span className="text-xs text-green-600">{total.toFixed(0)}%</span>
           <svg
             className={`w-4 h-4 text-gray-500 transition-transform ${
               isExpanded ? 'rotate-180' : ''
@@ -97,12 +92,7 @@ function SegmentSection({
             stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 9l-7 7-7-7"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
         </div>
       </button>
@@ -126,12 +116,8 @@ function SegmentSection({
 
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="block text-xs font-medium text-gray-700">
-                Party Vote Shares
-              </label>
-              <span className="text-xs font-mono text-green-600">
-                Total: {total.toFixed(1)}%
-              </span>
+              <label className="block text-xs font-medium text-gray-700">Party Vote Shares</label>
+              <span className="text-xs font-mono text-green-600">Total: {total.toFixed(1)}%</span>
             </div>
             <div className="space-y-2.5">
               {Object.keys(PARTIES).map(party => (
@@ -139,7 +125,7 @@ function SegmentSection({
                   key={party}
                   party={party}
                   value={pattern?.[party] || 0}
-                  onChange={(value) => handleSliderChange(party, value)}
+                  onChange={value => handleSliderChange(party, value)}
                 />
               ))}
             </div>
@@ -153,7 +139,7 @@ function SegmentSection({
 function PartySlider({ party, value, onChange }) {
   const partyInfo = PARTIES[party];
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const newValue = parseFloat(e.target.value);
     onChange(newValue);
   };
@@ -162,18 +148,10 @@ function PartySlider({ party, value, onChange }) {
     <div className="group">
       <div className="flex items-center justify-between mb-1">
         <div className="flex items-center gap-2">
-          <div
-            className="w-2 h-2 rounded-full"
-            style={{ backgroundColor: partyInfo.color }}
-          />
-          <span className="text-xs font-medium text-gray-700">
-            {partyInfo.short}
-          </span>
+          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: partyInfo.color }} />
+          <span className="text-xs font-medium text-gray-700">{partyInfo.short}</span>
         </div>
-        <span
-          className="text-xs font-mono font-bold"
-          style={{ color: partyInfo.color }}
-        >
+        <span className="text-xs font-mono font-bold" style={{ color: partyInfo.color }}>
           {value.toFixed(1)}%
         </span>
       </div>
@@ -186,7 +164,7 @@ function PartySlider({ party, value, onChange }) {
         onChange={handleChange}
         className="w-full h-2 rounded-lg appearance-none cursor-pointer slider"
         style={{
-          background: `linear-gradient(to right, ${partyInfo.color} 0%, ${partyInfo.color} ${value}%, #e5e7eb ${value}%, #e5e7eb 100%)`
+          background: `linear-gradient(to right, ${partyInfo.color} 0%, ${partyInfo.color} ${value}%, #e5e7eb ${value}%, #e5e7eb 100%)`,
         }}
       />
     </div>

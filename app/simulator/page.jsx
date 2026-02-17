@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { Lock, RotateCcw, Target, Unlock } from 'lucide-react';
 import dynamic from 'next/dynamic';
@@ -26,7 +26,13 @@ import { SwingPanel } from '../../components/SwingPanel';
 import { VoterFlowDiagram } from '../../components/VoterFlowDiagram';
 import YearSelector from '../../components/YearSelector';
 import { useLanguage } from '../../context/LanguageContext';
-import { OFFICIAL_FPTP_VOTE, OFFICIAL_PR_VOTE, PARTIES, PROVINCES, constituencies } from '../../data/constituencies';
+import {
+  OFFICIAL_FPTP_VOTE,
+  OFFICIAL_PR_VOTE,
+  PARTIES,
+  PROVINCES,
+  constituencies,
+} from '../../data/constituencies';
 import { IDEOLOGY_COORDS } from '../../data/partyMeta';
 import { useElectionState } from '../../hooks/useElectionState';
 import { get2026ElectionData, getPartyColor } from '../../utils/election2026Data';
@@ -46,14 +52,12 @@ const GUIDED_CONTROL_LABELS = {
   demographics: 'Demographic Modeling',
   advanced: 'Advanced Dynamics',
 };
-const DATA_FLOW_STEPS = [
-  'Set Scope',
-  'Explore Patterns',
-  'Final Insight',
-];
+const DATA_FLOW_STEPS = ['Set Scope', 'Explore Patterns', 'Final Insight'];
 
-const normalizeConstituencyName = (value) => {
-  if (!value || typeof value !== 'string') {return '';}
+const normalizeConstituencyName = value => {
+  if (!value || typeof value !== 'string') {
+    return '';
+  }
   return value
     .trim()
     .toLowerCase()
@@ -61,14 +65,18 @@ const normalizeConstituencyName = (value) => {
     .replace(/[^a-z0-9-]/g, '');
 };
 
-const resolveCandidatePartyColor = (partyNameOrCode) => {
+const resolveCandidatePartyColor = partyNameOrCode => {
   const byUtils = getPartyColor(partyNameOrCode);
-  if (byUtils !== '#6b7280') {return byUtils;}
+  if (byUtils !== '#6b7280') {
+    return byUtils;
+  }
 
   const direct = PARTIES[partyNameOrCode];
-  if (direct?.color) {return direct.color;}
+  if (direct?.color) {
+    return direct.color;
+  }
 
-  const byShort = Object.values(PARTIES).find((party) => party.short === partyNameOrCode);
+  const byShort = Object.values(PARTIES).find(party => party.short === partyNameOrCode);
   return byShort?.color || '#6b7280';
 };
 
@@ -155,16 +163,20 @@ export default function HomePage() {
   const [dataSearch, setDataSearch] = useState('');
   const [dataBattlegroundOnly, setDataBattlegroundOnly] = useState(false);
 
-  const activeAlliance = allianceConfig?.enabled && (allianceConfig.parties?.length === 2);
+  const activeAlliance = allianceConfig?.enabled && allianceConfig.parties?.length === 2;
   const [allyA, allyB] = allianceConfig?.parties || [];
   const election2026Data = useMemo(() => get2026ElectionData(), []);
-  const keyBattlegrounds = election2026Data?.key_battlegrounds || [];
-  const battlegroundNameSet = useMemo(() => (
-    new Set(keyBattlegrounds.map((battle) => normalizeConstituencyName(battle.constituency)))
-  ), [keyBattlegrounds]);
+  const keyBattlegrounds = useMemo(
+    () => election2026Data?.key_battlegrounds || [],
+    [election2026Data]
+  );
+  const battlegroundNameSet = useMemo(
+    () => new Set(keyBattlegrounds.map(battle => normalizeConstituencyName(battle.constituency))),
+    [keyBattlegrounds]
+  );
   const constituencyByNormalizedName = useMemo(() => {
     const map = new Map();
-    constituencies.forEach((c) => {
+    constituencies.forEach(c => {
       map.set(normalizeConstituencyName(c.name), c);
     });
     return map;
@@ -176,12 +188,15 @@ export default function HomePage() {
   const inGuidedSimulation = guidedFlowEnabled && experienceMode === 'simulation';
   const inGuidedData = guidedFlowEnabled && experienceMode === 'data';
   const showControlSetupStep = inGuidedSimulation && guidedStep === 2;
-  const showResultSections = selectedYear === 2026 && !inGuidedData && (!inGuidedSimulation || guidedStep >= 3);
-  const showControlsSection = selectedYear === 2026 && (!inGuidedSimulation || guidedStep >= 2) && !inGuidedData;
+  const showResultSections =
+    selectedYear === 2026 && !inGuidedData && (!inGuidedSimulation || guidedStep >= 3);
+  const showControlsSection =
+    selectedYear === 2026 && (!inGuidedSimulation || guidedStep >= 2) && !inGuidedData;
   const dataRows = useMemo(() => {
-    return constituencies.map((c) => {
+    return constituencies.map(c => {
       const normalizedName = normalizeConstituencyName(c.name);
-      const simulatedWinner = selectedYear === 2026 ? (fptpResults[c.id]?.winner || c.winner2022) : c.winner2022;
+      const simulatedWinner =
+        selectedYear === 2026 ? fptpResults[c.id]?.winner || c.winner2022 : c.winner2022;
       return {
         id: c.id,
         name: c.name,
@@ -196,41 +211,52 @@ export default function HomePage() {
 
   const filteredDataRows = useMemo(() => {
     const searchNeedle = dataSearch.trim().toLowerCase();
-    return dataRows.filter((row) => {
-      if (dataProvinceFilter !== 'all' && String(row.province) !== dataProvinceFilter) {return false;}
-      if (dataWinnerFilter !== 'all' && row.winner !== dataWinnerFilter) {return false;}
-      if (dataBattlegroundOnly && !row.isBattleground) {return false;}
-      if (!searchNeedle) {return true;}
+    return dataRows.filter(row => {
+      if (dataProvinceFilter !== 'all' && String(row.province) !== dataProvinceFilter) {
+        return false;
+      }
+      if (dataWinnerFilter !== 'all' && row.winner !== dataWinnerFilter) {
+        return false;
+      }
+      if (dataBattlegroundOnly && !row.isBattleground) {
+        return false;
+      }
+      if (!searchNeedle) {
+        return true;
+      }
       return `${row.name} ${row.district}`.toLowerCase().includes(searchNeedle);
     });
   }, [dataRows, dataProvinceFilter, dataWinnerFilter, dataBattlegroundOnly, dataSearch]);
 
   const filteredWinnerCounts = useMemo(() => {
     const counts = {};
-    filteredDataRows.forEach((row) => {
+    filteredDataRows.forEach(row => {
       counts[row.winner] = (counts[row.winner] || 0) + 1;
     });
-    return Object.entries(counts)
-      .sort((a, b) => b[1] - a[1]);
+    return Object.entries(counts).sort((a, b) => b[1] - a[1]);
   }, [filteredDataRows]);
 
   const filteredAvgMargin = useMemo(() => {
-    if (filteredDataRows.length === 0) {return 0;}
+    if (filteredDataRows.length === 0) {
+      return 0;
+    }
     return filteredDataRows.reduce((sum, row) => sum + row.margin, 0) / filteredDataRows.length;
   }, [filteredDataRows]);
 
   const filteredBattlegroundRows = useMemo(() => {
-    return filteredDataRows.filter((row) => row.isBattleground).sort((a, b) => a.margin - b.margin);
+    return filteredDataRows.filter(row => row.isBattleground).sort((a, b) => a.margin - b.margin);
   }, [filteredDataRows]);
 
   const filteredBattlegroundCards = useMemo(() => {
-    const allowed = new Set(filteredBattlegroundRows.map((row) => normalizeConstituencyName(row.name)));
-    return keyBattlegrounds.filter((battle) => allowed.has(normalizeConstituencyName(battle.constituency)));
+    const allowed = new Set(
+      filteredBattlegroundRows.map(row => normalizeConstituencyName(row.name))
+    );
+    return keyBattlegrounds.filter(battle =>
+      allowed.has(normalizeConstituencyName(battle.constituency))
+    );
   }, [filteredBattlegroundRows, keyBattlegrounds]);
   const topCloseSeats = useMemo(() => {
-    return [...filteredDataRows]
-      .sort((a, b) => a.margin - b.margin)
-      .slice(0, 8);
+    return [...filteredDataRows].sort((a, b) => a.margin - b.margin).slice(0, 8);
   }, [filteredDataRows]);
 
   const partyColors = {};
@@ -238,34 +264,41 @@ export default function HomePage() {
     partyColors[p] = `text-${p.toLowerCase()}`;
   });
 
-  const formatPartyLabel = (partyId) => {
+  const formatPartyLabel = partyId => {
     const info = PARTIES[partyId];
     return info ? `${info.short} (${info.name})` : partyId;
   };
 
-  const applySwitchingMatrixToSliders = (baseSliders) => {
+  const applySwitchingMatrixToSliders = baseSliders => {
     const parties = Object.keys(baseSliders || {});
     const deltas = Object.fromEntries(parties.map(party => [party, 0]));
 
     Object.entries(switchingMatrix).forEach(([fromParty, targets]) => {
-      if (!targets || !parties.includes(fromParty)) {return;}
+      if (!targets || !parties.includes(fromParty)) {
+        return;
+      }
 
       const baseFrom = baseSliders[fromParty] || 0;
-      if (baseFrom <= 0) {return;}
+      if (baseFrom <= 0) {
+        return;
+      }
 
       const validTargets = Object.entries(targets)
-        .filter(([toParty, percentage]) => (
-          parties.includes(toParty) &&
-          toParty !== fromParty &&
-          typeof percentage === 'number' &&
-          percentage > 0
-        ))
+        .filter(
+          ([toParty, percentage]) =>
+            parties.includes(toParty) &&
+            toParty !== fromParty &&
+            typeof percentage === 'number' &&
+            percentage > 0
+        )
         .map(([toParty, percentage]) => [toParty, Math.min(100, percentage)]);
 
-      if (validTargets.length === 0) {return;}
+      if (validTargets.length === 0) {
+        return;
+      }
 
       const totalRequestedPct = validTargets.reduce((sum, [, percentage]) => sum + percentage, 0);
-      const scale = totalRequestedPct > 100 ? (100 / totalRequestedPct) : 1;
+      const scale = totalRequestedPct > 100 ? 100 / totalRequestedPct : 1;
 
       let totalOut = 0;
       validTargets.forEach(([toParty, percentage]) => {
@@ -279,13 +312,13 @@ export default function HomePage() {
     });
 
     const result = {};
-    parties.forEach((party) => {
+    parties.forEach(party => {
       result[party] = Math.max(0, (baseSliders[party] || 0) + (deltas[party] || 0));
     });
 
     const total = Object.values(result).reduce((sum, value) => sum + value, 0);
     if (total > 0) {
-      parties.forEach((party) => {
+      parties.forEach(party => {
         result[party] = (result[party] / total) * 100;
       });
     }
@@ -314,11 +347,13 @@ export default function HomePage() {
   const computeCompatibility = (a, b) => {
     const pa = IDEOLOGY_COORDS[a];
     const pb = IDEOLOGY_COORDS[b];
-    if (!pa || !pb) {return null;}
+    if (!pa || !pb) {
+      return null;
+    }
     const d = Math.sqrt(
       Math.pow(pa.econ - pb.econ, 2) +
-      Math.pow(pa.federal - pb.federal, 2) +
-      Math.pow(pa.geo - pb.geo, 2)
+        Math.pow(pa.federal - pb.federal, 2) +
+        Math.pow(pa.geo - pb.geo, 2)
     );
     const score = Math.max(0, 100 - d * 100);
     return { distance: d, score };
@@ -326,7 +361,9 @@ export default function HomePage() {
   const compatibility = activeAlliance ? computeCompatibility(allyA, allyB) : null;
 
   useEffect(() => {
-    if (!rspStartingPoint) {return;}
+    if (!rspStartingPoint) {
+      return;
+    }
     if (demographicMode && overrideDemographicsForAdvanced) {
       setDemographicMode(false);
     }
@@ -342,7 +379,9 @@ export default function HomePage() {
   ]);
 
   useEffect(() => {
-    if (!showControlSetupStep) {return;}
+    if (!showControlSetupStep) {
+      return;
+    }
     setActiveTab(currentGuidedControl);
     setDemographicMode(currentGuidedControl === 'demographics');
   }, [showControlSetupStep, currentGuidedControl, setDemographicMode]);
@@ -355,7 +394,7 @@ export default function HomePage() {
   };
 
   const topSimulationChanges = Object.keys(OFFICIAL_FPTP_VOTE)
-    .map((party) => {
+    .map(party => {
       const fptpDelta = (fptpSliders[party] || 0) - (OFFICIAL_FPTP_VOTE[party] || 0);
       const prDelta = (prSliders[party] || 0) - (OFFICIAL_PR_VOTE[party] || 0);
       return { party, fptpDelta, prDelta, magnitude: Math.abs(fptpDelta) + Math.abs(prDelta) };
@@ -363,14 +402,14 @@ export default function HomePage() {
     .sort((a, b) => b.magnitude - a.magnitude)
     .slice(0, 4);
 
-  const toggleSimulationControl = (control) => {
-    setSelectedSimulationControls((current) => ({
+  const toggleSimulationControl = control => {
+    setSelectedSimulationControls(current => ({
       ...current,
       [control]: !current[control],
     }));
   };
 
-  const handleGuidedModeSelect = (mode) => {
+  const handleGuidedModeSelect = mode => {
     setExperienceMode(mode);
     if (mode === 'simulation') {
       setGuidedStep(1);
@@ -383,14 +422,16 @@ export default function HomePage() {
   };
 
   const handleStartControlSetup = () => {
-    if (enabledSimulationControls.length === 0) {return;}
+    if (enabledSimulationControls.length === 0) {
+      return;
+    }
     setGuidedControlIndex(0);
     setGuidedStep(2);
   };
 
   const handleNextGuidedControl = () => {
     if (guidedControlIndex < enabledSimulationControls.length - 1) {
-      setGuidedControlIndex((i) => i + 1);
+      setGuidedControlIndex(i => i + 1);
       return;
     }
     setGuidedStep(3);
@@ -398,14 +439,17 @@ export default function HomePage() {
 
   const handleBackGuidedControl = () => {
     if (guidedControlIndex > 0) {
-      setGuidedControlIndex((i) => i - 1);
+      setGuidedControlIndex(i => i - 1);
       return;
     }
     setGuidedStep(1);
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: 'rgb(250, 249, 246)', fontFamily: 'Figtree, sans-serif' }}>
+    <div
+      className="min-h-screen"
+      style={{ backgroundColor: 'rgb(250, 249, 246)', fontFamily: 'Figtree, sans-serif' }}
+    >
       <Header />
 
       <main className="max-w-7xl mx-auto px-4 py-6" ref={screenshotRef}>
@@ -413,8 +457,12 @@ export default function HomePage() {
           <div className="mb-6 bg-white rounded-lg border border-[rgb(219,211,196)] p-5 shadow-sm">
             <div className="flex items-start justify-between gap-3 mb-4">
               <div>
-                <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)]">Guided Flow</p>
-                <h2 className="text-lg font-semibold text-[rgb(24,26,36)]">Build Scenario Step-by-Step</h2>
+                <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)]">
+                  Guided Flow
+                </p>
+                <h2 className="text-lg font-semibold text-[rgb(24,26,36)]">
+                  Build Scenario Step-by-Step
+                </h2>
                 <p className="text-sm text-[rgb(100,110,130)]">
                   Choose mode, apply controls, then review how those changes produced the result.
                 </p>
@@ -434,30 +482,41 @@ export default function HomePage() {
                   className="p-4 rounded-lg border border-[rgb(219,211,196)] hover:border-[rgb(24,26,36)]/30 text-left"
                 >
                   <p className="font-semibold text-[rgb(24,26,36)]">Simulation Mode</p>
-                  <p className="text-sm text-[rgb(100,110,130)]">Adjust controls and see projected seats.</p>
+                  <p className="text-sm text-[rgb(100,110,130)]">
+                    Adjust controls and see projected seats.
+                  </p>
                 </button>
                 <button
                   onClick={() => handleGuidedModeSelect('data')}
                   className="p-4 rounded-lg border border-[rgb(219,211,196)] hover:border-[rgb(24,26,36)]/30 text-left"
                 >
                   <p className="font-semibold text-[rgb(24,26,36)]">Data Mode</p>
-                  <p className="text-sm text-[rgb(100,110,130)]">Browse election data and battlegrounds.</p>
+                  <p className="text-sm text-[rgb(100,110,130)]">
+                    Browse election data and battlegrounds.
+                  </p>
                 </button>
               </div>
             )}
 
             {guidedStep === 1 && (
               <div>
-                <p className="text-sm font-semibold text-[rgb(24,26,36)] mb-2">Select controls to apply</p>
+                <p className="text-sm font-semibold text-[rgb(24,26,36)] mb-2">
+                  Select controls to apply
+                </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-3">
                   {Object.keys(GUIDED_CONTROL_LABELS).map(control => (
-                    <label key={control} className="flex items-center gap-2 rounded-lg border border-[rgb(219,211,196)] px-3 py-2">
+                    <label
+                      key={control}
+                      className="flex items-center gap-2 rounded-lg border border-[rgb(219,211,196)] px-3 py-2"
+                    >
                       <input
                         type="checkbox"
                         checked={selectedSimulationControls[control]}
                         onChange={() => toggleSimulationControl(control)}
                       />
-                      <span className="text-sm text-[rgb(24,26,36)]">{GUIDED_CONTROL_LABELS[control]}</span>
+                      <span className="text-sm text-[rgb(24,26,36)]">
+                        {GUIDED_CONTROL_LABELS[control]}
+                      </span>
                     </label>
                   ))}
                 </div>
@@ -483,14 +542,27 @@ export default function HomePage() {
               <div className="flex items-center justify-between gap-3">
                 <div>
                   <p className="text-sm font-semibold text-[rgb(24,26,36)]">
-                    Step {guidedControlIndex + 1} of {enabledSimulationControls.length}: {GUIDED_CONTROL_LABELS[currentGuidedControl]}
+                    Step {guidedControlIndex + 1} of {enabledSimulationControls.length}:{' '}
+                    {GUIDED_CONTROL_LABELS[currentGuidedControl]}
                   </p>
-                  <p className="text-xs text-[rgb(100,110,130)]">Apply this control, then continue.</p>
+                  <p className="text-xs text-[rgb(100,110,130)]">
+                    Apply this control, then continue.
+                  </p>
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={handleBackGuidedControl} className="px-3 py-2 rounded-lg border border-[rgb(219,211,196)] text-sm">Back</button>
-                  <button onClick={handleNextGuidedControl} className="px-4 py-2 rounded-lg text-sm font-semibold bg-[#B91C1C] text-white">
-                    {guidedControlIndex === enabledSimulationControls.length - 1 ? 'See Results' : 'Next Control'}
+                  <button
+                    onClick={handleBackGuidedControl}
+                    className="px-3 py-2 rounded-lg border border-[rgb(219,211,196)] text-sm"
+                  >
+                    Back
+                  </button>
+                  <button
+                    onClick={handleNextGuidedControl}
+                    className="px-4 py-2 rounded-lg text-sm font-semibold bg-[#B91C1C] text-white"
+                  >
+                    {guidedControlIndex === enabledSimulationControls.length - 1
+                      ? 'See Results'
+                      : 'Next Control'}
                   </button>
                 </div>
               </div>
@@ -502,7 +574,8 @@ export default function HomePage() {
                   {inGuidedData ? (
                     <>
                       <p className="text-sm font-semibold text-[rgb(24,26,36)]">
-                        Data mode step {dataFlowStep + 1} of {DATA_FLOW_STEPS.length}: {DATA_FLOW_STEPS[dataFlowStep]}
+                        Data mode step {dataFlowStep + 1} of {DATA_FLOW_STEPS.length}:{' '}
+                        {DATA_FLOW_STEPS[dataFlowStep]}
                       </p>
                       <p className="text-xs text-[rgb(100,110,130)]">
                         Build scope first, explore shifts, then lock your final readout.
@@ -510,13 +583,17 @@ export default function HomePage() {
                       <div className="mt-2 h-1.5 w-56 rounded-full bg-[rgb(244,238,229)] overflow-hidden">
                         <div
                           className="h-full rounded-full bg-[#B91C1C]"
-                          style={{ width: `${((dataFlowStep + 1) / DATA_FLOW_STEPS.length) * 100}%` }}
+                          style={{
+                            width: `${((dataFlowStep + 1) / DATA_FLOW_STEPS.length) * 100}%`,
+                          }}
                         />
                       </div>
                     </>
                   ) : (
                     <>
-                      <p className="text-sm font-semibold text-[rgb(24,26,36)]">Simulation complete</p>
+                      <p className="text-sm font-semibold text-[rgb(24,26,36)]">
+                        Simulation complete
+                      </p>
                       <p className="text-xs text-[rgb(100,110,130)]">
                         Review final outcomes and the biggest vote-share shifts.
                       </p>
@@ -526,7 +603,7 @@ export default function HomePage() {
                 <div className="flex gap-2">
                   {inGuidedData && (
                     <button
-                      onClick={() => setDataFlowStep((step) => Math.max(0, step - 1))}
+                      onClick={() => setDataFlowStep(step => Math.max(0, step - 1))}
                       disabled={dataFlowStep === 0}
                       className="px-3 py-2 rounded-lg border border-[rgb(219,211,196)] text-sm disabled:opacity-40"
                     >
@@ -535,7 +612,9 @@ export default function HomePage() {
                   )}
                   {inGuidedData && (
                     <button
-                      onClick={() => setDataFlowStep((step) => Math.min(DATA_FLOW_STEPS.length - 1, step + 1))}
+                      onClick={() =>
+                        setDataFlowStep(step => Math.min(DATA_FLOW_STEPS.length - 1, step + 1))
+                      }
                       disabled={dataFlowStep === DATA_FLOW_STEPS.length - 1}
                       className="px-3 py-2 rounded-lg text-sm font-semibold bg-[#B91C1C] text-white disabled:opacity-40"
                     >
@@ -572,11 +651,19 @@ export default function HomePage() {
             <div className="flex items-center gap-6">
               {leadingParty && (
                 <div>
-                  <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)]">Leading</p>
-                  <p className={`text-lg font-bold ${partyColors[leadingParty] || 'text-[rgb(24,26,36)]'}`} style={{ fontFamily: 'Lora, serif' }}>
+                  <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)]">
+                    Leading
+                  </p>
+                  <p
+                    className={`text-lg font-bold ${partyColors[leadingParty] || 'text-[rgb(24,26,36)]'}`}
+                    style={{ fontFamily: 'Lora, serif' }}
+                  >
                     {formatPartyLabel(leadingParty)}
                   </p>
-                  <p className="text-sm text-[rgb(100,110,130)]" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                  <p
+                    className="text-sm text-[rgb(100,110,130)]"
+                    style={{ fontFamily: 'JetBrains Mono, monospace' }}
+                  >
                     {totalSeats[leadingParty]} seats
                   </p>
                 </div>
@@ -585,7 +672,9 @@ export default function HomePage() {
                 <Target
                   className={`w-5 h-5 ${hasMajority ? 'text-[#22c55e]' : 'text-[rgb(100,110,130)]'}`}
                 />
-                <span className={`text-sm font-semibold ${hasMajority ? 'text-[#22c55e]' : 'text-[rgb(100,110,130)]'}`}>
+                <span
+                  className={`text-sm font-semibold ${hasMajority ? 'text-[#22c55e]' : 'text-[rgb(100,110,130)]'}`}
+                >
                   {hasMajority ? t('simulator.majority') : t('simulator.hung')}
                 </span>
               </div>
@@ -642,7 +731,8 @@ export default function HomePage() {
                       </span>
                     </div>
                     <span className="text-xs text-[rgb(100,110,130)]">
-                      Handicap {allianceConfig.handicap}% • {100 - allianceConfig.handicap}% transfer efficiency
+                      Handicap {allianceConfig.handicap}% • {100 - allianceConfig.handicap}%
+                      transfer efficiency
                     </span>
                     {compatibility && (
                       <span className="text-xs text-[rgb(100,110,130)]">
@@ -695,36 +785,46 @@ export default function HomePage() {
               <>
                 <div className="flex flex-wrap items-end gap-3">
                   <div>
-                    <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)]">Data Filters</p>
+                    <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)]">
+                      Data Filters
+                    </p>
                     <select
                       value={dataProvinceFilter}
-                      onChange={(e) => setDataProvinceFilter(e.target.value)}
+                      onChange={e => setDataProvinceFilter(e.target.value)}
                       className="mt-1 px-3 py-2 rounded-lg border border-[rgb(219,211,196)] text-sm"
                     >
                       <option value="all">All Provinces</option>
                       {Object.entries(PROVINCES).map(([id, province]) => (
-                        <option key={id} value={id}>{province.name}</option>
+                        <option key={id} value={id}>
+                          {province.name}
+                        </option>
                       ))}
                     </select>
                   </div>
                   <div>
-                    <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)]">Winning Party</p>
+                    <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)]">
+                      Winning Party
+                    </p>
                     <select
                       value={dataWinnerFilter}
-                      onChange={(e) => setDataWinnerFilter(e.target.value)}
+                      onChange={e => setDataWinnerFilter(e.target.value)}
                       className="mt-1 px-3 py-2 rounded-lg border border-[rgb(219,211,196)] text-sm"
                     >
                       <option value="all">All Winners</option>
-                      {Object.keys(PARTIES).map((party) => (
-                        <option key={party} value={party}>{PARTIES[party].short}</option>
+                      {Object.keys(PARTIES).map(party => (
+                        <option key={party} value={party}>
+                          {PARTIES[party].short}
+                        </option>
                       ))}
                     </select>
                   </div>
                   <div className="flex-1 min-w-[220px]">
-                    <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)]">Search</p>
+                    <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)]">
+                      Search
+                    </p>
                     <input
                       value={dataSearch}
-                      onChange={(e) => setDataSearch(e.target.value)}
+                      onChange={e => setDataSearch(e.target.value)}
                       placeholder="Constituency or district"
                       className="mt-1 w-full px-3 py-2 rounded-lg border border-[rgb(219,211,196)] text-sm"
                     />
@@ -733,7 +833,7 @@ export default function HomePage() {
                     <input
                       type="checkbox"
                       checked={dataBattlegroundOnly}
-                      onChange={(e) => setDataBattlegroundOnly(e.target.checked)}
+                      onChange={e => setDataBattlegroundOnly(e.target.checked)}
                     />
                     Battleground only
                   </label>
@@ -742,8 +842,14 @@ export default function HomePage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                   <DataStatCard label="Constituencies Visible" value={filteredDataRows.length} />
                   <DataStatCard label="Unique Winners" value={filteredWinnerCounts.length} />
-                  <DataStatCard label="Close Seats (<5%)" value={filteredDataRows.filter((row) => row.margin < 0.05).length} />
-                  <DataStatCard label="Avg Margin" value={`${(filteredAvgMargin * 100).toFixed(2)}%`} />
+                  <DataStatCard
+                    label="Close Seats (<5%)"
+                    value={filteredDataRows.filter(row => row.margin < 0.05).length}
+                  />
+                  <DataStatCard
+                    label="Avg Margin"
+                    value={`${(filteredAvgMargin * 100).toFixed(2)}%`}
+                  />
                 </div>
               </>
             )}
@@ -751,13 +857,18 @@ export default function HomePage() {
             {dataFlowStep === 1 && (
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 <div className="lg:col-span-2 rounded-lg border border-[rgb(219,211,196)] p-3">
-                  <p className="text-sm font-semibold text-[rgb(24,26,36)] mb-2">Winner Distribution</p>
+                  <p className="text-sm font-semibold text-[rgb(24,26,36)] mb-2">
+                    Winner Distribution
+                  </p>
                   <div className="space-y-2">
                     {filteredWinnerCounts.length === 0 && (
-                      <p className="text-sm text-[rgb(100,110,130)]">No matching winners for current filters.</p>
+                      <p className="text-sm text-[rgb(100,110,130)]">
+                        No matching winners for current filters.
+                      </p>
                     )}
                     {filteredWinnerCounts.map(([party, seats]) => {
-                      const pct = filteredDataRows.length > 0 ? (seats / filteredDataRows.length) * 100 : 0;
+                      const pct =
+                        filteredDataRows.length > 0 ? (seats / filteredDataRows.length) * 100 : 0;
                       return (
                         <div key={party} className="space-y-1">
                           <div className="flex items-center justify-between text-xs text-[rgb(100,110,130)]">
@@ -783,7 +894,9 @@ export default function HomePage() {
                   <p className="text-sm font-semibold text-[rgb(24,26,36)] mb-2">Province Split</p>
                   <div className="space-y-2">
                     {Object.entries(PROVINCES).map(([provinceId, province]) => {
-                      const count = filteredDataRows.filter((row) => String(row.province) === provinceId).length;
+                      const count = filteredDataRows.filter(
+                        row => String(row.province) === provinceId
+                      ).length;
                       return (
                         <button
                           key={provinceId}
@@ -807,17 +920,22 @@ export default function HomePage() {
                 </div>
 
                 <div className="lg:col-span-3 rounded-lg border border-[rgb(219,211,196)] p-3">
-                  <p className="text-sm font-semibold text-[rgb(24,26,36)] mb-2">Closest Seats In Current Scope</p>
+                  <p className="text-sm font-semibold text-[rgb(24,26,36)] mb-2">
+                    Closest Seats In Current Scope
+                  </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2">
-                    {topCloseSeats.map((seat) => (
+                    {topCloseSeats.map(seat => (
                       <button
                         key={seat.id}
-                        onClick={() => selectConstituency(constituencies.find((c) => c.id === seat.id))}
+                        onClick={() =>
+                          selectConstituency(constituencies.find(c => c.id === seat.id))
+                        }
                         className="text-left rounded-lg border border-[rgb(219,211,196)] px-3 py-2 hover:bg-[rgb(250,249,246)]"
                       >
                         <p className="text-sm font-semibold text-[rgb(24,26,36)]">{seat.name}</p>
                         <p className="text-xs text-[rgb(100,110,130)]">
-                          Margin {(seat.margin * 100).toFixed(2)}% • Winner {PARTIES[seat.winner]?.short || seat.winner}
+                          Margin {(seat.margin * 100).toFixed(2)}% • Winner{' '}
+                          {PARTIES[seat.winner]?.short || seat.winner}
                         </p>
                       </button>
                     ))}
@@ -831,36 +949,66 @@ export default function HomePage() {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <DataStatCard
                     label="Dominant Party"
-                    value={filteredWinnerCounts[0] ? `${PARTIES[filteredWinnerCounts[0][0]]?.short || filteredWinnerCounts[0][0]} (${filteredWinnerCounts[0][1]})` : 'N/A'}
+                    value={
+                      filteredWinnerCounts[0]
+                        ? `${PARTIES[filteredWinnerCounts[0][0]]?.short || filteredWinnerCounts[0][0]} (${filteredWinnerCounts[0][1]})`
+                        : 'N/A'
+                    }
                   />
-                  <DataStatCard label="Battlegrounds In Scope" value={filteredBattlegroundCards.length} />
-                  <DataStatCard label="Seats Under 3% Margin" value={filteredDataRows.filter((row) => row.margin < 0.03).length} />
+                  <DataStatCard
+                    label="Battlegrounds In Scope"
+                    value={filteredBattlegroundCards.length}
+                  />
+                  <DataStatCard
+                    label="Seats Under 3% Margin"
+                    value={filteredDataRows.filter(row => row.margin < 0.03).length}
+                  />
                 </div>
 
                 <div className="rounded-lg border border-[rgb(219,211,196)] p-3">
-                  <p className="text-sm font-semibold text-[rgb(24,26,36)] mb-2">Important Battles</p>
+                  <p className="text-sm font-semibold text-[rgb(24,26,36)] mb-2">
+                    Important Battles
+                  </p>
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                     {filteredBattlegroundCards.length === 0 && (
-                      <p className="text-sm text-[rgb(100,110,130)]">No battlegrounds match the current filters.</p>
+                      <p className="text-sm text-[rgb(100,110,130)]">
+                        No battlegrounds match the current filters.
+                      </p>
                     )}
-                    {filteredBattlegroundCards.map((battle) => {
-                      const constituency = constituencyByNormalizedName.get(normalizeConstituencyName(battle.constituency));
+                    {filteredBattlegroundCards.map(battle => {
+                      const constituency = constituencyByNormalizedName.get(
+                        normalizeConstituencyName(battle.constituency)
+                      );
                       return (
-                        <div key={battle.constituency} className="rounded-lg border border-[rgb(219,211,196)] p-3">
+                        <div
+                          key={battle.constituency}
+                          className="rounded-lg border border-[rgb(219,211,196)] p-3"
+                        >
                           <div className="flex items-center justify-between gap-2 mb-2">
-                            <p className="font-semibold text-[rgb(24,26,36)]">{battle.constituency}</p>
+                            <p className="font-semibold text-[rgb(24,26,36)]">
+                              {battle.constituency}
+                            </p>
                             <span className="text-xs text-[rgb(100,110,130)]">
-                              {constituency ? `${PROVINCES[String(constituency.province)]?.name || ''}` : ''}
+                              {constituency
+                                ? `${PROVINCES[String(constituency.province)]?.name || ''}`
+                                : ''}
                             </span>
                           </div>
-                          <p className="text-xs text-[rgb(100,110,130)] mb-2">{battle.significance}</p>
+                          <p className="text-xs text-[rgb(100,110,130)] mb-2">
+                            {battle.significance}
+                          </p>
                           <div className="space-y-1">
-                            {battle.candidates.map((candidate) => (
-                              <div key={`${battle.constituency}-${candidate.name}`} className="flex items-center justify-between text-sm">
+                            {battle.candidates.map(candidate => (
+                              <div
+                                key={`${battle.constituency}-${candidate.name}`}
+                                className="flex items-center justify-between text-sm"
+                              >
                                 <span className="text-[rgb(24,26,36)]">{candidate.name}</span>
                                 <span
                                   className="px-2 py-0.5 rounded text-xs text-white"
-                                  style={{ backgroundColor: resolveCandidatePartyColor(candidate.party) }}
+                                  style={{
+                                    backgroundColor: resolveCandidatePartyColor(candidate.party),
+                                  }}
                                 >
                                   {candidate.party}
                                 </span>
@@ -915,83 +1063,94 @@ export default function HomePage() {
               )}
 
               {/* Tab Content */}
-              {(activeTab === 'manual') && (!showControlSetupStep || currentGuidedControl === 'manual') && (
-                <>
-                  <div className="flex justify-center mb-3">
-                    <button
-                      onClick={() => setSlidersLocked(!slidersLocked)}
-                      className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border transition-colors ${
-                        slidersLocked
-                          ? 'border-[#ef4444] bg-[#ef4444]/10 text-[#ef4444]'
-                          : 'border-[rgb(219,211,196)] text-[rgb(100,110,130)] hover:border-[rgb(24,26,36)]/30 hover:text-[rgb(24,26,36)]'
-                      }`}
-                      title={slidersLocked ? 'Unlock sliders (FPTP and PR move independently)' : 'Lock sliders (FPTP and PR move together)'}
-                    >
-                      {slidersLocked ? <Lock className="w-4 h-4" /> : <Unlock className="w-4 h-4" />}
-                      {slidersLocked ? 'Sliders Locked' : 'Sliders Unlocked'}
-                    </button>
-                  </div>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <PartySliders
-                      title={t('simulator.fptp')}
-                      subtitle="Affects 165 constituency seats"
-                      sliders={adjustedFptpSliders}
-                      fptpSeats={fptpSeats}
-                      prSeats={prSeats}
-                      totalSeats={totalSeats}
-                      onSliderChange={updateFptpSlider}
-                      showFptp={true}
-                    />
+              {activeTab === 'manual' &&
+                (!showControlSetupStep || currentGuidedControl === 'manual') && (
+                  <>
+                    <div className="flex justify-center mb-3">
+                      <button
+                        onClick={() => setSlidersLocked(!slidersLocked)}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border transition-colors ${
+                          slidersLocked
+                            ? 'border-[#ef4444] bg-[#ef4444]/10 text-[#ef4444]'
+                            : 'border-[rgb(219,211,196)] text-[rgb(100,110,130)] hover:border-[rgb(24,26,36)]/30 hover:text-[rgb(24,26,36)]'
+                        }`}
+                        title={
+                          slidersLocked
+                            ? 'Unlock sliders (FPTP and PR move independently)'
+                            : 'Lock sliders (FPTP and PR move together)'
+                        }
+                      >
+                        {slidersLocked ? (
+                          <Lock className="w-4 h-4" />
+                        ) : (
+                          <Unlock className="w-4 h-4" />
+                        )}
+                        {slidersLocked ? 'Sliders Locked' : 'Sliders Unlocked'}
+                      </button>
+                    </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      <PartySliders
+                        title={t('simulator.fptp')}
+                        subtitle="Affects 165 constituency seats"
+                        sliders={adjustedFptpSliders}
+                        fptpSeats={fptpSeats}
+                        prSeats={prSeats}
+                        totalSeats={totalSeats}
+                        onSliderChange={updateFptpSlider}
+                        showFptp={true}
+                      />
 
-                    <PartySliders
-                      title={t('simulator.pr')}
-                      subtitle="Affects 110 proportional seats (3% threshold)"
-                      sliders={adjustedPrSliders}
-                      fptpSeats={fptpSeats}
-                      prSeats={prSeats}
-                      totalSeats={totalSeats}
-                      onSliderChange={updatePrSlider}
-                      showPr={true}
-                    />
-                  </div>
-                </>
-              )}
+                      <PartySliders
+                        title={t('simulator.pr')}
+                        subtitle="Affects 110 proportional seats (3% threshold)"
+                        sliders={adjustedPrSliders}
+                        fptpSeats={fptpSeats}
+                        prSeats={prSeats}
+                        totalSeats={totalSeats}
+                        onSliderChange={updatePrSlider}
+                        showPr={true}
+                      />
+                    </div>
+                  </>
+                )}
 
-              {(activeTab === 'demographics') && (!showControlSetupStep || currentGuidedControl === 'demographics') && (
-                <DemographicInputPanel
-                  patterns={demographicPatterns}
-                  turnout={demographicTurnout}
-                  onUpdatePattern={updateDemographicPattern}
-                  onUpdateTurnout={updateDemographicTurnout}
-                  scenarios={PRESET_SCENARIOS}
-                  savedScenarios={savedScenarios}
-                  activeScenario={activeScenario}
-                  onLoadScenario={loadScenario}
-                  onSaveScenario={saveScenario}
-                  onDeleteScenario={deleteScenario}
-                  onClear={clearDemographicInputs}
-                  activeDimension={activeDemographicDimension}
-                  onChangeDimension={setActiveDemographicDimension}
-                />
-              )}
-
-              {(activeTab === 'advanced') && (!showControlSetupStep || currentGuidedControl === 'advanced') && (
-                <div className="space-y-6">
-                  <AdvancedControls
-                    rspStartingPoint={rspStartingPoint}
-                    onRspStartingPointChange={setRspStartingPoint}
-                    selectedParty={selectedParty}
-                    onSelectedPartyChange={setSelectedParty}
-                    demographicMode={demographicMode}
-                    overrideDemographics={overrideDemographicsForAdvanced}
-                    onOverrideDemographicsChange={setOverrideDemographicsForAdvanced}
-                    switchingMatrix={switchingMatrix}
-                    onUpdateSwitching={updateSwitching}
-                    onApplySwitching={handleApplySwitching}
-                    onClearSwitching={handleClearSwitching}
+              {activeTab === 'demographics' &&
+                (!showControlSetupStep || currentGuidedControl === 'demographics') && (
+                  <DemographicInputPanel
+                    patterns={demographicPatterns}
+                    turnout={demographicTurnout}
+                    onUpdatePattern={updateDemographicPattern}
+                    onUpdateTurnout={updateDemographicTurnout}
+                    scenarios={PRESET_SCENARIOS}
+                    savedScenarios={savedScenarios}
+                    activeScenario={activeScenario}
+                    onLoadScenario={loadScenario}
+                    onSaveScenario={saveScenario}
+                    onDeleteScenario={deleteScenario}
+                    onClear={clearDemographicInputs}
+                    activeDimension={activeDemographicDimension}
+                    onChangeDimension={setActiveDemographicDimension}
                   />
-                </div>
-              )}
+                )}
+
+              {activeTab === 'advanced' &&
+                (!showControlSetupStep || currentGuidedControl === 'advanced') && (
+                  <div className="space-y-6">
+                    <AdvancedControls
+                      rspStartingPoint={rspStartingPoint}
+                      onRspStartingPointChange={setRspStartingPoint}
+                      selectedParty={selectedParty}
+                      onSelectedPartyChange={setSelectedParty}
+                      demographicMode={demographicMode}
+                      overrideDemographics={overrideDemographicsForAdvanced}
+                      onOverrideDemographicsChange={setOverrideDemographicsForAdvanced}
+                      switchingMatrix={switchingMatrix}
+                      onUpdateSwitching={updateSwitching}
+                      onApplySwitching={handleApplySwitching}
+                      onClearSwitching={handleClearSwitching}
+                    />
+                  </div>
+                )}
             </div>
           </>
         )}
@@ -999,13 +1158,23 @@ export default function HomePage() {
         {/* Simulation change summary */}
         {showResultSections && inGuidedSimulation && guidedStep >= 3 && (
           <div className="mb-6 bg-white rounded-lg border border-[rgb(219,211,196)] p-4 shadow-sm">
-            <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)] mb-2">Biggest Input Changes</p>
+            <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)] mb-2">
+              Biggest Input Changes
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
               {topSimulationChanges.map(({ party, fptpDelta, prDelta }) => (
                 <div key={party} className="rounded-lg border border-[rgb(219,211,196)] p-3">
-                  <p className="text-sm font-semibold text-[rgb(24,26,36)]">{PARTIES[party]?.short || party}</p>
-                  <p className="text-xs text-[rgb(100,110,130)]">FPTP {fptpDelta >= 0 ? '+' : ''}{fptpDelta.toFixed(2)}%</p>
-                  <p className="text-xs text-[rgb(100,110,130)]">PR {prDelta >= 0 ? '+' : ''}{prDelta.toFixed(2)}%</p>
+                  <p className="text-sm font-semibold text-[rgb(24,26,36)]">
+                    {PARTIES[party]?.short || party}
+                  </p>
+                  <p className="text-xs text-[rgb(100,110,130)]">
+                    FPTP {fptpDelta >= 0 ? '+' : ''}
+                    {fptpDelta.toFixed(2)}%
+                  </p>
+                  <p className="text-xs text-[rgb(100,110,130)]">
+                    PR {prDelta >= 0 ? '+' : ''}
+                    {prDelta.toFixed(2)}%
+                  </p>
                 </div>
               ))}
             </div>
@@ -1016,10 +1185,7 @@ export default function HomePage() {
         {showResultSections && (
           <>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-              <MajorityBar
-                totalSeats={totalSeats}
-                leadingParty={leadingParty}
-              />
+              <MajorityBar totalSeats={totalSeats} leadingParty={leadingParty} />
 
               <PRBlockChart
                 prSeats={prSeats}
@@ -1030,10 +1196,7 @@ export default function HomePage() {
 
             {/* Coalition builder */}
             <div className="mb-6">
-              <CoalitionBuilder
-                totalSeats={totalSeats}
-                fptpResults={fptpResults}
-              />
+              <CoalitionBuilder totalSeats={totalSeats} fptpResults={fptpResults} />
             </div>
 
             {/* Voter Flow Diagram */}
@@ -1043,14 +1206,8 @@ export default function HomePage() {
 
             {/* Swing Model & Seat Calculator */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-              <SwingPanel
-                fptpResults={fptpResults}
-                fptpSeats={fptpSeats}
-              />
-              <SeatCalculator
-                fptpResults={fptpResults}
-                fptpSeats={fptpSeats}
-              />
+              <SwingPanel fptpResults={fptpResults} fptpSeats={fptpSeats} />
+              <SeatCalculator fptpResults={fptpResults} fptpSeats={fptpSeats} />
             </div>
           </>
         )}
@@ -1096,7 +1253,8 @@ export default function HomePage() {
               <span className="text-[#f59e0b] text-2xl">⚡</span>
               <div>
                 <p className="text-[#f59e0b] font-semibold">
-                  {Object.keys(overrides).length} constituency{Object.keys(overrides).length > 1 ? 'ies' : ''} manually overridden
+                  {Object.keys(overrides).length} constituency
+                  {Object.keys(overrides).length > 1 ? 'ies' : ''} manually overridden
                 </p>
                 <p className="text-[#f59e0b]/70 text-sm">
                   These seats are detached from global slider adjustments
@@ -1139,7 +1297,7 @@ export default function HomePage() {
       <QuickStartModal
         isOpen={isQuickStartOpen}
         onClose={() => setQuickStartOpen(false)}
-        onSelectAction={(action) => {
+        onSelectAction={action => {
           if (action === 'scenario') {
             setActiveTab('demographics');
           } else if (action === 'example') {
@@ -1177,7 +1335,9 @@ function TabButton({ label, active, onClick }) {
 function DataStatCard({ label, value }) {
   return (
     <div className="rounded-lg border border-[rgb(219,211,196)] px-3 py-2 bg-[rgb(250,249,246)]/80">
-      <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)]">{label}</p>
+      <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)]">
+        {label}
+      </p>
       <p className="text-lg font-semibold text-[rgb(24,26,36)]">{value}</p>
     </div>
   );
