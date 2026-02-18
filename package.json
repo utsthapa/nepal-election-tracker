@@ -2,6 +2,7 @@
   "name": "nepal-election-simulator",
   "private": true,
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -28,6 +29,7 @@
     ]
   },
   "dependencies": {
+    "@browserbasehq/stagehand": "^3.0.8",
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/mdx": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
@@ -38,10 +40,12 @@
     "date-fns": "^4.1.0",
     "framer-motion": "^11.0.0",
     "gray-matter": "^4.0.3",
+    "gremlins.js": "^2.2.0",
     "html2canvas": "^1.4.1",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.300.0",
     "next": "^15.1.3",
+    "openai": "^6.22.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.1",
