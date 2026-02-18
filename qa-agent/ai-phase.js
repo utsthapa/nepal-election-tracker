@@ -41,8 +41,8 @@ export async function runAIPhase() {
 
   await stagehand.init();
 
-  // In Stagehand v3 the page is accessed via context.activePage() (no stagehand.page shorthand).
-  const page = stagehand.context.activePage();
+  // In Stagehand v3 the page is accessed via context.pages()[0] (canonical pattern from README).
+  const page = stagehand.context.pages()[0];
 
   // Separate openai client for streaming vision calls.
   // (Stagehand's internal model handles act()/observe(); this client handles screenshot review.)
