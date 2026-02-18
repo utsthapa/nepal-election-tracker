@@ -25,7 +25,7 @@ test.describe('Navigation health', () => {
     await home.goto();
     await home.electionsNavLink.click();
     await expect(page).toHaveURL(/\/elections/);
-    await expect(page.getByRole('heading').first()).toBeVisible();
+    await expect(page.getByRole('heading', { name: /elections/i }).first()).toBeVisible();
   });
 
   test('Analysis nav link loads /analysis with heading', async ({ page }) => {
