@@ -4,7 +4,9 @@ export class HomePage {
     this.page = page;
     this.simulatorNavLink = page.getByRole('link', { name: 'Simulator' }).first();
     this.electionsNavLink = page.getByRole('link', { name: 'Elections' }).first();
-    this.analysisNavLink = page.getByRole('link', { name: 'Analysis' }).first();
+    // Use href-based locator because the home page renders article links also named
+    // "Analysis", and the first generic match points to "/" rather than "/analysis".
+    this.analysisNavLink = page.locator('a[href="/analysis"]').first();
     this.districtsNavLink = page.getByRole('link', { name: 'Districts' }).first();
     this.demographicsNavLink = page.getByRole('link', { name: 'Demographics' }).first();
     this.nepalDataNavLink = page.getByRole('link', { name: 'Nepal Data' }).first();
