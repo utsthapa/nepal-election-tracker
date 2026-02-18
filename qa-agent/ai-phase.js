@@ -94,27 +94,30 @@ export async function runAIPhase() {
       process.stdout.write(`[${route.name}] `);
       let fullText = '';
 
-      const stream = await openrouter.chat.completions.create({
-        model: 'moonshotai/kimi-k2',
-        messages: [
-          { role: 'system', content: UX_REVIEWER_SYSTEM_PROMPT },
-          {
-            role: 'user',
-            content: [
-              {
-                type: 'text',
-                text: `Page: ${route.name}\nURL: ${BASE_URL + route.path}`,
-              },
-              {
-                type: 'image_url',
-                image_url: { url: `data:image/png;base64,${base64Image}` },
-              },
-            ],
-          },
-        ],
-        stream: true,
-        max_tokens: 600,
-      });
+      const stream = await openrouter.chat.completions.create(
+        {
+          model: 'moonshotai/kimi-k2',
+          messages: [
+            { role: 'system', content: UX_REVIEWER_SYSTEM_PROMPT },
+            {
+              role: 'user',
+              content: [
+                {
+                  type: 'text',
+                  text: `Page: ${route.name}\nURL: ${BASE_URL + route.path}`,
+                },
+                {
+                  type: 'image_url',
+                  image_url: { url: `data:image/png;base64,${base64Image}` },
+                },
+              ],
+            },
+          ],
+          stream: true,
+          max_tokens: 600,
+        },
+        { timeout: 60_000 }
+      );
 
       for await (const chunk of stream) {
         const text = chunk.choices[0]?.delta?.content ?? '';
