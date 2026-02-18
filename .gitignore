@@ -29,3 +29,6 @@ coverage/
 Thumbs.db
 .idea/
 .vscode/
+
+# QA agent outputs
+reports/
