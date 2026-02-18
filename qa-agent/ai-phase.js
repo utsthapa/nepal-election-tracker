@@ -36,7 +36,6 @@ export async function runAIPhase() {
       apiKey: process.env.OPENROUTER_API_KEY,
       baseURL: 'https://openrouter.ai/api/v1',
     },
-    verbose: 0, // suppress internal debug logs
   });
 
   await stagehand.init();
@@ -53,80 +52,85 @@ export async function runAIPhase() {
 
   const reviews = {};
 
-  for (const route of ROUTES) {
-    console.log(`\n[AI] Reviewing: ${route.name} (${route.path})`);
+  try {
+    for (const route of ROUTES) {
+      console.log(`\n[AI] Reviewing: ${route.name} (${route.path})`);
 
-    await page.goto(BASE_URL + route.path, { waitUntil: 'networkidle' });
+      await page.goto(BASE_URL + route.path, { waitUntil: 'networkidle' });
 
-    // --- Interaction checks (basic UX flow verification) ---
-    if (route.check === 'simulator') {
-      // Skip the guided QuickStart flow so we see the full simulator dashboard
-      await page.evaluate(() => localStorage.setItem('hasSeenQuickStart', 'true'));
-      await page.reload({ waitUntil: 'networkidle' });
-    } else if (route.check === 'map') {
-      // Click the first district polygon to verify the drawer opens
-      try {
-        await page.locator('.leaflet-interactive').first().click({ timeout: 5_000 });
-        await page.waitForTimeout(1_000);
-      } catch {
-        console.log('[AI] Map: no interactive district found within 5s, continuing...');
+      // --- Interaction checks (basic UX flow verification) ---
+      if (route.check === 'simulator') {
+        // Skip the guided QuickStart flow so we see the full simulator dashboard
+        await page.evaluate(() => localStorage.setItem('hasSeenQuickStart', 'true'));
+        await page.reload({ waitUntil: 'networkidle' });
+      } else if (route.check === 'map') {
+        // Click the first district polygon to verify the drawer opens
+        try {
+          await page.locator('.leaflet-interactive').first().click({ timeout: 5_000 });
+          await page.waitForTimeout(1_000);
+        } catch {
+          console.log('[AI] Map: no interactive district found within 5s, continuing...');
+        }
+      } else if (route.check === 'elections') {
+        // Click the 2022 year link and go back.
+        // Stagehand v3 Page has no getByRole(); use locator with aria/text selectors instead.
+        try {
+          await page
+            .locator('a:has-text("2022"), a[href*="2022"]')
+            .first()
+            .click({ timeout: 5_000 });
+          await page.waitForTimeout(1_000);
+          await page.goBack({ waitUntil: 'networkidle' });
+        } catch {
+          console.log('[AI] Elections: 2022 link not found within 5s, continuing...');
+        }
       }
-    } else if (route.check === 'elections') {
-      // Click the 2022 year link and go back.
-      // Stagehand v3 Page has no getByRole(); use locator with aria/text selectors instead.
-      try {
-        await page.locator('a:has-text("2022"), a[href*="2022"]').first().click({ timeout: 5_000 });
-        await page.waitForTimeout(1_000);
-        await page.goBack({ waitUntil: 'networkidle' });
-      } catch {
-        console.log('[AI] Elections: 2022 link not found within 5s, continuing...');
+
+      // --- Screenshot ---
+      const screenshot = await page.screenshot({ fullPage: true });
+      const base64Image = screenshot.toString('base64');
+
+      // --- Stream Kimi K2 UX review ---
+      process.stdout.write(`[${route.name}] `);
+      let fullText = '';
+
+      const stream = await openrouter.chat.completions.create({
+        model: 'moonshotai/kimi-k2',
+        messages: [
+          { role: 'system', content: UX_REVIEWER_SYSTEM_PROMPT },
+          {
+            role: 'user',
+            content: [
+              {
+                type: 'text',
+                text: `Page: ${route.name}\nURL: ${BASE_URL + route.path}`,
+              },
+              {
+                type: 'image_url',
+                image_url: { url: `data:image/png;base64,${base64Image}` },
+              },
+            ],
+          },
+        ],
+        stream: true,
+        max_tokens: 600,
+      });
+
+      for await (const chunk of stream) {
+        const text = chunk.choices[0]?.delta?.content ?? '';
+        process.stdout.write(text);
+        fullText += text;
       }
+      process.stdout.write('\n'); // newline after streamed output
+
+      // Extract "Rating: X/10" from the response
+      const ratingMatch = fullText.match(/Rating:\s*(\d+)\/10/i);
+      const rating = ratingMatch ? parseInt(ratingMatch[1], 10) : null;
+
+      reviews[route.path] = { name: route.name, rating, observations: fullText };
     }
-
-    // --- Screenshot ---
-    const screenshot = await page.screenshot({ fullPage: true });
-    const base64Image = screenshot.toString('base64');
-
-    // --- Stream Kimi K2 UX review ---
-    process.stdout.write(`[${route.name}] `);
-    let fullText = '';
-
-    const stream = await openrouter.chat.completions.create({
-      model: 'moonshotai/kimi-k2',
-      messages: [
-        { role: 'system', content: UX_REVIEWER_SYSTEM_PROMPT },
-        {
-          role: 'user',
-          content: [
-            {
-              type: 'text',
-              text: `Page: ${route.name}\nURL: ${BASE_URL + route.path}`,
-            },
-            {
-              type: 'image_url',
-              image_url: { url: `data:image/png;base64,${base64Image}` },
-            },
-          ],
-        },
-      ],
-      stream: true,
-      max_tokens: 600,
-    });
-
-    for await (const chunk of stream) {
-      const text = chunk.choices[0]?.delta?.content ?? '';
-      process.stdout.write(text);
-      fullText += text;
-    }
-    process.stdout.write('\n'); // newline after streamed output
-
-    // Extract "Rating: X/10" from the response
-    const ratingMatch = fullText.match(/Rating:\s*(\d+)\/10/i);
-    const rating = ratingMatch ? parseInt(ratingMatch[1], 10) : null;
-
-    reviews[route.path] = { name: route.name, rating, observations: fullText };
+  } finally {
+    await stagehand.close();
   }
-
-  await stagehand.close();
   return reviews;
 }
