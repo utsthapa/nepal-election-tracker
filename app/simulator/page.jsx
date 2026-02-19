@@ -2294,6 +2294,7 @@ Available preset configurations include:
                 <div className="px-6 pb-6 pt-2 bg-[rgb(250,249,246)]/50">
                   <div className="prose prose-sm max-w-none text-[rgb(60,70,90)] whitespace-pre-line leading-relaxed">
                     {section.content.split('\n').map((line, idx) => {
+                      if (!line || typeof line !== 'string') return null;
                       if (line.startsWith('**') && line.endsWith('**')) {
                         return (
                           <h4 key={idx} className="font-bold text-[rgb(24,26,36)] mt-4 mb-2">
