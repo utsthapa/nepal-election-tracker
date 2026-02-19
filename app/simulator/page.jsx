@@ -197,13 +197,20 @@ export default function HomePage() {
     [election2026Data]
   );
   const battlegroundNameSet = useMemo(
-    () => new Set(keyBattlegrounds.map(battle => normalizeConstituencyName(battle.constituency))),
+    () =>
+      new Set(
+        keyBattlegrounds.map(battle =>
+          battle?.constituency ? normalizeConstituencyName(battle.constituency) : ''
+        )
+      ),
     [keyBattlegrounds]
   );
   const constituencyByNormalizedName = useMemo(() => {
     const map = new Map();
     constituencies.forEach(c => {
-      map.set(normalizeConstituencyName(c.name), c);
+      if (c?.name) {
+        map.set(normalizeConstituencyName(c.name), c);
+      }
     });
     return map;
   }, []);
@@ -291,10 +298,10 @@ export default function HomePage() {
 
   const filteredBattlegroundCards = useMemo(() => {
     const allowed = new Set(
-      filteredBattlegroundRows.map(row => normalizeConstituencyName(row.name))
+      filteredBattlegroundRows.map(row => (row?.name ? normalizeConstituencyName(row.name) : ''))
     );
-    return keyBattlegrounds.filter(battle =>
-      allowed.has(normalizeConstituencyName(battle.constituency))
+    return keyBattlegrounds.filter(
+      battle => battle?.constituency && allowed.has(normalizeConstituencyName(battle.constituency))
     );
   }, [filteredBattlegroundRows, keyBattlegrounds]);
   const topCloseSeats = useMemo(() => {
@@ -1380,9 +1387,11 @@ export default function HomePage() {
                       </p>
                     )}
                     {filteredBattlegroundCards.map(battle => {
-                      const constituency = constituencyByNormalizedName.get(
-                        normalizeConstituencyName(battle.constituency)
-                      );
+                      const constituency = battle?.constituency
+                        ? constituencyByNormalizedName.get(
+                            normalizeConstituencyName(battle.constituency)
+                          )
+                        : null;
                       return (
                         <div
                           key={battle.constituency}
