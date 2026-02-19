@@ -1,13 +1,13 @@
 // qa-agent/ai-phase.js
 //
-// Uses Stagehand (local Playwright) to navigate each route and take a
-// full-page screenshot. Sends the screenshot to Kimi K2 via OpenRouter
-// using the openai-compatible streaming API. Streams responses to console.
+// Uses Playwright to navigate each route and take a full-page screenshot.
+// Sends the screenshot to Kimi K2 via OpenRouter using the openai-compatible
+// streaming API. Streams responses to console.
 //
 // Returns: { [routePath]: { name, rating: number|null, observations: string } }
 
-import { Stagehand } from '@browserbasehq/stagehand';
 import OpenAI from 'openai';
+import { chromium } from 'playwright';
 
 import { UX_REVIEWER_SYSTEM_PROMPT } from './prompts.js';
 
@@ -26,25 +26,10 @@ const ROUTES = [
 ];
 
 export async function runAIPhase() {
-  // Stagehand v3 wraps a CDP-based browser; env:'LOCAL' uses a local Chromium (not Browserbase cloud).
-  // model: { modelName, apiKey, baseURL } configures Kimi K2 as the AI for act()/observe() actions.
-  // Note: Stagehand v3 uses `model` (not `modelName` + `modelClientOptions`) in constructor options.
-  const stagehand = new Stagehand({
-    env: 'LOCAL',
-    model: {
-      modelName: 'moonshotai/kimi-k2',
-      apiKey: process.env.OPENROUTER_API_KEY,
-      baseURL: 'https://openrouter.ai/api/v1',
-    },
-  });
+  const browser = await chromium.launch();
+  const page = await browser.newPage();
 
-  await stagehand.init();
-
-  // In Stagehand v3 the page is accessed via context.pages()[0] (canonical pattern from README).
-  const page = stagehand.context.pages()[0];
-
-  // Separate openai client for streaming vision calls.
-  // (Stagehand's internal model handles act()/observe(); this client handles screenshot review.)
+  // OpenRouter-compatible client for streaming vision calls to Kimi K2
   const openrouter = new OpenAI({
     apiKey: process.env.OPENROUTER_API_KEY,
     baseURL: 'https://openrouter.ai/api/v1',
@@ -73,7 +58,6 @@ export async function runAIPhase() {
         }
       } else if (route.check === 'elections') {
         // Click the 2022 year link and go back.
-        // Stagehand v3 Page has no getByRole(); use locator with aria/text selectors instead.
         try {
           await page
             .locator('a:has-text("2022"), a[href*="2022"]')
@@ -133,7 +117,7 @@ export async function runAIPhase() {
       reviews[route.path] = { name: route.name, rating, observations: fullText };
     }
   } finally {
-    await stagehand.close();
+    await browser.close();
   }
   return reviews;
 }
