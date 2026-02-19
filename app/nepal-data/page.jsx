@@ -1,19 +1,21 @@
 import Link from 'next/link';
 
 import Header from '@/components/Header';
-import DemographicsNational from '@/components/nepal-data/panels/DemographicsNational';
-import EnergyEnvironmentPanel from '@/components/nepal-data/panels/EnergyEnvironmentPanel';
-import ExternalSectorPanel from '@/components/nepal-data/panels/ExternalSectorPanel';
-import InternationalComparison from '@/components/nepal-data/panels/InternationalComparison';
-import MacroOverview from '@/components/nepal-data/panels/MacroOverview';
-import PovertyPanel from '@/components/nepal-data/panels/PovertyPanel';
-import ProvincialComparison from '@/components/nepal-data/panels/ProvincialComparison';
-import TourismPanel from '@/components/nepal-data/panels/TourismPanel';
 import CollapsibleSection from '@/components/nepal-data/shared/CollapsibleSection';
 import DataSources from '@/components/nepal-data/shared/DataSources';
 import PageHeader from '@/components/nepal-data/shared/PageHeader';
 import QuickStatsBar from '@/components/nepal-data/shared/QuickStatsBar';
 import { MACRO_INDICATORS, EXTERNAL_SECTOR, DATA_METADATA } from '@/data/nepalMacroData';
+import {
+  DemographicsNational,
+  EnergyEnvironmentPanel,
+  ExternalSectorPanel,
+  InternationalComparison,
+  MacroOverview,
+  PovertyPanel,
+  ProvincialComparison,
+  TourismPanel,
+} from '@/components/nepal-data/NepalDataClient';
 
 /**
  * Nepal Macro Data Dashboard
@@ -21,8 +23,10 @@ import { MACRO_INDICATORS, EXTERNAL_SECTOR, DATA_METADATA } from '@/data/nepalMa
  */
 export const metadata = {
   title: 'Nepal Macro Data Dashboard - Economic & Development Indicators',
-  description: 'Explore Nepal\'s economic indicators including GDP, inflation, trade, remittances, poverty, and more. Interactive charts and time series analysis from 2010-2024.',
-  keywords: 'Nepal economy, GDP, inflation, remittances, trade, poverty, development indicators, economic data',
+  description:
+    "Explore Nepal's economic indicators including GDP, inflation, trade, remittances, poverty, and more. Interactive charts and time series analysis from 2010-2024.",
+  keywords:
+    'Nepal economy, GDP, inflation, remittances, trade, poverty, development indicators, economic data',
 };
 
 export default function NepalDataPage() {
@@ -42,21 +46,31 @@ export default function NepalDataPage() {
       label: 'GDP Per Capita',
       value: `$${MACRO_INDICATORS.gdp.perCapita[latestIdx].toLocaleString()}`,
       unit: '',
-      change: ((MACRO_INDICATORS.gdp.perCapita[latestIdx] - MACRO_INDICATORS.gdp.perCapita[latestIdx - 1]) / MACRO_INDICATORS.gdp.perCapita[latestIdx - 1]) * 100,
+      change:
+        ((MACRO_INDICATORS.gdp.perCapita[latestIdx] -
+          MACRO_INDICATORS.gdp.perCapita[latestIdx - 1]) /
+          MACRO_INDICATORS.gdp.perCapita[latestIdx - 1]) *
+        100,
       reverseColors: false,
     },
     {
       label: 'Inflation Rate',
       value: MACRO_INDICATORS.inflation.annual[latestIdx],
       unit: '%',
-      change: MACRO_INDICATORS.inflation.annual[latestIdx] - MACRO_INDICATORS.inflation.annual[latestIdx - 1],
+      change:
+        MACRO_INDICATORS.inflation.annual[latestIdx] -
+        MACRO_INDICATORS.inflation.annual[latestIdx - 1],
       reverseColors: true,
     },
     {
       label: 'Remittances',
       value: `$${EXTERNAL_SECTOR.remittances.received[latestIdx]}`,
       unit: 'B',
-      change: ((EXTERNAL_SECTOR.remittances.received[latestIdx] - EXTERNAL_SECTOR.remittances.received[latestIdx - 1]) / EXTERNAL_SECTOR.remittances.received[latestIdx - 1]) * 100,
+      change:
+        ((EXTERNAL_SECTOR.remittances.received[latestIdx] -
+          EXTERNAL_SECTOR.remittances.received[latestIdx - 1]) /
+          EXTERNAL_SECTOR.remittances.received[latestIdx - 1]) *
+        100,
       reverseColors: false,
     },
   ];
