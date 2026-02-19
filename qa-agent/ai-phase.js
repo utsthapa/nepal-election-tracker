@@ -29,7 +29,7 @@ export async function runAIPhase() {
   const browser = await chromium.launch();
   const page = await browser.newPage();
 
-  // OpenRouter-compatible client for streaming vision calls to Kimi K2
+  // OpenRouter-compatible client for streaming vision calls to Gemini 2.5 Flash
   const openrouter = new OpenAI({
     apiKey: process.env.OPENROUTER_API_KEY,
     baseURL: 'https://openrouter.ai/api/v1',
@@ -80,7 +80,7 @@ export async function runAIPhase() {
 
       const stream = await openrouter.chat.completions.create(
         {
-          model: 'bytedance/ui-tars-1.5-7b',
+          model: 'google/gemini-2.5-flash',
           messages: [
             { role: 'system', content: UX_REVIEWER_SYSTEM_PROMPT },
             {
