@@ -379,18 +379,9 @@ export default function HomePage() {
 
   // Apply custom scenario adjustments using demographic profiles
   const applyCustomScenario = () => {
-    // Start with equal baseline for custom scenarios (not 2022 results)
-    // This allows for "what if" scenarios independent of 2022
-    const parties = Object.keys(PARTIES).filter(p => p !== 'Others' && p !== 'Independent');
-    const equalShare = 100 / (parties.length + 1); // +1 for Others
-
-    let baseFptp = {};
-    parties.forEach(p => {
-      baseFptp[p] = equalShare;
-    });
-    baseFptp['Others'] = equalShare;
-
-    const basePr = { ...baseFptp };
+    // Start from 2022 official results, not equal shares
+    let baseFptp = { ...OFFICIAL_FPTP_VOTE };
+    let basePr = { ...OFFICIAL_PR_VOTE };
 
     // Apply incumbency decay: hurts NC, UML, Maoist
     // In custom scenarios, this represents anti-incumbent sentiment
