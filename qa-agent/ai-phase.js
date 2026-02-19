@@ -80,7 +80,7 @@ export async function runAIPhase() {
 
       const stream = await openrouter.chat.completions.create(
         {
-          model: 'moonshotai/kimi-k2',
+          model: 'bytedance/ui-tars-1.5-7b',
           messages: [
             { role: 'system', content: UX_REVIEWER_SYSTEM_PROMPT },
             {
