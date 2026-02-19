@@ -1,5 +1,10 @@
 import { useState, useMemo, useCallback } from 'react';
-import { constituencies, INITIAL_NATIONAL, OFFICIAL_FPTP_VOTE, OFFICIAL_PR_VOTE } from '../data/constituencies';
+import {
+  constituencies,
+  INITIAL_NATIONAL,
+  OFFICIAL_FPTP_VOTE,
+  OFFICIAL_PR_VOTE,
+} from '../data/constituencies';
 import {
   calculateAllFPTPResults,
   countFPTPSeats,
@@ -8,6 +13,7 @@ import {
   PR_SEATS,
   MAJORITY_THRESHOLD,
 } from '../utils/calculations';
+import { calculateDemographicFPTPResults } from '../utils/demographicCalculations';
 import { allocateSeats } from '../utils/sainteLague';
 import { applyDemographicModel } from '../utils/demographicCalculator';
 import { PRESET_SCENARIOS, createNeutralBaseline } from '../data/demographicScenarios';
@@ -30,7 +36,9 @@ export function useElectionState() {
   const prBaseline = useMemo(() => ({ ...OFFICIAL_PR_VOTE }), []);
 
   // FPTP slider values (must sum to 100) - affects constituency-level voting
-  const [fptpSliders, setFptpSliders] = useState(() => urlState?.fptpSliders ?? { ...OFFICIAL_FPTP_VOTE });
+  const [fptpSliders, setFptpSliders] = useState(
+    () => urlState?.fptpSliders ?? { ...OFFICIAL_FPTP_VOTE }
+  );
 
   // PR slider values (must sum to 100) - affects national proportional vote
   const [prSliders, setPrSliders] = useState(() => urlState?.prSliders ?? { ...OFFICIAL_PR_VOTE });
@@ -42,11 +50,14 @@ export function useElectionState() {
   const [overrides, setOverrides] = useState(() => urlState?.overrides ?? {});
 
   // Alliance (gathabandan) configuration
-  const [allianceConfig, setAllianceConfig] = useState(() => urlState?.allianceConfig ?? {
-    enabled: false,
-    parties: [],
-    handicap: 10,
-  });
+  const [allianceConfig, setAllianceConfig] = useState(
+    () =>
+      urlState?.allianceConfig ?? {
+        enabled: false,
+        parties: [],
+        handicap: 10,
+      }
+  );
 
   // Currently selected constituency for drawer
   const [selectedConstituency, setSelectedConstituency] = useState(null);
@@ -66,6 +77,9 @@ export function useElectionState() {
   const [demographicTurnout, setDemographicTurnout] = useState(null);
   const [activeScenario, setActiveScenario] = useState(null);
   const [activeDemographicDimension, setActiveDemographicDimension] = useState('age');
+
+  // Use demographic-based seat calculations (for realistic RSP/urban party performance)
+  const [useDemographicSeats, setUseDemographicSeats] = useState(true);
   const [savedScenarios, setSavedScenarios] = useState(() => {
     // Load saved scenarios from localStorage
     if (typeof window !== 'undefined') {
@@ -80,24 +94,29 @@ export function useElectionState() {
     return [];
   });
 
-
   // Update FPTP slider (zero-sum adjustment)
-  const updateFptpSlider = useCallback((party, value) => {
-    setFptpSliders(current => adjustZeroSumSliders(current, party, value));
-    // If locked, also update PR slider
-    if (slidersLocked) {
-      setPrSliders(current => adjustZeroSumSliders(current, party, value));
-    }
-  }, [slidersLocked]);
+  const updateFptpSlider = useCallback(
+    (party, value) => {
+      setFptpSliders(current => adjustZeroSumSliders(current, party, value));
+      // If locked, also update PR slider
+      if (slidersLocked) {
+        setPrSliders(current => adjustZeroSumSliders(current, party, value));
+      }
+    },
+    [slidersLocked]
+  );
 
   // Update PR slider (zero-sum adjustment)
-  const updatePrSlider = useCallback((party, value) => {
-    setPrSliders(current => adjustZeroSumSliders(current, party, value));
-    // If locked, also update FPTP slider
-    if (slidersLocked) {
-      setFptpSliders(current => adjustZeroSumSliders(current, party, value));
-    }
-  }, [slidersLocked]);
+  const updatePrSlider = useCallback(
+    (party, value) => {
+      setPrSliders(current => adjustZeroSumSliders(current, party, value));
+      // If locked, also update FPTP slider
+      if (slidersLocked) {
+        setFptpSliders(current => adjustZeroSumSliders(current, party, value));
+      }
+    },
+    [slidersLocked]
+  );
 
   // Legacy updateSlider - updates FPTP sliders (kept for compatibility)
   const updateSlider = updateFptpSlider;
@@ -113,11 +132,16 @@ export function useElectionState() {
   }, []);
 
   // Set one FPTP party to match its current PR vote share (without mutating PR)
-  const setFptpToPr = useCallback((party) => {
-    const targetValue = prSliders[party];
-    if (typeof targetValue !== 'number') {return;}
-    setFptpSliders(current => adjustZeroSumSliders(current, party, targetValue));
-  }, [prSliders]);
+  const setFptpToPr = useCallback(
+    party => {
+      const targetValue = prSliders[party];
+      if (typeof targetValue !== 'number') {
+        return;
+      }
+      setFptpSliders(current => adjustZeroSumSliders(current, party, targetValue));
+    },
+    [prSliders]
+  );
 
   // Reset sliders to initial values (2022 baseline)
   const resetSliders = useCallback(() => {
@@ -140,7 +164,7 @@ export function useElectionState() {
   }, []);
 
   // Remove override for a constituency
-  const clearOverride = useCallback((constituencyId) => {
+  const clearOverride = useCallback(constituencyId => {
     setOverrides(current => {
       const newOverrides = { ...current };
       delete newOverrides[constituencyId];
@@ -159,9 +183,8 @@ export function useElectionState() {
       return;
     }
     setAllianceConfig(prev => {
-      const safeHandicap = typeof handicap === 'number'
-        ? Math.max(0, Math.min(100, handicap))
-        : prev.handicap;
+      const safeHandicap =
+        typeof handicap === 'number' ? Math.max(0, Math.min(100, handicap)) : prev.handicap;
       return {
         enabled: true,
         parties,
@@ -186,8 +209,8 @@ export function useElectionState() {
         ...current,
         [fromParty]: {
           ...fromMatrix,
-          [toParty]: value
-        }
+          [toParty]: value,
+        },
       };
     });
   }, []);
@@ -204,8 +227,8 @@ export function useElectionState() {
         ...current,
         [dimension]: {
           ...current[dimension],
-          [segment]: partyShares
-        }
+          [segment]: partyShares,
+        },
       };
     });
   }, []);
@@ -220,68 +243,74 @@ export function useElectionState() {
         ...current,
         [dimension]: {
           ...current[dimension],
-          [segment]: rate
-        }
+          [segment]: rate,
+        },
       };
     });
   }, []);
 
-  const loadScenario = useCallback((scenario) => {
+  const loadScenario = useCallback(scenario => {
     setDemographicPatterns(scenario.patterns);
     setDemographicTurnout(scenario.turnout);
     setActiveScenario(scenario.id);
     setDemographicMode(true);
   }, []);
 
-  const saveScenario = useCallback((name, description) => {
-    if (!demographicPatterns || !demographicTurnout) {
-      console.warn('Cannot save scenario: no demographic data set');
-      return;
-    }
-
-    const newScenario = {
-      id: `custom-${Date.now()}`,
-      name,
-      description: description || 'Custom scenario',
-      patterns: demographicPatterns,
-      turnout: demographicTurnout,
-      isPreset: false,
-      createdAt: new Date().toISOString(),
-    };
-
-    const updated = [...savedScenarios, newScenario];
-    setSavedScenarios(updated);
-
-    // Save to localStorage
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem('nepalPolitics_demographicScenarios', JSON.stringify(updated));
-      } catch (e) {
-        console.warn('Failed to save scenario to localStorage:', e);
+  const saveScenario = useCallback(
+    (name, description) => {
+      if (!demographicPatterns || !demographicTurnout) {
+        console.warn('Cannot save scenario: no demographic data set');
+        return;
       }
-    }
 
-    return newScenario;
-  }, [demographicPatterns, demographicTurnout, savedScenarios]);
+      const newScenario = {
+        id: `custom-${Date.now()}`,
+        name,
+        description: description || 'Custom scenario',
+        patterns: demographicPatterns,
+        turnout: demographicTurnout,
+        isPreset: false,
+        createdAt: new Date().toISOString(),
+      };
 
-  const deleteScenario = useCallback((scenarioId) => {
-    const updated = savedScenarios.filter(s => s.id !== scenarioId);
-    setSavedScenarios(updated);
+      const updated = [...savedScenarios, newScenario];
+      setSavedScenarios(updated);
 
-    // Update localStorage
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem('nepalPolitics_demographicScenarios', JSON.stringify(updated));
-      } catch (e) {
-        console.warn('Failed to update localStorage:', e);
+      // Save to localStorage
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem('nepalPolitics_demographicScenarios', JSON.stringify(updated));
+        } catch (e) {
+          console.warn('Failed to save scenario to localStorage:', e);
+        }
       }
-    }
 
-    // Clear active scenario if it was deleted
-    if (activeScenario === scenarioId) {
-      setActiveScenario(null);
-    }
-  }, [savedScenarios, activeScenario]);
+      return newScenario;
+    },
+    [demographicPatterns, demographicTurnout, savedScenarios]
+  );
+
+  const deleteScenario = useCallback(
+    scenarioId => {
+      const updated = savedScenarios.filter(s => s.id !== scenarioId);
+      setSavedScenarios(updated);
+
+      // Update localStorage
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem('nepalPolitics_demographicScenarios', JSON.stringify(updated));
+        } catch (e) {
+          console.warn('Failed to update localStorage:', e);
+        }
+      }
+
+      // Clear active scenario if it was deleted
+      if (activeScenario === scenarioId) {
+        setActiveScenario(null);
+      }
+    },
+    [savedScenarios, activeScenario]
+  );
 
   const clearDemographicInputs = useCallback(() => {
     const parties = Object.keys(INITIAL_NATIONAL);
@@ -298,7 +327,12 @@ export function useElectionState() {
     }
 
     try {
-      return applyDemographicModel(constituencies, demographicPatterns, demographicTurnout, activeDemographicDimension);
+      return applyDemographicModel(
+        constituencies,
+        demographicPatterns,
+        demographicTurnout,
+        activeDemographicDimension
+      );
     } catch (error) {
       console.error('Error applying demographic model:', error);
       return null;
@@ -322,25 +356,35 @@ export function useElectionState() {
       // Merge with manual overrides (manual overrides take precedence)
       const mergedOverrides = {
         ...demographicOverrides,
-        ...overrides,  // Manual overrides override demographic predictions
+        ...overrides, // Manual overrides override demographic predictions
       };
 
-      return calculateAllFPTPResults(
+      return calculateAllFPTPResults(fptpSliders, mergedOverrides, fptpBaseline, allianceConfig);
+    }
+
+    // Use demographic-based calculations for realistic seat distribution
+    // This ensures RSP at 40% wins more seats than NC at 40% due to urban concentration
+    if (useDemographicSeats) {
+      return calculateDemographicFPTPResults(
         fptpSliders,
-        mergedOverrides,
+        overrides,
         fptpBaseline,
-        allianceConfig
+        allianceConfig,
+        true
       );
     }
 
-    // Default: use existing calculation without demographic predictions
-    return calculateAllFPTPResults(
-      fptpSliders,
-      overrides,
-      fptpBaseline,
-      allianceConfig
-    );
-  }, [fptpSliders, overrides, fptpBaseline, allianceConfig, demographicMode, demographicPredictions]);
+    // Default: use existing calculation without demographic weighting
+    return calculateAllFPTPResults(fptpSliders, overrides, fptpBaseline, allianceConfig);
+  }, [
+    fptpSliders,
+    overrides,
+    fptpBaseline,
+    allianceConfig,
+    demographicMode,
+    demographicPredictions,
+    useDemographicSeats,
+  ]);
 
   // Count FPTP seats by party
   const fptpSeats = useMemo(() => {
@@ -373,10 +417,10 @@ export function useElectionState() {
     });
     // Fold seats from non-slider parties (e.g., Independents) into Others
     const extraFptpSeats = Object.entries(fptpSeats).reduce((sum, [party, seats]) => {
-      return (party in totals) ? sum : sum + (seats || 0);
+      return party in totals ? sum : sum + (seats || 0);
     }, 0);
     const extraPrSeats = Object.entries(prSeats).reduce((sum, [party, seats]) => {
-      return (party in totals) ? sum : sum + (seats || 0);
+      return party in totals ? sum : sum + (seats || 0);
     }, 0);
     totals.Others = (totals.Others || 0) + extraFptpSeats + extraPrSeats;
     return totals;
@@ -399,13 +443,13 @@ export function useElectionState() {
     return Object.values(totalSeats).reduce((a, b) => a + b, 0);
   }, [totalSeats]);
 
-  // Adjusted FPTP sliders (for future use with Bayesian adjustments)
+  // TODO: Adjusted FPTP sliders - currently just copies, intended for Bayesian adjustments
   const adjustedFptpSliders = useMemo(() => ({ ...fptpSliders }), [fptpSliders]);
 
-  // Adjusted PR sliders (for future use with Bayesian adjustments)
+  // TODO: Adjusted PR sliders - currently just copies, intended for Bayesian adjustments
   const adjustedPrSliders = useMemo(() => ({ ...prSliders }), [prSliders]);
 
-  // Seat intervals (p5, p95, majority probability)
+  // TODO: Seat intervals - placeholder values (p5, p95 should be calculated from distribution)
   const seatIntervals = useMemo(() => {
     const intervals = {};
     const parties = Object.keys(INITIAL_NATIONAL);
@@ -421,35 +465,38 @@ export function useElectionState() {
     return intervals;
   }, [totalSeats]);
 
-  // Seat win probabilities (placeholder for future Bayesian implementation)
+  // TODO: Seat win probabilities - placeholder for Bayesian implementation
   const seatWinProbabilities = useMemo(() => {
     return {};
   }, []);
 
-  // Female quota status
+  // TODO: Female quota status - not yet implemented
   const femaleQuota = useMemo(() => {
     return null;
   }, []);
 
-  // Stability index
+  // TODO: Stability index - not yet implemented
   const stabilityIndex = useMemo(() => {
     return 0;
   }, []);
 
   // Select constituency for drawer
-  const selectConstituency = useCallback((id) => {
-    const constituency = constituencies.find(c => c.id === id);
-    if (constituency) {
-      const result = fptpResults[id] || constituency;
-      setSelectedConstituency({
-        ...constituency,
-        currentResults: result.adjusted || constituency.results2022,
-        isOverridden: !!overrides[id],
-        winProbabilities: null,
-        projectedWinner: result.winner || constituency.winner2022,
-      });
-    }
-  }, [fptpResults, overrides]);
+  const selectConstituency = useCallback(
+    id => {
+      const constituency = constituencies.find(c => c.id === id);
+      if (constituency) {
+        const result = fptpResults[id] || constituency;
+        setSelectedConstituency({
+          ...constituency,
+          currentResults: result.adjusted || constituency.results2022,
+          isOverridden: !!overrides[id],
+          winProbabilities: null,
+          projectedWinner: result.winner || constituency.winner2022,
+        });
+      }
+    },
+    [fptpResults, overrides]
+  );
 
   // Close drawer
   const closeDrawer = useCallback(() => {
@@ -476,6 +523,8 @@ export function useElectionState() {
     savedScenarios,
     demographicPredictions,
     activeDemographicDimension,
+    useDemographicSeats,
+    setUseDemographicSeats,
 
     // Actions - Separate slider updates
     updateFptpSlider,

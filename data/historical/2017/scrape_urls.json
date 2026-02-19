@@ -1,0 +1,986 @@
+[
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Taplejung-1",
+    "url": "https://en.wikipedia.org/wiki/Taplejung_1_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Panchthar-1",
+    "url": "https://en.wikipedia.org/wiki/Panchthar_1_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Ilam-1",
+    "url": "https://en.wikipedia.org/wiki/Ilam_1_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Ilam-2",
+    "url": "https://en.wikipedia.org/wiki/Ilam_2_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Jhapa-1",
+    "url": "https://en.wikipedia.org/wiki/Jhapa_1_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Jhapa-2",
+    "url": "https://en.wikipedia.org/wiki/Jhapa_2_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Jhapa-3",
+    "url": "https://en.wikipedia.org/wiki/Jhapa_3_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Jhapa-4",
+    "url": "https://en.wikipedia.org/wiki/Jhapa_4_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Jhapa-5",
+    "url": "https://en.wikipedia.org/wiki/Jhapa_5_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Morang-1",
+    "url": "https://en.wikipedia.org/wiki/Morang_1_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Morang-2",
+    "url": "https://en.wikipedia.org/wiki/Morang_2_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Morang-3",
+    "url": "https://en.wikipedia.org/wiki/Morang_3_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Morang-4",
+    "url": "https://en.wikipedia.org/wiki/Morang_4_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Morang-5",
+    "url": "https://en.wikipedia.org/wiki/Morang_5_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Morang-6",
+    "url": "https://en.wikipedia.org/wiki/Morang_6_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Sunsari-1",
+    "url": "https://en.wikipedia.org/wiki/Sunsari_1_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Sunsari-2",
+    "url": "https://en.wikipedia.org/wiki/Sunsari_2_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Sunsari-3",
+    "url": "https://en.wikipedia.org/wiki/Sunsari_3_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Sunsari-4",
+    "url": "https://en.wikipedia.org/wiki/Sunsari_4_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Dhankuta-1",
+    "url": "https://en.wikipedia.org/wiki/Dhankuta_1_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Terhathum-1",
+    "url": "https://en.wikipedia.org/wiki/Terhathum_1_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Sankhuwasabha-1",
+    "url": "https://en.wikipedia.org/wiki/Sankhuwasabha_1_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Bhojpur-1",
+    "url": "https://en.wikipedia.org/wiki/Bhojpur_1_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Solukhumbu-1",
+    "url": "https://en.wikipedia.org/wiki/Solukhumbu_1_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Khotang-1",
+    "url": "https://en.wikipedia.org/wiki/Khotang_1_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Okhaldhunga-1",
+    "url": "https://en.wikipedia.org/wiki/Okhaldhunga_1_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Udayapur-1",
+    "url": "https://en.wikipedia.org/wiki/Udayapur_1_(constituency)"
+  },
+  {
+    "provinceId": 1,
+    "provinceName": "Koshi",
+    "constituency": "Udayapur-2",
+    "url": "https://en.wikipedia.org/wiki/Udayapur_2_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Saptari-1",
+    "url": "https://en.wikipedia.org/wiki/Saptari_1_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Saptari-2",
+    "url": "https://en.wikipedia.org/wiki/Saptari_2_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Saptari-3",
+    "url": "https://en.wikipedia.org/wiki/Saptari_3_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Saptari-4",
+    "url": "https://en.wikipedia.org/wiki/Saptari_4_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Siraha-1",
+    "url": "https://en.wikipedia.org/wiki/Siraha_1_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Siraha-2",
+    "url": "https://en.wikipedia.org/wiki/Siraha_2_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Siraha-3",
+    "url": "https://en.wikipedia.org/wiki/Siraha_3_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Siraha-4",
+    "url": "https://en.wikipedia.org/wiki/Siraha_4_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Dhanusa-1",
+    "url": "https://en.wikipedia.org/wiki/Dhanusa_1_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Dhanusa-2",
+    "url": "https://en.wikipedia.org/wiki/Dhanusa_2_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Dhanusa-3",
+    "url": "https://en.wikipedia.org/wiki/Dhanusa_3_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Dhanusa-4",
+    "url": "https://en.wikipedia.org/wiki/Dhanusa_4_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Mahottari-1",
+    "url": "https://en.wikipedia.org/wiki/Mahottari_1_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Mahottari-2",
+    "url": "https://en.wikipedia.org/wiki/Mahottari_2_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Mahottari-3",
+    "url": "https://en.wikipedia.org/wiki/Mahottari_3_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Mahottari-4",
+    "url": "https://en.wikipedia.org/wiki/Mahottari_4_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Sarlahi-1",
+    "url": "https://en.wikipedia.org/wiki/Sarlahi_1_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Sarlahi-2",
+    "url": "https://en.wikipedia.org/wiki/Sarlahi_2_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Sarlahi-3",
+    "url": "https://en.wikipedia.org/wiki/Sarlahi_3_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Sarlahi-4",
+    "url": "https://en.wikipedia.org/wiki/Sarlahi_4_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Rautahat-1",
+    "url": "https://en.wikipedia.org/wiki/Rautahat_1_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Rautahat-2",
+    "url": "https://en.wikipedia.org/wiki/Rautahat_2_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Rautahat-3",
+    "url": "https://en.wikipedia.org/wiki/Rautahat_3_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Rautahat-4",
+    "url": "https://en.wikipedia.org/wiki/Rautahat_4_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Bara-1",
+    "url": "https://en.wikipedia.org/wiki/Bara_1_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Bara-2",
+    "url": "https://en.wikipedia.org/wiki/Bara_2_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Bara-3",
+    "url": "https://en.wikipedia.org/wiki/Bara_3_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Bara-4",
+    "url": "https://en.wikipedia.org/wiki/Bara_4_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Parsa-1",
+    "url": "https://en.wikipedia.org/wiki/Parsa_1_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Parsa-2",
+    "url": "https://en.wikipedia.org/wiki/Parsa_2_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Parsa-3",
+    "url": "https://en.wikipedia.org/wiki/Parsa_3_(constituency)"
+  },
+  {
+    "provinceId": 2,
+    "provinceName": "Madhesh",
+    "constituency": "Parsa-4",
+    "url": "https://en.wikipedia.org/wiki/Parsa_4_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Dolakha-1",
+    "url": "https://en.wikipedia.org/wiki/Dolakha_1_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Ramechhap-1",
+    "url": "https://en.wikipedia.org/wiki/Ramechhap_1_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Sindhuli-1",
+    "url": "https://en.wikipedia.org/wiki/Sindhuli_1_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Sindhuli-2",
+    "url": "https://en.wikipedia.org/wiki/Sindhuli_2_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Kathmandu-1",
+    "url": "https://en.wikipedia.org/wiki/Kathmandu_1_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Kathmandu-2",
+    "url": "https://en.wikipedia.org/wiki/Kathmandu_2_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Kathmandu-3",
+    "url": "https://en.wikipedia.org/wiki/Kathmandu_3_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Kathmandu-4",
+    "url": "https://en.wikipedia.org/wiki/Kathmandu_4_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Kathmandu-5",
+    "url": "https://en.wikipedia.org/wiki/Kathmandu_5_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Kathmandu-6",
+    "url": "https://en.wikipedia.org/wiki/Kathmandu_6_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Kathmandu-7",
+    "url": "https://en.wikipedia.org/wiki/Kathmandu_7_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Kathmandu-8",
+    "url": "https://en.wikipedia.org/wiki/Kathmandu_8_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Kathmandu-9",
+    "url": "https://en.wikipedia.org/wiki/Kathmandu_9_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Kathmandu-10",
+    "url": "https://en.wikipedia.org/wiki/Kathmandu_10_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Lalitpur-1",
+    "url": "https://en.wikipedia.org/wiki/Lalitpur_1_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Lalitpur-2",
+    "url": "https://en.wikipedia.org/wiki/Lalitpur_2_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Lalitpur-3",
+    "url": "https://en.wikipedia.org/wiki/Lalitpur_3_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Bhaktapur-1",
+    "url": "https://en.wikipedia.org/wiki/Bhaktapur_1_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Bhaktapur-2",
+    "url": "https://en.wikipedia.org/wiki/Bhaktapur_2_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Kavrepalanchok-1",
+    "url": "https://en.wikipedia.org/wiki/Kavrepalanchok_1_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Kavrepalanchok-2",
+    "url": "https://en.wikipedia.org/wiki/Kavrepalanchok_2_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Nuwakot-1",
+    "url": "https://en.wikipedia.org/wiki/Nuwakot_1_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Nuwakot-2",
+    "url": "https://en.wikipedia.org/wiki/Nuwakot_2_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Dhading-1",
+    "url": "https://en.wikipedia.org/wiki/Dhading_1_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Dhading-2",
+    "url": "https://en.wikipedia.org/wiki/Dhading_2_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Makwanpur-1",
+    "url": "https://en.wikipedia.org/wiki/Makwanpur_1_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Makwanpur-2",
+    "url": "https://en.wikipedia.org/wiki/Makwanpur_2_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Chitwan-1",
+    "url": "https://en.wikipedia.org/wiki/Chitwan_1_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Chitwan-2",
+    "url": "https://en.wikipedia.org/wiki/Chitwan_2_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Chitwan-3",
+    "url": "https://en.wikipedia.org/wiki/Chitwan_3_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Sindhupalchok-1",
+    "url": "https://en.wikipedia.org/wiki/Sindhupalchok_1_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Sindhupalchok-2",
+    "url": "https://en.wikipedia.org/wiki/Sindhupalchok_2_(constituency)"
+  },
+  {
+    "provinceId": 3,
+    "provinceName": "Bagmati",
+    "constituency": "Rasuwa-1",
+    "url": "https://en.wikipedia.org/wiki/Rasuwa_1_(constituency)"
+  },
+  {
+    "provinceId": 4,
+    "provinceName": "Gandaki",
+    "constituency": "Manang-1",
+    "url": "https://en.wikipedia.org/wiki/Manang_1_(constituency)"
+  },
+  {
+    "provinceId": 4,
+    "provinceName": "Gandaki",
+    "constituency": "Mustang-1",
+    "url": "https://en.wikipedia.org/wiki/Mustang_1_(constituency)"
+  },
+  {
+    "provinceId": 4,
+    "provinceName": "Gandaki",
+    "constituency": "Gorkha-1",
+    "url": "https://en.wikipedia.org/wiki/Gorkha_1_(constituency)"
+  },
+  {
+    "provinceId": 4,
+    "provinceName": "Gandaki",
+    "constituency": "Gorkha-2",
+    "url": "https://en.wikipedia.org/wiki/Gorkha_2_(constituency)"
+  },
+  {
+    "provinceId": 4,
+    "provinceName": "Gandaki",
+    "constituency": "Lamjung-1",
+    "url": "https://en.wikipedia.org/wiki/Lamjung_1_(constituency)"
+  },
+  {
+    "provinceId": 4,
+    "provinceName": "Gandaki",
+    "constituency": "Kaski-1",
+    "url": "https://en.wikipedia.org/wiki/Kaski_1_(constituency)"
+  },
+  {
+    "provinceId": 4,
+    "provinceName": "Gandaki",
+    "constituency": "Kaski-2",
+    "url": "https://en.wikipedia.org/wiki/Kaski_2_(constituency)"
+  },
+  {
+    "provinceId": 4,
+    "provinceName": "Gandaki",
+    "constituency": "Kaski-3",
+    "url": "https://en.wikipedia.org/wiki/Kaski_3_(constituency)"
+  },
+  {
+    "provinceId": 4,
+    "provinceName": "Gandaki",
+    "constituency": "Tanahu-1",
+    "url": "https://en.wikipedia.org/wiki/Tanahu_1_(constituency)"
+  },
+  {
+    "provinceId": 4,
+    "provinceName": "Gandaki",
+    "constituency": "Tanahu-2",
+    "url": "https://en.wikipedia.org/wiki/Tanahu_2_(constituency)"
+  },
+  {
+    "provinceId": 4,
+    "provinceName": "Gandaki",
+    "constituency": "Syangja-1",
+    "url": "https://en.wikipedia.org/wiki/Syangja_1_(constituency)"
+  },
+  {
+    "provinceId": 4,
+    "provinceName": "Gandaki",
+    "constituency": "Syangja-2",
+    "url": "https://en.wikipedia.org/wiki/Syangja_2_(constituency)"
+  },
+  {
+    "provinceId": 4,
+    "provinceName": "Gandaki",
+    "constituency": "Gulmi-1",
+    "url": "https://en.wikipedia.org/wiki/Gulmi_1_(constituency)"
+  },
+  {
+    "provinceId": 4,
+    "provinceName": "Gandaki",
+    "constituency": "Gulmi-2",
+    "url": "https://en.wikipedia.org/wiki/Gulmi_2_(constituency)"
+  },
+  {
+    "provinceId": 4,
+    "provinceName": "Gandaki",
+    "constituency": "Palpa-1",
+    "url": "https://en.wikipedia.org/wiki/Palpa_1_(constituency)"
+  },
+  {
+    "provinceId": 4,
+    "provinceName": "Gandaki",
+    "constituency": "Parbat-1",
+    "url": "https://en.wikipedia.org/wiki/Parbat_1_(constituency)"
+  },
+  {
+    "provinceId": 4,
+    "provinceName": "Gandaki",
+    "constituency": "Baglung-1",
+    "url": "https://en.wikipedia.org/wiki/Baglung_1_(constituency)"
+  },
+  {
+    "provinceId": 4,
+    "provinceName": "Gandaki",
+    "constituency": "Baglung-2",
+    "url": "https://en.wikipedia.org/wiki/Baglung_2_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Nawalparasi_West-1",
+    "url": "https://en.wikipedia.org/wiki/Nawalparasi West_1_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Nawalparasi_West-2",
+    "url": "https://en.wikipedia.org/wiki/Nawalparasi West_2_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Rupandehi-1",
+    "url": "https://en.wikipedia.org/wiki/Rupandehi_1_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Rupandehi-2",
+    "url": "https://en.wikipedia.org/wiki/Rupandehi_2_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Rupandehi-3",
+    "url": "https://en.wikipedia.org/wiki/Rupandehi_3_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Rupandehi-4",
+    "url": "https://en.wikipedia.org/wiki/Rupandehi_4_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Rupandehi-5",
+    "url": "https://en.wikipedia.org/wiki/Rupandehi_5_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Kapilvastu-1",
+    "url": "https://en.wikipedia.org/wiki/Kapilvastu_1_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Kapilvastu-2",
+    "url": "https://en.wikipedia.org/wiki/Kapilvastu_2_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Kapilvastu-3",
+    "url": "https://en.wikipedia.org/wiki/Kapilvastu_3_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Arghakhanchi-1",
+    "url": "https://en.wikipedia.org/wiki/Arghakhanchi_1_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Arghakhanchi-2",
+    "url": "https://en.wikipedia.org/wiki/Arghakhanchi_2_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Pyuthan-1",
+    "url": "https://en.wikipedia.org/wiki/Pyuthan_1_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Rolpa-1",
+    "url": "https://en.wikipedia.org/wiki/Rolpa_1_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Rukum_East-1",
+    "url": "https://en.wikipedia.org/wiki/Rukum East_1_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Banke-1",
+    "url": "https://en.wikipedia.org/wiki/Banke_1_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Banke-2",
+    "url": "https://en.wikipedia.org/wiki/Banke_2_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Banke-3",
+    "url": "https://en.wikipedia.org/wiki/Banke_3_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Bardiya-1",
+    "url": "https://en.wikipedia.org/wiki/Bardiya_1_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Bardiya-2",
+    "url": "https://en.wikipedia.org/wiki/Bardiya_2_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Dang-1",
+    "url": "https://en.wikipedia.org/wiki/Dang_1_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Dang-2",
+    "url": "https://en.wikipedia.org/wiki/Dang_2_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Dang-3",
+    "url": "https://en.wikipedia.org/wiki/Dang_3_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Salyan-1",
+    "url": "https://en.wikipedia.org/wiki/Salyan_1_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Rukum_West-1",
+    "url": "https://en.wikipedia.org/wiki/Rukum West_1_(constituency)"
+  },
+  {
+    "provinceId": 5,
+    "provinceName": "Lumbini",
+    "constituency": "Rukum_West-2",
+    "url": "https://en.wikipedia.org/wiki/Rukum West_2_(constituency)"
+  },
+  {
+    "provinceId": 6,
+    "provinceName": "Karnali",
+    "constituency": "Dolpa-1",
+    "url": "https://en.wikipedia.org/wiki/Dolpa_1_(constituency)"
+  },
+  {
+    "provinceId": 6,
+    "provinceName": "Karnali",
+    "constituency": "Humla-1",
+    "url": "https://en.wikipedia.org/wiki/Humla_1_(constituency)"
+  },
+  {
+    "provinceId": 6,
+    "provinceName": "Karnali",
+    "constituency": "Jumla-1",
+    "url": "https://en.wikipedia.org/wiki/Jumla_1_(constituency)"
+  },
+  {
+    "provinceId": 6,
+    "provinceName": "Karnali",
+    "constituency": "Kalikot-1",
+    "url": "https://en.wikipedia.org/wiki/Kalikot_1_(constituency)"
+  },
+  {
+    "provinceId": 6,
+    "provinceName": "Karnali",
+    "constituency": "Mugu-1",
+    "url": "https://en.wikipedia.org/wiki/Mugu_1_(constituency)"
+  },
+  {
+    "provinceId": 6,
+    "provinceName": "Karnali",
+    "constituency": "Surkhet-1",
+    "url": "https://en.wikipedia.org/wiki/Surkhet_1_(constituency)"
+  },
+  {
+    "provinceId": 6,
+    "provinceName": "Karnali",
+    "constituency": "Surkhet-2",
+    "url": "https://en.wikipedia.org/wiki/Surkhet_2_(constituency)"
+  },
+  {
+    "provinceId": 6,
+    "provinceName": "Karnali",
+    "constituency": "Dailekh-1",
+    "url": "https://en.wikipedia.org/wiki/Dailekh_1_(constituency)"
+  },
+  {
+    "provinceId": 6,
+    "provinceName": "Karnali",
+    "constituency": "Dailekh-2",
+    "url": "https://en.wikipedia.org/wiki/Dailekh_2_(constituency)"
+  },
+  {
+    "provinceId": 6,
+    "provinceName": "Karnali",
+    "constituency": "Jajarkot-1",
+    "url": "https://en.wikipedia.org/wiki/Jajarkot_1_(constituency)"
+  },
+  {
+    "provinceId": 7,
+    "provinceName": "Sudurpashchim",
+    "constituency": "Kanchanpur-1",
+    "url": "https://en.wikipedia.org/wiki/Kanchanpur_1_(constituency)"
+  },
+  {
+    "provinceId": 7,
+    "provinceName": "Sudurpashchim",
+    "constituency": "Kanchanpur-2",
+    "url": "https://en.wikipedia.org/wiki/Kanchanpur_2_(constituency)"
+  },
+  {
+    "provinceId": 7,
+    "provinceName": "Sudurpashchim",
+    "constituency": "Kanchanpur-3",
+    "url": "https://en.wikipedia.org/wiki/Kanchanpur_3_(constituency)"
+  },
+  {
+    "provinceId": 7,
+    "provinceName": "Sudurpashchim",
+    "constituency": "Dadeldhura-1",
+    "url": "https://en.wikipedia.org/wiki/Dadeldhura_1_(constituency)"
+  },
+  {
+    "provinceId": 7,
+    "provinceName": "Sudurpashchim",
+    "constituency": "Baitadi-1",
+    "url": "https://en.wikipedia.org/wiki/Baitadi_1_(constituency)"
+  },
+  {
+    "provinceId": 7,
+    "provinceName": "Sudurpashchim",
+    "constituency": "Baitadi-2",
+    "url": "https://en.wikipedia.org/wiki/Baitadi_2_(constituency)"
+  },
+  {
+    "provinceId": 7,
+    "provinceName": "Sudurpashchim",
+    "constituency": "Doti-1",
+    "url": "https://en.wikipedia.org/wiki/Doti_1_(constituency)"
+  },
+  {
+    "provinceId": 7,
+    "provinceName": "Sudurpashchim",
+    "constituency": "Doti-2",
+    "url": "https://en.wikipedia.org/wiki/Doti_2_(constituency)"
+  },
+  {
+    "provinceId": 7,
+    "provinceName": "Sudurpashchim",
+    "constituency": "Achham-1",
+    "url": "https://en.wikipedia.org/wiki/Achham_1_(constituency)"
+  },
+  {
+    "provinceId": 7,
+    "provinceName": "Sudurpashchim",
+    "constituency": "Achham-2",
+    "url": "https://en.wikipedia.org/wiki/Achham_2_(constituency)"
+  },
+  {
+    "provinceId": 7,
+    "provinceName": "Sudurpashchim",
+    "constituency": "Bajhang-1",
+    "url": "https://en.wikipedia.org/wiki/Bajhang_1_(constituency)"
+  },
+  {
+    "provinceId": 7,
+    "provinceName": "Sudurpashchim",
+    "constituency": "Bajura-1",
+    "url": "https://en.wikipedia.org/wiki/Bajura_1_(constituency)"
+  },
+  {
+    "provinceId": 7,
+    "provinceName": "Sudurpashchim",
+    "constituency": "Kailali-1",
+    "url": "https://en.wikipedia.org/wiki/Kailali_1_(constituency)"
+  },
+  {
+    "provinceId": 7,
+    "provinceName": "Sudurpashchim",
+    "constituency": "Kailali-2",
+    "url": "https://en.wikipedia.org/wiki/Kailali_2_(constituency)"
+  },
+  {
+    "provinceId": 7,
+    "provinceName": "Sudurpashchim",
+    "constituency": "Kailali-3",
+    "url": "https://en.wikipedia.org/wiki/Kailali_3_(constituency)"
+  },
+  {
+    "provinceId": 7,
+    "provinceName": "Sudurpashchim",
+    "constituency": "Kailali-4",
+    "url": "https://en.wikipedia.org/wiki/Kailali_4_(constituency)"
+  },
+  {
+    "provinceId": 7,
+    "provinceName": "Sudurpashchim",
+    "constituency": "Kailali-5",
+    "url": "https://en.wikipedia.org/wiki/Kailali_5_(constituency)"
+  }
+]

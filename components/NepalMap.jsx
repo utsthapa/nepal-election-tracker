@@ -1,5 +1,6 @@
 'use client';
 
+import 'leaflet/dist/leaflet.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search } from 'lucide-react';
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
@@ -19,7 +20,7 @@ const buildConstituencyLookup = () => {
 
 const constituencyLookup = buildConstituencyLookup();
 
-const matchConstituency = (geoId) => {
+const matchConstituency = geoId => {
   const geoIdLower = geoId.toLowerCase();
   for (const [key, value] of Object.entries(constituencyLookup)) {
     const keyParts = key.split('-');
@@ -47,8 +48,7 @@ const buildDistrictDominance = () => {
 
   const dominantParties = {};
   for (const [district, parties] of Object.entries(districtPartyCounts)) {
-    dominantParties[district] = Object.entries(parties)
-      .sort((a, b) => b[1] - a[1])[0][0];
+    dominantParties[district] = Object.entries(parties).sort((a, b) => b[1] - a[1])[0][0];
   }
 
   return { dominantParties };
@@ -77,32 +77,39 @@ export default function NepalMap({
   const mapInstanceRef = useRef(null);
   const districtLayerRef = useRef(null);
   const constituencyLayerRef = useRef(null);
+  const mapInitializedRef = useRef(false);
 
   // Fetch GeoJSON data
   useEffect(() => {
+    console.log('Fetch effect starting...');
     let mounted = true;
-    
+
     Promise.all([
       fetch('/maps/nepal-districts.geojson').then(res => {
-        if (!res.ok) {throw new Error('Failed to fetch districts GeoJSON');}
+        console.log('Districts response:', res.status);
+        if (!res.ok) {
+          throw new Error('Failed to fetch districts GeoJSON');
+        }
         return res.json();
       }),
       fetch('/maps/nepal-constituencies.geojson').then(res => {
-        if (!res.ok) {throw new Error('Failed to fetch constituencies GeoJSON');}
+        console.log('Constituencies response:', res.status);
+        if (!res.ok) {
+          throw new Error('Failed to fetch constituencies GeoJSON');
+        }
         return res.json();
-      })
+      }),
     ])
       .then(([districts, constituencies]) => {
+        console.log('Fetch success, setting data');
         if (mounted) {
           setDistrictsData(districts);
           setConstituenciesData(constituencies);
         }
       })
       .catch(err => {
+        console.error('GeoJSON load error:', err);
         if (mounted) {
-          if (process.env.NODE_ENV === 'development') {
-            console.error('GeoJSON load error:', err);
-          }
           setGeoJsonError('Failed to load map data. Please refresh the page.');
         }
       });
@@ -112,27 +119,51 @@ export default function NepalMap({
     };
   }, []);
 
-  const getConstituencyWinner = useCallback((constituency) => {
-    if (year === 2026 && fptpResults && fptpResults[constituency.id]) {
-      const result = fptpResults[constituency.id];
-      return result?.winner || constituency.winner2022;
-    }
-    if (year !== 2022) {
-      return getHistoricalWinner(year, constituency.id);
-    }
-    return constituency.winner2022;
-  }, [fptpResults, year]);
+  // Debug logging
+  useEffect(() => {
+    console.log('Map state:', {
+      districtsData: !!districtsData,
+      constituenciesData: !!constituenciesData,
+      mapReady,
+      viewMode,
+    });
+  }, [districtsData, constituenciesData, mapReady, viewMode]);
 
-  const getConstituencyResults = useCallback((constituency) => {
-    if (year === 2026 && fptpResults && fptpResults[constituency.id]) {
-      const result = fptpResults[constituency.id];
-      return result?.adjusted || constituency.results2022;
+  // Force re-run of map init effect when data loads
+  const [dataReadyTrigger, setDataReadyTrigger] = useState(0);
+  useEffect(() => {
+    if (districtsData && constituenciesData) {
+      setDataReadyTrigger(prev => prev + 1);
     }
-    if (year !== 2022) {
-      return getHistoricalResults(year, constituency.id) || constituency.results2022;
-    }
-    return constituency.results2022;
-  }, [fptpResults, year]);
+  }, [districtsData, constituenciesData]);
+
+  const getConstituencyWinner = useCallback(
+    constituency => {
+      if (year === 2026 && fptpResults && fptpResults[constituency.id]) {
+        const result = fptpResults[constituency.id];
+        return result?.winner || constituency.winner2022;
+      }
+      if (year !== 2022) {
+        return getHistoricalWinner(year, constituency.id);
+      }
+      return constituency.winner2022;
+    },
+    [fptpResults, year]
+  );
+
+  const getConstituencyResults = useCallback(
+    constituency => {
+      if (year === 2026 && fptpResults && fptpResults[constituency.id]) {
+        const result = fptpResults[constituency.id];
+        return result?.adjusted || constituency.results2022;
+      }
+      if (year !== 2022) {
+        return getHistoricalResults(year, constituency.id) || constituency.results2022;
+      }
+      return constituency.results2022;
+    },
+    [fptpResults, year]
+  );
 
   const filteredConstituencies = useMemo(() => {
     let data = [...constituencies];
@@ -155,145 +186,165 @@ export default function NepalMap({
 
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
-      data = data.filter(c =>
-        c.name.toLowerCase().includes(term) ||
-        c.district.toLowerCase().includes(term)
+      data = data.filter(
+        c => c.name.toLowerCase().includes(term) || c.district.toLowerCase().includes(term)
       );
     }
 
     data.sort((a, b) => {
-      const marginA = year === 2026 && fptpResults && fptpResults[a.id]
-        ? fptpResults[a.id]?.margin ?? a.margin
-        : a.margin;
-      const marginB = year === 2026 && fptpResults && fptpResults[b.id]
-        ? fptpResults[b.id]?.margin ?? b.margin
-        : b.margin;
+      const marginA =
+        year === 2026 && fptpResults && fptpResults[a.id]
+          ? (fptpResults[a.id]?.margin ?? a.margin)
+          : a.margin;
+      const marginB =
+        year === 2026 && fptpResults && fptpResults[b.id]
+          ? (fptpResults[b.id]?.margin ?? b.margin)
+          : b.margin;
       return marginA - marginB;
     });
 
     return data;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterProvince, filterWinner, searchTerm, fptpResults, year]);
 
   useEffect(() => {
+    console.log('Map init effect running:', {
+      hasDistricts: !!districtsData,
+      hasConstituencies: !!constituenciesData,
+      mapInitialized: mapInitializedRef.current,
+    });
+
     if (!districtsData || !constituenciesData) {
+      console.log('Missing data, skipping map init');
+      return;
+    }
+
+    // Prevent re-initialization if already done
+    if (mapInitializedRef.current) {
+      console.log('Map already initialized, skipping');
       return;
     }
 
     let mounted = true;
 
     const initMap = async () => {
+      console.log('Starting map initialization...');
       const L = (await import('leaflet')).default;
 
       try {
-      if (mapInstanceRef.current) {
-        mapInstanceRef.current.remove();
-        mapInstanceRef.current = null;
-        districtLayerRef.current = null;
-        constituencyLayerRef.current = null;
-      }
-      
-      const container = mapContainerRef.current;
-      if (container && container._leaflet_id) {
-        delete container._leaflet_id;
-      }
-
-      const map = L.map(mapContainerRef.current, {
-        center: MAP_CONFIG.center,
-        zoom: MAP_CONFIG.zoom,
-        minZoom: MAP_CONFIG.minZoom,
-        maxZoom: MAP_CONFIG.maxZoom,
-        maxBounds: MAP_CONFIG.maxBounds,
-        maxBoundsViscosity: MAP_CONFIG.maxBoundsViscosity,
-        zoomControl: false,           // Disable zoom buttons
-        scrollWheelZoom: false,       // Disable scroll wheel zoom
-        doubleClickZoom: false,       // Disable double click zoom
-        touchZoom: false,             // Disable touch zoom
-        dragging: false,              // Disable panning
-        keyboard: false,              // Disable keyboard navigation
-      });
-
-      const districtLayer = L.geoJSON(districtsData, {
-        style: (feature) => {
-          const district = feature.properties.DISTRICT_MAPPED;
-          const party = dominantParties[district];
-          
-          return {
-            fillColor: party ? PARTIES[party]?.color : '#000000',
-            weight: 0.5,
-            opacity: 1,
-            color: '#d1d5db',
-            fillOpacity: 0.15,
-          };
-        },
-        interactive: false,
-      }).addTo(map);
-
-      const style = (feature) => {
-        const constituency = matchConstituency(feature.properties.constituencyId);
-        if (!constituency) {
-          return {
-            fillColor: MAP_CONFIG.defaultFillColor,
-            weight: MAP_CONFIG.strokeWidth,
-            opacity: 1,
-            color: MAP_CONFIG.defaultStrokeColor,
-            fillOpacity: 0.6
-          };
+        if (mapInstanceRef.current) {
+          mapInstanceRef.current.remove();
+          mapInstanceRef.current = null;
+          districtLayerRef.current = null;
+          constituencyLayerRef.current = null;
         }
 
-        const winner = getConstituencyWinner(constituency);
+        const container = mapContainerRef.current;
+        if (container && container._leaflet_id) {
+          delete container._leaflet_id;
+        }
 
-        return {
-          fillColor: PARTIES[winner]?.color || '#000000',
-          weight: MAP_CONFIG.strokeWidth,
-          opacity: 1,
-          color: MAP_CONFIG.borderColor,
-          fillOpacity: MAP_CONFIG.fillOpacity,
-        };
-      };
+        const map = L.map(mapContainerRef.current, {
+          center: MAP_CONFIG.center,
+          zoom: MAP_CONFIG.zoom,
+          minZoom: MAP_CONFIG.minZoom,
+          maxZoom: MAP_CONFIG.maxZoom,
+          maxBounds: MAP_CONFIG.maxBounds,
+          maxBoundsViscosity: MAP_CONFIG.maxBoundsViscosity,
+          zoomControl: false, // Disable zoom buttons
+          scrollWheelZoom: false, // Disable scroll wheel zoom
+          doubleClickZoom: false, // Disable double click zoom
+          touchZoom: false, // Disable touch zoom
+          dragging: false, // Disable panning
+          keyboard: false, // Disable keyboard navigation
+        });
 
-      const constituencyLayer = L.geoJSON(constituenciesData, {
-        style: style,
-        interactive: true,
-        zIndex: 1000,
-        onEachFeature: (feature, layer) => {
+        const districtLayer = L.geoJSON(districtsData, {
+          style: feature => {
+            const district = feature.properties.DISTRICT_MAPPED;
+            const party = dominantParties[district];
+
+            return {
+              fillColor: party ? PARTIES[party]?.color : '#000000',
+              weight: 0.5,
+              opacity: 1,
+              color: '#d1d5db',
+              fillOpacity: 0.15,
+            };
+          },
+          interactive: false,
+        }).addTo(map);
+
+        const style = feature => {
           const constituency = matchConstituency(feature.properties.constituencyId);
+          if (!constituency) {
+            return {
+              fillColor: MAP_CONFIG.defaultFillColor,
+              weight: MAP_CONFIG.strokeWidth,
+              opacity: 1,
+              color: MAP_CONFIG.defaultStrokeColor,
+              fillOpacity: 0.6,
+            };
+          }
 
-          layer.on({
-            mouseover: (e) => {
-              if (constituency) {
-                setHoveredConstituency(constituency);
+          const winner = getConstituencyWinner(constituency);
+
+          return {
+            fillColor: PARTIES[winner]?.color || '#000000',
+            weight: MAP_CONFIG.strokeWidth,
+            opacity: 1,
+            color: MAP_CONFIG.borderColor,
+            fillOpacity: MAP_CONFIG.fillOpacity,
+          };
+        };
+
+        const constituencyLayer = L.geoJSON(constituenciesData, {
+          style: style,
+          interactive: true,
+          zIndex: 1000,
+          onEachFeature: (feature, layer) => {
+            const constituency = matchConstituency(feature.properties.constituencyId);
+
+            layer.on({
+              mouseover: e => {
+                if (constituency) {
+                  setHoveredConstituency(constituency);
+                  const { clientX, clientY } = e.originalEvent;
+                  setTooltipPos({ x: clientX, y: clientY });
+                }
+                e.target.setStyle({
+                  weight: MAP_CONFIG.hoverBorderWeight,
+                  color: MAP_CONFIG.hoverBorderColor,
+                });
+                e.target.bringToFront();
+              },
+              mouseout: e => {
+                setHoveredConstituency(null);
+                constituencyLayer.resetStyle(e.target);
+              },
+              mousemove: e => {
                 const { clientX, clientY } = e.originalEvent;
                 setTooltipPos({ x: clientX, y: clientY });
-              }
-              e.target.setStyle({ weight: MAP_CONFIG.hoverBorderWeight, color: MAP_CONFIG.hoverBorderColor });
-              e.target.bringToFront();
-            },
-            mouseout: (e) => {
-              setHoveredConstituency(null);
-              constituencyLayer.resetStyle(e.target);
-            },
-            mousemove: (e) => {
-              const { clientX, clientY } = e.originalEvent;
-              setTooltipPos({ x: clientX, y: clientY });
-            },
-            click: () => {
-              if (constituency && onSelectConstituency) {
-                onSelectConstituency(constituency.id);
-              }
-            },
-          });
-        },
-      }).addTo(map);
+              },
+              click: () => {
+                if (constituency && onSelectConstituency) {
+                  onSelectConstituency(constituency.id);
+                }
+              },
+            });
+          },
+        }).addTo(map);
 
-      if (mounted) {
-        mapInstanceRef.current = map;
-        districtLayerRef.current = districtLayer;
-        constituencyLayerRef.current = constituencyLayer;
-        setMapReady(true);
-      }
+        if (mounted) {
+          mapInstanceRef.current = map;
+          districtLayerRef.current = districtLayer;
+          constituencyLayerRef.current = constituencyLayer;
+          setMapReady(true);
+          mapInitializedRef.current = true;
+          console.log('Map initialized successfully');
+        }
       } catch (error) {
-        if (mounted && process.env.NODE_ENV === 'development') {
+        if (mounted) {
           console.error('Error initializing map:', error);
         }
       }
@@ -311,18 +362,79 @@ export default function NepalMap({
       districtLayerRef.current = null;
       constituencyLayerRef.current = null;
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fptpResults, year, viewMode]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fptpResults, year, dataReadyTrigger]);
 
   useEffect(() => {
-    if (viewMode === 'map' && mapInstanceRef.current) {
-      setTimeout(() => {
-        mapInstanceRef.current?.invalidateSize();
-      }, MAP_CONFIG.mapResizeDelay || 100);
+    if (viewMode === 'map' && mapInstanceRef.current && mapReady) {
+      // Use requestAnimationFrame to ensure DOM has updated after removing 'hidden' class
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          mapInstanceRef.current?.invalidateSize();
+        }, 50);
+      });
     }
-  }, [viewMode]);
+  }, [viewMode, mapReady]);
 
-  const getHoveredWinner = (constituency) => {
+  // Handle window resize and browser zoom
+  useEffect(() => {
+    if (!mapReady || !mapInstanceRef.current) return;
+
+    const handleResize = () => {
+      if (viewMode === 'map') {
+        mapInstanceRef.current?.invalidateSize();
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [mapReady, viewMode]);
+
+  // Watch for visibility changes (when hidden class is removed)
+  useEffect(() => {
+    if (!mapReady || !mapInstanceRef.current || !mapContainerRef.current) return;
+
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          const target = mutation.target;
+          const isHidden = target.classList.contains('hidden');
+          if (!isHidden && viewMode === 'map') {
+            requestAnimationFrame(() => {
+              mapInstanceRef.current?.invalidateSize();
+            });
+          }
+        }
+      });
+    });
+
+    // Observe the parent container that has the 'hidden' class
+    const parentContainer = mapContainerRef.current?.closest('.relative.bg-surface');
+    if (parentContainer) {
+      observer.observe(parentContainer, { attributes: true, attributeFilter: ['class'] });
+    }
+
+    return () => observer.disconnect();
+  }, [mapReady, viewMode]);
+
+  // Update map colors when year changes
+  useEffect(() => {
+    if (!mapReady || !constituencyLayerRef.current) return;
+
+    console.log('Updating map colors for year:', year);
+    constituencyLayerRef.current.eachLayer(layer => {
+      const feature = layer.feature;
+      const constituency = matchConstituency(feature.properties.constituencyId);
+      if (constituency) {
+        const winner = getConstituencyWinner(constituency);
+        layer.setStyle({
+          fillColor: PARTIES[winner]?.color || '#000000',
+        });
+      }
+    });
+  }, [year, mapReady, fptpResults]);
+
+  const getHoveredWinner = constituency => {
     if (year === 2026 && fptpResults && fptpResults[constituency.id]) {
       const result = fptpResults[constituency.id];
       return result?.winner || constituency.winner2022;
@@ -333,9 +445,9 @@ export default function NepalMap({
     return constituency.winner2022;
   };
 
-  const getHoveredResults = (constituency) => getConstituencyResults(constituency);
+  const getHoveredResults = constituency => getConstituencyResults(constituency);
 
-  const getWinnerPercentage = (constituency) => {
+  const getWinnerPercentage = constituency => {
     const results = getHoveredResults(constituency);
     const winner = getHoveredWinner(constituency);
     return results[winner] || 0;
@@ -374,7 +486,8 @@ export default function NepalMap({
         {viewMode === 'map' && (
           <>
             <div className="text-sm text-muted">
-              {constituenciesData?.features?.length} constituencies over {districtsData?.features?.length} districts
+              {constituenciesData?.features?.length} constituencies over{' '}
+              {districtsData?.features?.length} districts
             </div>
             <div className="text-xs text-muted flex items-center gap-2 mt-2">
               <div className="flex items-center gap-1">
@@ -400,28 +513,32 @@ export default function NepalMap({
                   type="text"
                   placeholder="Search constituency..."
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={e => setSearchTerm(e.target.value)}
                   className="w-full pl-9 pr-3 py-2 bg-surface border border-neutral rounded-lg text-sm text-foreground placeholder-muted focus:outline-none focus:border-foreground"
                 />
               </div>
               <select
                 value={filterProvince || ''}
-                onChange={(e) => setFilterProvince(e.target.value ? parseInt(e.target.value) : null)}
+                onChange={e => setFilterProvince(e.target.value ? parseInt(e.target.value) : null)}
                 className="px-3 py-2 bg-surface border border-neutral rounded-lg text-sm text-foreground focus:outline-none focus:border-foreground"
               >
                 <option value="">All Provinces</option>
                 {Object.entries(PROVINCES).map(([id, prov]) => (
-                  <option key={id} value={id}>{prov.name}</option>
+                  <option key={id} value={id}>
+                    {prov.name}
+                  </option>
                 ))}
               </select>
               <select
                 value={filterWinner || ''}
-                onChange={(e) => setFilterWinner(e.target.value || null)}
+                onChange={e => setFilterWinner(e.target.value || null)}
                 className="px-3 py-2 bg-surface border border-neutral rounded-lg text-sm text-foreground focus:outline-none focus:border-foreground"
               >
                 <option value="">All Parties</option>
                 {Object.entries(PARTIES).map(([id, party]) => (
-                  <option key={id} value={id}>{party.short}</option>
+                  <option key={id} value={id}>
+                    {party.short}
+                  </option>
                 ))}
               </select>
             </div>
@@ -430,12 +547,16 @@ export default function NepalMap({
             <table className="w-full text-sm">
               <thead className="bg-neutral/20 sticky top-0">
                 <tr>
-                  <th className="px-4 py-3 text-left font-semibold text-foreground">Constituency</th>
+                  <th className="px-4 py-3 text-left font-semibold text-foreground">
+                    Constituency
+                  </th>
                   <th className="px-4 py-3 text-left font-semibold text-foreground">2022 Winner</th>
                   <th className="px-4 py-3 text-right font-semibold text-foreground">2022 %</th>
                   {year === 2026 && (
                     <>
-                      <th className="px-4 py-3 text-left font-semibold text-foreground">Sim Winner</th>
+                      <th className="px-4 py-3 text-left font-semibold text-foreground">
+                        Sim Winner
+                      </th>
                       <th className="px-4 py-3 text-right font-semibold text-foreground">Sim %</th>
                     </>
                   )}
@@ -468,7 +589,9 @@ export default function NepalMap({
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ delay: index * 0.005 }}
-                        onClick={() => onSelectConstituency && onSelectConstituency(constituency.id)}
+                        onClick={() =>
+                          onSelectConstituency && onSelectConstituency(constituency.id)
+                        }
                         className="hover:bg-neutral/10 transition-colors cursor-pointer"
                       >
                         <td className="px-4 py-3">
@@ -483,7 +606,9 @@ export default function NepalMap({
                               className="w-3 h-3 rounded-full"
                               style={{ backgroundColor: PARTIES[winner2022]?.color || '#000000' }}
                             />
-                            <span className="text-foreground">{PARTIES[winner2022]?.short || winner2022}</span>
+                            <span className="text-foreground">
+                              {PARTIES[winner2022]?.short || winner2022}
+                            </span>
                           </div>
                         </td>
                         <td className="px-4 py-3 text-right font-mono text-muted">
@@ -497,9 +622,13 @@ export default function NepalMap({
                                   <>
                                     <div
                                       className="w-3 h-3 rounded-full"
-                                      style={{ backgroundColor: PARTIES[simWinner]?.color || '#000000' }}
+                                      style={{
+                                        backgroundColor: PARTIES[simWinner]?.color || '#000000',
+                                      }}
                                     />
-                                    <span className="text-foreground">{PARTIES[simWinner]?.short || simWinner}</span>
+                                    <span className="text-foreground">
+                                      {PARTIES[simWinner]?.short || simWinner}
+                                    </span>
                                     {simWinner !== winner2022 && (
                                       <span className="text-others text-xs">→</span>
                                     )}
@@ -540,7 +669,9 @@ export default function NepalMap({
         </div>
       )}
 
-      <div className={`relative bg-surface border border-neutral rounded-xl overflow-hidden ${viewMode === 'table' ? 'hidden' : ''}`}>
+      <div
+        className={`relative bg-surface border border-neutral rounded-xl overflow-hidden ${viewMode === 'table' ? 'hidden' : ''}`}
+      >
         <div className="relative">
           <div
             key="map-container"
@@ -557,49 +688,130 @@ export default function NepalMap({
             </div>
           )}
 
-            {/* Hover Tooltip */}
-            {hoveredConstituency && (
-              <div
-                className="fixed z-[9999] pointer-events-none"
-                style={{
-                  left: tooltipPos.x + 15,
-                  top: tooltipPos.y - 10,
-                }}
-              >
-                <div className="bg-surface border border-neutral rounded-xl shadow-2xl p-4 min-w-[280px]">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div
-                      className="w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold text-white"
-                      style={{ backgroundColor: PARTIES[getHoveredWinner(hoveredConstituency)]?.color || '#000000' }}
-                    >
-                      {PARTIES[getHoveredWinner(hoveredConstituency)]?.short?.charAt(0) || '?'}
+          {/* Hover Tooltip */}
+          {hoveredConstituency && (
+            <div
+              className="fixed z-[9999] pointer-events-none"
+              style={{
+                left: tooltipPos.x + 15,
+                top: tooltipPos.y - 10,
+              }}
+            >
+              <div className="bg-surface border border-neutral rounded-xl shadow-2xl p-4 min-w-[320px]">
+                {/* Header: Constituency Name & District */}
+                <div className="mb-3 pb-3 border-b border-neutral">
+                  <div className="text-lg font-bold text-foreground">
+                    {hoveredConstituency.name}
+                  </div>
+                  <div className="text-sm text-muted">
+                    {hoveredConstituency.district} District • Province{' '}
+                    {hoveredConstituency.province}
+                  </div>
+                </div>
+
+                {/* Winner Section */}
+                <div className="flex items-center gap-3 mb-3">
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold text-white"
+                    style={{
+                      backgroundColor:
+                        PARTIES[getHoveredWinner(hoveredConstituency)]?.color || '#000000',
+                    }}
+                  >
+                    {PARTIES[getHoveredWinner(hoveredConstituency)]?.short?.charAt(0) || '?'}
+                  </div>
+                  <div>
+                    <div className="text-sm text-muted">
+                      {year === 2022 ? '2022 Winner' : 'Winner'}
                     </div>
-                    <div>
-                      <div className="text-sm text-muted">Winner</div>
-                      <div className="text-base font-bold text-foreground">
-                        {PARTIES[getHoveredWinner(hoveredConstituency)]?.name || 'Unknown'}
-                      </div>
+                    <div className="text-base font-bold text-foreground">
+                      {PARTIES[getHoveredWinner(hoveredConstituency)]?.name || 'Unknown'}
+                    </div>
+                    {hoveredConstituency.candidate2022 && (
+                      <div className="text-xs text-muted">{hoveredConstituency.candidate2022}</div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Stats Grid */}
+                <div className="grid grid-cols-2 gap-3 mb-3">
+                  <div className="bg-neutral/20 rounded-lg p-2">
+                    <div className="text-xs text-muted">Vote Share</div>
+                    <div className="text-lg font-mono font-bold text-foreground">
+                      {(getWinnerPercentage(hoveredConstituency) * 100).toFixed(1)}%
                     </div>
                   </div>
-                  <div className="space-y-2">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted">Vote Share</span>
-                      <span className="text-base font-mono font-bold text-foreground">
-                        {(getWinnerPercentage(hoveredConstituency) * 100).toFixed(1)}%
-                      </span>
+                  <div className="bg-neutral/20 rounded-lg p-2">
+                    <div className="text-xs text-muted">Margin</div>
+                    <div className="text-lg font-mono font-bold text-foreground">
+                      {((hoveredConstituency.margin || 0) * 100).toFixed(2)}%
                     </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted">Total Votes</span>
-                      <span className="text-base font-mono font-bold text-foreground">
-                        {hoveredConstituency.totalVotes?.toLocaleString() || 'N/A'}
-                      </span>
+                  </div>
+                  <div className="bg-neutral/20 rounded-lg p-2">
+                    <div className="text-xs text-muted">Total Votes</div>
+                    <div className="text-lg font-mono font-bold text-foreground">
+                      {hoveredConstituency.totalVotes?.toLocaleString() || 'N/A'}
+                    </div>
+                  </div>
+                  <div className="bg-neutral/20 rounded-lg p-2">
+                    <div className="text-xs text-muted">Candidates</div>
+                    <div className="text-lg font-mono font-bold text-foreground">
+                      {
+                        Object.values(getHoveredResults(hoveredConstituency)).filter(v => v > 0)
+                          .length
+                      }
                     </div>
                   </div>
                 </div>
+
+                {/* Top 3 Parties */}
+                <div className="text-xs text-muted mb-2">
+                  {year === 2022 ? '2022 Results' : 'Top Parties'}
+                </div>
+                <div className="space-y-1">
+                  {Object.entries(getHoveredResults(hoveredConstituency))
+                    .filter(([_, votes]) => votes > 0)
+                    .sort(([_, a], [__, b]) => b - a)
+                    .slice(0, 3)
+                    .map(([party, votes], idx) => {
+                      const isWinner = party === hoveredConstituency.winner2022;
+                      return (
+                        <div
+                          key={party}
+                          className={`flex items-center justify-between text-sm p-1.5 rounded ${
+                            isWinner && year === 2022
+                              ? 'bg-green-500/10 border border-green-500/30'
+                              : ''
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <div
+                              className="w-2 h-2 rounded-full"
+                              style={{ backgroundColor: PARTIES[party]?.color || '#666' }}
+                            />
+                            <span
+                              className={
+                                isWinner && year === 2022
+                                  ? 'font-semibold text-green-600 dark:text-green-400'
+                                  : idx === 0
+                                    ? 'font-semibold text-foreground'
+                                    : 'text-muted'
+                              }
+                            >
+                              {PARTIES[party]?.short || party}
+                              {isWinner && year === 2022 && ' ✓'}
+                            </span>
+                          </div>
+                          <span className="font-mono">{(votes * 100).toFixed(1)}%</span>
+                        </div>
+                      );
+                    })}
+                </div>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
+      </div>
     </div>
   );
 }

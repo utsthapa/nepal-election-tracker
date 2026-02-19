@@ -208,7 +208,7 @@ function PartySlider({ party, value, onChange }) {
         step="0.1"
         value={value}
         onChange={handleChange}
-        className="w-full h-2 rounded-lg appearance-none cursor-pointer slider"
+        className={`w-full h-2 rounded-lg appearance-none cursor-pointer slider-${party.toLowerCase()}`}
         style={{
           background: `linear-gradient(to right, ${partyInfo.color} 0%, ${partyInfo.color} ${value}%, #e5e7eb ${value}%, #e5e7eb 100%)`
         }}

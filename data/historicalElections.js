@@ -34,6 +34,18 @@ export const HISTORICAL_PARTIES = {
   CPNML: { name: 'CPN (Marxist-Leninist)', short: 'CPN-ML', color: '#dc2626' },
   NMKP: { name: 'Nepal Majdoor Kisan Party', short: 'NMKP', color: '#b91c1c' },
 
+  // 1959 era parties
+  GorkhaParishad: {
+    name: 'Nepal Rashtrabadi Gorkha Parishad',
+    short: 'Gorkha Parishad',
+    color: '#7c3aed',
+  },
+  SPP: { name: 'Samyukta Prajatantra Party', short: 'SPP', color: '#0ea5e9' },
+  Communist: { name: 'Communist Party of Nepal', short: 'CPN', color: '#dc2626' },
+  NPPAcharya: { name: 'Nepal Praja Parishad (Acharya)', short: 'NPP (Acharya)', color: '#f59e0b' },
+  NPPMishra: { name: 'Nepal Praja Parishad (Mishra)', short: 'NPP (Mishra)', color: '#84cc16' },
+  Independent: { name: 'Independent', short: 'Ind', color: '#6b7280' },
+
   // Generic
   Others: { name: 'Others/Independents', short: 'Others', color: '#6b7280' },
 };
@@ -49,7 +61,8 @@ export const ELECTIONS = {
     prSeats: 110,
     turnout: 'TBD',
     prThreshold: 3,
-    notes: 'Early election following Gen Z protests. 3,484 candidates from 68 parties contesting. Major parties: NC (165 seats), UML (164), RSP (164), NCP (164). Key battles: Jhapa-5 (Oli vs Balen), Chitwan-2 (Lamichhane).',
+    notes:
+      'Early election following Gen Z protests. 3,484 candidates from 68 parties contesting. Major parties: NC (165 seats), UML (164), RSP (164), NCP (164). Key battles: Jhapa-5 (Oli vs Balen), Chitwan-2 (Lamichhane).',
     candidates: {
       total: 3484,
       parties: 2397,
@@ -58,17 +71,43 @@ export const ELECTIONS = {
       men: 3088,
     },
     majorParties: [
-      { name: 'Nepali Congress', leader: 'Gagan Kumar Thapa', seats: 165, pmCandidate: 'Gagan Kumar Thapa' },
+      {
+        name: 'Nepali Congress',
+        leader: 'Gagan Kumar Thapa',
+        seats: 165,
+        pmCandidate: 'Gagan Kumar Thapa',
+      },
       { name: 'CPN-UML', leader: 'K.P. Sharma Oli', seats: 164, pmCandidate: 'K.P. Sharma Oli' },
-      { name: 'Rastriya Swatantra Party', leader: 'Rabi Lamichhane', seats: 164, pmCandidate: 'Balendra Shah' },
-      { name: 'Nepali Communist Party', leader: 'Pushpa Kamal Dahal', seats: 164, pmCandidate: 'Pushpa Kamal Dahal' },
-      { name: 'Rastriya Prajatantra Party', leader: 'Rajendra Prasad Lingden', seats: 163, pmCandidate: 'Rajendra Prasad Lingden' },
+      {
+        name: 'Rastriya Swatantra Party',
+        leader: 'Rabi Lamichhane',
+        seats: 164,
+        pmCandidate: 'Balendra Shah',
+      },
+      {
+        name: 'Nepali Communist Party',
+        leader: 'Pushpa Kamal Dahal',
+        seats: 164,
+        pmCandidate: 'Pushpa Kamal Dahal',
+      },
+      {
+        name: 'Rastriya Prajatantra Party',
+        leader: 'Rajendra Prasad Lingden',
+        seats: 163,
+        pmCandidate: 'Rajendra Prasad Lingden',
+      },
     ],
     keyBattlegrounds: [
-      { constituency: 'Jhapa-5', candidates: 'K.P. Oli (UML) vs Balen Shah (RSP) vs Mandhara Chimariya (NC)' },
+      {
+        constituency: 'Jhapa-5',
+        candidates: 'K.P. Oli (UML) vs Balen Shah (RSP) vs Mandhara Chimariya (NC)',
+      },
       { constituency: 'Chitwan-2', candidates: 'Rabi Lamichhane (RSP) vs Asmin Ghimire (UML)' },
       { constituency: 'Sarlahi-4', candidates: 'Gagan Thapa (NC) vs Amaresh Singh (RSP)' },
-      { constituency: 'Kathmandu-5', candidates: 'Ishwar Pokharel (UML) vs Sasmita Pokharel (RSP)' },
+      {
+        constituency: 'Kathmandu-5',
+        candidates: 'Ishwar Pokharel (UML) vs Sasmita Pokharel (RSP)',
+      },
     ],
     results: {
       FPTP: { NC: 0, UML: 0, Maoist: 0, RSP: 0, RPP: 0, JSPN: 0, NCP: 0, JP: 0, Others: 0 },
@@ -90,10 +129,59 @@ export const ELECTIONS = {
     prThreshold: 3,
     notes: 'First election with RSP as major force. Hung parliament resulted.',
     results: {
-      FPTP: { NC: 57, UML: 44, Maoist: 18, RSP: 7, RPP: 7, JSPN: 6, US: 10, JP: 1, LSP: 4, NUP: 3, Others: 8 },
-      PR: { NC: 32, UML: 34, Maoist: 14, RSP: 13, RPP: 7, JSPN: 6, US: 0, JP: 5, LSP: 0, NUP: 0, Others: 0 },
-      Total: { NC: 89, UML: 78, Maoist: 32, RSP: 20, RPP: 14, JSPN: 12, US: 10, JP: 6, LSP: 4, NUP: 3, Others: 8 },
+      FPTP: {
+        NC: 57,
+        UML: 44,
+        Maoist: 18,
+        RSP: 7,
+        RPP: 7,
+        JSPN: 6,
+        US: 10,
+        JP: 1,
+        LSP: 4,
+        NUP: 3,
+        Others: 8,
+      },
+      PR: {
+        NC: 32,
+        UML: 34,
+        Maoist: 14,
+        RSP: 13,
+        RPP: 7,
+        JSPN: 5,
+        US: 0,
+        JP: 5,
+        LSP: 0,
+        NUP: 0,
+        Others: 0,
+      },
+      Total: {
+        NC: 89,
+        UML: 78,
+        Maoist: 32,
+        RSP: 20,
+        RPP: 14,
+        JSPN: 11,
+        US: 10,
+        JP: 6,
+        LSP: 4,
+        NUP: 3,
+        Others: 8,
+      },
     },
+    voteShare: {
+      UML: 26.95,
+      NC: 25.71,
+      Maoist: 11.13,
+      RSP: 10.7,
+      RPP: 5.58,
+      JSPN: 3.99,
+      JP: 3.74,
+      US: 2.83,
+      Others: 9.37,
+    },
+    registeredVoters: 17988570,
+    validVotes: 10560067,
     government: 'NC-led coalition with Maoist, US, LSP, and others. Pushpa Kamal Dahal became PM.',
   },
 
@@ -113,7 +201,19 @@ export const ELECTIONS = {
       PR: { UML: 41, NC: 40, Maoist: 17, RJPN: 6, FSFN: 6, Others: 0 },
       Total: { UML: 121, NC: 63, Maoist: 53, RJPN: 17, FSFN: 16, Others: 5 },
     },
-    government: 'UML-Maoist merged to form NCP. KP Sharma Oli became PM with historic 2/3 majority.',
+    voteShare: {
+      UML: 33.25,
+      NC: 32.78,
+      Maoist: 13.66,
+      RJPN: 4.95,
+      FSFN: 4.93,
+      RPP: 2.06,
+      Others: 8.37,
+    },
+    registeredVoters: 15427731,
+    validVotes: 9544744,
+    government:
+      'UML-Maoist merged to form NCP. KP Sharma Oli became PM with historic 2/3 majority.',
   },
 
   2013: {
@@ -127,13 +227,24 @@ export const ELECTIONS = {
     nominatedSeats: 26,
     turnout: '78.34%',
     prThreshold: 0,
-    notes: 'Record turnout. NC and UML surged while Maoists suffered major losses. Successfully drafted 2015 Constitution.',
+    notes:
+      'Record turnout. NC and UML surged while Maoists suffered major losses. Successfully drafted 2015 Constitution.',
     results: {
       FPTP: { NC: 105, UML: 91, Maoist: 26, RPP: 0, MPRF: 4, Others: 14 },
       PR: { NC: 80, UML: 76, Maoist: 49, RPP: 22, MPRF: 10, Others: 98 },
       Nominated: { NC: 11, UML: 8, Maoist: 5, RPP: 2, Others: 0 },
       Total: { NC: 196, UML: 175, Maoist: 80, RPP: 24, MPRF: 14, Others: 112 },
     },
+    voteShare: {
+      NC: 25.55,
+      UML: 23.66,
+      Maoist: 15.21,
+      RPP: 6.57,
+      MPRF: 2.87,
+      Others: 26.14,
+    },
+    registeredVoters: 12147433,
+    validVotes: 9191331,
     government: 'NC-UML coalition. Sushil Koirala became PM.',
   },
 
@@ -148,13 +259,24 @@ export const ELECTIONS = {
     nominatedSeats: 26,
     turnout: '61.70%',
     prThreshold: 0,
-    notes: 'Historic election after end of civil war. Maoists emerged as largest party. Monarchy abolished.',
+    notes:
+      'Historic election after end of civil war. Maoists emerged as largest party. Monarchy abolished.',
     results: {
       FPTP: { Maoist: 120, NC: 37, UML: 33, MPRF: 28, TMDP: 9, Others: 13 },
       PR: { Maoist: 100, NC: 73, UML: 70, MPRF: 22, TMDP: 11, Others: 59 },
       Nominated: { Maoist: 9, NC: 5, UML: 5, MPRF: 2, Others: 5 },
       Total: { Maoist: 229, NC: 115, UML: 108, MPRF: 52, TMDP: 20, Others: 77 },
     },
+    voteShare: {
+      Maoist: 29.28,
+      NC: 21.14,
+      UML: 18.88,
+      MPRF: 6.32,
+      TMDP: 3.01,
+      Others: 21.37,
+    },
+    registeredVoters: 13137854,
+    validVotes: 8083017,
     government: 'Maoist-led coalition. Pushpa Kamal Dahal (Prachanda) became PM.',
   },
 
@@ -172,7 +294,18 @@ export const ELECTIONS = {
       FPTP: { NC: 111, UML: 71, RPP: 11, CPNML: 5, NSP: 5, Others: 2 },
       Total: { NC: 111, UML: 71, RPP: 11, CPNML: 5, NSP: 5, Others: 2 },
     },
-    government: 'NC majority government. Krishna Prasad Bhattarai, then Girija Prasad Koirala became PM.',
+    voteShare: {
+      NC: 37.2,
+      UML: 31.66,
+      RPP: 10.43,
+      CPNML: 2.43,
+      NSP: 3.49,
+      Others: 14.79,
+    },
+    registeredVoters: 13200000,
+    validVotes: 7291084,
+    government:
+      'NC majority government. Krishna Prasad Bhattarai, then Girija Prasad Koirala became PM.',
   },
 
   1994: {
@@ -189,6 +322,16 @@ export const ELECTIONS = {
       FPTP: { UML: 88, NC: 83, RPP: 20, NSP: 3, NMKP: 4, Others: 7 },
       Total: { UML: 88, NC: 83, RPP: 20, NSP: 3, NMKP: 4, Others: 7 },
     },
+    voteShare: {
+      UML: 30.85,
+      NC: 33.38,
+      RPP: 17.93,
+      NSP: 3.49,
+      NMKP: 0.98,
+      Others: 13.37,
+    },
+    registeredVoters: 12300000,
+    validVotes: 7625348,
     government: 'UML minority government. Man Mohan Adhikari became first communist PM.',
   },
 
@@ -206,17 +349,74 @@ export const ELECTIONS = {
       FPTP: { NC: 110, UML: 69, RPP: 4, NSP: 6, NMKP: 2, Others: 14 },
       Total: { NC: 110, UML: 69, RPP: 4, NSP: 6, NMKP: 2, Others: 14 },
     },
+    voteShare: {
+      NC: 37.75,
+      UML: 27.98,
+      RPP: 17.93,
+      NSP: 4.1,
+      NMKP: 1.25,
+      Others: 10.99,
+    },
+    registeredVoters: 10700000,
+    validVotes: 6969061,
     government: 'NC majority government. Girija Prasad Koirala became PM.',
+  },
+
+  1959: {
+    year: 1959,
+    name: '1959 General Election',
+    type: 'House of Representatives',
+    date: 'February 18 - April 3, 1959',
+    totalSeats: 109,
+    fptpSeats: 109,
+    prSeats: 0,
+    turnout: '42.0%',
+    notes: 'First parliamentary election in Nepal. BP Koirala became first elected PM.',
+    results: {
+      FPTP: {
+        NC: 74,
+        GorkhaParishad: 19,
+        SPP: 5,
+        Communist: 4,
+        NPPAcharya: 2,
+        NPPMishra: 1,
+        Independent: 4,
+      },
+      Total: {
+        NC: 74,
+        GorkhaParishad: 19,
+        SPP: 5,
+        Communist: 4,
+        NPPAcharya: 2,
+        NPPMishra: 1,
+        Independent: 4,
+      },
+    },
+    voteShare: {
+      NC: 51.5,
+      GorkhaParishad: 17.5,
+      SPP: 6.2,
+      Communist: 4.8,
+      NPPAcharya: 3.1,
+      NPPMishra: 1.4,
+      Independent: 15.5,
+    },
+    registeredVoters: 4200000,
+    validVotes: 1764000,
+    government:
+      'BP Koirala became first democratically elected PM. Government lasted until December 1960 coup.',
   },
 };
 
 // Get sorted election years (newest first)
 export const getElectionYears = () => {
-  return Object.keys(ELECTIONS).map(Number).sort((a, b) => b - a);
+  return Object.keys(ELECTIONS)
+    .map(Number)
+    .sort((a, b) => b - a);
 };
 
 // Get party info, falling back to generic if not found
-export const getPartyInfo = (partyId) => {
+export const getPartyInfo = partyId => {
   return HISTORICAL_PARTIES[partyId] || { name: partyId, short: partyId, color: '#6b7280' };
 };
 

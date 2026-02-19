@@ -12,7 +12,13 @@ import {
   Cell,
 } from 'recharts';
 
-import { formatCurrency, formatNumber } from '@/utils/macroDataUtils';
+import { formatNumber } from '@/utils/macroDataUtils';
+
+// Simple currency formatter for per-capita values
+const formatCurrencySimple = (value, currency = '$') => {
+  if (value === null || value === undefined) return 'N/A';
+  return `${currency}${value.toLocaleString()}`;
+};
 
 /**
  * Comparative Bar Chart Component
@@ -41,9 +47,7 @@ export default function ComparativeBarChart({
 }) {
   if (!data || data.length === 0) {
     return (
-      <div className="flex items-center justify-center h-full text-gray-500">
-        No data available
-      </div>
+      <div className="flex items-center justify-center h-full text-gray-500">No data available</div>
     );
   }
 
@@ -51,17 +55,23 @@ export default function ComparativeBarChart({
 
   // Default color palette
   const defaultColors = [
-    '#3b82f6', '#8b5cf6', '#10b981', '#f59e0b',
-    '#ef4444', '#14b8a6', '#f97316', '#06b6d4'
+    '#3b82f6',
+    '#8b5cf6',
+    '#10b981',
+    '#f59e0b',
+    '#ef4444',
+    '#14b8a6',
+    '#f97316',
+    '#06b6d4',
   ];
 
   // Format value based on format type
-  const formatValue = (value) => {
+  const formatValue = value => {
     switch (valueFormat) {
       case 'percent':
         return `${value.toFixed(1)}%`;
       case 'currency':
-        return formatCurrency(value);
+        return formatCurrencySimple(value);
       case 'number':
         return formatNumber(value);
       default:
@@ -71,21 +81,18 @@ export default function ComparativeBarChart({
 
   // Custom tooltip
   const CustomTooltip = ({ active, payload, label }) => {
-    if (!active || !payload || payload.length === 0) {return null;}
+    if (!active || !payload || payload.length === 0) {
+      return null;
+    }
 
     return (
       <div className="bg-white border border-gray-300 rounded-lg shadow-lg p-4">
         <p className="font-semibold text-gray-900 mb-2">{label}</p>
         {payload.map((entry, index) => (
           <div key={index} className="flex items-center gap-2 text-sm">
-            <div
-              className="w-3 h-3 rounded-full"
-              style={{ backgroundColor: entry.color }}
-            />
+            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: entry.color }} />
             <span className="text-gray-700">{entry.name}:</span>
-            <span className="font-semibold text-gray-900">
-              {formatValue(entry.value)}
-            </span>
+            <span className="font-semibold text-gray-900">{formatValue(entry.value)}</span>
           </div>
         ))}
       </div>
@@ -99,9 +106,7 @@ export default function ComparativeBarChart({
         layout={layout}
         margin={{ top: 5, right: 30, left: isHorizontal ? 100 : 20, bottom: 5 }}
       >
-        {showGrid && (
-          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-        )}
+        {showGrid && <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />}
 
         {isHorizontal ? (
           <>
@@ -142,11 +147,7 @@ export default function ComparativeBarChart({
 
         <Tooltip content={<CustomTooltip />} />
 
-        {showLegend && metrics.length > 1 && (
-          <Legend
-            wrapperStyle={{ paddingTop: '20px' }}
-          />
-        )}
+        {showLegend && metrics.length > 1 && <Legend wrapperStyle={{ paddingTop: '20px' }} />}
 
         {metrics.map((metric, index) => (
           <Bar
@@ -157,9 +158,11 @@ export default function ComparativeBarChart({
             radius={[4, 4, 0, 0]}
           >
             {/* Use custom colors for each bar if provided (single metric case) */}
-            {colors && metrics.length === 1 && data.map((entry, idx) => (
-              <Cell key={`cell-${idx}`} fill={colors[idx % colors.length]} />
-            ))}
+            {colors &&
+              metrics.length === 1 &&
+              data.map((entry, idx) => (
+                <Cell key={`cell-${idx}`} fill={colors[idx % colors.length]} />
+              ))}
           </Bar>
         ))}
       </BarChart>

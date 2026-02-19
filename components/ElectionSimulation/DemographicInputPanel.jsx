@@ -80,6 +80,8 @@ export default function DemographicInputPanel({
   onClear,
   activeDimension,
   onChangeDimension,
+  hideScenarioSelector = false,
+  singleDimensionOnly = false,
 }) {
   const [scenarioExpanded, setScenarioExpanded] = useState(false);
 
@@ -92,6 +94,7 @@ export default function DemographicInputPanel({
         </h3>
         <p className="text-sm text-gray-600">
           Pick a lens to explore. Each constituency prediction uses real census data for that dimension.
+          {singleDimensionOnly && ' Only one demographic lens can be active at a time in guided simulation.'}
         </p>
       </div>
 
@@ -133,17 +136,19 @@ export default function DemographicInputPanel({
       </div>
 
       {/* Scenario Selector */}
-      <ScenarioSelector
-        scenarios={scenarios}
-        savedScenarios={savedScenarios}
-        activeScenario={activeScenario}
-        onLoadScenario={onLoadScenario}
-        onSaveScenario={onSaveScenario}
-        onDeleteScenario={onDeleteScenario}
-        onClear={onClear}
-        isExpanded={scenarioExpanded}
-        onToggle={() => setScenarioExpanded(v => !v)}
-      />
+      {!hideScenarioSelector && (
+        <ScenarioSelector
+          scenarios={scenarios}
+          savedScenarios={savedScenarios}
+          activeScenario={activeScenario}
+          onLoadScenario={onLoadScenario}
+          onSaveScenario={onSaveScenario}
+          onDeleteScenario={onDeleteScenario}
+          onClear={onClear}
+          isExpanded={scenarioExpanded}
+          onToggle={() => setScenarioExpanded(v => !v)}
+        />
+      )}
 
       {/* Active Dimension Inputs */}
       <div className="border border-gray-200 rounded-lg overflow-hidden">

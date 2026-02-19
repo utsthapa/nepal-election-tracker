@@ -44,7 +44,7 @@ import { SwingPanel } from '../../components/SwingPanel';
 import { VoterFlowDiagram } from '../../components/VoterFlowDiagram';
 import YearSelector from '../../components/YearSelector';
 import { useLanguage } from '../../context/LanguageContext';
-import { CANDIDATE_DEMOGRAPHICS_2022 } from '../../data/candidateDemographics2022';
+import { CANDIDATE_DEMOGRAPHICS_2022 } from '../../data/candidateDemographics2022.js';
 import {
   OFFICIAL_FPTP_VOTE,
   OFFICIAL_PR_VOTE,

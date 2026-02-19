@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Target, TrendingUp, Lightbulb, BookOpen } from 'lucide-react';
+import { X, Target, Database } from 'lucide-react';
 import { useState } from 'react';
 
 export function QuickStartModal({ isOpen, onClose, onSelectAction }) {
@@ -23,39 +23,20 @@ export function QuickStartModal({ isOpen, onClose, onSelectAction }) {
 
   const quickActions = [
     {
-      id: 'explore',
+      id: 'simulation',
       icon: Target,
-      title: 'Start Exploring',
-      description: 'Use the 2022 baseline and adjust sliders manually',
+      title: 'Simulation Mode',
+      description: 'Run a step-by-step election simulation and unlock dashboards after completion',
       color: 'blue',
-      action: () => handleAction('explore'),
+      action: () => handleAction('simulation'),
     },
     {
-      id: 'scenario',
-      icon: TrendingUp,
-      title: 'Try a Scenario',
-      description: 'Load a demographic scenario like "Youth Surge" or "Urban Wave"',
-      color: 'purple',
-      action: () => handleAction('scenario'),
-    },
-    {
-      id: 'example',
-      icon: Lightbulb,
-      title: 'See an Example',
-      description: 'Watch how changing one party affects the results',
+      id: 'data',
+      icon: Database,
+      title: 'Data Mode',
+      description: 'Explore election datasets, battlegrounds, and filtered readouts',
       color: 'green',
-      action: () => handleAction('example'),
-    },
-    {
-      id: 'learn',
-      icon: BookOpen,
-      title: 'Learn More',
-      description: "Understand how Nepal's electoral system works",
-      color: 'amber',
-      action: () => {
-        window.open('/about', '_blank');
-        handleClose();
-      },
+      action: () => handleAction('data'),
     },
   ];
 
@@ -67,26 +48,12 @@ export function QuickStartModal({ isOpen, onClose, onSelectAction }) {
       hover: 'hover:bg-blue-100 hover:border-blue-400',
       iconBg: 'bg-blue-100',
     },
-    purple: {
-      bg: 'bg-purple-50',
-      border: 'border-purple-300',
-      icon: 'text-purple-600',
-      hover: 'hover:bg-purple-100 hover:border-purple-400',
-      iconBg: 'bg-purple-100',
-    },
     green: {
       bg: 'bg-emerald-50',
       border: 'border-emerald-300',
       icon: 'text-emerald-600',
       hover: 'hover:bg-emerald-100 hover:border-emerald-400',
       iconBg: 'bg-emerald-100',
-    },
-    amber: {
-      bg: 'bg-orange-50',
-      border: 'border-orange-300',
-      icon: 'text-orange-600',
-      hover: 'hover:bg-orange-100 hover:border-orange-400',
-      iconBg: 'bg-orange-100',
     },
   };
 
@@ -120,7 +87,7 @@ export function QuickStartModal({ isOpen, onClose, onSelectAction }) {
                     Welcome to Nepal Election Simulator
                   </h3>
                   <p className="text-sm text-gray-600">
-                    You&apos;re starting with the 2022 election baseline
+                    Choose how you want to begin
                   </p>
                 </div>
                 <button
@@ -148,13 +115,13 @@ export function QuickStartModal({ isOpen, onClose, onSelectAction }) {
               {/* Quick Action Cards */}
               <div className="mb-6">
                 <h4 className="text-sm font-semibold text-gray-700 mb-3">
-                  What would you like to do?
+                  Select a mode
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {quickActions.map((action) => {
                     const Icon = action.icon;
                     const colors = colorClasses[action.color];
-                    const isPrimary = action.id === 'explore';
+                    const isPrimary = action.id === 'simulation';
 
                     return (
                       <button

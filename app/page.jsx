@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { motion } from 'framer-motion';
 import { ArrowUpRight, BarChart3, Calendar } from 'lucide-react';
@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
+import PredictionMarkets from '../components/PredictionMarkets';
 import { ELECTIONS } from '../data/historicalElections';
 
 // Article card component
@@ -26,9 +27,7 @@ function ArticleCard({ title, excerpt, category, date, href, delay = 0 }) {
         <h2 className="text-3xl font-display font-bold leading-tight mb-3 text-gray-900 group-hover:text-red-600 transition-colors">
           {title}
         </h2>
-        <p className="text-gray-600 leading-relaxed mb-3">
-          {excerpt}
-        </p>
+        <p className="text-gray-600 leading-relaxed mb-3">{excerpt}</p>
         <div className="flex items-center gap-2 text-sm text-gray-500">
           <Calendar className="w-4 h-4" />
           <time>{date}</time>
@@ -41,7 +40,9 @@ function ArticleCard({ title, excerpt, category, date, href, delay = 0 }) {
 // 2022 Results widget
 function ResultsWidget() {
   const election2022 = ELECTIONS[2022];
-  if (!election2022) {return null;}
+  if (!election2022) {
+    return null;
+  }
 
   return (
     <div className="border-2 border-gray-200 rounded-lg p-8 hover:border-red-600 transition-colors">
@@ -50,9 +51,7 @@ function ResultsWidget() {
         <h3 className="text-sm font-bold tracking-widest uppercase text-red-600">2022 Results</h3>
       </div>
 
-      <h4 className="text-2xl font-display font-bold mb-6">
-        General Election Results
-      </h4>
+      <h4 className="text-2xl font-display font-bold mb-6">General Election Results</h4>
 
       <div className="space-y-3 mb-6">
         {Object.entries(election2022.results.Total)
@@ -93,23 +92,21 @@ export default function HomePage() {
       <Header />
 
       <main className="max-w-7xl mx-auto px-4 py-12">
-
-
         {/* Hero Article */}
         <div className="mb-20">
           <article className="mb-12">
-            <div className="relative h-[400px] bg-gradient-to-br from-red-900 via-gray-900 to-blue-900 mb-6 rounded flex items-end">
-              <div className="p-8">
-                <span className="inline-block px-3 py-1 text-xs font-bold tracking-widest uppercase bg-white text-red-600 mb-4">
-                  Featured Analysis
-                </span>
-              </div>
+            <div className="mb-6">
+              <span className="inline-block px-3 py-1 text-xs font-bold tracking-widest uppercase bg-red-600 text-white mb-4">
+                Featured Analysis
+              </span>
             </div>
             <h1 className="text-5xl md:text-6xl font-display font-bold leading-tight mb-4 text-gray-900">
               Nepal&apos;s Political Landscape in 2026: What the Data Tells Us
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 leading-relaxed mb-4">
-              As coalition politics continues to shape governance, new polling data reveals shifting voter sentiment across key constituencies. An in-depth analysis of what&apos;s driving change.
+              As coalition politics continues to shape governance, new polling data reveals shifting
+              voter sentiment across key constituencies. An in-depth analysis of what&apos;s driving
+              change.
             </p>
             <div className="flex items-center gap-3 text-sm text-gray-500">
               <Calendar className="w-4 h-4" />
@@ -182,16 +179,18 @@ export default function HomePage() {
             Data & Tools
           </h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <ResultsWidget />
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <div className="lg:col-span-2">
+              <ResultsWidget />
+            </div>
+            <PredictionMarkets type="kalshi" />
+            <PredictionMarkets type="pm" />
           </div>
         </div>
 
         {/* CTA */}
         <div className="bg-white border-2 border-gray-200 rounded-lg p-12 text-center">
-          <h2 className="text-4xl font-display font-bold mb-4">
-            Explore Our Interactive Tools
-          </h2>
+          <h2 className="text-4xl font-display font-bold mb-4">Explore Our Interactive Tools</h2>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
             Run election simulations, analyze polling data, and explore demographic trends.
           </p>
