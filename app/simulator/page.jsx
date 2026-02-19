@@ -52,6 +52,7 @@ import {
   PROVINCES,
   constituencies,
 } from '../../data/constituencies';
+import { applyRspNationalEntry } from '../../utils/scenarios';
 import { IDEOLOGY_COORDS } from '../../data/partyMeta';
 import { useElectionState } from '../../hooks/useElectionState';
 import { get2026ElectionData, getPartyColor } from '../../utils/election2026Data';
@@ -576,8 +577,15 @@ export default function HomePage() {
       // Reset to official 2022 baseline
       resetSliders();
       setGuidedStep(3);
+    } else if (point === 'rsp-entry') {
+      // RSP National Entry: correct RSP's FPTP share to their PR proportion,
+      // taking the difference proportionally from all other parties.
+      // PR sliders already have RSP at 10.70% so no change needed there.
+      const newFptp = applyRspNationalEntry({ ...OFFICIAL_FPTP_VOTE });
+      replaceSliders(newFptp, { ...OFFICIAL_PR_VOTE });
+      setGuidedStep(3);
     } else {
-      // Custom scenario - go to custom options
+      // Custom scenario — stay on step 2 to show sub-panel options
       setGuidedStep(2);
     }
   };
@@ -765,7 +773,7 @@ export default function HomePage() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
                   <button
                     onClick={() => handleStartingPointSelect('2022')}
                     className={`text-left rounded-lg border px-4 py-3 transition-colors ${
@@ -777,6 +785,21 @@ export default function HomePage() {
                     <p className="text-sm font-semibold text-[rgb(24,26,36)]">2022 Baseline</p>
                     <p className="text-xs text-[rgb(100,110,130)] mt-1">
                       Start with official 2022 election results as your baseline.
+                    </p>
+                  </button>
+
+                  <button
+                    onClick={() => handleStartingPointSelect('rsp-entry')}
+                    className={`text-left rounded-lg border px-4 py-3 transition-colors ${
+                      startingPoint === 'rsp-entry'
+                        ? 'border-[#B91C1C] bg-[#B91C1C]/5'
+                        : 'border-[rgb(219,211,196)] hover:border-[rgb(24,26,36)]/30'
+                    }`}
+                  >
+                    <p className="text-sm font-semibold text-[rgb(24,26,36)]">RSP National Entry</p>
+                    <p className="text-xs text-[rgb(100,110,130)] mt-1">
+                      RSP ran in fewer seats in 2022. This sets their FPTP base to their PR
+                      proportion (10.70%), taking the difference proportionally from all parties.
                     </p>
                   </button>
 
