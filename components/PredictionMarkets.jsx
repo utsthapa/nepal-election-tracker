@@ -25,6 +25,7 @@ function getPartyColor(name) {
 }
 
 function cleanName(name) {
+  if (!name) return '';
   return name
     .replace('Will ', '')
     .replace(' win the 2026 Nepal House of Representatives election?', '')
