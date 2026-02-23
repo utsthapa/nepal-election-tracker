@@ -12,14 +12,12 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { MDXRemote } from 'next-mdx-remote/rsc';
-import { MDXArticleComponents } from '../mdx-components';
 
 import { Footer } from '../../../components/Footer';
 import { Header } from '../../../components/Header';
 import { useLanguage } from '../../../context/LanguageContext';
 
-export default function ArticlePageClient({ article, relatedArticles, content }) {
+export default function ArticlePageClient({ article, relatedArticles, children }) {
   const { language } = useLanguage();
 
   const title = language === 'ne' && article.titleNe ? article.titleNe : article.title;
@@ -134,7 +132,7 @@ export default function ArticlePageClient({ article, relatedArticles, content })
           [&>table>tbody>tr>td]:p-4 [&>table>tbody>tr>td]:text-slate-700 [&>table>tbody>tr>td]:border-b [&>table>tbody>tr>td]:border-slate-200
           [&>table>tbody>tr:hover>td]:bg-slate-50"
         >
-          <MDXRemote source={content} components={MDXArticleComponents} />
+          {children}
         </article>
 
         {/* Share Section */}

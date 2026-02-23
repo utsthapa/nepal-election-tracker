@@ -3,6 +3,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getArticleBySlug, getRelatedArticles, getArticlesFromDir } from '../../../lib/content';
 import { generateArticleMetadata } from '../../../lib/metadata';
 import { MDXArticleComponents } from '../mdx-components';
+import ArticlePageClient from './ArticlePageClient';
 
 // Generate static params for all analysis articles
 export async function generateStaticParams() {
@@ -39,6 +40,8 @@ export default async function ArticlePage({ params }) {
   );
 
   return (
-    <ArticlePageClient article={articleMeta} relatedArticles={relatedArticles} content={content} />
+    <ArticlePageClient article={articleMeta} relatedArticles={relatedArticles}>
+      <MDXRemote source={content} components={MDXArticleComponents} />
+    </ArticlePageClient>
   );
 }
