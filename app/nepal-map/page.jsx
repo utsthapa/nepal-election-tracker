@@ -66,13 +66,8 @@ export default function NepalMapPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
             {Object.entries(PARTIES).map(([key, party]) => (
               <div key={key} className="flex items-center gap-2">
-                <div
-                  className="w-4 h-4 rounded-full"
-                  style={{ backgroundColor: party.color }}
-                />
-                <span className="text-sm text-gray-700">
-                  {party.short || key}
-                </span>
+                <div className="w-4 h-4 rounded-full" style={{ backgroundColor: party.color }} />
+                <span className="text-sm text-gray-700">{party.name || key}</span>
               </div>
             ))}
           </div>
@@ -80,8 +75,8 @@ export default function NepalMapPage() {
 
         <div className="mt-8 p-4 bg-neutral/30 rounded-lg">
           <p className="text-xs text-gray-800 text-center">
-            District colors represent the dominant party (most seats won) in the 2022 Federal Parliament Election.
-            Click on any district to view detailed constituency-level results.
+            District colors represent the dominant party (most seats won) in the 2022 Federal
+            Parliament Election. Click on any district to view detailed constituency-level results.
           </p>
         </div>
       </main>

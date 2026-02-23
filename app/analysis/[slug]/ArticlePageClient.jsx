@@ -12,12 +12,14 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import { MDXArticleComponents } from '../mdx-components';
 
 import { Footer } from '../../../components/Footer';
 import { Header } from '../../../components/Header';
 import { useLanguage } from '../../../context/LanguageContext';
 
-export default function ArticlePageClient({ article, relatedArticles, htmlContent }) {
+export default function ArticlePageClient({ article, relatedArticles, content }) {
   const { language } = useLanguage();
 
   const title = language === 'ne' && article.titleNe ? article.titleNe : article.title;
@@ -112,27 +114,28 @@ export default function ArticlePageClient({ article, relatedArticles, htmlConten
 
       {/* Article Content */}
       <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Article Body */}
+        {/* Article Body with MDX Components */}
         <article
           className="prose prose-lg prose-slate max-w-none
-            prose-headings:font-bold prose-headings:text-slate-900
-            prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-slate-200 prose-h2:pb-4
-            prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4
-            prose-p:text-slate-700 prose-p:leading-relaxed prose-p:mb-6
-            prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
-            prose-strong:text-slate-900 prose-strong:font-semibold
-            prose-blockquote:border-l-4 prose-blockquote:border-blue-600 prose-blockquote:bg-slate-50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:my-8
-            prose-blockquote:text-slate-700 prose-blockquote:italic
-            prose-ul:my-6 prose-ol:my-6
-            prose-li:text-slate-700 prose-li:mb-2
-            prose-img:rounded-lg prose-img:my-8
-            prose-hr:my-12 prose-hr:border-slate-200
-            [&>table]:w-full [&>table]:border-collapse [&>table]:my-8
-            [&>table>thead>tr>th]:bg-slate-100 [&>table>thead>tr>th]:text-slate-900 [&>table>thead>tr>th]:font-semibold [&>table>thead>tr>th]:p-4 [&>table>thead>tr>th]:text-left [&>table>thead>tr>th]:border-b-2 [&>table>thead>tr>th]:border-slate-300
-            [&>table>tbody>tr>td]:p-4 [&>table>tbody>tr>td]:text-slate-700 [&>table>tbody>tr>td]:border-b [&>table>tbody>tr>td]:border-slate-200
-            [&>table>tbody>tr:hover>td]:bg-slate-50"
-          dangerouslySetInnerHTML={{ __html: htmlContent }}
-        />
+          prose-headings:font-bold prose-headings:text-slate-900
+          prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-slate-200 prose-h2:pb-4
+          prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4
+          prose-p:text-slate-700 prose-p:leading-relaxed prose-p:mb-6
+          prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
+          prose-strong:text-slate-900 prose-strong:font-semibold
+          prose-blockquote:border-l-4 prose-blockquote:border-blue-600 prose-blockquote:bg-slate-50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:my-8
+          prose-blockquote:text-slate-700 prose-blockquote:italic
+          prose-ul:my-6 prose-ol:my-6
+          prose-li:text-slate-700 prose-li:mb-2
+          prose-img:rounded-lg prose-img:my-8
+          prose-hr:my-12 prose-hr:border-slate-200
+          [&>table]:w-full [&>table]:border-collapse [&>table]:my-8
+          [&>table>thead>tr>th]:bg-slate-100 [&>table>thead>tr>th]:text-slate-900 [&>table>thead>tr>th]:font-semibold [&>table>thead>tr>th]:p-4 [&>table>thead>tr>th]:text-left [&>table>thead>tr>th]:border-b-2 [&>table>thead>tr>th]:border-slate-300
+          [&>table>tbody>tr>td]:p-4 [&>table>tbody>tr>td]:text-slate-700 [&>table>tbody>tr>td]:border-b [&>table>tbody>tr>td]:border-slate-200
+          [&>table>tbody>tr:hover>td]:bg-slate-50"
+        >
+          <MDXRemote source={content} components={MDXArticleComponents} />
+        </article>
 
         {/* Share Section */}
         <div className="mt-16 pt-8 border-t border-slate-200">

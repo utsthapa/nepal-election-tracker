@@ -16,16 +16,21 @@ export function SeatCalculator({ fptpResults, fptpSeats }) {
 
   const currentSeats = fptpSeats[selectedParty] || 0;
 
-  const presets = useMemo(() => [
-    { label: '+10 seats', value: currentSeats + 10 },
-    { label: '+20 seats', value: currentSeats + 20 },
-    { label: `${FPTP_MAJORITY} (majority)`, value: FPTP_MAJORITY },
-  ], [currentSeats]);
+  const presets = useMemo(
+    () => [
+      { label: '+10 seats', value: currentSeats + 10 },
+      { label: '+20 seats', value: currentSeats + 20 },
+      { label: `${FPTP_MAJORITY} (majority)`, value: FPTP_MAJORITY },
+    ],
+    [currentSeats]
+  );
 
   const target = targetSeats === '' ? null : parseInt(targetSeats, 10);
 
   const result = useMemo(() => {
-    if (target === null || isNaN(target) || target <= 0 || target > 165) {return null;}
+    if (target === null || isNaN(target) || target <= 0 || target > 165) {
+      return null;
+    }
     return calculateRequiredSwing(selectedParty, target, fptpResults, fptpSeats);
   }, [selectedParty, target, fptpResults, fptpSeats]);
 
@@ -42,7 +47,11 @@ export function SeatCalculator({ fptpResults, fptpSeats }) {
             Seat Calculator
           </h3>
         </div>
-        {isExpanded ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
+        {isExpanded ? (
+          <ChevronUp className="w-4 h-4 text-gray-400" />
+        ) : (
+          <ChevronDown className="w-4 h-4 text-gray-400" />
+        )}
       </button>
 
       {isExpanded && (
@@ -56,7 +65,7 @@ export function SeatCalculator({ fptpResults, fptpSeats }) {
             <label className="text-xs font-semibold text-[rgb(100,110,130)]">Party</label>
             <select
               value={selectedParty}
-              onChange={(e) => {
+              onChange={e => {
                 setSelectedParty(e.target.value);
                 setTargetSeats('');
               }}
@@ -64,7 +73,7 @@ export function SeatCalculator({ fptpResults, fptpSeats }) {
             >
               {CALCULABLE_PARTIES.map(p => (
                 <option key={p} value={p}>
-                  {PARTIES[p]?.short || p} — currently {fptpSeats[p] || 0} FPTP seats
+                  {PARTIES[p]?.name || p} — currently {fptpSeats[p] || 0} FPTP seats
                 </option>
               ))}
             </select>
@@ -78,7 +87,7 @@ export function SeatCalculator({ fptpResults, fptpSeats }) {
               min={1}
               max={165}
               value={targetSeats}
-              onChange={(e) => setTargetSeats(e.target.value)}
+              onChange={e => setTargetSeats(e.target.value)}
               placeholder={`Enter target seats (current: ${currentSeats})`}
               className="flex-1 px-3 py-1.5 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-200 focus:border-purple-400 outline-none"
             />
@@ -103,21 +112,25 @@ export function SeatCalculator({ fptpResults, fptpSeats }) {
 
           {/* Result */}
           {result && (
-            <div className={`p-3 rounded-lg ${result.possible ? 'bg-purple-50 border border-purple-200' : 'bg-red-50 border border-red-200'}`}>
+            <div
+              className={`p-3 rounded-lg ${result.possible ? 'bg-purple-50 border border-purple-200' : 'bg-red-50 border border-red-200'}`}
+            >
               {result.possible ? (
                 result.requiredSwing === 0 ? (
                   <p className="text-sm font-semibold text-green-700">
-                    {PARTIES[selectedParty]?.short} already has {currentSeats} seats — target met!
+                    {PARTIES[selectedParty]?.name} already has {currentSeats} seats — target met!
                   </p>
                 ) : (
                   <div>
                     <p className="text-sm font-semibold text-purple-800">
-                      {PARTIES[selectedParty]?.short} needs{' '}
-                      <span className="font-mono text-lg">+{result.requiredSwing}%</span>{' '}
-                      uniform swing to reach {target} seats
+                      {PARTIES[selectedParty]?.name} needs{' '}
+                      <span className="font-mono text-lg">+{result.requiredSwing}%</span> uniform
+                      swing to reach {target} seats
                     </p>
                     <p className="text-xs text-purple-600 mt-1">
-                      {currentSeats} → {result.achievedSeats} FPTP seats ({result.achievedSeats - currentSeats > 0 ? '+' : ''}{result.achievedSeats - currentSeats})
+                      {currentSeats} → {result.achievedSeats} FPTP seats (
+                      {result.achievedSeats - currentSeats > 0 ? '+' : ''}
+                      {result.achievedSeats - currentSeats})
                     </p>
                   </div>
                 )

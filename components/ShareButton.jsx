@@ -5,11 +5,11 @@ import { useState } from 'react';
 
 import { buildShareableUrl } from '../utils/stateSerializer';
 
-export function ShareButton({ state }) {
+export function ShareButton({ state, year = 2026 }) {
   const [copied, setCopied] = useState(false);
 
   const handleShare = async () => {
-    const url = buildShareableUrl(state);
+    const url = buildShareableUrl(state, year);
 
     try {
       await navigator.clipboard.writeText(url);

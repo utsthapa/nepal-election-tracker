@@ -73,18 +73,60 @@ describe('adjustZeroSumSliders', () => {
     const total = Object.values(result).reduce((s, v) => s + v, 0);
     expect(total).toBeCloseTo(100, 1);
   });
+
+  describe('with locked parties', () => {
+    it('should not change locked parties when adjusting others', () => {
+      const result = adjustZeroSumSliders(base, 'RSP', 40, ['NC']);
+      expect(result.NC).toBe(30);
+      expect(result.RSP).toBeCloseTo(40, 1);
+    });
+
+    it('should still sum to 100 with locked parties', () => {
+      const result = adjustZeroSumSliders(base, 'RSP', 40, ['NC', 'Maoist']);
+      const total = Object.values(result).reduce((s, v) => s + v, 0);
+      expect(total).toBeCloseTo(100, 1);
+      expect(result.NC).toBe(30);
+      expect(result.Maoist).toBe(20);
+    });
+
+    it('should distribute change only among unlocked parties', () => {
+      const result = adjustZeroSumSliders(base, 'RSP', 40, ['NC']);
+      expect(result.NC).toBe(30);
+      expect(result.UML).toBeLessThan(30);
+      expect(result.Maoist).toBeLessThan(20);
+      expect(result.RSP).toBeCloseTo(40, 1);
+    });
+
+    it('should handle all but one party locked', () => {
+      const result = adjustZeroSumSliders(base, 'RSP', 15, ['NC', 'UML', 'Maoist']);
+      expect(result.NC).toBe(30);
+      expect(result.UML).toBe(30);
+      expect(result.Maoist).toBe(20);
+      expect(result.RSP).toBeCloseTo(15, 1);
+      expect(result.Others).toBeCloseTo(5, 1);
+    });
+
+    it('should handle impossible constraint by capping unlocked at 0', () => {
+      const result = adjustZeroSumSliders(base, 'RSP', 40, ['NC', 'UML', 'Maoist']);
+      expect(result.NC).toBe(30);
+      expect(result.UML).toBe(30);
+      expect(result.Maoist).toBe(20);
+      expect(result.RSP).toBeCloseTo(40, 1);
+      expect(result.Others).toBe(0);
+    });
+  });
 });
 
 // ─── determineFPTPWinner ─────────────────────────────────────────────────────
 
 describe('determineFPTPWinner', () => {
   it('should identify the party with the highest vote share', () => {
-    const result = determineFPTPWinner({ NC: 0.35, UML: 0.30, RSP: 0.20, Maoist: 0.15 });
+    const result = determineFPTPWinner({ NC: 0.35, UML: 0.3, RSP: 0.2, Maoist: 0.15 });
     expect(result.winner).toBe('NC');
   });
 
   it('should calculate the correct margin', () => {
-    const result = determineFPTPWinner({ NC: 0.40, UML: 0.35, RSP: 0.25 });
+    const result = determineFPTPWinner({ NC: 0.4, UML: 0.35, RSP: 0.25 });
     expect(result.margin).toBeCloseTo(0.05, 5);
   });
 
@@ -95,19 +137,23 @@ describe('determineFPTPWinner', () => {
   });
 
   it('should handle a clear majority', () => {
-    const result = determineFPTPWinner({ NC: 0.80, UML: 0.10, RSP: 0.10 });
+    const result = determineFPTPWinner({ NC: 0.8, UML: 0.1, RSP: 0.1 });
     expect(result.winner).toBe('NC');
-    expect(result.margin).toBeCloseTo(0.70, 5);
+    expect(result.margin).toBeCloseTo(0.7, 5);
   });
 });
 
 // ─── applyAllianceTransfer ───────────────────────────────────────────────────
 
 describe('applyAllianceTransfer', () => {
-  const voteShares = { NC: 0.30, UML: 0.25, Maoist: 0.20, RSP: 0.15, Others: 0.10 };
+  const voteShares = { NC: 0.3, UML: 0.25, Maoist: 0.2, RSP: 0.15, Others: 0.1 };
 
   it('should return original shares when alliance is disabled', () => {
-    const result = applyAllianceTransfer(voteShares, { enabled: false, parties: ['NC', 'Maoist'], handicap: 10 });
+    const result = applyAllianceTransfer(voteShares, {
+      enabled: false,
+      parties: ['NC', 'Maoist'],
+      handicap: 10,
+    });
     expect(result).toEqual(voteShares);
   });
 
@@ -165,7 +211,7 @@ describe('applyAllianceTransfer', () => {
 // ─── calculateAdjustedResults ────────────────────────────────────────────────
 
 describe('calculateAdjustedResults', () => {
-  const baseline = { NC: 0.30, UML: 0.35, Maoist: 0.20, RSP: 0.15 };
+  const baseline = { NC: 0.3, UML: 0.35, Maoist: 0.2, RSP: 0.15 };
   const initial = { NC: 26, UML: 27, Maoist: 15, RSP: 12 };
 
   it('should return baseline-like results when sliders match initial', () => {

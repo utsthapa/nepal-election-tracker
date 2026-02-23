@@ -10,14 +10,16 @@ export function CoalitionBuilder({ totalSeats, fptpResults }) {
     return Object.keys(PARTIES).sort((a, b) => (totalSeats[b] || 0) - (totalSeats[a] || 0));
   }, [totalSeats]);
 
-  const handleToggle = (party) => {
-    setSelectedParties((current) => {
+  const handleToggle = party => {
+    setSelectedParties(current => {
       const isSelected = current.includes(party);
 
       if (isSelected) {
-        return current.filter((p) => p !== party);
+        return current.filter(p => p !== party);
       }
-      if (current.length >= 4) {return current;}
+      if (current.length >= 4) {
+        return current;
+      }
       return [...current, party];
     });
   };
@@ -30,7 +32,7 @@ export function CoalitionBuilder({ totalSeats, fptpResults }) {
     const combinedSeats = selectedParties.reduce((sum, party) => sum + (totalSeats[party] || 0), 0);
 
     let fptp = 0;
-    Object.values(fptpResults).forEach((result) => {
+    Object.values(fptpResults).forEach(result => {
       if (selectedParties.includes(result.winner)) {
         fptp += 1;
       }
@@ -49,16 +51,21 @@ export function CoalitionBuilder({ totalSeats, fptpResults }) {
     <div className="bg-surface border border-neutral rounded-2xl p-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="text-[11px] font-mono uppercase tracking-[0.16em] text-muted">Coalition Builder</p>
+          <p className="text-[11px] font-mono uppercase tracking-[0.16em] text-muted">
+            Coalition Builder
+          </p>
           <h2 className="text-xl font-semibold text-foreground">Pick a bloc, see their path</h2>
           <p className="text-sm text-muted mt-1">
-            Select 2-4 parties to stack their FPTP and PR totals and see if they cross {MAJORITY_THRESHOLD}.
+            Select 2-4 parties to stack their FPTP and PR totals and see if they cross{' '}
+            {MAJORITY_THRESHOLD}.
           </p>
         </div>
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-2 rounded-xl border border-neutral bg-neutral/60 px-4 py-2">
             <Users className="w-4 h-4 text-foreground" />
-            <span className="text-sm text-foreground font-semibold">{selectedParties.length} parties</span>
+            <span className="text-sm text-foreground font-semibold">
+              {selectedParties.length} parties
+            </span>
           </div>
           {selectedParties.length > 0 && (
             <button
@@ -75,7 +82,7 @@ export function CoalitionBuilder({ totalSeats, fptpResults }) {
 
       {/* Party chooser */}
       <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
-        {partyPool.map((party) => {
+        {partyPool.map(party => {
           const isSelected = selectedParties.includes(party);
           const maxReached = selectedParties.length >= 4;
           const lockout = maxReached && !isSelected;
@@ -95,16 +102,28 @@ export function CoalitionBuilder({ totalSeats, fptpResults }) {
               style={{ boxShadow: isSelected ? `0 12px 35px -18px ${partyColor}` : undefined }}
             >
               <div className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: partyColor }} />
-                <span className="text-sm text-foreground font-semibold">{PARTIES[party]?.short || party}</span>
+                <span
+                  className="h-2.5 w-2.5 rounded-full"
+                  style={{ backgroundColor: partyColor }}
+                />
+                <span className="text-sm text-foreground font-semibold">
+                  {PARTIES[party]?.name || party}
+                </span>
               </div>
-              <span className={`text-xs font-mono ${lockout ? 'text-muted' : 'text-muted'}`}>{seats} seats</span>
+              <span className={`text-xs font-mono ${lockout ? 'text-muted' : 'text-muted'}`}>
+                {seats} seats
+              </span>
             </button>
           );
         })}
       </div>
       <div className="mt-2 text-xs text-muted font-mono">
-        Pick up to 4 parties (ordered by seats). {selectedParties.length >= 4 ? 'Max reached.' : selectedParties.length === 0 ? 'Tap to select.' : 'Tap to add/remove.'}
+        Pick up to 4 parties (ordered by seats).{' '}
+        {selectedParties.length >= 4
+          ? 'Max reached.'
+          : selectedParties.length === 0
+            ? 'Tap to select.'
+            : 'Tap to add/remove.'}
       </div>
 
       {/* Stats row */}

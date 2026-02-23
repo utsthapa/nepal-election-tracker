@@ -19,7 +19,7 @@ export function ConstituencyTable({ fptpResults, overrides, onSelectConstituency
   const [filterWinner, setFilterWinner] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
-const results = useMemo(() => {
+  const results = useMemo(() => {
     let data = Object.values(fptpResults).map(result => {
       const constituency = constituenciesData[result.id];
       return {
@@ -43,9 +43,8 @@ const results = useMemo(() => {
     // Filter by search term
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
-      data = data.filter(r =>
-        r.name.toLowerCase().includes(term) ||
-        r.district.toLowerCase().includes(term)
+      data = data.filter(
+        r => r.name.toLowerCase().includes(term) || r.district.toLowerCase().includes(term)
       );
     }
 
@@ -74,7 +73,7 @@ const results = useMemo(() => {
     return data;
   }, [fptpResults, constituenciesData, sortBy, sortAsc, filterProvince, filterWinner, searchTerm]);
 
-  const handleSort = (column) => {
+  const handleSort = column => {
     if (sortBy === column) {
       setSortAsc(!sortAsc);
     } else {
@@ -84,7 +83,9 @@ const results = useMemo(() => {
   };
 
   const SortIcon = ({ column }) => {
-    if (sortBy !== column) {return null;}
+    if (sortBy !== column) {
+      return null;
+    }
     return sortAsc ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />;
   };
 
@@ -96,9 +97,9 @@ const results = useMemo(() => {
     textColors[p] = `text-${p.toLowerCase()}`;
   });
 
-  const getPartyLabel = (partyId) => {
+  const getPartyLabel = partyId => {
     const party = PARTIES[partyId];
-    return party ? `${party.short} (${party.name})` : partyId;
+    return party ? `${party.name}` : partyId;
   };
 
   return (
@@ -107,16 +108,12 @@ const results = useMemo(() => {
       <div className="p-4 border-b border-neutral">
         <div className="flex items-center justify-between mb-3">
           <div>
-            <h2 className="text-lg font-sans font-semibold text-foreground">
-              FPTP Constituencies
-            </h2>
+            <h2 className="text-lg font-sans font-semibold text-foreground">FPTP Constituencies</h2>
             <p className="text-xs text-muted font-mono">
               165 seats • Sorted by margin (closest races first)
             </p>
           </div>
-          <span className="text-sm font-mono text-muted">
-            {results.length} results
-          </span>
+          <span className="text-sm font-mono text-muted">{results.length} results</span>
         </div>
 
         {/* Filters */}
@@ -128,7 +125,7 @@ const results = useMemo(() => {
               type="text"
               placeholder="Search constituency..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={e => setSearchTerm(e.target.value)}
               className="w-full pl-9 pr-3 py-2 bg-surface border border-neutral rounded-lg text-sm text-foreground placeholder-muted focus:outline-none focus:border-foreground"
             />
           </div>
@@ -136,24 +133,28 @@ const results = useMemo(() => {
           {/* Province Filter */}
           <select
             value={filterProvince || ''}
-            onChange={(e) => setFilterProvince(e.target.value ? parseInt(e.target.value) : null)}
+            onChange={e => setFilterProvince(e.target.value ? parseInt(e.target.value) : null)}
             className="px-3 py-2 bg-surface border border-neutral rounded-lg text-sm text-foreground focus:outline-none focus:border-foreground"
           >
             <option value="">All Provinces</option>
             {Object.entries(PROVINCES).map(([id, prov]) => (
-              <option key={id} value={id}>{prov.name}</option>
+              <option key={id} value={id}>
+                {prov.name}
+              </option>
             ))}
           </select>
 
           {/* Winner Filter */}
           <select
             value={filterWinner || ''}
-            onChange={(e) => setFilterWinner(e.target.value || null)}
+            onChange={e => setFilterWinner(e.target.value || null)}
             className="px-3 py-2 bg-surface border border-neutral rounded-lg text-sm text-foreground focus:outline-none focus:border-foreground"
           >
             <option value="">All Parties</option>
             {Object.entries(PARTIES).map(([id, _party]) => (
-              <option key={id} value={id}>{getPartyLabel(id)}</option>
+              <option key={id} value={id}>
+                {getPartyLabel(id)}
+              </option>
             ))}
           </select>
         </div>
@@ -162,7 +163,7 @@ const results = useMemo(() => {
       {/* Table */}
       <div className="max-h-[600px] overflow-y-auto">
         <table className="w-full">
-      <thead className="bg-neutral/50 sticky top-0">
+          <thead className="bg-neutral/50 sticky top-0">
             <tr>
               <th
                 className="px-4 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider cursor-pointer hover:text-foreground"
@@ -220,7 +221,7 @@ const results = useMemo(() => {
           <tbody className="divide-y divide-neutral">
             <AnimatePresence>
               {results.map((result, index) => (
-<motion.tr
+                <motion.tr
                   key={result.id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -233,9 +234,7 @@ const results = useMemo(() => {
                 >
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      {overrides[result.id] && (
-                        <span className="text-others text-xs">⚡</span>
-                      )}
+                      {overrides[result.id] && <span className="text-others text-xs">⚡</span>}
                       <div>
                         <p className="text-sm font-medium text-foreground">{result.name}</p>
                         <p className="text-xs text-muted">{result.district}</p>
@@ -276,11 +275,15 @@ const results = useMemo(() => {
                     </div>
                   </td>
                   <td className="px-4 py-3 text-right">
-                    <span className={`text-sm font-mono ${
-                      result.margin < 0.03 ? 'text-others' :
-                      result.margin < 0.05 ? 'text-yellow-600' :
-                      'text-muted'
-                    }`}>
+                    <span
+                      className={`text-sm font-mono ${
+                        result.margin < 0.03
+                          ? 'text-others'
+                          : result.margin < 0.05
+                            ? 'text-yellow-600'
+                            : 'text-muted'
+                      }`}
+                    >
                       {(result.margin * 100).toFixed(2)}%
                     </span>
                   </td>

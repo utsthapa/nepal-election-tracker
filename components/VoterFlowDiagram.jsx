@@ -6,7 +6,7 @@ import { useState, useMemo } from 'react';
 import { PARTIES } from '../data/constituencies';
 import { calculateVoteFlows, toSankeyData } from '../utils/voteFlowCalculator';
 
-const getPartyColor = (name) => PARTIES[name]?.color || '#6b7280';
+const getPartyColor = name => PARTIES[name]?.color || '#6b7280';
 
 /**
  * Custom SVG Sankey diagram for voter flows
@@ -34,7 +34,8 @@ function SankeyDiagram({ nodes, links, width = 600, height = 350 }) {
 
   const totalSourceFlow = Object.values(sourceFlows).reduce((a, b) => a + b, 0);
   const totalTargetFlow = Object.values(targetFlows).reduce((a, b) => a + b, 0);
-  const availableHeight = innerHeight - (Math.max(sourceNames.length, targetNames.length) - 1) * nodeGap;
+  const availableHeight =
+    innerHeight - (Math.max(sourceNames.length, targetNames.length) - 1) * nodeGap;
 
   // Position source nodes
   const sourcePositions = {};
@@ -57,8 +58,12 @@ function SankeyDiagram({ nodes, links, width = 600, height = 350 }) {
   // Calculate link paths with stacking
   const sourceOffsets = {};
   const targetOffsets = {};
-  sourceNames.forEach(n => { sourceOffsets[n] = 0; });
-  targetNames.forEach(n => { targetOffsets[n] = 0; });
+  sourceNames.forEach(n => {
+    sourceOffsets[n] = 0;
+  });
+  targetNames.forEach(n => {
+    targetOffsets[n] = 0;
+  });
 
   const linkPaths = links.map(l => {
     const sName = nodes[l.source].name;
@@ -91,7 +96,7 @@ function SankeyDiagram({ nodes, links, width = 600, height = 350 }) {
     };
   });
 
-  const formatVotes = (v) => v >= 1000 ? `${(v / 1000).toFixed(0)}K` : v;
+  const formatVotes = v => (v >= 1000 ? `${(v / 1000).toFixed(0)}K` : v);
 
   return (
     <svg width={width} height={height} className="w-full h-auto" viewBox={`0 0 ${width} ${height}`}>
@@ -108,7 +113,8 @@ function SankeyDiagram({ nodes, links, width = 600, height = 350 }) {
             className="hover:stroke-opacity-60 transition-all cursor-default"
           >
             <title>
-              {PARTIES[link.sourceName]?.short || link.sourceName} → {PARTIES[link.targetName]?.short || link.targetName}: {formatVotes(link.value)} votes
+              {PARTIES[link.sourceName]?.name || link.sourceName} →{' '}
+              {PARTIES[link.targetName]?.name || link.targetName}: {formatVotes(link.value)} votes
             </title>
           </path>
         ))}
@@ -134,7 +140,7 @@ function SankeyDiagram({ nodes, links, width = 600, height = 350 }) {
                 className="text-[11px] font-semibold fill-current"
                 style={{ fill: getPartyColor(name) }}
               >
-                {PARTIES[name]?.short || name}
+                {PARTIES[name]?.name || name}
               </text>
             </g>
           );
@@ -161,7 +167,7 @@ function SankeyDiagram({ nodes, links, width = 600, height = 350 }) {
                 className="text-[11px] font-semibold fill-current"
                 style={{ fill: getPartyColor(name) }}
               >
-                {PARTIES[name]?.short || name}
+                {PARTIES[name]?.name || name}
               </text>
             </g>
           );
@@ -175,17 +181,11 @@ export function VoterFlowDiagram({ fptpResults }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [minFlowK, setMinFlowK] = useState(10);
 
-  const flows = useMemo(
-    () => calculateVoteFlows(fptpResults),
-    [fptpResults]
-  );
+  const flows = useMemo(() => calculateVoteFlows(fptpResults), [fptpResults]);
 
   const hasFlows = flows.length > 0 && flows.some(f => f.value > 1000);
 
-  const sankeyData = useMemo(
-    () => toSankeyData(flows, minFlowK * 1000),
-    [flows, minFlowK]
-  );
+  const sankeyData = useMemo(() => toSankeyData(flows, minFlowK * 1000), [flows, minFlowK]);
 
   return (
     <div className="bg-white rounded-lg border border-[rgb(219,211,196)] shadow-sm">
@@ -205,7 +205,11 @@ export function VoterFlowDiagram({ fptpResults }) {
             </span>
           )}
         </div>
-        {isExpanded ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
+        {isExpanded ? (
+          <ChevronUp className="w-4 h-4 text-gray-400" />
+        ) : (
+          <ChevronDown className="w-4 h-4 text-gray-400" />
+        )}
       </button>
 
       {isExpanded && (
@@ -227,7 +231,7 @@ export function VoterFlowDiagram({ fptpResults }) {
                   max={50}
                   step={1}
                   value={minFlowK}
-                  onChange={(e) => setMinFlowK(parseInt(e.target.value))}
+                  onChange={e => setMinFlowK(parseInt(e.target.value))}
                   className="flex-1 h-1.5 accent-teal-500"
                 />
                 <span className="text-sm font-mono font-semibold text-[rgb(24,26,36)] w-12 text-right">
@@ -238,10 +242,7 @@ export function VoterFlowDiagram({ fptpResults }) {
               {/* Sankey diagram */}
               {sankeyData.nodes.length > 0 ? (
                 <div className="overflow-x-auto">
-                  <SankeyDiagram
-                    nodes={sankeyData.nodes}
-                    links={sankeyData.links}
-                  />
+                  <SankeyDiagram nodes={sankeyData.nodes} links={sankeyData.links} />
                 </div>
               ) : (
                 <p className="text-sm text-[rgb(100,110,130)] text-center py-4">
@@ -255,11 +256,11 @@ export function VoterFlowDiagram({ fptpResults }) {
                 {flows.slice(0, 5).map((flow, i) => (
                   <div key={i} className="flex items-center gap-2 text-xs">
                     <span className="font-bold" style={{ color: getPartyColor(flow.source) }}>
-                      {PARTIES[flow.source]?.short || flow.source}
+                      {PARTIES[flow.source]?.name || flow.source}
                     </span>
                     <span className="text-gray-400">→</span>
                     <span className="font-bold" style={{ color: getPartyColor(flow.target) }}>
-                      {PARTIES[flow.target]?.short || flow.target}
+                      {PARTIES[flow.target]?.name || flow.target}
                     </span>
                     <span className="font-mono text-[rgb(100,110,130)]">
                       {(flow.value / 1000).toFixed(0)}K votes

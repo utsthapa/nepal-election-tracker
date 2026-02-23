@@ -54,6 +54,24 @@ Nepal's elections haven't happened in a vacuum. Each of the eight national votes
 | House 5  | 2017 | Mixed     | 275   | 68.8%   |
 | House 6  | 2022 | Mixed     | 275   | 61.0%   |
 
+<LineChart
+  data={[
+    { year: '1991', turnout: 65.2 },
+    { year: '1994', turnout: 62.8 },
+    { year: '1999', turnout: 65.8 },
+    { year: '2008', turnout: 78.3 },
+    { year: '2013', turnout: 78.6 },
+    { year: '2017', turnout: 68.8 },
+    { year: '2022', turnout: 61.0 },
+  ]}
+  xKey="year"
+  yKeys={['turnout']}
+  colors={['#B91C1C']}
+  height={350}
+/>
+
+_Figure: Voter turnout over time (%)_
+
 The big shifts are structural. First came pure first-past-the-post — a system that manufactured majorities. Then came mixed representation after the civil war, bringing Maoists into parliament. Finally came federalism under the 2015 constitution, shrinking parliament to 275 seats.
 
 The peak turnout? 78.6% in 2013, when Nepalis voted for the second time to write their constitution. The low point? 61% in 2022 — a steep 17.6-point decline that should worry everyone.
@@ -76,6 +94,24 @@ The numbers tell the story starkly. Nepal's "Effective Number of Parties" — a 
 | 2013  | 3.8          | Stabilizing         |
 | 2017  | 3.1          | UML-Maoist alliance |
 | 2022  | 4.8          | + RSP explosion     |
+
+<LineChart
+  data={[
+    { year: '1991', enp: 2.1 },
+    { year: '1994', enp: 2.3 },
+    { year: '1999', enp: 2.0 },
+    { year: '2008', enp: 4.2 },
+    { year: '2013', enp: 3.8 },
+    { year: '2017', enp: 3.1 },
+    { year: '2022', enp: 4.8 },
+  ]}
+  xKey="year"
+  yKeys={['enp']}
+  colors={['#B91C1C']}
+  height={350}
+/>
+
+_Figure: Effective number of parties over time (higher = more fragmented)_
 
 <Sidebar title="What is ENP?">
   The "Effective Number of Parties" accounts for both how many parties exist AND their relative
@@ -107,6 +143,28 @@ Nepal's parties don't just compete — they swing wildly. But four have stood ou
 | RSP             | 0         | 0           | 20 seats | ↗ New       |
 
 \*UML's 2017 peak included alliance with Maoists
+
+<LineChart
+  data={[
+    { year: '1991', nc: 110, uml: 69, maoist: 0, rsp: 0 },
+    { year: '1994', nc: 83, uml: 88, maoist: 0, rsp: 0 },
+    { year: '1999', nc: 111, uml: 71, maoist: 0, rsp: 0 },
+    { year: '2008', nc: 115, uml: 108, maoist: 220, rsp: 0 },
+    { year: '2013', nc: 105, uml: 91, maoist: 80, rsp: 0 },
+    { year: '2017', nc: 63, uml: 121, maoist: 53, rsp: 0 },
+    { year: '2022', nc: 89, uml: 78, maoist: 32, rsp: 20 },
+  ]}
+  xKey="year"
+  bars={[
+    { key: 'nc', name: 'NC', color: '#3B82F6' },
+    { key: 'uml', name: 'UML', color: '#DC2626' },
+    { key: 'maoist', name: 'Maoist', color: '#B91C1C' },
+    { key: 'rsp', name: 'RSP', color: '#22C55E' },
+  ]}
+  height={450}
+/>
+
+_Figure: Seat counts by party over time_
 
 ### Nepali Congress: The Cockroach
 

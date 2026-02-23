@@ -3,6 +3,37 @@
  */
 
 import { constituencies, INITIAL_NATIONAL, PARTIES } from '../data/constituencies';
+import { DISTRICT_DEMOGRAPHICS } from '../data/demographics';
+import { applyRspNationalEntry } from './scenarios';
+
+/**
+ * Party-specific swing profiles: how vote gain concentrates by urbanization.
+ * urbanBias: multiplier at urbanPop = 1.0, ruralBias: multiplier at urbanPop = 0.0.
+ * Interpolated linearly from district census urbanPopulation.
+ * Parties omitted here use a flat 1.0 multiplier (uniform national swing).
+ *
+ * RSP:    Born in Kathmandu; wins concentrated in Bagmati/urban constituencies
+ * NC:     Majority of wins in rural hills (Gulmi, Gorkha, Mugu, Achham, Darchula)
+ * Maoist: Almost entirely mountain/Karnali (Humla, Kalikot, Rolpa, Rukum, Jajarkot)
+ * US:     Concentrated in Sudurpashchim & Karnali mountains (Bajhang, Doti, Dolpa, Salyan)
+ */
+const PARTY_SWING_PROFILES = {
+  RSP: { urbanBias: 1.5, ruralBias: 0.7 },
+  NC: { urbanBias: 0.85, ruralBias: 1.15 },
+  Maoist: { urbanBias: 0.75, ruralBias: 1.30 },
+  US: { urbanBias: 0.75, ruralBias: 1.30 },
+};
+
+/**
+ * Get constituency swing multiplier for a party based on district urbanization.
+ * Returns 1.0 for parties without a profile (uniform swing).
+ */
+function getSwingMultiplier(party, district) {
+  const profile = PARTY_SWING_PROFILES[party];
+  if (!profile || !district) return 1.0;
+  const urbanRate = DISTRICT_DEMOGRAPHICS[district]?.urbanPopulation ?? 0.15;
+  return profile.ruralBias + (profile.urbanBias - profile.ruralBias) * urbanRate;
+}
 
 /**
  * Apply alliance (gathabandan) vote transfer between two parties.
@@ -27,7 +58,7 @@ export function applyAllianceTransfer(voteShares, alliance) {
   const shareA = voteShares[partyA] ?? 0;
   const shareB = voteShares[partyB] ?? 0;
 
-  if ((shareA + shareB) <= 0) {
+  if (shareA + shareB <= 0) {
     return voteShares;
   }
 
@@ -59,17 +90,20 @@ export function applyAllianceTransfer(voteShares, alliance) {
  * @param {Object} baseline - Baseline results for constituency
  * @param {Object} globalShifts - Current global slider values { NC: 26, UML: 27, ... }
  * @param {Object} initialValues - Initial slider values (INITIAL_NATIONAL)
+ * @param {string|null} district - District name for urban/rural swing weighting (optional)
  * @returns {Object} Adjusted vote shares
  */
-export function calculateAdjustedResults(baseline, globalShifts, initialValues = INITIAL_NATIONAL) {
+export function calculateAdjustedResults(baseline, globalShifts, initialValues = INITIAL_NATIONAL, district = null) {
   const parties = Object.keys(baseline);
   const adjusted = {};
 
   parties.forEach(party => {
     // Calculate shift: (current slider - initial slider) / 100
     const shift = (globalShifts[party] - initialValues[party]) / 100;
-    // Apply shift to baseline, clamped between 0 and 1
-    adjusted[party] = Math.max(0, Math.min(1, baseline[party] + shift));
+    // Apply geography-weighted multiplier (e.g. RSP grows more in urban areas)
+    const multiplier = getSwingMultiplier(party, district);
+    // Apply weighted shift to baseline, clamped between 0 and 1
+    adjusted[party] = Math.max(0, Math.min(1, baseline[party] + shift * multiplier));
   });
 
   // Normalize to sum to 1
@@ -107,8 +141,8 @@ export function determineFPTPWinner(voteShares) {
  * Check if sliders are at baseline (no change from initial)
  */
 function isAtBaseline(globalSliders, baselineValues = INITIAL_NATIONAL) {
-  return Object.entries(globalSliders).every(([party, value]) =>
-    Math.abs(value - baselineValues[party]) < 0.01
+  return Object.entries(globalSliders).every(
+    ([party, value]) => Math.abs(value - baselineValues[party]) < 0.01
   );
 }
 
@@ -124,6 +158,7 @@ export function calculateAllFPTPResults(
   overrides = {},
   baselineValues = INITIAL_NATIONAL,
   alliance = null,
+  useRspNationalBase = false
 ) {
   const results = {};
   const atBaseline = isAtBaseline(globalSliders, baselineValues);
@@ -132,13 +167,26 @@ export function calculateAllFPTPResults(
     const id = constituency.id;
     let adjustedVotes;
 
+    // Determine the baseline for this constituency
+    // If useRspNationalBase is true, inject assumed 10.70% base
+    let localizedBaseline = constituency.results2022;
+    if (useRspNationalBase) {
+      localizedBaseline = applyRspNationalEntry(localizedBaseline);
+    }
+
     // Check if this constituency has manual override
     if (overrides[id]) {
       adjustedVotes = applyAllianceTransfer(overrides[id], alliance);
       const winner = determineFPTPWinner(adjustedVotes);
-      results[id] = { ...constituency, adjusted: adjustedVotes, ...winner, margin: winner.margin, isOverridden: true };
-    } else if (atBaseline) {
-      // Use actual 2022 results when sliders are at baseline
+      results[id] = {
+        ...constituency,
+        adjusted: adjustedVotes,
+        ...winner,
+        margin: winner.margin,
+        isOverridden: true,
+      };
+    } else if (atBaseline && !useRspNationalBase) {
+      // Use actual 2022 results when sliders are at baseline AND no RSP base tweak
       adjustedVotes = applyAllianceTransfer(constituency.results2022, alliance);
       const winner = determineFPTPWinner(adjustedVotes);
       results[id] = {
@@ -150,8 +198,13 @@ export function calculateAllFPTPResults(
         isOverridden: false,
       };
     } else {
-      // Apply global shifts
-      adjustedVotes = calculateAdjustedResults(constituency.results2022, globalSliders, baselineValues);
+      // Apply global shifts from the localized baseline
+      adjustedVotes = calculateAdjustedResults(
+        localizedBaseline,
+        globalSliders,
+        baselineValues,
+        constituency.district
+      );
       adjustedVotes = applyAllianceTransfer(adjustedVotes, alliance);
       const winner = determineFPTPWinner(adjustedVotes);
       results[id] = {
@@ -195,13 +248,14 @@ export function countFPTPSeats(fptpResults) {
  * @param {Object} current - Current slider values
  * @param {string} changedParty - Party whose slider changed
  * @param {number} newValue - New value for changed slider
+ * @param {Set|Array} lockedParties - Optional set/array of party keys that should not be adjusted
  * @returns {Object} New slider values summing to 100
  */
-export function adjustZeroSumSliders(current, changedParty, newValue) {
+export function adjustZeroSumSliders(current, changedParty, newValue, lockedParties = []) {
+  const locked = new Set(lockedParties);
   const parties = Object.keys(current);
-  const otherParties = parties.filter(p => p !== changedParty);
+  const unlockedParties = parties.filter(p => p !== changedParty && !locked.has(p));
 
-  // Clamp new value between 0 and 100
   newValue = Math.max(0, Math.min(100, newValue));
 
   const oldValue = current[changedParty];
@@ -209,31 +263,45 @@ export function adjustZeroSumSliders(current, changedParty, newValue) {
 
   if (diff === 0) return { ...current };
 
-  // Calculate sum of other parties
-  const otherSum = otherParties.reduce((sum, p) => sum + current[p], 0);
+  const unlockedSum = unlockedParties.reduce((sum, p) => sum + current[p], 0);
 
-  if (otherSum === 0) {
-    // Edge case: all others are 0, distribute change equally
-    const eachChange = -diff / otherParties.length;
+  if (unlockedSum === 0) {
+    if (unlockedParties.length === 0) {
+      return { ...current, [changedParty]: newValue };
+    }
+    const eachChange = -diff / unlockedParties.length;
     const result = { [changedParty]: newValue };
-    otherParties.forEach(p => {
-      result[p] = Math.max(0, eachChange);
+    parties.forEach(p => {
+      if (locked.has(p) && p !== changedParty) {
+        result[p] = current[p];
+      } else if (p !== changedParty) {
+        result[p] = Math.max(0, eachChange);
+      }
     });
     return result;
   }
 
-  // Distribute change proportionally among other parties
   const result = { [changedParty]: newValue };
-  let remaining = 100 - newValue;
 
-  otherParties.forEach((party, index) => {
-    if (index === otherParties.length - 1) {
-      // Last party gets whatever remains to ensure sum = 100
+  parties.forEach(p => {
+    if (p === changedParty) return;
+    if (locked.has(p)) {
+      result[p] = current[p];
+    }
+  });
+
+  const lockedSum = parties.filter(p => locked.has(p)).reduce((sum, p) => sum + current[p], 0);
+  let remaining = 100 - newValue - lockedSum;
+
+  unlockedParties.forEach((party, index) => {
+    if (index === unlockedParties.length - 1) {
       result[party] = Math.max(0, remaining);
     } else {
-      // Proportional distribution
-      const proportion = current[party] / otherSum;
-      const newPartyValue = Math.max(0, Math.round(proportion * (100 - newValue) * 10) / 10);
+      const proportion = current[party] / unlockedSum;
+      const newPartyValue = Math.max(
+        0,
+        Math.round(proportion * (100 - newValue - lockedSum) * 10) / 10
+      );
       result[party] = newPartyValue;
       remaining -= newPartyValue;
     }

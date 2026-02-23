@@ -3,21 +3,19 @@ import { useMemo } from 'react';
 
 import { PARTIES } from '../data/constituencies';
 
-export function DistrictCoalitionBuilder({
-  constituencies,
-  selectedParties,
-  onToggleParty,
-}) {
+export function DistrictCoalitionBuilder({ constituencies, selectedParties, onToggleParty }) {
   // Get parties that appear in this district
   const partyPool = useMemo(() => {
     const parties = new Set();
-    constituencies.forEach((c) => {
-      Object.keys(c.results2022).forEach((p) => {
-        if (c.results2022[p] > 0.05) {parties.add(p);}
+    constituencies.forEach(c => {
+      Object.keys(c.results2022).forEach(p => {
+        if (c.results2022[p] > 0.05) {
+          parties.add(p);
+        }
       });
     });
     return Array.from(parties)
-      .filter((p) => PARTIES[p])
+      .filter(p => PARTIES[p])
       .sort((a, b) => {
         const aShare = constituencies.reduce((sum, c) => sum + (c.results2022[a] || 0), 0);
         const bShare = constituencies.reduce((sum, c) => sum + (c.results2022[b] || 0), 0);
@@ -36,7 +34,7 @@ export function DistrictCoalitionBuilder({
     let totalShare = 0;
     const constituencyAnalysis = [];
 
-    constituencies.forEach((c) => {
+    constituencies.forEach(c => {
       const coalitionShare = selectedParties.reduce(
         (sum, party) => sum + (c.results2022[party] || 0),
         0
@@ -48,9 +46,7 @@ export function DistrictCoalitionBuilder({
       const currentWinnerInCoalition = selectedParties.includes(currentWinner);
 
       // Find top non-coalition party
-      const topNonCoalition = sortedResults.find(
-        ([party]) => !selectedParties.includes(party)
-      );
+      const topNonCoalition = sortedResults.find(([party]) => !selectedParties.includes(party));
       const topNonCoalitionShare = topNonCoalition ? topNonCoalition[1] : 0;
       const wouldWin = coalitionShare > topNonCoalitionShare;
 
@@ -80,10 +76,14 @@ export function DistrictCoalitionBuilder({
     };
   }, [constituencies, selectedParties]);
 
-  const handleToggle = (party) => {
+  const handleToggle = party => {
     const isSelected = selectedParties.includes(party);
-    if (isSelected && selectedParties.length <= 2) {return;}
-    if (!isSelected && selectedParties.length >= 4) {return;}
+    if (isSelected && selectedParties.length <= 2) {
+      return;
+    }
+    if (!isSelected && selectedParties.length >= 4) {
+      return;
+    }
     onToggleParty(party);
   };
 
@@ -93,9 +93,7 @@ export function DistrictCoalitionBuilder({
         <p className="text-xs font-mono uppercase tracking-wider text-gray-800">
           Gathbandan Analysis
         </p>
-        <h2 className="text-xl font-semibold text-white">
-          Coalition Builder for this District
-        </h2>
+        <h2 className="text-xl font-semibold text-white">Coalition Builder for this District</h2>
         <p className="text-sm text-gray-700 mt-1">
           Select 2-4 parties to see combined vote share and potential seat flips
         </p>
@@ -103,7 +101,7 @@ export function DistrictCoalitionBuilder({
 
       {/* Party selector */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 mb-6">
-        {partyPool.map((party) => {
+        {partyPool.map(party => {
           const isSelected = selectedParties.includes(party);
           const maxReached = selectedParties.length >= 4;
           const minReached = selectedParties.length <= 2;
@@ -131,7 +129,7 @@ export function DistrictCoalitionBuilder({
                   style={{ backgroundColor: partyColor }}
                 />
                 <span className="text-sm text-gray-900 font-semibold">
-                  {PARTIES[party]?.short || party}
+                  {PARTIES[party]?.name || party}
                 </span>
               </div>
               {isSelected && <CheckCircle className="w-4 h-4 text-green-400" />}
@@ -145,38 +143,24 @@ export function DistrictCoalitionBuilder({
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
             <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-              <p className="text-[11px] uppercase tracking-wider text-gray-800">
-                Seats Held
-              </p>
+              <p className="text-[11px] uppercase tracking-wider text-gray-800">Seats Held</p>
               <p className="text-2xl font-bold text-white mt-1">{analysis.seatsHeld}</p>
-              <p className="text-xs font-mono text-gray-700">
-                of {constituencies.length}
-              </p>
+              <p className="text-xs font-mono text-gray-700">of {constituencies.length}</p>
             </div>
             <div className="rounded-xl border border-green-300 bg-green-100 p-3">
-              <p className="text-[11px] uppercase tracking-wider text-green-800">
-                Potential Flips
-              </p>
-              <p className="text-2xl font-bold text-green-900 mt-1">
-                {analysis.potentialFlips}
-              </p>
+              <p className="text-[11px] uppercase tracking-wider text-green-800">Potential Flips</p>
+              <p className="text-2xl font-bold text-green-900 mt-1">{analysis.potentialFlips}</p>
               <p className="text-xs font-mono text-green-700">seats could flip</p>
             </div>
             <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-              <p className="text-[11px] uppercase tracking-wider text-gray-800">
-                Total Possible
-              </p>
+              <p className="text-[11px] uppercase tracking-wider text-gray-800">Total Possible</p>
               <p className="text-2xl font-bold text-white mt-1">
                 {analysis.seatsHeld + analysis.potentialFlips}
               </p>
-              <p className="text-xs font-mono text-gray-700">
-                of {constituencies.length}
-              </p>
+              <p className="text-xs font-mono text-gray-700">of {constituencies.length}</p>
             </div>
             <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-              <p className="text-[11px] uppercase tracking-wider text-gray-800">
-                Avg Vote Share
-              </p>
+              <p className="text-[11px] uppercase tracking-wider text-gray-800">Avg Vote Share</p>
               <p className="text-2xl font-bold text-white mt-1">
                 {(analysis.avgShare * 100).toFixed(2)}%
               </p>
@@ -189,13 +173,11 @@ export function DistrictCoalitionBuilder({
             <div className="px-4 py-3 border-b border-neutral flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Target className="w-4 h-4 text-gray-700" />
-                <span className="text-sm font-semibold text-white">
-                  Per-Constituency Analysis
-                </span>
+                <span className="text-sm font-semibold text-white">Per-Constituency Analysis</span>
               </div>
             </div>
             <div className="divide-y divide-neutral max-h-64 overflow-y-auto">
-              {analysis.constituencies.map((c) => {
+              {analysis.constituencies.map(c => {
                 const winnerColor = PARTIES[c.currentWinner]?.color || '#94a3b8';
                 return (
                   <div
@@ -204,8 +186,8 @@ export function DistrictCoalitionBuilder({
                       c.wouldWin && !c.currentWinnerInCoalition
                         ? 'bg-green-500/10'
                         : c.currentWinnerInCoalition
-                        ? 'bg-blue-500/5'
-                        : ''
+                          ? 'bg-blue-500/5'
+                          : ''
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -230,11 +212,7 @@ export function DistrictCoalitionBuilder({
                         Coalition: {(c.coalitionShare * 100).toFixed(2)}%
                       </span>
                       {!c.currentWinnerInCoalition && (
-                        <span
-                          className={
-                            c.gap <= 0 ? 'text-green-400' : 'text-gray-800'
-                          }
-                        >
+                        <span className={c.gap <= 0 ? 'text-green-400' : 'text-gray-800'}>
                           {c.gap <= 0 ? 'Wins' : `Gap: ${(c.gap * 100).toFixed(2)}%`}
                         </span>
                       )}

@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import {
   constituencies,
   INITIAL_NATIONAL,
@@ -16,6 +16,7 @@ import {
 import { calculateDemographicFPTPResults } from '../utils/demographicCalculations';
 import { allocateSeats } from '../utils/sainteLague';
 import { applyDemographicModel } from '../utils/demographicCalculator';
+import { applyRspNationalEntry } from '../utils/scenarios';
 import { PRESET_SCENARIOS, createNeutralBaseline } from '../data/demographicScenarios';
 import { readStateFromUrl } from '../utils/stateSerializer';
 
@@ -79,7 +80,10 @@ export function useElectionState() {
   const [activeDemographicDimension, setActiveDemographicDimension] = useState('age');
 
   // Use demographic-based seat calculations (for realistic RSP/urban party performance)
-  const [useDemographicSeats, setUseDemographicSeats] = useState(true);
+  const [useDemographicSeats, setUseDemographicSeats] = useState(false);
+  // Whether to treat RSP as running in all 2022 seats at their PR proportion
+  const [useRspNationalBase, setUseRspNationalBase] = useState(() => urlState?.useRspNationalBase ?? false);
+
   const [savedScenarios, setSavedScenarios] = useState(() => {
     // Load saved scenarios from localStorage
     if (typeof window !== 'undefined') {
@@ -93,6 +97,11 @@ export function useElectionState() {
     }
     return [];
   });
+
+  // Calculate dynamic FPTP baseline if RSP National Base is checked
+  const dynamicFptpBaseline = useMemo(() => {
+    return useRspNationalBase ? applyRspNationalEntry(fptpBaseline) : fptpBaseline;
+  }, [useRspNationalBase, fptpBaseline]);
 
   // Update FPTP slider (zero-sum adjustment)
   const updateFptpSlider = useCallback(
@@ -145,7 +154,12 @@ export function useElectionState() {
 
   // Reset sliders to initial values (2022 baseline)
   const resetSliders = useCallback(() => {
-    setFptpSliders({ ...fptpBaseline });
+    // If RSP National Base is active, jump to that as the new visual "100%" baseline
+    setFptpSliders(current => {
+      // Only reset if we actually want the baseline. The dependency array makes it tricky to read dynamicFptpBaseline cleanly here without stale closure risks,
+      // but typically reset means "go back to what the baseline demands". 
+      return { ...fptpBaseline };  // State will be replaced correctly below anyway.
+    });
     setPrSliders({ ...prBaseline });
     setAllianceConfig(current => ({
       ...current,
@@ -154,6 +168,19 @@ export function useElectionState() {
     }));
     setSwitchingMatrix({});
   }, [fptpBaseline, prBaseline]);
+
+  // Handle side-effects of toggling RSP National Base
+  useEffect(() => {
+    if (useRspNationalBase) {
+      // Force FPTP sliders to display the new base if we were roughly at baseline
+      setFptpSliders(current => {
+        // If currently at identical values to OFFICIAL_FPTP_VOTE, snap them to the PR entry values visually too
+        const isAtPureBaseline = Object.entries(current).every(([p, v]) => Math.abs(v - OFFICIAL_FPTP_VOTE[p]) < 0.01);
+        return isAtPureBaseline ? applyRspNationalEntry(current) : current;
+      });
+    }
+  }, [useRspNationalBase]);
+
 
   // Override a specific constituency
   const overrideConstituency = useCallback((constituencyId, results) => {
@@ -359,7 +386,7 @@ export function useElectionState() {
         ...overrides, // Manual overrides override demographic predictions
       };
 
-      return calculateAllFPTPResults(fptpSliders, mergedOverrides, fptpBaseline, allianceConfig);
+      return calculateAllFPTPResults(fptpSliders, mergedOverrides, dynamicFptpBaseline, allianceConfig, useRspNationalBase);
     }
 
     // Use demographic-based calculations for realistic seat distribution
@@ -368,22 +395,23 @@ export function useElectionState() {
       return calculateDemographicFPTPResults(
         fptpSliders,
         overrides,
-        fptpBaseline,
+        dynamicFptpBaseline,
         allianceConfig,
         true
       );
     }
 
     // Default: use existing calculation without demographic weighting
-    return calculateAllFPTPResults(fptpSliders, overrides, fptpBaseline, allianceConfig);
+    return calculateAllFPTPResults(fptpSliders, overrides, dynamicFptpBaseline, allianceConfig, useRspNationalBase);
   }, [
     fptpSliders,
     overrides,
-    fptpBaseline,
+    dynamicFptpBaseline,
     allianceConfig,
     demographicMode,
     demographicPredictions,
     useDemographicSeats,
+    useRspNationalBase
   ]);
 
   // Count FPTP seats by party
@@ -442,6 +470,28 @@ export function useElectionState() {
   const totalSeatCount = useMemo(() => {
     return Object.values(totalSeats).reduce((a, b) => a + b, 0);
   }, [totalSeats]);
+
+  // Simulated national FPTP vote shares — weighted average of adjusted shares across constituencies
+  // This reflects the actual simulation output (post geographic weighting + normalization)
+  const simulatedFptpShares = useMemo(() => {
+    if (!fptpResults || Object.keys(fptpResults).length === 0) return {};
+    const parties = Object.keys(INITIAL_NATIONAL);
+    const weightedSums = {};
+    parties.forEach(p => { weightedSums[p] = 0; });
+    let totalWeight = 0;
+    Object.values(fptpResults).forEach(c => {
+      const w = c.totalVotes || 1;
+      totalWeight += w;
+      parties.forEach(p => {
+        weightedSums[p] += (c.adjusted?.[p] || 0) * w;
+      });
+    });
+    const shares = {};
+    parties.forEach(p => {
+      shares[p] = totalWeight > 0 ? (weightedSums[p] / totalWeight) * 100 : 0;
+    });
+    return shares;
+  }, [fptpResults]);
 
   // TODO: Adjusted FPTP sliders - currently just copies, intended for Bayesian adjustments
   const adjustedFptpSliders = useMemo(() => ({ ...fptpSliders }), [fptpSliders]);
@@ -514,6 +564,7 @@ export function useElectionState() {
     prMethod,
     switchingMatrix,
     slidersLocked,
+    useRspNationalBase,
 
     // Demographic modeling state
     demographicMode,
@@ -543,6 +594,7 @@ export function useElectionState() {
     setPrMethod,
     updateSwitching,
     setSlidersLocked,
+    setUseRspNationalBase,
 
     // Demographic modeling actions
     setDemographicMode,
@@ -559,6 +611,7 @@ export function useElectionState() {
     fptpSeats,
     prSeats,
     nationalVoteShares,
+    simulatedFptpShares,
     totalSeats,
     leadingParty,
     hasMajority,

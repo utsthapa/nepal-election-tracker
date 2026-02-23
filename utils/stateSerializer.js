@@ -4,14 +4,32 @@
  */
 
 // Fixed party order for compact array encoding
-const PARTY_ORDER = ['NC', 'UML', 'Maoist', 'RSP', 'RPP', 'JSPN', 'US', 'JP', 'LSP', 'NUP', 'Others'];
+const PARTY_ORDER = [
+  'NC',
+  'UML',
+  'Maoist',
+  'RSP',
+  'RPP',
+  'JSPN',
+  'US',
+  'JP',
+  'LSP',
+  'NUP',
+  'Others',
+];
 
 const VERSION = 1;
 
 /**
  * Serialize simulator state to a compact base64url string
  */
-export function serializeState({ fptpSliders, prSliders, overrides, allianceConfig, slidersLocked }) {
+export function serializeState({
+  fptpSliders,
+  prSliders,
+  overrides,
+  allianceConfig,
+  slidersLocked,
+}) {
   const state = { v: VERSION };
 
   // Encode sliders as ordered arrays (full precision)
@@ -70,12 +88,16 @@ export function deserializeState(encoded) {
     // Decode sliders
     if (Array.isArray(state.f) && state.f.length === PARTY_ORDER.length) {
       result.fptpSliders = {};
-      PARTY_ORDER.forEach((p, i) => { result.fptpSliders[p] = state.f[i]; });
+      PARTY_ORDER.forEach((p, i) => {
+        result.fptpSliders[p] = state.f[i];
+      });
     }
 
     if (Array.isArray(state.p) && state.p.length === PARTY_ORDER.length) {
       result.prSliders = {};
-      PARTY_ORDER.forEach((p, i) => { result.prSliders[p] = state.p[i]; });
+      PARTY_ORDER.forEach((p, i) => {
+        result.prSliders[p] = state.p[i];
+      });
     }
 
     result.slidersLocked = state.l === 0 ? false : true;
@@ -95,7 +117,9 @@ export function deserializeState(encoded) {
       Object.entries(state.o).forEach(([id, arr]) => {
         if (Array.isArray(arr) && arr.length === PARTY_ORDER.length) {
           const shares = {};
-          PARTY_ORDER.forEach((p, i) => { shares[p] = arr[i]; });
+          PARTY_ORDER.forEach((p, i) => {
+            shares[p] = arr[i];
+          });
           result.overrides[id] = shares;
         }
       });
@@ -109,12 +133,15 @@ export function deserializeState(encoded) {
 
 /**
  * Build a full shareable URL with encoded state
+ * @param {Object} state - The simulator state
+ * @param {number} year - The election year (default: 2026)
  */
-export function buildShareableUrl(state) {
+export function buildShareableUrl(state, year = 2026) {
   const encoded = serializeState(state);
-  const base = typeof window !== 'undefined'
-    ? `${window.location.origin}${window.location.pathname}`
-    : '/simulator';
+  const base =
+    typeof window !== 'undefined'
+      ? `${window.location.origin}/simulator/${year}`
+      : `/simulator/${year}`;
   return `${base}?s=${encoded}`;
 }
 

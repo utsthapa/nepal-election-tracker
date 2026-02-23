@@ -1,16 +1,25 @@
-'use client'
+'use client';
 
-import { TrendingUp, AlertCircle, Info } from 'lucide-react'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts'
+import { TrendingUp, AlertCircle, Info } from 'lucide-react';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  Cell,
+} from 'recharts';
 
-import { useLanguage } from '../../../context/LanguageContext'
-import { PARTIES } from '../../../data/constituencies'
-import { getLatestForecast } from '../../../data/forecasts'
-
+import { useLanguage } from '../../../context/LanguageContext';
+import { PARTIES } from '../../../data/constituencies';
+import { getLatestForecast } from '../../../data/forecasts';
 
 export default function ForecastPage() {
-  const { language } = useLanguage()
-  const forecast = getLatestForecast()
+  const { language } = useLanguage();
+  const forecast = getLatestForecast();
 
   if (!forecast) {
     return (
@@ -19,19 +28,21 @@ export default function ForecastPage() {
           {language === 'ne' ? 'कुनै पूर्वानुमान फेला परेन' : 'No forecast available'}
         </p>
       </div>
-    )
+    );
   }
 
-  const sortedProjections = Object.entries(forecast.projections).sort((a, b) => b[1].seats - a[1].seats)
-  const totalSeats = Object.values(forecast.projections).reduce((sum, p) => sum + p.seats, 0)
-  const majority = Math.ceil(totalSeats / 2)
+  const sortedProjections = Object.entries(forecast.projections).sort(
+    (a, b) => b[1].seats - a[1].seats
+  );
+  const totalSeats = Object.values(forecast.projections).reduce((sum, p) => sum + p.seats, 0);
+  const majority = Math.ceil(totalSeats / 2);
 
   const chartData = sortedProjections.map(([party, data]) => ({
     party,
     seats: data.seats,
     probability: data.probability,
     color: PARTIES[party]?.color || '#6b7280',
-  }))
+  }));
 
   return (
     <div className="min-h-screen bg-background">
@@ -41,9 +52,7 @@ export default function ForecastPage() {
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
             {language === 'ne' ? 'निर्वाचन पूर्वानुमान' : 'Election Forecast'}
           </h1>
-          <p className="text-gray-700">
-            {forecast.election}
-          </p>
+          <p className="text-gray-700">{forecast.election}</p>
         </div>
 
         {/* Methodology Info */}
@@ -75,30 +84,27 @@ export default function ForecastPage() {
           <ResponsiveContainer width="100%" height={400}>
             <BarChart data={chartData} layout="vertical">
               <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-              <XAxis 
-                dataKey="party" 
+              <XAxis
+                dataKey="party"
                 stroke="#9ca3af"
                 tick={{ fill: '#9ca3af' }}
-                tickFormatter={(value) => PARTIES[value]?.short || value}
+                tickFormatter={value => PARTIES[value]?.name || value}
               />
-              <YAxis 
-                stroke="#9ca3af"
-                tick={{ fill: '#9ca3af' }}
-              />
+              <YAxis stroke="#9ca3af" tick={{ fill: '#9ca3af' }} />
               <Tooltip
-                contentStyle={{ 
-                  backgroundColor: '#1f2937', 
+                contentStyle={{
+                  backgroundColor: '#1f2937',
                   border: '1px solid #374151',
-                  borderRadius: '8px'
+                  borderRadius: '8px',
                 }}
                 itemStyle={{ color: '#e5e7eb' }}
                 formatter={(value, name, props) => {
-                  const party = props.payload.party
+                  const party = props.payload.party;
                   return [
                     `${PARTIES[party]?.name || party}:`,
                     `${value} seats`,
-                    `${(props.payload.probability * 100).toFixed(1)}% probability`
-                  ]
+                    `${(props.payload.probability * 100).toFixed(1)}% probability`,
+                  ];
                 }}
               />
               <Legend />
@@ -123,10 +129,9 @@ export default function ForecastPage() {
                 {majority} {language === 'ne' ? 'सिट' : 'seats'}
               </p>
               <p className="text-sm text-gray-700 mt-2">
-                {language === 'ne' 
+                {language === 'ne'
                   ? 'सरकार बनाउन {majority} सिट आवश्यक छ'
-                  : `Needed to form government: ${majority} seats`
-                }
+                  : `Needed to form government: ${majority} seats`}
               </p>
             </div>
           </div>
@@ -139,15 +144,15 @@ export default function ForecastPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {sortedProjections.map(([party, data]) => {
-              const partyInfo = PARTIES[party]
-              const isAboveMajority = data.seats >= majority
+              const partyInfo = PARTIES[party];
+              const isAboveMajority = data.seats >= majority;
 
               return (
                 <div
                   key={party}
                   className={`rounded-xl p-4 ${
-                    isAboveMajority 
-                      ? 'bg-green-100 border-2 border-green-400' 
+                    isAboveMajority
+                      ? 'bg-green-100 border-2 border-green-400'
                       : 'bg-neutral border border-neutral'
                   }`}
                 >
@@ -156,18 +161,14 @@ export default function ForecastPage() {
                       className="w-4 h-4 rounded-full"
                       style={{ backgroundColor: partyInfo?.color || '#6b7280' }}
                     />
-                    <span className="font-bold text-gray-900">
-                      {partyInfo?.short || party}
-                    </span>
+                    <span className="font-bold text-gray-900">{partyInfo?.name || party}</span>
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between items-baseline">
                       <span className="text-sm text-gray-700">
                         {language === 'ne' ? 'पूर्वानुमान' : 'Projection'}
                       </span>
-                      <span className="text-3xl font-bold text-gray-900">
-                        {data.seats}
-                      </span>
+                      <span className="text-3xl font-bold text-gray-900">{data.seats}</span>
                     </div>
                     <div className="flex justify-between items-baseline">
                       <span className="text-sm text-gray-700">
@@ -187,7 +188,7 @@ export default function ForecastPage() {
                     </div>
                   </div>
                 </div>
-              )
+              );
             })}
           </div>
         </div>
@@ -200,20 +201,20 @@ export default function ForecastPage() {
             </h2>
             <div className="space-y-4">
               {forecast.scenarios.map((scenario, index) => {
-                const scenarioName = language === 'ne' && scenario.nameNe ? scenario.nameNe : scenario.name
-                const scenarioDesc = language === 'ne' && scenario.descriptionNe ? scenario.descriptionNe : scenario.description
-                const winnerInfo = PARTIES[scenario.winner]
+                const scenarioName =
+                  language === 'ne' && scenario.nameNe ? scenario.nameNe : scenario.name;
+                const scenarioDesc =
+                  language === 'ne' && scenario.descriptionNe
+                    ? scenario.descriptionNe
+                    : scenario.description;
+                const winnerInfo = PARTIES[scenario.winner];
 
                 return (
                   <div key={index} className="bg-neutral rounded-xl p-6">
                     <div className="flex items-start justify-between mb-4">
                       <div>
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">
-                          {scenarioName}
-                        </h3>
-                        <p className="text-sm text-gray-700">
-                          {scenarioDesc}
-                        </p>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">{scenarioName}</h3>
+                        <p className="text-sm text-gray-700">{scenarioDesc}</p>
                       </div>
                       {winnerInfo && (
                         <div className="flex items-center gap-2 px-4 py-2 bg-blue-100 rounded-lg">
@@ -222,7 +223,7 @@ export default function ForecastPage() {
                             style={{ backgroundColor: winnerInfo.color }}
                           />
                           <span className="text-sm font-bold text-blue-900">
-                            {winnerInfo.short} {language === 'ne' ? 'जित्छ' : 'wins'}
+                            {winnerInfo.name} {language === 'ne' ? 'जित्छ' : 'wins'}
                           </span>
                         </div>
                       )}
@@ -231,7 +232,7 @@ export default function ForecastPage() {
                       {Object.entries(scenario.seats)
                         .sort((a, b) => b[1] - a[1])
                         .map(([party, seats]) => {
-                          const partyInfo = PARTIES[party]
+                          const partyInfo = PARTIES[party];
                           return (
                             <div
                               key={party}
@@ -240,13 +241,13 @@ export default function ForecastPage() {
                                 width: `${(seats / totalSeats) * 100}%`,
                                 backgroundColor: partyInfo?.color || '#6b7280',
                               }}
-                              title={`${partyInfo?.short || party}: ${seats} seats`}
+                              title={`${partyInfo?.name || party}: ${seats} seats`}
                             />
-                          )
+                          );
                         })}
                     </div>
                   </div>
-                )
+                );
               })}
             </div>
           </div>
@@ -255,13 +256,13 @@ export default function ForecastPage() {
         {/* Disclaimer */}
         <div className="mt-8 p-4 bg-yellow-100 border border-yellow-300 rounded-lg">
           <p className="text-sm text-yellow-900">
-            <strong>{language === 'ne' ? 'अस्वीकरण:' : 'Disclaimer:'}</strong> {language === 'ne'
+            <strong>{language === 'ne' ? 'अस्वीकरण:' : 'Disclaimer:'}</strong>{' '}
+            {language === 'ne'
               ? 'यो पूर्वानुमान सांख्यिक मोडेलहरूमा आधारित छ र वास्तविक परिणामा भिन्न हुन सक्छ। मतदान र जनसांख्यिकी परिवर्तनहरू अपडेट हुन सक्छन्।'
-              : 'This forecast is based on statistical models and may not reflect actual election results. Polls and demographics can change over time.'
-            }
+              : 'This forecast is based on statistical models and may not reflect actual election results. Polls and demographics can change over time.'}
           </p>
         </div>
       </div>
     </div>
-  )
+  );
 }

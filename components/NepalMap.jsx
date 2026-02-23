@@ -537,7 +537,7 @@ export default function NepalMap({
                 <option value="">All Parties</option>
                 {Object.entries(PARTIES).map(([id, party]) => (
                   <option key={id} value={id}>
-                    {party.short}
+                    {party.name}
                   </option>
                 ))}
               </select>
@@ -607,7 +607,7 @@ export default function NepalMap({
                               style={{ backgroundColor: PARTIES[winner2022]?.color || '#000000' }}
                             />
                             <span className="text-foreground">
-                              {PARTIES[winner2022]?.short || winner2022}
+                              {PARTIES[winner2022]?.name || winner2022}
                             </span>
                           </div>
                         </td>
@@ -627,7 +627,7 @@ export default function NepalMap({
                                       }}
                                     />
                                     <span className="text-foreground">
-                                      {PARTIES[simWinner]?.short || simWinner}
+                                      {PARTIES[simWinner]?.name || simWinner}
                                     </span>
                                     {simWinner !== winner2022 && (
                                       <span className="text-others text-xs">→</span>
@@ -718,7 +718,7 @@ export default function NepalMap({
                         PARTIES[getHoveredWinner(hoveredConstituency)]?.color || '#000000',
                     }}
                   >
-                    {PARTIES[getHoveredWinner(hoveredConstituency)]?.short?.charAt(0) || '?'}
+                    {PARTIES[getHoveredWinner(hoveredConstituency)]?.name?.charAt(0) || '?'}
                   </div>
                   <div>
                     <div className="text-sm text-muted">
@@ -798,7 +798,7 @@ export default function NepalMap({
                                     : 'text-muted'
                               }
                             >
-                              {PARTIES[party]?.short || party}
+                              {PARTIES[party]?.name || party}
                               {isWinner && year === 2022 && ' ✓'}
                             </span>
                           </div>

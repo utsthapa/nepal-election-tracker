@@ -13,30 +13,40 @@ export function SwingPanel({ fptpResults, fptpSeats }) {
   const [isExpanded, setIsExpanded] = useState(true);
   const [swingValues, setSwingValues] = useState(() => {
     const initial = {};
-    MAJOR_PARTIES.forEach(p => { initial[p] = 0; });
+    MAJOR_PARTIES.forEach(p => {
+      initial[p] = 0;
+    });
     return initial;
   });
 
   const hasSwing = Object.values(swingValues).some(v => v !== 0);
 
   const swungResults = useMemo(() => {
-    if (!hasSwing) {return null;}
+    if (!hasSwing) {
+      return null;
+    }
     return applyUniformSwing(fptpResults, swingValues);
   }, [fptpResults, swingValues, hasSwing]);
 
   const swungSeats = useMemo(() => {
-    if (!swungResults) {return null;}
+    if (!swungResults) {
+      return null;
+    }
     return countFPTPSeats(swungResults);
   }, [swungResults]);
 
   const seatChanges = useMemo(() => {
-    if (!swungSeats) {return {};}
+    if (!swungSeats) {
+      return {};
+    }
     return calculateSeatChanges(fptpSeats, swungSeats);
   }, [fptpSeats, swungSeats]);
 
   const handleReset = () => {
     const reset = {};
-    MAJOR_PARTIES.forEach(p => { reset[p] = 0; });
+    MAJOR_PARTIES.forEach(p => {
+      reset[p] = 0;
+    });
     setSwingValues(reset);
   };
 
@@ -62,7 +72,11 @@ export function SwingPanel({ fptpResults, fptpSeats }) {
             </span>
           )}
         </div>
-        {isExpanded ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
+        {isExpanded ? (
+          <ChevronUp className="w-4 h-4 text-gray-400" />
+        ) : (
+          <ChevronDown className="w-4 h-4 text-gray-400" />
+        )}
       </button>
 
       {isExpanded && (
@@ -88,7 +102,7 @@ export function SwingPanel({ fptpResults, fptpSeats }) {
                       style={{ backgroundColor: PARTIES[party]?.color }}
                     />
                     <span className="text-xs font-semibold text-[rgb(24,26,36)]">
-                      {PARTIES[party]?.short || party}
+                      {PARTIES[party]?.name || party}
                     </span>
                   </div>
 
@@ -99,29 +113,37 @@ export function SwingPanel({ fptpResults, fptpSeats }) {
                     max={15}
                     step={0.5}
                     value={swing}
-                    onChange={(e) => updateSwing(party, parseFloat(e.target.value))}
+                    onChange={e => updateSwing(party, parseFloat(e.target.value))}
                     className="flex-1 h-1.5 accent-blue-500"
                   />
 
                   {/* Swing value */}
-                  <span className={`text-xs font-mono w-12 text-right ${
-                    swing > 0 ? 'text-green-600' : swing < 0 ? 'text-red-600' : 'text-gray-400'
-                  }`}>
-                    {swing > 0 ? '+' : ''}{swing.toFixed(1)}%
+                  <span
+                    className={`text-xs font-mono w-12 text-right ${
+                      swing > 0 ? 'text-green-600' : swing < 0 ? 'text-red-600' : 'text-gray-400'
+                    }`}
+                  >
+                    {swing > 0 ? '+' : ''}
+                    {swing.toFixed(1)}%
                   </span>
 
                   {/* Seat change */}
-                  <span className={`text-xs font-mono font-bold w-16 text-right ${
-                    change > 0 ? 'text-green-600' : change < 0 ? 'text-red-600' : 'text-gray-400'
-                  }`}>
+                  <span
+                    className={`text-xs font-mono font-bold w-16 text-right ${
+                      change > 0 ? 'text-green-600' : change < 0 ? 'text-red-600' : 'text-gray-400'
+                    }`}
+                  >
                     {hasSwing ? `${baseSeats}→${newSeats}` : `${baseSeats}`}
                   </span>
 
                   {change !== 0 && (
-                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
-                      change > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-                    }`}>
-                      {change > 0 ? '+' : ''}{change}
+                    <span
+                      className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                        change > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                      }`}
+                    >
+                      {change > 0 ? '+' : ''}
+                      {change}
                     </span>
                   )}
                 </div>
@@ -143,7 +165,8 @@ export function SwingPanel({ fptpResults, fptpSeats }) {
                       className="text-xs font-semibold"
                       style={{ color: PARTIES[party]?.color }}
                     >
-                      {PARTIES[party]?.short}: {baseSeats} → {newSeats} ({change > 0 ? '+' : ''}{change})
+                      {PARTIES[party]?.name}: {baseSeats} → {newSeats} ({change > 0 ? '+' : ''}
+                      {change})
                     </span>
                   );
                 })}

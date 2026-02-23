@@ -1,11 +1,11 @@
 ---
 title: "It's The Economy, Stupid — Even In Nepal"
-excerpt: "A constituency-level model shows inflation is the single best predictor of whether Nepali incumbents win or lose. GDP growth matters too, but only if voters have been feeling it for years."
-author: "Data Journalism Team"
-date: "2026-02-17"
-category: "Analysis"
-tags: ["economics", "voting-behavior", "elections", "inflation", "data-science"]
-featuredImage: ""
+excerpt: 'A constituency-level model shows inflation is the single best predictor of whether Nepali incumbents win or lose. GDP growth matters too, but only if voters have been feeling it for years.'
+author: 'Data Journalism Team'
+date: '2026-02-17'
+category: 'Analysis'
+tags: ['economics', 'voting-behavior', 'elections', 'inflation', 'data-science']
+featuredImage: ''
 featured: false
 ---
 
@@ -26,22 +26,36 @@ Of all the economic variables we tested, inflation was the most consistent predi
 We split constituencies into three buckets based on local inflation rates and looked at incumbent performance across elections.
 
 | Inflation Level | Avg. Incumbent Swing | Anti-Establishment Gain | Turnout Effect |
-|---|---|---|---|
-| High (>8%) | -11.2 pp | +7.4 pp | +3.8 pp |
-| Moderate (4-8%) | -4.1 pp | Modest | ~0 pp |
-| Low (<4%) | -1.2 pp | Minimal | -1.3 pp |
+| --------------- | -------------------- | ----------------------- | -------------- |
+| High (>8%)      | -11.2 pp             | +7.4 pp                 | +3.8 pp        |
+| Moderate (4-8%) | -4.1 pp              | Modest                  | ~0 pp          |
+| Low (<4%)       | -1.2 pp              | Minimal                 | -1.3 pp        |
+
+<BarChart
+  data={[
+    { inflation: 'High (>8%)', swing: -11.2 },
+    { inflation: 'Moderate (4-8%)', swing: -4.1 },
+    { inflation: 'Low (<4%)', swing: -1.2 },
+  ]}
+  xKey="inflation"
+  yKey="swing"
+  colors={['#B91C1C']}
+  height={350}
+/>
+
+_Figure: Anti-incumbent swing by inflation level_
 
 A few things jump out.
 
 First, look at that high-inflation row. An 11.2 percentage point swing against incumbents is enormous. In a country where FPTP margins are often razor-thin, that kind of shift flips seats wholesale. And it doesn't just benefit the traditional opposition — anti-establishment parties gain disproportionately. Voters in high-inflation areas don't just want the other major party. They want someone new.
 
-Second, anger mobilizes. Turnout actually *increases* by nearly 4 points in high-inflation constituencies. Low-inflation areas, by contrast, see slightly depressed turnout. People who are comfortable don't feel the urgency to stand in line. People watching their purchasing power erode? They show up.
+Second, anger mobilizes. Turnout actually _increases_ by nearly 4 points in high-inflation constituencies. Low-inflation areas, by contrast, see slightly depressed turnout. People who are comfortable don't feel the urgency to stand in line. People watching their purchasing power erode? They show up.
 
 Third, the moderate inflation band — 4 to 8 percent — produces a more conventional pattern. Incumbents lose, but the votes flow to established opposition parties rather than insurgent movements. It's the high-inflation zones where things get unpredictable.
 
 ## GDP growth helps — but you have to be patient
 
-If inflation is a fast-acting poison for incumbents, GDP growth is a slow-release antidote. And the emphasis is on *slow*.
+If inflation is a fast-acting poison for incumbents, GDP growth is a slow-release antidote. And the emphasis is on _slow_.
 
 Here's what the regression shows:
 
@@ -84,6 +98,7 @@ For parties trying to build national strategies, this creates a puzzle. Economic
 The 2022 election gave us a clean test case for the economic voting model. The conditions were almost tailor-made.
 
 **The economic backdrop:**
+
 - Inflation: 7.8% (elevated, post-COVID supply chain effects still lingering)
 - GDP growth: 5.6% (decent but not spectacular)
 - Remittance growth: +15.2% (strong, driven by recovery in Gulf economies)
@@ -91,24 +106,39 @@ The 2022 election gave us a clean test case for the economic voting model. The c
 
 We fed 2021 economic data into the model before the election and generated predictions. Here's how they held up:
 
-| Prediction | Model Said | Actual Result |
-|---|---|---|
-| Incumbent coalition national swing | -6 to -8 pp | -7.2 pp ✓ |
-| RSP gains in high-unemployment urban areas | Strong | +12 pp in target seats ✓ |
-| Rural seats less affected | Yes | 3.2 pp swing (vs. 9.7 pp urban) ✓ |
-| Remittance-heavy seats stable | Yes | 1.8 pp swing ✓ |
+| Prediction                                 | Model Said  | Actual Result                     |
+| ------------------------------------------ | ----------- | --------------------------------- |
+| Incumbent coalition national swing         | -6 to -8 pp | -7.2 pp ✓                         |
+| RSP gains in high-unemployment urban areas | Strong      | +12 pp in target seats ✓          |
+| Rural seats less affected                  | Yes         | 3.2 pp swing (vs. 9.7 pp urban) ✓ |
+| Remittance-heavy seats stable              | Yes         | 1.8 pp swing ✓                    |
+
+<BarChart
+  data={[
+    { indicator: 'Inflation', value: 7.8 },
+    { indicator: 'GDP Growth', value: 5.6 },
+    { indicator: 'Remittance Growth', value: 15.2 },
+    { indicator: 'Youth Unemployment', value: 11.4 },
+  ]}
+  xKey="indicator"
+  yKey="value"
+  colors={['#B91C1C']}
+  height={350}
+/>
+
+_Figure: Key economic indicators for 2022 election (%)_
 
 The model called the direction and approximate magnitude of swings correctly about 87 percent of the time. That's good — not perfect, but good. The misses tended to be in constituencies where local candidate dynamics overwhelmed economic fundamentals: a popular independent, a party split, a particularly charismatic or despised local figure.
 
 And the 2022 results tell a broader story about Nepal's evolving party system. The effective number of parties hit 4.75 — the highest fragmentation in any Nepali election we've analyzed. NC won 89 seats (32.4% of the House), UML took 78 (28.4%), Maoist Centre got 32 (11.6%), and then you had RSP with 20, RPP with 14, JSPN with 12, and a scattering of smaller parties and independents.
 
-That fragmentation wasn't random. It was partly an economic story. The combination of high inflation and high youth unemployment created the conditions for a protest vote — and RSP was there to absorb it. In a lower-inflation environment, those votes probably would have stayed with the established parties. The economy didn't just determine *which* traditional party won. It determined whether voters would abandon traditional parties altogether.
+That fragmentation wasn't random. It was partly an economic story. The combination of high inflation and high youth unemployment created the conditions for a protest vote — and RSP was there to absorb it. In a lower-inflation environment, those votes probably would have stayed with the established parties. The economy didn't just determine _which_ traditional party won. It determined whether voters would abandon traditional parties altogether.
 
 ## The prosperity paradox
 
 Here's the finding I keep coming back to because it's genuinely counterintuitive.
 
-You'd think economic growth would be unambiguously good for incumbents. More money, more jobs, happier voters. But in some of Nepal's fastest-growing constituencies — particularly in the Kathmandu Valley — annual growth of 6 to 8 percent actually correlated with *decreased* incumbent support.
+You'd think economic growth would be unambiguously good for incumbents. More money, more jobs, happier voters. But in some of Nepal's fastest-growing constituencies — particularly in the Kathmandu Valley — annual growth of 6 to 8 percent actually correlated with _decreased_ incumbent support.
 
 What's going on?
 
@@ -118,7 +148,7 @@ Think about it from the perspective of a middle-class family in Lalitpur. GDP is
 
 This is the prosperity paradox: voters don't just want growth. They want growth that improves their actual, lived experience. Unmanaged growth — the kind that benefits developers and landowners while making daily life harder for everyone else — generates its own backlash.
 
-It's a finding that should worry any Nepali government banking on headline GDP numbers to carry them through an election. The *quality* of growth matters as much as the *quantity*. And quality is much harder to deliver.
+It's a finding that should worry any Nepali government banking on headline GDP numbers to carry them through an election. The _quality_ of growth matters as much as the _quantity_. And quality is much harder to deliver.
 
 ## What the model can't tell us
 
@@ -137,10 +167,28 @@ And fourth, eight elections is a small sample. We're drawing conclusions from li
 So where does this leave us heading into the next election cycle?
 
 The current economic indicators paint a mixed picture:
+
 - Inflation is moderating, sitting around 5.2%. That's in the "moderate" band — not great, not terrible. Neutral to slightly positive for incumbents.
 - GDP growth is forecast at 4.8%. Decent, but not the kind of number that generates enthusiasm. And remember, voters respond to three-year averages, so the trajectory matters more than the current figure.
 - Youth unemployment is rising. This is the red flag. If the pattern from 2022 holds, urban and peri-urban constituencies will punish whoever is in power for failing to create jobs.
 - Remittances are stable but growth is slowing. The shock absorber effect will be there, but weaker than in 2022.
+
+<BarChart
+  data={[
+    { indicator: 'Inflation', value2022: 7.8, value2026: 5.2 },
+    { indicator: 'GDP Growth', value2022: 5.6, value2026: 4.8 },
+    { indicator: 'Youth Unemp.', value2022: 11.4, value2026: 13.2 },
+    { indicator: 'Remittance Growth', value2022: 15.2, value2026: 8.5 },
+  ]}
+  xKey="indicator"
+  bars={[
+    { key: 'value2022', name: '2022 Election', color: '#94A3B8' },
+    { key: 'value2026', name: 'Current (2026)', color: '#B91C1C' },
+  ]}
+  height={400}
+/>
+
+_Figure: Economic indicators comparison — 2022 vs current_
 
 Plug all of this into the model and you get a predicted incumbent swing of somewhere between +1.8 and -0.6 percentage points. In other words: close to zero. A coin flip.
 
@@ -167,6 +215,7 @@ If the economy deteriorates before the next election, the beneficiary might not 
 Here's where I'll land.
 
 **What we know with reasonable confidence:**
+
 - Inflation is the single strongest economic predictor of electoral outcomes in Nepal.
 - GDP growth helps incumbents, but only when sustained over multiple years.
 - Urban and rural constituencies respond to economic signals very differently.
@@ -174,12 +223,14 @@ Here's where I'll land.
 - The 2022 election results are consistent with an economic voting model, with roughly 87 percent accuracy.
 
 **What we're less sure about:**
+
 - The exact magnitude of these effects. Our sample is small and our constituency-level data has gaps.
 - Whether the relationships are stable over time, or whether increasing party fragmentation is changing how economic discontent translates into votes.
 - How the prosperity paradox will play out as Nepal continues to urbanize rapidly.
 - Whether the model will hold in the next election or whether non-economic factors will dominate.
 
 **What we genuinely don't know:**
+
 - What the economy will look like in 18 months.
 - Whether a new insurgent party will emerge to capture economic frustration the way RSP did in 2022.
 - How the interaction between federal, provincial, and local governance affects economic accountability — voters might blame the wrong level of government for their problems.
@@ -190,4 +241,4 @@ Carville was right. It's the economy. Even in Nepal.
 
 ---
 
-*Methodology: Panel regression analysis using Election Commission data from 1991-2022, Nepal Rastra Bank economic statistics, and World Bank development indicators. Constituency-level economic estimates are modeled from district and provincial data where direct measurements are unavailable. Full technical details available in our [methodology appendix](/methodology/economic-voting).*
+_Methodology: Panel regression analysis using Election Commission data from 1991-2022, Nepal Rastra Bank economic statistics, and World Bank development indicators. Constituency-level economic estimates are modeled from district and provincial data where direct measurements are unavailable. Full technical details available in our [methodology appendix](/methodology/economic-voting)._

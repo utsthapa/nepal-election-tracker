@@ -46,6 +46,23 @@ The margin of error in a poll depends almost entirely on sample size, not popula
 
 Where _p_ is the proportion you're estimating and _n_ is your sample size. The 1.96 comes from the z-score for 95% confidence.
 
+<BarChart
+  data={[
+    { sampleSize: '400', marginOfError: 4.9 },
+    { sampleSize: '600', marginOfError: 4.0 },
+    { sampleSize: '1,000', marginOfError: 3.1 },
+    { sampleSize: '1,500', marginOfError: 2.5 },
+    { sampleSize: '2,500', marginOfError: 2.0 },
+    { sampleSize: '4,000', marginOfError: 1.5 },
+  ]}
+  xKey="sampleSize"
+  yKey="marginOfError"
+  colors={['#B91C1C']}
+  height={350}
+/>
+
+_Figure: Sample size vs margin of error (95% confidence interval)_
+
 <Callout type="info" title="SAMPLE SIZE VS. PRECISION">
   | Sample Size | Margin of Error (95% CI) | |-------------|--------------------------| | 400 |
   ±4.9% | | 600 | ±4.0% | | 1,000 | ±3.1% | | 1,500 | ±2.5% | | 2,500 | ±2.0% | | 4,000 | ±1.5% |
@@ -222,6 +239,24 @@ A strict screen only counts people who say "absolutely certain" and voted last t
 ## How the 2022 Polls Actually Did
 
 Let's ground all of this in a real example. Here's what the final pre-election polling averages looked like in mid-November 2022, compared to what actually happened on election day:
+
+<BarChart
+  data={[
+    { party: 'NC', pollAvg: 29, actual: 26.6, error: 2.4 },
+    { party: 'UML', pollAvg: 26, actual: 26.6, error: -0.6 },
+    { party: 'Maoist', pollAvg: 14, actual: 12.8, error: 1.2 },
+    { party: 'RSP', pollAvg: 13, actual: 13.1, error: -0.1 },
+    { party: 'Others', pollAvg: 18, actual: 20.9, error: -2.9 },
+  ]}
+  xKey="party"
+  bars={[
+    { key: 'pollAvg', name: 'Poll Average', color: '#94A3B8' },
+    { key: 'actual', name: 'Actual Result', color: '#B91C1C' },
+  ]}
+  height={400}
+/>
+
+_Figure: 2022 polling accuracy — polls vs actual results_
 
 <Callout type="info" title="2022 POLLING ACCURACY">
 | Party | Final Poll Average (Nov 10-15) | Actual PR Vote Share (Nov 20) | Error |

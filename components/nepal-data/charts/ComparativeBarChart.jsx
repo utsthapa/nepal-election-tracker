@@ -103,7 +103,7 @@ export default function ComparativeBarChart({
     <ResponsiveContainer width="100%" height={height}>
       <BarChart
         data={data}
-        layout={layout}
+        layout={isHorizontal ? 'vertical' : 'horizontal'}
         margin={{ top: 5, right: 30, left: isHorizontal ? 100 : 20, bottom: 5 }}
       >
         {showGrid && <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />}

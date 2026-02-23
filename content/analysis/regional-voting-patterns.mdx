@@ -1,11 +1,11 @@
 ---
 title: "Nepal's Elections Aren't National Anymore. They're Seven Different Races."
 excerpt: "Thirty years of electoral data show that Nepal's seven provinces have developed distinct political personalities — and the parties that figure that out first will win in 2027."
-author: "Data Journalism Team"
-date: "2026-02-17"
-category: "Analysis"
-tags: ["regional-politics", "voting-patterns", "provinces", "federalism", "2027-election"]
-featuredImage: ""
+author: 'Data Journalism Team'
+date: '2026-02-17'
+category: 'Analysis'
+tags: ['regional-politics', 'voting-patterns', 'provinces', 'federalism', '2027-election']
+featuredImage: ''
 featured: false
 ---
 
@@ -129,6 +129,24 @@ The smallest province by population, but as I discussed above, one of the most v
 
 The far west. Historically UML-leaning in the hills, with NC competitive in the plains. Sudurpashchim has some of the highest outmigration rates in the country, particularly to India, which creates the residency-versus-registration problem I mentioned earlier. The province also has some of the strongest caste-based voting patterns remaining in Nepal, though even here the trend is toward weakening.
 
+<BarChart
+  data={[
+    { province: 'Madhesh', seats: 32 },
+    { province: 'Lumbini', seats: 26 },
+    { province: 'Bagmati', seats: 33 },
+    { province: 'Koshi', seats: 28 },
+    { province: 'Gandaki', seats: 18 },
+    { province: 'Sudurpashchim', seats: 16 },
+    { province: 'Karnali', seats: 12 },
+  ]}
+  xKey="province"
+  yKey="seats"
+  colors={['#B91C1C']}
+  height={400}
+/>
+
+_Figure: FPTP seats by province (2022)_
+
 ## The FPTP-PR split matters more than people realize
 
 One thing that gets lost in most analysis of Nepali elections: the country uses a mixed electoral system. Of the 275 House seats, 165 come from FPTP constituency races and 110 from proportional representation using the Sainte-Laguë method, where seats are allocated to parties based on their national PR vote share, divided by a sequence of odd numbers (1, 3, 5, 7...) to determine allocation.
@@ -179,4 +197,4 @@ That's the challenge. And honestly? It's a more interesting challenge than most 
 
 ---
 
-*Methodology: This analysis draws on Election Commission of Nepal constituency-level results from 2008, 2013, 2017, and 2022, combined with census demographic data and available sub-national economic indicators. Regression models use constituency-level demographic profiles as independent variables and party vote shares as dependent variables. Limitations include outdated census baselines, limited sub-national polling data, and the inherent difficulty of comparing results across elections with different party configurations. Full methodology and data sets are available in our [research repository](/methodology).*
+_Methodology: This analysis draws on Election Commission of Nepal constituency-level results from 2008, 2013, 2017, and 2022, combined with census demographic data and available sub-national economic indicators. Regression models use constituency-level demographic profiles as independent variables and party vote shares as dependent variables. Limitations include outdated census baselines, limited sub-national polling data, and the inherent difficulty of comparing results across elections with different party configurations. Full methodology and data sets are available in our [research repository](/methodology)._

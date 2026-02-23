@@ -15,16 +15,16 @@ Object.keys(PARTIES).forEach(p => {
   partyBgColors[p] = `bg-${p.toLowerCase()}`;
 });
 
-const formatPartyLabel = (partyId) => {
+const formatPartyLabel = partyId => {
   const info = PARTIES[partyId];
-  return info ? `${info.short} (${info.name})` : partyId;
+  return info ? `${info.name}` : partyId;
 };
 
 export function HexMap({ fptpResults, overrides, onSelectConstituency }) {
   const [hoveredId, setHoveredId] = useState(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = e => {
     setTooltipPos({ x: e.clientX, y: e.clientY });
   };
 
@@ -48,9 +48,7 @@ export function HexMap({ fptpResults, overrides, onSelectConstituency }) {
 
   return (
     <div className="relative bg-surface rounded-xl p-4 border border-neutral overflow-hidden">
-      <h2 className="text-lg font-sans font-semibold text-white mb-1">
-        FPTP Constituencies
-      </h2>
+      <h2 className="text-lg font-sans font-semibold text-white mb-1">FPTP Constituencies</h2>
       <p className="text-xs text-gray-800 mb-4 font-mono">
         165 seats • Click to override • Hover for details
       </p>
@@ -139,10 +137,7 @@ export function HexMap({ fptpResults, overrides, onSelectConstituency }) {
         <div className="flex flex-wrap gap-3 text-xs">
           {Object.entries(partyColors).map(([party, color]) => (
             <div key={party} className="flex items-center gap-1">
-              <div
-                className="w-3 h-3 rounded"
-                style={{ backgroundColor: color }}
-              />
+              <div className="w-3 h-3 rounded" style={{ backgroundColor: color }} />
               <span className="text-gray-700">{party}</span>
             </div>
           ))}
@@ -152,7 +147,17 @@ export function HexMap({ fptpResults, overrides, onSelectConstituency }) {
   );
 }
 
-function Hexagon({ x, y, size, fill, isOverridden, isHovered, onClick, onMouseEnter, onMouseLeave }) {
+function Hexagon({
+  x,
+  y,
+  size,
+  fill,
+  isOverridden,
+  isHovered,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+}) {
   const points = [];
   for (let i = 0; i < 6; i++) {
     const angle = (Math.PI / 3) * i - Math.PI / 6;

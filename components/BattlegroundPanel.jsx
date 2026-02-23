@@ -9,7 +9,12 @@ import { getBattlegroundSeats, countVulnerableSeats } from '../utils/battlegroun
 const HEAT_COLORS = {
   critical: { bg: 'bg-red-100', text: 'text-red-700', bar: 'bg-red-500', label: 'Critical' },
   tight: { bg: 'bg-orange-100', text: 'text-orange-700', bar: 'bg-orange-400', label: 'Tight' },
-  competitive: { bg: 'bg-yellow-100', text: 'text-yellow-700', bar: 'bg-yellow-400', label: 'Competitive' },
+  competitive: {
+    bg: 'bg-yellow-100',
+    text: 'text-yellow-700',
+    bar: 'bg-yellow-400',
+    label: 'Competitive',
+  },
 };
 
 export function BattlegroundPanel({ fptpResults, onSelectConstituency }) {
@@ -21,10 +26,7 @@ export function BattlegroundPanel({ fptpResults, onSelectConstituency }) {
     [fptpResults, threshold]
   );
 
-  const vulnerable = useMemo(
-    () => countVulnerableSeats(battlegrounds),
-    [battlegrounds]
-  );
+  const vulnerable = useMemo(() => countVulnerableSeats(battlegrounds), [battlegrounds]);
 
   // Sort parties by most vulnerable seats
   const sortedVulnerable = useMemo(
@@ -48,7 +50,11 @@ export function BattlegroundPanel({ fptpResults, onSelectConstituency }) {
             {battlegrounds.length}
           </span>
         </div>
-        {isExpanded ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
+        {isExpanded ? (
+          <ChevronUp className="w-4 h-4 text-gray-400" />
+        ) : (
+          <ChevronDown className="w-4 h-4 text-gray-400" />
+        )}
       </button>
 
       {isExpanded && (
@@ -64,7 +70,7 @@ export function BattlegroundPanel({ fptpResults, onSelectConstituency }) {
               max={10}
               step={0.5}
               value={threshold}
-              onChange={(e) => setThreshold(parseFloat(e.target.value))}
+              onChange={e => setThreshold(parseFloat(e.target.value))}
               className="flex-1 h-1.5 accent-orange-500"
             />
             <span className="text-sm font-mono font-semibold text-[rgb(24,26,36)] w-10 text-right">
@@ -89,7 +95,7 @@ export function BattlegroundPanel({ fptpResults, onSelectConstituency }) {
                     className="w-2 h-2 rounded-full"
                     style={{ backgroundColor: PARTIES[party]?.color || '#6b7280' }}
                   />
-                  {PARTIES[party]?.short || party}: {count} vulnerable
+                  {PARTIES[party]?.name || party}: {count} vulnerable
                 </span>
               ))}
             </div>
@@ -102,7 +108,7 @@ export function BattlegroundPanel({ fptpResults, onSelectConstituency }) {
             </p>
           ) : (
             <div className="space-y-1.5 max-h-80 overflow-y-auto">
-              {battlegrounds.map((seat) => {
+              {battlegrounds.map(seat => {
                 const heat = HEAT_COLORS[seat.heat];
                 const maxMargin = threshold / 100;
                 const barWidth = Math.min(100, (seat.margin / maxMargin) * 100);
@@ -122,7 +128,9 @@ export function BattlegroundPanel({ fptpResults, onSelectConstituency }) {
                         <span className="text-sm font-medium text-[rgb(24,26,36)] truncate">
                           {seat.name}
                         </span>
-                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${heat.bg} ${heat.text}`}>
+                        <span
+                          className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${heat.bg} ${heat.text}`}
+                        >
                           {heat.label}
                         </span>
                       </div>
@@ -146,14 +154,14 @@ export function BattlegroundPanel({ fptpResults, onSelectConstituency }) {
                         className="text-xs font-bold"
                         style={{ color: PARTIES[seat.winner]?.color }}
                       >
-                        {PARTIES[seat.winner]?.short || seat.winner}
+                        {PARTIES[seat.winner]?.name || seat.winner}
                       </span>
                       <span className="text-[10px] text-gray-400">vs</span>
                       <span
                         className="text-xs font-bold"
                         style={{ color: PARTIES[seat.runnerUp]?.color }}
                       >
-                        {PARTIES[seat.runnerUp]?.short || seat.runnerUp}
+                        {PARTIES[seat.runnerUp]?.name || seat.runnerUp}
                       </span>
                     </div>
                   </button>

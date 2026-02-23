@@ -34,7 +34,11 @@ import { OFFICIAL_PR_VOTE } from '../data/constituencies';
  * @returns {Record<string, number>}     New map with RSP at PR proportion; sums to 100
  */
 export function applyRspNationalEntry(fptp) {
-  const RSP_PR = OFFICIAL_PR_VOTE['RSP']; // 10.70
+  // Check if we are dealing with percentages (0-100) or fractions (0-1)
+  // constituency.results2022 uses fractions. OFFICIAL_FPTP_VOTE uses percentages.
+  const isFraction = Object.values(fptp).reduce((sum, v) => sum + (v || 0), 0) <= 1.5;
+
+  const RSP_PR = isFraction ? OFFICIAL_PR_VOTE['RSP'] / 100 : OFFICIAL_PR_VOTE['RSP']; // 10.70% -> 0.1070 or 10.70
   const delta = RSP_PR - (fptp['RSP'] ?? 0);
 
   // If RSP is already at or above their PR proportion, nothing to adjust

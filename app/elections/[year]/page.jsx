@@ -6,7 +6,7 @@ import { ELECTIONS, getPartyInfo } from '../../../data/historicalElections';
 
 // Generate static params for all election years
 export function generateStaticParams() {
-  return Object.keys(ELECTIONS).map((year) => ({
+  return Object.keys(ELECTIONS).map(year => ({
     year: year,
   }));
 }
@@ -15,13 +15,13 @@ export function generateStaticParams() {
 export function generateMetadata({ params }) {
   const year = parseInt(params.year, 10);
   const election = ELECTIONS[year];
-  
+
   if (!election) {
     return {
       title: 'Election Not Found',
     };
   }
-  
+
   return {
     title: `${election.name} | Elections`,
     description: `Election results for ${election.name}. Total seats: ${election.totalSeats}, Turnout: ${election.turnout || 'N/A'}`,
@@ -95,32 +95,24 @@ export default function ElectionYearPage({ params }) {
             </span>
           </div>
           <p className="text-gray-700">{election.date}</p>
-          {election.notes && (
-            <p className="text-gray-700 mt-2 max-w-3xl">{election.notes}</p>
-          )}
+          {election.notes && <p className="text-gray-700 mt-2 max-w-3xl">{election.notes}</p>}
         </div>
 
         {/* Summary Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
           <div className="bg-surface border border-neutral rounded-xl p-4">
-            <p className="text-xs uppercase tracking-wider text-gray-600 mb-1">
-              Total Seats
-            </p>
+            <p className="text-xs uppercase tracking-wider text-gray-600 mb-1">Total Seats</p>
             <p className="text-2xl font-bold text-gray-900">{election.totalSeats}</p>
           </div>
           {hasFPTP && (
             <div className="bg-surface border border-neutral rounded-xl p-4">
-              <p className="text-xs uppercase tracking-wider text-gray-600 mb-1">
-                FPTP Seats
-              </p>
+              <p className="text-xs uppercase tracking-wider text-gray-600 mb-1">FPTP Seats</p>
               <p className="text-2xl font-bold text-gray-900">{election.fptpSeats}</p>
             </div>
           )}
           {hasPR && (
             <div className="bg-surface border border-neutral rounded-xl p-4">
-              <p className="text-xs uppercase tracking-wider text-gray-600 mb-1">
-                PR Seats
-              </p>
+              <p className="text-xs uppercase tracking-wider text-gray-600 mb-1">PR Seats</p>
               <p className="text-2xl font-bold text-gray-900">{election.prSeats}</p>
               {election.prThreshold > 0 && (
                 <p className="text-xs text-gray-600">{election.prThreshold}% threshold</p>
@@ -129,23 +121,17 @@ export default function ElectionYearPage({ params }) {
           )}
           {hasNominated && (
             <div className="bg-surface border border-neutral rounded-xl p-4">
-              <p className="text-xs uppercase tracking-wider text-gray-600 mb-1">
-                Nominated
-              </p>
+              <p className="text-xs uppercase tracking-wider text-gray-600 mb-1">Nominated</p>
               <p className="text-2xl font-bold text-gray-900">{election.nominatedSeats}</p>
             </div>
           )}
           <div className="bg-amber-100 border border-amber-300 rounded-xl p-4">
-            <p className="text-xs uppercase tracking-wider text-amber-800 mb-1">
-              Majority
-            </p>
+            <p className="text-xs uppercase tracking-wider text-amber-800 mb-1">Majority</p>
             <p className="text-2xl font-bold text-amber-900">{majorityThreshold}</p>
           </div>
           {election.turnout && (
             <div className="bg-surface border border-neutral rounded-xl p-4">
-              <p className="text-xs uppercase tracking-wider text-gray-600 mb-1">
-                Turnout
-              </p>
+              <p className="text-xs uppercase tracking-wider text-gray-600 mb-1">Turnout</p>
               <p className="text-2xl font-bold text-gray-900">{election.turnout}</p>
             </div>
           )}
@@ -157,9 +143,7 @@ export default function ElectionYearPage({ params }) {
             <div className="flex items-start gap-3">
               <Info className="w-5 h-5 text-nc mt-0.5" />
               <div>
-                <p className="text-xs uppercase tracking-wider text-nc mb-1">
-                  Government Formed
-                </p>
+                <p className="text-xs uppercase tracking-wider text-nc mb-1">Government Formed</p>
                 <p className="text-gray-700">{election.government}</p>
               </div>
             </div>
@@ -214,7 +198,10 @@ export default function ElectionYearPage({ params }) {
                   const hasMajority = total >= majorityThreshold;
 
                   return (
-                    <tr key={party} className={`hover:bg-neutral/20 ${hasMajority ? 'bg-amber-500/5' : ''}`}>
+                    <tr
+                      key={party}
+                      className={`hover:bg-neutral/20 ${hasMajority ? 'bg-amber-500/5' : ''}`}
+                    >
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
                           <span
@@ -222,7 +209,7 @@ export default function ElectionYearPage({ params }) {
                             style={{ backgroundColor: info.color }}
                           />
                           <div>
-                            <p className="font-semibold text-gray-900">{info.short}</p>
+                            <p className="font-semibold text-gray-900">{info.name}</p>
                             <p className="text-xs text-gray-600">{info.name}</p>
                           </div>
                           {hasMajority && (
@@ -261,9 +248,7 @@ export default function ElectionYearPage({ params }) {
                               }}
                             />
                           </div>
-                          <span className="text-sm font-mono text-gray-700">
-                            {share}%
-                          </span>
+                          <span className="text-sm font-mono text-gray-700">{share}%</span>
                         </div>
                       </td>
                     </tr>
@@ -300,9 +285,7 @@ export default function ElectionYearPage({ params }) {
 
         {/* Visual seat distribution */}
         <div className="bg-surface border border-neutral rounded-2xl p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
-            Parliament Composition
-          </h2>
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">Parliament Composition</h2>
           <div className="space-y-3">
             {sortedParties.map(([party, total]) => {
               const info = getPartyInfo(party);
@@ -310,9 +293,7 @@ export default function ElectionYearPage({ params }) {
 
               return (
                 <div key={party} className="flex items-center gap-3">
-                  <div className="w-20 text-sm font-medium text-gray-700">
-                    {info.short}
-                  </div>
+                  <div className="w-20 text-sm font-medium text-gray-700"> {info.name}</div>
                   <div className="flex-1 h-8 bg-neutral rounded-lg overflow-hidden relative">
                     <div
                       className="h-full rounded-lg transition-all flex items-center justify-end pr-2"
@@ -322,9 +303,7 @@ export default function ElectionYearPage({ params }) {
                       }}
                     >
                       {width > 8 && (
-                        <span className="text-xs font-bold text-white drop-shadow">
-                          {total}
-                        </span>
+                        <span className="text-xs font-bold text-white drop-shadow">{total}</span>
                       )}
                     </div>
                     {width <= 8 && (

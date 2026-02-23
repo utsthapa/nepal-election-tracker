@@ -9,7 +9,7 @@ import 'leaflet/dist/leaflet.css';
 const ConstituencyMap = ({
   onSelectConstituency,
   selectedConstituencyId: _selectedConstituencyId,
-  fptpResults
+  fptpResults,
 }) => {
   const [geoData, setGeoData] = useState(null);
   const [, setHoveredConstituency] = useState(null);
@@ -38,30 +38,36 @@ const ConstituencyMap = ({
   }, []);
 
   // Get constituency data for a GeoJSON feature
-  const getConstituencyData = useCallback((feature) => {
-    const key = feature.properties?.constituencyId;
-    return key ? constituencyLookup[key] : null;
-  }, [constituencyLookup]);
+  const getConstituencyData = useCallback(
+    feature => {
+      const key = feature.properties?.constituencyId;
+      return key ? constituencyLookup[key] : null;
+    },
+    [constituencyLookup]
+  );
 
   // Get color for a constituency
-  const getColor = useCallback((feature) => {
-    const constData = getConstituencyData(feature);
-    if (!constData) {
-      // Fallback black for unmatched constituencies
-      return '#000000';
-    }
+  const getColor = useCallback(
+    feature => {
+      const constData = getConstituencyData(feature);
+      if (!constData) {
+        // Fallback black for unmatched constituencies
+        return '#000000';
+      }
 
-    let winner;
-    if (fptpResults && fptpResults[constData.id]) {
-      // fptpResults is an object keyed by constituency ID
-      const result = fptpResults[constData.id];
-      winner = result?.winner || constData.winner2022;
-    } else {
-      winner = constData.winner2022;
-    }
+      let winner;
+      if (fptpResults && fptpResults[constData.id]) {
+        // fptpResults is an object keyed by constituency ID
+        const result = fptpResults[constData.id];
+        winner = result?.winner || constData.winner2022;
+      } else {
+        winner = constData.winner2022;
+      }
 
-    return PARTIES[winner]?.color || '#000000';
-  }, [getConstituencyData, fptpResults]);
+      return PARTIES[winner]?.color || '#000000';
+    },
+    [getConstituencyData, fptpResults]
+  );
 
   // Nepal outline for background
   const [outlineData, setOutlineData] = useState(null);
@@ -73,13 +79,17 @@ const ConstituencyMap = ({
 
     Promise.all([
       fetch('/maps/nepal-constituencies.geojson').then(res => {
-        if (!res.ok) {throw new Error('Failed to fetch constituencies GeoJSON');}
+        if (!res.ok) {
+          throw new Error('Failed to fetch constituencies GeoJSON');
+        }
         return res.json();
       }),
       fetch('/maps/nepal-outline.geojson').then(res => {
-        if (!res.ok) {throw new Error('Failed to fetch outline GeoJSON');}
+        if (!res.ok) {
+          throw new Error('Failed to fetch outline GeoJSON');
+        }
         return res.json();
-      })
+      }),
     ])
       .then(([constituenciesData, outlineGeoJson]) => {
         if (mounted) {
@@ -103,7 +113,9 @@ const ConstituencyMap = ({
 
   // Initialize Leaflet map
   useEffect(() => {
-    if (!geoData || !outlineData || mapInstanceRef.current) {return;}
+    if (!geoData || !outlineData || mapInstanceRef.current) {
+      return;
+    }
 
     let mounted = true;
 
@@ -112,7 +124,9 @@ const ConstituencyMap = ({
         // Dynamically import Leaflet
         const L = (await import('leaflet')).default;
 
-        if (!mounted || !mapContainerRef.current) {return;}
+        if (!mounted || !mapContainerRef.current) {
+          return;
+        }
 
         // Create map
         const map = L.map(mapContainerRef.current, {
@@ -134,11 +148,11 @@ const ConstituencyMap = ({
             weight: 2,
             opacity: 1,
           },
-          interactive: false,  // No hover/click events on background
+          interactive: false, // No hover/click events on background
         }).addTo(map);
 
         // Style function - party colors with matching stroke to hide gaps
-        const style = (feature) => {
+        const style = feature => {
           const color = getColor(feature);
           return {
             fillColor: color,
@@ -156,7 +170,7 @@ const ConstituencyMap = ({
             const constData = getConstituencyData(feature);
 
             layer.on({
-              mouseover: (e) => {
+              mouseover: e => {
                 if (constData) {
                   setHoveredConstituency(constData);
                   const { clientX, clientY } = e.originalEvent;
@@ -169,11 +183,11 @@ const ConstituencyMap = ({
                 });
                 e.target.bringToFront();
               },
-              mouseout: (e) => {
+              mouseout: e => {
                 setHoveredConstituency(null);
                 geoJsonLayer.resetStyle(e.target);
               },
-              mousemove: (e) => {
+              mousemove: e => {
                 const { clientX, clientY } = e.originalEvent;
                 setTooltipPos({ x: clientX, y: clientY });
               },
@@ -191,7 +205,6 @@ const ConstituencyMap = ({
           geoJsonLayerRef.current = geoJsonLayer;
           setMapReady(true);
         }
-
       } catch (err) {
         if (mounted) {
           if (process.env.NODE_ENV === 'development') {
@@ -213,14 +226,16 @@ const ConstituencyMap = ({
       }
       geoJsonLayerRef.current = null;
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [geoData, outlineData]);
 
   // Update colors when fptpResults changes
   useEffect(() => {
-    if (!geoJsonLayerRef.current) {return;}
+    if (!geoJsonLayerRef.current) {
+      return;
+    }
 
-    geoJsonLayerRef.current.eachLayer((layer) => {
+    geoJsonLayerRef.current.eachLayer(layer => {
       const feature = layer.feature;
       if (feature) {
         layer.setStyle({
@@ -228,7 +243,7 @@ const ConstituencyMap = ({
         });
       }
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fptpResults]);
 
   // Error state
@@ -256,7 +271,10 @@ const ConstituencyMap = ({
   }
 
   return (
-    <div className="relative w-full h-[600px] rounded-xl border border-neutral overflow-hidden" style={{ backgroundColor: '#000000' }}>
+    <div
+      className="relative w-full h-[600px] rounded-xl border border-neutral overflow-hidden"
+      style={{ backgroundColor: '#000000' }}
+    >
       {/* Leaflet CSS via CDN as backup */}
       <link
         rel="stylesheet"
@@ -265,10 +283,7 @@ const ConstituencyMap = ({
       />
 
       {/* Map container */}
-      <div
-        ref={mapContainerRef}
-        className="w-full h-full"
-      />
+      <div ref={mapContainerRef} className="w-full h-full" />
 
       {/* Loading overlay */}
       {!mapReady && (
@@ -281,7 +296,10 @@ const ConstituencyMap = ({
       )}
 
       {/* Legend */}
-      <div className="absolute bottom-4 left-4 backdrop-blur-sm border border-stone-300 rounded-lg p-3 z-[500]" style={{ backgroundColor: '#fefdf8' }}>
+      <div
+        className="absolute bottom-4 left-4 backdrop-blur-sm border border-stone-300 rounded-lg p-3 z-[500]"
+        style={{ backgroundColor: '#fefdf8' }}
+      >
         <p className="text-xs text-gray-600 mb-2 font-medium">Party Colors</p>
         <div className="grid grid-cols-2 gap-x-4 gap-y-1">
           {['NC', 'UML', 'Maoist', 'RSP', 'RPP', 'JSPN', 'Independent', 'Others'].map(party => (
@@ -290,14 +308,17 @@ const ConstituencyMap = ({
                 className="w-2.5 h-2.5 rounded-sm"
                 style={{ backgroundColor: PARTIES[party]?.color }}
               />
-              <span className="text-xs text-gray-700">{PARTIES[party]?.short || party}</span>
+              <span className="text-xs text-gray-700">{PARTIES[party]?.name || party}</span>
             </div>
           ))}
         </div>
       </div>
 
       {/* Stats */}
-      <div className="absolute top-4 right-4 backdrop-blur-sm border border-stone-300 rounded-lg p-3 z-[500]" style={{ backgroundColor: '#fefdf8' }}>
+      <div
+        className="absolute top-4 right-4 backdrop-blur-sm border border-stone-300 rounded-lg p-3 z-[500]"
+        style={{ backgroundColor: '#fefdf8' }}
+      >
         <p className="text-xs text-gray-600 mb-1">Total Constituencies</p>
         <p className="text-2xl font-bold text-gray-900">165</p>
         <p className="text-xs text-gray-800 mt-1">Click to view details</p>

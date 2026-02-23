@@ -1,11 +1,11 @@
 ---
 title: "Nepal's Electoral System Gives Every Voter Two Ballots. Here's Why That Matters More Than You Think."
 excerpt: "Nepal's mixed electoral system combines winner-take-all districts with proportional representation — and the tension between those two methods has shaped every government since 2008. Understanding the math is the key to understanding Nepali politics."
-author: "Data Journalism Team"
-date: "2026-02-17"
-category: "Analysis"
-tags: ["electoral-system", "fptp", "pr", "sainte-lague", "elections"]
-featuredImage: ""
+author: 'Data Journalism Team'
+date: '2026-02-17'
+category: 'Analysis'
+tags: ['electoral-system', 'fptp', 'pr', 'sainte-lague', 'elections']
+featuredImage: ''
 featured: false
 ---
 
@@ -39,17 +39,35 @@ The 2013 Constituent Assembly used the same structure. But when the 2015 Constit
 
 That ratio matters a lot. It means FPTP still dominates outcomes. Big parties with geographically concentrated support get rewarded. But the PR component acts as a partial corrective, giving smaller parties a foothold they'd never get in a pure FPTP system.
 
-| Year | System | FPTP Seats | PR Seats | Total |
-|------|--------|-----------|----------|-------|
-| 1991 | Pure FPTP | 205 | 0 | 205 |
-| 1994 | Pure FPTP | 205 | 0 | 205 |
-| 1999 | Pure FPTP | 205 | 0 | 205 |
-| 2008 | Mixed | 240 | 335 | 575+ |
-| 2013 | Mixed | 240 | 335 | 575+ |
-| 2017 | Mixed | 165 | 110 | 275 |
-| 2022 | Mixed | 165 | 110 | 275 |
+| Year | System    | FPTP Seats | PR Seats | Total |
+| ---- | --------- | ---------- | -------- | ----- |
+| 1991 | Pure FPTP | 205        | 0        | 205   |
+| 1994 | Pure FPTP | 205        | 0        | 205   |
+| 1999 | Pure FPTP | 205        | 0        | 205   |
+| 2008 | Mixed     | 240        | 335      | 575+  |
+| 2013 | Mixed     | 240        | 335      | 575+  |
+| 2017 | Mixed     | 165        | 110      | 275   |
+| 2022 | Mixed     | 165        | 110      | 275   |
 
-*Source: Election Commission of Nepal. 2008 and 2013 figures exclude nominated members.*
+_Source: Election Commission of Nepal. 2008 and 2013 figures exclude nominated members._
+
+<LineChart
+  data={[
+    { year: '1991', effectiveParties: 2.1 },
+    { year: '1994', effectiveParties: 2.3 },
+    { year: '1999', effectiveParties: 2.0 },
+    { year: '2008', effectiveParties: 3.8 },
+    { year: '2013', effectiveParties: 3.2 },
+    { year: '2017', effectiveParties: 3.1 },
+    { year: '2022', effectiveParties: 4.75 },
+  ]}
+  xKey="year"
+  yKeys={['effectiveParties']}
+  colors={['#B91C1C']}
+  height={350}
+/>
+
+_Figure: Effective number of parties over time (higher = more fragmented)_
 
 ## How the Sainte-Laguë method actually works
 
@@ -70,12 +88,12 @@ Let me walk through a simplified example. Say there are three parties and 10 sea
 The quotients would look like this:
 
 | Divisor | Party A | Party B | Party C |
-|---------|---------|---------|---------|
-| ÷ 1 | 100,000 | 80,000 | 30,000 |
-| ÷ 3 | 33,333 | 26,667 | 10,000 |
-| ÷ 5 | 20,000 | 16,000 | 6,000 |
-| ÷ 7 | 14,286 | 11,429 | 4,286 |
-| ÷ 9 | 11,111 | 8,889 | 3,333 |
+| ------- | ------- | ------- | ------- |
+| ÷ 1     | 100,000 | 80,000  | 30,000  |
+| ÷ 3     | 33,333  | 26,667  | 10,000  |
+| ÷ 5     | 20,000  | 16,000  | 6,000   |
+| ÷ 7     | 14,286  | 11,429  | 4,286   |
+| ÷ 9     | 11,111  | 8,889   | 3,333   |
 
 Now rank the top 10 quotients: 100,000 (A), 80,000 (B), 33,333 (A), 30,000 (C), 26,667 (B), 20,000 (A), 16,000 (B), 14,286 (A), 11,429 (B), 11,111 (A).
 

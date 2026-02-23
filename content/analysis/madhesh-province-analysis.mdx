@@ -1,11 +1,11 @@
 ---
 title: "You Can't Win Nepal Without Winning Madhesh"
 excerpt: "Madhesh Province holds just 32 seats — 19% of parliament. But no government has formed without them. Here's why the math makes Madhesh the most important political battleground in the country."
-author: "Data Journalism Team"
-date: "2026-02-17"
-category: "Analysis"
-tags: ["madhesh", "regional-politics", "electoral-analysis", "2027-elections"]
-featuredImage: ""
+author: 'Data Journalism Team'
+date: '2026-02-17'
+category: 'Analysis'
+tags: ['madhesh', 'regional-politics', 'electoral-analysis', '2027-elections']
+featuredImage: ''
 featured: true
 ---
 
@@ -27,13 +27,28 @@ That leaves Madhesh as the tiebreaker. Win big here, and you're forming a govern
 
 Look at how the 2022 results broke down in the province:
 
-| Party | Seats Won | Share of Madhesh Seats |
-|-------|-----------|----------------------|
-| JSPN (regional) | 12 | 37.5% |
-| Nepali Congress | 8 | 25% |
-| Maoist Centre | 5 | 15.6% |
-| UML | 3 | 9.4% |
-| Others/Independents | 4 | 12.5% |
+| Party               | Seats Won | Share of Madhesh Seats |
+| ------------------- | --------- | ---------------------- |
+| JSPN (regional)     | 12        | 37.5%                  |
+| Nepali Congress     | 8         | 25%                    |
+| Maoist Centre       | 5         | 15.6%                  |
+| UML                 | 3         | 9.4%                   |
+| Others/Independents | 4         | 12.5%                  |
+
+<PieChart
+  data={[
+    { name: 'JSPN (regional)', value: 37.5 },
+    { name: 'Nepali Congress', value: 25 },
+    { name: 'Maoist Centre', value: 15.6 },
+    { name: 'UML', value: 9.4 },
+    { name: 'Others/Independents', value: 12.5 },
+  ]}
+  nameKey="name"
+  valueKey="value"
+  height={400}
+/>
+
+_Figure: Seat distribution in Madhesh Province (2022)_
 
 Five different party families won seats. That fragmentation is the story. In 2017, you could draw a clean line: regional parties dominated, national parties were marginal. By 2022, the picture had shattered into pieces. And shattered pictures create opportunities — for everyone.
 
@@ -152,13 +167,29 @@ So where does all this leave us for the next election?
 
 Based on current polling, demographic trends, and the trajectory of the past two cycles, here's our best estimate of how Madhesh's 32 seats might break down:
 
-| Party/Grouping | Projected Seats | Range |
-|----------------|----------------|-------|
-| Regional parties (JSPN + fragments) | 8-12 | Could collapse further or stabilize |
-| Nepali Congress | 10-14 | Strong if development record holds |
-| Maoist Centre | 4-7 | Depends heavily on alliance strategy |
-| UML | 2-5 | Improving, but still weak |
-| RSP and others | 3-6 | Youth vote is the wild card |
+| Party/Grouping                      | Projected Seats | Range                                |
+| ----------------------------------- | --------------- | ------------------------------------ |
+| Regional parties (JSPN + fragments) | 8-12            | Could collapse further or stabilize  |
+| Nepali Congress                     | 10-14           | Strong if development record holds   |
+| Maoist Centre                       | 4-7             | Depends heavily on alliance strategy |
+| UML                                 | 2-5             | Improving, but still weak            |
+| RSP and others                      | 3-6             | Youth vote is the wild card          |
+
+<BarChart
+  data={[
+    { party: 'Regional Parties', seats: 10, range: '8-12' },
+    { party: 'Nepali Congress', seats: 12, range: '10-14' },
+    { party: 'Maoist Centre', seats: 5, range: '4-7' },
+    { party: 'UML', seats: 3, range: '2-5' },
+    { party: 'RSP & Others', seats: 4, range: '3-6' },
+  ]}
+  xKey="party"
+  yKey="seats"
+  colors={['#B91C1C']}
+  height={400}
+/>
+
+_Figure: Projected seat distribution in Madhesh (2027)_
 
 The big question mark is whether regional parties can re-consolidate. The current trajectory points toward further fragmentation, which benefits national parties. But politics isn't physics — trends can reverse. A charismatic Madheshi leader who can reunify the regional vote would change the math overnight. Nobody fitting that description has appeared yet. That doesn't mean nobody will.
 
@@ -196,4 +227,4 @@ The kingmaker is paying attention. The question is whether the parties are payin
 
 ---
 
-*Data sources: Election Commission Nepal, Madhesh Provincial Government statistics, original polling (January 2026, n=3,200 Madhesh respondents, margin of error ±2.5 percentage points at province level). Full methodology available upon request.*
+_Data sources: Election Commission Nepal, Madhesh Provincial Government statistics, original polling (January 2026, n=3,200 Madhesh respondents, margin of error ±2.5 percentage points at province level). Full methodology available upon request._

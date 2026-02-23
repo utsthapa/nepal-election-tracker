@@ -6,22 +6,25 @@ import { determineFPTPWinner } from '../utils/calculations';
 
 export function ConstituencyResultCard({ constituency, coalitionParties = [], projection }) {
   const { name, winner2022, results2022, totalVotes, candidate2022 } = constituency;
-  const baseMargin = constituency.margin ?? constituency.margin2022 ?? determineFPTPWinner(results2022).margin;
+  const baseMargin =
+    constituency.margin ?? constituency.margin2022 ?? determineFPTPWinner(results2022).margin;
   const winnerInfo = PARTIES[winner2022];
 
   // Memoize sorted results calculation
-  const sortedResults = useMemo(() =>
-    Object.entries(results2022)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 5),
+  const sortedResults = useMemo(
+    () =>
+      Object.entries(results2022)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5),
     [results2022]
   );
 
   // Memoize coalition calculations
   const coalitionAnalysis = useMemo(() => {
-    const coalitionShare = coalitionParties.length > 0
-      ? coalitionParties.reduce((sum, party) => sum + (results2022[party] || 0), 0)
-      : 0;
+    const coalitionShare =
+      coalitionParties.length > 0
+        ? coalitionParties.reduce((sum, party) => sum + (results2022[party] || 0), 0)
+        : 0;
 
     const topNonCoalition = sortedResults.find(([party]) => !coalitionParties.includes(party));
     const topNonCoalitionShare = topNonCoalition ? topNonCoalition[1] : 0;
@@ -32,28 +35,24 @@ export function ConstituencyResultCard({ constituency, coalitionParties = [], pr
       coalitionShare,
       topNonCoalitionShare,
       coalitionWouldWin,
-      currentWinnerInCoalition
+      currentWinnerInCoalition,
     };
   }, [coalitionParties, results2022, sortedResults, winner2022]);
 
-  const { coalitionShare, topNonCoalitionShare, coalitionWouldWin, currentWinnerInCoalition } = coalitionAnalysis;
+  const { coalitionShare, topNonCoalitionShare, coalitionWouldWin, currentWinnerInCoalition } =
+    coalitionAnalysis;
 
   return (
     <div className="bg-surface border border-neutral rounded-xl p-4">
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <span
-            className="w-3 h-3 rounded-full"
-            style={{ backgroundColor: winnerInfo?.color }}
-          />
+          <span className="w-3 h-3 rounded-full" style={{ backgroundColor: winnerInfo?.color }} />
           <h3 className="font-semibold text-white">{name}</h3>
         </div>
         <div className="flex items-center gap-1 text-xs">
           <Trophy className="w-3 h-3 text-amber-400" />
-          <span style={{ color: winnerInfo?.color }}>
-            {winnerInfo?.short || winner2022}
-          </span>
+          <span style={{ color: winnerInfo?.color }}>{winnerInfo?.name || winner2022}</span>
         </div>
       </div>
 
@@ -72,8 +71,8 @@ export function ConstituencyResultCard({ constituency, coalitionParties = [], pr
 
           return (
             <div key={party} className="flex items-center gap-2">
-              <span className="w-12 text-xs text-gray-700 font-mono">
-                {info?.short || party}
+              <span className="w-12 text-xs text-gray-700 font-mono truncate">
+                {info?.name || party}
               </span>
               <div className="flex-1 h-2 bg-neutral rounded-full overflow-hidden">
                 <div
@@ -120,11 +119,8 @@ export function ConstituencyResultCard({ constituency, coalitionParties = [], pr
         >
           <div className="flex items-center justify-between text-xs">
             <span className="text-gray-700">Projected winner</span>
-            <span
-              className="font-semibold"
-              style={{ color: PARTIES[projection.winner]?.color }}
-            >
-              {PARTIES[projection.winner]?.short || projection.winner}
+            <span className="font-semibold" style={{ color: PARTIES[projection.winner]?.color }}>
+              {PARTIES[projection.winner]?.name || projection.winner}
             </span>
           </div>
           <p className="text-[11px] text-gray-800 mt-1">
@@ -135,7 +131,9 @@ export function ConstituencyResultCard({ constituency, coalitionParties = [], pr
 
       {/* Coalition analysis - only show if parties selected */}
       {coalitionParties.length >= 2 && (
-        <div className={`mt-3 pt-3 border-t ${coalitionWouldWin && !currentWinnerInCoalition ? 'border-green-500/30' : 'border-neutral'}`}>
+        <div
+          className={`mt-3 pt-3 border-t ${coalitionWouldWin && !currentWinnerInCoalition ? 'border-green-500/30' : 'border-neutral'}`}
+        >
           <div className="flex items-center justify-between">
             <span className="text-xs text-gray-700">Coalition Share</span>
             <span className="text-sm font-mono font-semibold text-white">

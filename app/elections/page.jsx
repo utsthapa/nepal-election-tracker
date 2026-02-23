@@ -10,7 +10,7 @@ import { ELECTIONS, getElectionYears, getPartyInfo } from '../../data/historical
 export default function ElectionsPage() {
   const electionYears = getElectionYears();
 
-  const getWinner = (election) => {
+  const getWinner = election => {
     const totals = election.results.Total;
     let maxSeats = 0;
     let winner = null;
@@ -31,7 +31,8 @@ export default function ElectionsPage() {
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">Elections</h1>
           <p className="text-muted">
-            Historical election results from Nepal&apos;s parliamentary and constituent assembly elections (1991-2022)
+            Historical election results from Nepal&apos;s parliamentary and constituent assembly
+            elections (1991-2022)
           </p>
         </div>
 
@@ -40,18 +41,14 @@ export default function ElectionsPage() {
           <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-neutral hidden md:block" />
 
           <div className="space-y-6">
-            {electionYears.map((year) => {
+            {electionYears.map(year => {
               const election = ELECTIONS[year];
               const winner = getWinner(election);
               const winnerInfo = getPartyInfo(winner.party);
               const isCA = election.type.includes('Constituent');
 
               return (
-                <Link
-                  key={year}
-                  href={`/elections/${year}`}
-                  className="group block"
-                >
+                <Link key={year} href={`/elections/${year}`} className="group block">
                   <div className="flex gap-6">
                     {/* Year marker */}
                     <div className="hidden md:flex flex-col items-center">
@@ -93,9 +90,7 @@ export default function ElectionsPage() {
                           </h2>
                           <p className="text-sm text-muted mt-1">{election.date}</p>
                           {election.notes && (
-                            <p className="text-sm text-muted mt-2 max-w-xl">
-                              {election.notes}
-                            </p>
+                            <p className="text-sm text-muted mt-2 max-w-xl">{election.notes}</p>
                           )}
                         </div>
 
@@ -111,15 +106,10 @@ export default function ElectionsPage() {
                                 className="w-3 h-3 rounded-full"
                                 style={{ backgroundColor: winnerInfo.color }}
                               />
-                              <span
-                                className="font-bold"
-                                style={{ color: winnerInfo.color }}
-                              >
-                                {winnerInfo.short}
+                              <span className="font-bold" style={{ color: winnerInfo.color }}>
+                                {winnerInfo.name}
                               </span>
-                              <span className="text-sm text-muted font-mono">
-                                {winner.seats}
-                              </span>
+                              <span className="text-sm text-muted font-mono">{winner.seats}</span>
                             </div>
                           </div>
 
@@ -156,7 +146,9 @@ export default function ElectionsPage() {
                             .map(([party, seats]) => {
                               const info = getPartyInfo(party);
                               const width = (seats / election.totalSeats) * 100;
-                              if (width < 1) {return null;}
+                              if (width < 1) {
+                                return null;
+                              }
                               return (
                                 <div
                                   key={party}
@@ -165,7 +157,7 @@ export default function ElectionsPage() {
                                     width: `${width}%`,
                                     backgroundColor: info.color,
                                   }}
-                                  title={`${info.short}: ${seats} seats`}
+                                  title={`${info.name}: ${seats} seats`}
                                 />
                               );
                             })}
@@ -182,7 +174,7 @@ export default function ElectionsPage() {
                                     className="w-2 h-2 rounded-full"
                                     style={{ backgroundColor: info.color }}
                                   />
-                                  <span className="text-muted">{info.short}:</span>
+                                  <span className="text-muted">{info.name}:</span>
                                   <span className="text-foreground font-mono">{seats}</span>
                                 </div>
                               );

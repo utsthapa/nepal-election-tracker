@@ -1,28 +1,25 @@
-'use client'
+'use client';
 
-import { format } from 'date-fns'
-import { BarChart3, TrendingUp, Users, AlertCircle } from 'lucide-react'
-import Link from 'next/link'
+import { format } from 'date-fns';
+import { BarChart3, TrendingUp, Users, AlertCircle } from 'lucide-react';
+import Link from 'next/link';
 
-import { useLanguage } from '../../context/LanguageContext'
-import { PARTIES } from '../../data/constituencies'
+import { useLanguage } from '../../context/LanguageContext';
+import { PARTIES } from '../../data/constituencies';
 
 export default function PollsPageClient({ polls, trends }) {
-  const { language, t } = useLanguage()
+  const { language, t } = useLanguage();
 
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">
-            {t('nav.polls')}
-          </h1>
+          <h1 className="text-4xl font-bold text-white mb-2">{t('nav.polls')}</h1>
           <p className="text-gray-700">
-            {language === 'ne' 
+            {language === 'ne'
               ? 'नेपाळको लागि नवीनतम सार्वजनिक राय मतदान र मतदान प्रवृत्ति'
-              : 'Latest public opinion polls and polling trends for Nepal elections'
-            }
+              : 'Latest public opinion polls and polling trends for Nepal elections'}
           </p>
         </div>
 
@@ -55,9 +52,7 @@ export default function PollsPageClient({ polls, trends }) {
                 {language === 'ne' ? 'औसत' : 'Average'}
               </span>
             </div>
-            <p className="text-3xl font-bold text-white">
-              {Object.keys(trends).length}
-            </p>
+            <p className="text-3xl font-bold text-white">{Object.keys(trends).length}</p>
           </div>
           <div className="bg-surface border border-neutral rounded-xl p-4">
             <div className="flex items-center gap-3 mb-2">
@@ -81,7 +76,7 @@ export default function PollsPageClient({ polls, trends }) {
             {Object.entries(trends)
               .sort((a, b) => b[1] - a[1])
               .map(([party, percentage]) => {
-                const partyInfo = PARTIES[party]
+                const partyInfo = PARTIES[party];
                 return (
                   <div key={party} className="bg-neutral rounded-lg p-3">
                     <div className="flex items-center gap-2 mb-2">
@@ -90,14 +85,12 @@ export default function PollsPageClient({ polls, trends }) {
                         style={{ backgroundColor: partyInfo?.color || '#6b7280' }}
                       />
                       <span className="text-xs font-medium text-gray-700">
-                        {partyInfo?.short || party}
+                        {partyInfo?.name || party}
                       </span>
                     </div>
-                    <p className="text-2xl font-bold text-white">
-                      {percentage.toFixed(1)}%
-                    </p>
+                    <p className="text-2xl font-bold text-white">{percentage.toFixed(1)}%</p>
                   </div>
-                )
+                );
               })}
           </div>
         </div>
@@ -105,10 +98,11 @@ export default function PollsPageClient({ polls, trends }) {
         {/* Polls List */}
         <div className="space-y-4">
           {polls.map(poll => {
-            const title = language === 'ne' && poll.titleNe ? poll.titleNe : poll.title
-            const pollster = language === 'ne' && poll.pollsterNe ? poll.pollsterNe : poll.pollster
-            const methodology = language === 'ne' && poll.methodologyNe ? poll.methodologyNe : poll.methodology
-            const notes = language === 'ne' && poll.notesNe ? poll.notesNe : poll.notes
+            const title = language === 'ne' && poll.titleNe ? poll.titleNe : poll.title;
+            const pollster = language === 'ne' && poll.pollsterNe ? poll.pollsterNe : poll.pollster;
+            const methodology =
+              language === 'ne' && poll.methodologyNe ? poll.methodologyNe : poll.methodology;
+            const notes = language === 'ne' && poll.notesNe ? poll.notesNe : poll.notes;
 
             return (
               <Link
@@ -126,12 +120,8 @@ export default function PollsPageClient({ polls, trends }) {
                         {format(new Date(poll.date), 'MMMM d, yyyy')}
                       </span>
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-2">
-                      {title}
-                    </h3>
-                    <p className="text-sm text-gray-700 mb-2">
-                      {pollster}
-                    </p>
+                    <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
+                    <p className="text-sm text-gray-700 mb-2">{pollster}</p>
                   </div>
                   <div className="text-right">
                     <div className="text-xs text-gray-800 mb-1">
@@ -148,7 +138,7 @@ export default function PollsPageClient({ polls, trends }) {
                   {Object.entries(poll.results)
                     .sort((a, b) => b[1] - a[1])
                     .map(([party, percentage]) => {
-                      const partyInfo = PARTIES[party]
+                      const partyInfo = PARTIES[party];
                       return (
                         <div
                           key={party}
@@ -157,9 +147,9 @@ export default function PollsPageClient({ polls, trends }) {
                             width: `${percentage}%`,
                             backgroundColor: partyInfo?.color || '#6b7280',
                           }}
-                          title={`${partyInfo?.short || party}: ${percentage}%`}
+                          title={`${partyInfo?.name || party}: ${percentage}%`}
                         />
-                      )
+                      );
                     })}
                 </div>
 
@@ -168,14 +158,10 @@ export default function PollsPageClient({ polls, trends }) {
                   <p className="text-xs text-gray-800 mb-2">
                     {t('polls.methodology')}: {methodology}
                   </p>
-                  {notes && (
-                    <p className="text-sm text-gray-700">
-                      {notes}
-                    </p>
-                  )}
+                  {notes && <p className="text-sm text-gray-700">{notes}</p>}
                 </div>
               </Link>
-            )
+            );
           })}
         </div>
 
@@ -188,5 +174,5 @@ export default function PollsPageClient({ polls, trends }) {
         )}
       </div>
     </div>
-  )
+  );
 }

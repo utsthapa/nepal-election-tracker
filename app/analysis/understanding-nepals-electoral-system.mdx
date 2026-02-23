@@ -1,0 +1,230 @@
+---
+title: "Nepal's Electoral System Gives Every Voter Two Ballots. Here's Why That Matters More Than You Think."
+excerpt: "Nepal's mixed electoral system combines winner-take-all districts with proportional representation. The math shapes every government since 2008."
+author: 'Data Journalism Team'
+date: '2026-02-17'
+category: 'Analysis'
+tags: ['electoral-system', 'fptp', 'pr', 'sainte-lague', 'elections', 'long-read']
+featuredImage: ''
+featured: false
+readTime: '6-7'
+---
+
+# Nepal's Electoral System Gives Every Voter Two Ballots. Here's Why That Matters More Than You Think.
+
+## KEY FINDINGS
+
+- Nepal uses a **mixed-member proportional system** with 165 FPTP seats and 110 PR seats
+- The **Sainte-Laguë method** allocates PR seats using divisors of 1, 3, 5, 7...
+- A **3% threshold** filters out small parties — about 315,000 votes required
+- **56 parties** contested in 2022, producing record fragmentation
+- The system makes **coalition government** mathematically inevitable
+
+---
+
+When a Nepali voter walks into a polling station, they get two ballot papers. One lets them pick a person. The other lets them pick a party. Those two choices feed into two completely different counting systems that produce two different sets of winners.
+
+This isn't a quirk. It's a deliberate design choice baked into the 2015 Constitution. The rules of the game shape who wins. And in Nepal, the rules are more interesting than most people realize.
+
+<PullQuote>The rules of the game shape who wins</PullQuote>
+
+---
+
+## Two Elections in One
+
+Nepal's House of Representatives has 275 seats. **165 come from First-Past-The-Post (FPTP) districts** — single-member constituencies where the candidate with the most votes wins. The **remaining 110 seats come from Proportional Representation (PR)**, allocated nationally based on party vote shares.
+
+<Callout type="info">165 FPTP seats vs 110 PR seats - 60-40 split</Callout>
+
+Every voter participates in both. Ballot one: pick your local candidate. Ballot two: pick your preferred party. The two choices don't have to match.
+
+The FPTP side is straightforward. One hundred sixty-five districts, one winner each, most votes wins. No runoff. No minimum threshold.
+
+The PR side is where things get mathematically interesting.
+
+<PullQuote>The system makes coalition government mathematically inevitable</PullQuote>
+
+---
+
+## Why Nepal Added PR
+
+Nepal ran three elections under pure FPTP: 1991, 1994, and 1999. All 205 seats were decided by winner-take-all district races. The results showed exactly the distortions political scientists warn about.
+
+In 1999, the system produced parliaments where a party could win 36% of the national vote and end up with well over half the seats. Smaller parties — including those representing Madheshi communities and ethnic minorities — were systematically shut out.
+
+The 2015 Constitution established the permanent House of Representatives with a 60-40 FPTP-PR ratio. The winner-take-all component was back in the driver's seat. But the PR component acts as a partial corrective.
+
+| Year | System    | FPTP Seats | PR Seats | Total |
+| ---- | --------- | ---------- | -------- | ----- |
+| 1991 | Pure FPTP | 205        | 0        | 205   |
+| 1994 | Pure FPTP | 205        | 0        | 205   |
+| 1999 | Pure FPTP | 205        | 0        | 205   |
+| 2008 | Mixed     | 240        | 335      | 575+  |
+| 2013 | Mixed     | 240        | 335      | 575+  |
+| 2017 | Mixed     | 165        | 110      | 275   |
+| 2022 | Mixed     | 165        | 110      | 275   |
+
+_Source: Election Commission of Nepal_
+
+<LineChart
+  data={[
+    { year: '1991', effectiveParties: 2.1 },
+    { year: '1994', effectiveParties: 2.3 },
+    { year: '1999', effectiveParties: 2.0 },
+    { year: '2008', effectiveParties: 3.8 },
+    { year: '2013', effectiveParties: 3.2 },
+    { year: '2017', effectiveParties: 3.1 },
+    { year: '2022', effectiveParties: 4.75 },
+  ]}
+  xKey="year"
+  yKeys={['effectiveParties']}
+  colors={['#B91C1C']}
+  height={350}
+/>
+
+_Figure: Effective number of parties over time (higher = more fragmented)_
+
+---
+
+## How the Sainte-Laguë Method Works
+
+Nepal uses the **Sainte-Laguë method** to convert party vote shares into seats. It works like this:
+
+Take each party's total PR vote count. Divide it by 1. That's the first quotient. Then divide by 3, then 5, then 7, then 9 — always odd numbers. Line up all quotients from biggest to smallest. The top 110 quotients each win a seat.
+
+<Sidebar>
+  Sainte-Laguë uses divisors 1, 3, 5, 7, 9... unlike D'Hondt which uses 1, 2, 3, 4, 5...
+</Sidebar>
+
+Here's a simplified example with three parties and 10 seats:
+
+- **Party A**: 100,000 votes
+- **Party B**: 80,000 votes
+- **Party C**: 30,000 votes
+
+The quotients would look like this:
+
+| Divisor | Party A | Party B | Party C |
+| ------- | ------- | ------- | ------- |
+| ÷ 1     | 100,000 | 80,000  | 30,000  |
+| ÷ 3     | 33,333  | 26,667  | 10,000  |
+| ÷ 5     | 20,000  | 16,000  | 6,000   |
+| ÷ 7     | 14,286  | 11,429  | 4,286   |
+| ÷ 9     | 11,111  | 8,889   | 3,333   |
+
+Rank the top 10 quotients: 100,000 (A), 80,000 (B), 33,333 (A), 30,000 (C), 26,667 (B), 20,000 (A), 16,000 (B), 14,286 (A), 11,429 (B), 11,111 (A).
+
+Result: Party A gets 5 seats, Party B gets 4, Party C gets 1.
+
+Nepal's choice of Sainte-Laguë was intentional. The method favors smaller parties more than D'Hondt. In practice, the difference might shift 3-5 seats — enough to determine whether a party is a viable coalition partner.
+
+---
+
+## The 3% Threshold
+
+Before any Sainte-Laguë math kicks in, there's a filter. **Parties must win at least 3% of the total national PR vote** to qualify for any PR seats. Fall below that line and your PR votes evaporate.
+
+<Callout type="warning">
+  3% = ~315,000 votes in 2022. A party with 250,000 votes gets zero seats.
+</Callout>
+
+Three percent sounds low. It's not.
+
+The threshold creates a strategic dilemma for voters. If you support a small party polling at 2.5%, do you vote for them and risk wasting your vote? Or do you strategically vote for a larger party?
+
+<PullQuote>The 3% threshold prevents splintering</PullQuote>
+
+The threshold also creates weird incentives for parties. In 2022, Rastriya Swatantra Party (RSP) cleared the threshold comfortably and won 20 seats. Other small parties got nothing. The threshold rewards national support and punishes geographically concentrated bases.
+
+---
+
+## The Gap Between Votes and Seats
+
+Because FPTP and PR operate on different logics, a party's total seat count can look very different from its total vote share. **FPTP rewards geographic concentration**. If your voters are spread evenly, you might win 20% of the vote and get zero FPTP seats.
+
+In 2017, UML won 121 of 275 seats — 44% of the chamber. Their national vote share was considerably lower. The FPTP system amplified their support.
+
+<Callout type="info">56 parties contested in 2022 - record fragmentation</Callout>
+
+Now look at 2022. NC won 89 seats (32.4%), UML won 78 (28.4%), and then fragmentation exploded: Maoist Centre took 32 (11.6%), RSP got 20 (7.3%), RPP won 14 (5.1%), and JSPN picked up 12 (4.4%).
+
+Six parties with meaningful seat counts. No one close to a majority. The effective number of parties hit **4.75 — the highest in Nepal's history**.
+
+---
+
+## How the Two Ballots Interact
+
+Voters can and do split their tickets. You might vote for a well-known local NC candidate on your FPTP ballot, then vote for RSP on your PR ballot. This happens all the time.
+
+In theory, the PR ballot is the purer signal of national party preference. In practice, the FPTP ballot gets more attention because those races are more dramatic.
+
+This creates an information asymmetry that benefits big parties. NC and UML have the name recognition to win FPTP districts. Smaller parties often do better on the PR ballot.
+
+---
+
+## What the System Gets Right
+
+1. **Balances local and national representation** — Your FPTP member represents community interests. Your PR members represent broader constituencies.
+
+2. **Increases diversity** — PR lists must include women, Dalits, indigenous groups, Madheshi communities. This works. Parliament is more demographically representative.
+
+3. **Allows new parties to break through** — RSP's 2022 performance proves this. A brand-new party won 20 seats. Under pure FPTP, they might have won a handful at best.
+
+---
+
+## What the System Gets Wrong
+
+The **60-40 FPTP-PR split** means winner-take-all dynamics still dominate. A party with 25% of the vote might end up with anywhere from 15% to 35% of seats. That's a wide range.
+
+The two-ballot system is confusing for some voters. Explaining Sainte-Laguë divisors to a first-time voter in a remote hill district is challenging.
+
+And then there's the coalition problem. The electoral system makes majority governments nearly impossible. It creates conditions for instability.
+
+---
+
+## The Fragmentation Question
+
+Is Nepal's parliament getting too fragmented? The data shows a clear trend.
+
+In the 1990s, Nepal essentially had a two-party system. The effective number of parties hovered around 2-3.
+
+<PullQuote>The math matters more than almost anyone gives it credit for</PullQuote>
+
+Then 2022 blew things open. Six parties won 10 or more seats. RSP came from nowhere. RPP re-established itself. JSPN held its ground.
+
+The question is whether this fragmentation is temporary or structural. If RSP consolidates, Nepal might settle into a four-party system. If it splinters, we could revert to three-party dominance.
+
+But here's what the system guarantees: as long as the 3% PR threshold exists and FPTP controls 60% of seats, Nepal will almost certainly never return to single-party majority government.
+
+---
+
+## Alternative Scenarios
+
+**Pure FPTP (like the 1990s):** Bigger parties dominate more. RSP probably wins 5-8 seats instead of 20. Parliament less diverse but potentially more stable.
+
+**Pure PR (like the Netherlands):** Every vote counts equally regardless of geography. Small parties thrive. Nepal might have 8-10 parties. Coalition-building becomes even more complicated.
+
+**Different FPTP-PR ratio:** If Nepal flipped to 40% FPTP and 60% PR, smaller parties would gain significantly. But geographic representation would weaken.
+
+None of these is obviously better. They involve trade-offs — between representation and governability, between local accountability and national proportionality.
+
+---
+
+## What We Know and Don't Know
+
+**What we know:**
+
+- Nepal's mixed system produces parliaments more representative than pure FPTP but less proportional than pure PR
+- Sainte-Laguë and the 3% threshold give mid-sized parties a fair shot while filtering out very small ones
+- The system structurally favors coalition government
+
+**What we don't know:**
+
+- Whether the 60-40 ratio is optimal
+- If the 3% threshold is set at the right level
+- Whether the 2022 fragmentation will continue or reverse
+- How voter behavior will evolve with more experience
+
+The electoral system is the plumbing of democracy. Most people don't think about plumbing until something breaks. But in Nepal, the plumbing determines everything — who leads, who has a voice, who breaks through, who gets crushed.
+
+The math matters. And in Nepal, the math is more interesting — and more consequential — than almost anyone gives it credit for.

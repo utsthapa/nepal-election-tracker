@@ -74,7 +74,7 @@ export function SwitchingMatrix({ matrix = {}, onChange, onApply, onClear, onOpe
           >
             {partyKeys.map(party => (
               <option key={`from-${party}`} value={party}>
-                {PARTIES[party]?.short || party}
+                {PARTIES[party]?.name || party}
               </option>
             ))}
           </select>
@@ -88,7 +88,7 @@ export function SwitchingMatrix({ matrix = {}, onChange, onApply, onClear, onOpe
               .filter(party => party !== draftFrom)
               .map(party => (
                 <option key={`to-${party}`} value={party}>
-                  {PARTIES[party]?.short || party}
+                  {PARTIES[party]?.name || party}
                 </option>
               ))}
           </select>
@@ -133,8 +133,7 @@ export function SwitchingMatrix({ matrix = {}, onChange, onApply, onClear, onOpe
                 style={{ backgroundColor: PARTIES[fromParty]?.color }}
               />
               <span className="text-sm text-gray-700">
-                {PARTIES[fromParty]?.short || fromParty} {'->'}{' '}
-                {PARTIES[toParty]?.short || toParty}
+                {PARTIES[fromParty]?.name || fromParty} {'->'} {PARTIES[toParty]?.name || toParty}
               </span>
             </div>
             <div className="flex items-center gap-2">

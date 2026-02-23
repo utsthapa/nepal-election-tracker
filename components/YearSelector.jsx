@@ -66,9 +66,6 @@ function YearSelector({ selectedYear, onYearChange }) {
                   <Database className="w-3.5 h-3.5 text-gray-500" />
                 )}
               </span>
-              {isSimulation && (
-                <span className="block text-[10px] opacity-70">Simulation</span>
-              )}
               {!isSimulation && dataStatus.status !== 'complete' && (
                 <span className="block text-[10px] opacity-70">{dataStatus.label}</span>
               )}

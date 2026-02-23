@@ -123,52 +123,100 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-12">
             <ArticleCard
+              title="Women in Parliament"
+              excerpt="From 3% to 33% — how Nepal's gender quota transformed representation, and why it might not last."
+              category="Gender & Politics"
+              date="February 20, 2026"
+              href="/analysis/women-in-parliament"
+              delay={0.1}
+            />
+            <ArticleCard
+              title="Voter Turnout Analysis"
+              excerpt="Turnout fell from 68.8% to 61% — the steepest decline in Nepal's democratic history. The data shows where voters went."
+              category="Data Analysis"
+              date="February 17, 2026"
+              href="/analysis/voter-turnout-analysis"
+              delay={0.2}
+            />
+            <ArticleCard
               title="Understanding Nepal's Electoral System"
               excerpt="A deep dive into the mixed member proportional representation system and its impact on coalition formation."
               category="Explainer"
-              date="February 10, 2026"
+              date="February 17, 2026"
               href="/analysis/understanding-nepals-electoral-system"
-              delay={0.2}
+              delay={0.3}
             />
             <ArticleCard
               title="Regional Voting Patterns Emerge"
               excerpt="How geography and identity politics continue to shape electoral outcomes across provinces."
               category="Data Analysis"
-              date="February 9, 2026"
+              date="February 17, 2026"
               href="/analysis/regional-voting-patterns"
-              delay={0.3}
+              delay={0.4}
             />
             <ArticleCard
               title="Youth Voter Trends"
               excerpt="First-time voters could swing key constituencies in the next election."
               category="Demographics"
-              date="February 8, 2026"
+              date="February 17, 2026"
               href="/analysis/youth-voter-trends"
-              delay={0.4}
+              delay={0.5}
             />
             <ArticleCard
               title="Coalition Stability Index"
               excerpt="Measuring government longevity through data-driven metrics."
               category="Methodology"
-              date="February 7, 2026"
+              date="February 17, 2026"
               href="/analysis/coalition-stability"
-              delay={0.5}
+              delay={0.6}
             />
             <ArticleCard
               title="Madhesh Province Analysis"
               excerpt="The kingmaker region that determines national outcomes."
               category="Regional Focus"
-              date="February 6, 2026"
+              date="February 17, 2026"
               href="/analysis/madhesh-province-analysis"
-              delay={0.6}
+              delay={0.7}
             />
             <ArticleCard
               title="Economic Voting Patterns"
               excerpt="How inflation and GDP growth correlate with electoral shifts."
               category="Economics"
-              date="February 5, 2026"
+              date="February 17, 2026"
               href="/analysis/economic-voting"
-              delay={0.7}
+              delay={0.8}
+            />
+            <ArticleCard
+              title="Sainte-Laguë Method Explained"
+              excerpt="The math that decides who gets a seat in Nepal's parliament."
+              category="Methodology"
+              date="February 17, 2026"
+              href="/analysis/sainte-lague-method-explained"
+              delay={0.9}
+            />
+            <ArticleCard
+              title="Understanding Election Polls"
+              excerpt="How to read polls, spot bad ones, and understand margin of error."
+              category="Methodology"
+              date="February 17, 2026"
+              href="/analysis/understanding-election-polls"
+              delay={1.0}
+            />
+            <ArticleCard
+              title="30 Years of Democracy"
+              excerpt="From two-party rule to coalition chaos — what three decades of data reveals."
+              category="Historical Analysis"
+              date="February 17, 2026"
+              href="/analysis/30-years-democracy"
+              delay={1.1}
+            />
+            <ArticleCard
+              title="Welcome to Nepal Votes"
+              excerpt="Nepal deserves better election coverage. We're going to try."
+              category="Introduction"
+              date="February 17, 2026"
+              href="/analysis/welcome-to-nepal-votes"
+              delay={1.2}
             />
           </div>
         </div>
@@ -195,7 +243,7 @@ export default function HomePage() {
             Run election simulations, analyze polling data, and explore demographic trends.
           </p>
           <Link
-            href="/simulator"
+            href="/simulator/2026"
             className="inline-flex items-center gap-2 px-8 py-4 bg-red-600 text-white font-bold rounded hover:bg-red-700 transition-colors text-lg"
           >
             Launch Election Simulator

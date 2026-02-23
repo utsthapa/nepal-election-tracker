@@ -9,41 +9,41 @@ const partyOrder = Object.keys(INITIAL_NATIONAL);
 const BASELINE_SEATS = ACTUAL_2022_SEATS.Total;
 
 export function ResultsSummary({ fptpSeats, prSeats, totalSeats }) {
-  const formatPartyLabel = (partyId) => {
+  const formatPartyLabel = partyId => {
     const info = PARTIES[partyId];
-    return info ? `${info.short}` : partyId;
+    return info ? `${info.name}` : partyId;
   };
 
-  const getPartyColor = (partyId) => PARTIES[partyId]?.color || '#6b7280';
+  const getPartyColor = partyId => PARTIES[partyId]?.color || '#6b7280';
 
   // Memoize expensive pie chart data calculations
   const fptpData = useMemo(() => {
     return partyOrder
-      .map((party) => ({
+      .map(party => ({
         name: formatPartyLabel(party),
         fullName: PARTIES[party]?.name || party,
         value: fptpSeats[party] || 0,
         partyId: party,
         color: getPartyColor(party),
       }))
-      .filter((item) => item.value > 0)
+      .filter(item => item.value > 0)
       .sort((a, b) => b.value - a.value);
   }, [fptpSeats]);
 
   const prData = useMemo(() => {
     return partyOrder
-      .map((party) => ({
+      .map(party => ({
         name: formatPartyLabel(party),
         fullName: PARTIES[party]?.name || party,
         value: prSeats[party] || 0,
         partyId: party,
         color: getPartyColor(party),
       }))
-      .filter((item) => item.value > 0)
+      .filter(item => item.value > 0)
       .sort((a, b) => b.value - a.value);
   }, [prSeats]);
 
-      const CustomTooltip = ({ active, payload }) => {
+  const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
@@ -64,10 +64,7 @@ export function ResultsSummary({ fptpSeats, prSeats, totalSeats }) {
             key={index}
             className="flex items-center gap-1.5 px-2 py-1 bg-neutral/30 rounded-full hover:bg-neutral/50 transition-colors cursor-pointer"
           >
-            <div
-              className="w-3 h-3 rounded-full"
-              style={{ backgroundColor: entry.color }}
-            />
+            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: entry.color }} />
             <span className="text-xs text-foreground font-medium">{entry.value}</span>
           </div>
         ))}
@@ -78,12 +75,8 @@ export function ResultsSummary({ fptpSeats, prSeats, totalSeats }) {
   return (
     <div className="bg-surface rounded-xl p-6 border border-neutral">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-lg font-sans font-semibold text-foreground">
-          Results Summary
-        </h2>
-        <p className="text-xs text-muted font-mono">
-          Compared to 2022 actual results
-        </p>
+        <h2 className="text-lg font-sans font-semibold text-foreground">Results Summary</h2>
+        <p className="text-xs text-muted font-mono">Compared to 2022 actual results</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -94,7 +87,9 @@ export function ResultsSummary({ fptpSeats, prSeats, totalSeats }) {
             transition={{ duration: 0.5 }}
             className="bg-neutral/30 rounded-xl p-4"
           >
-            <h3 className="text-sm font-semibold text-foreground mb-4 text-center">FPTP Distribution</h3>
+            <h3 className="text-sm font-semibold text-foreground mb-4 text-center">
+              FPTP Distribution
+            </h3>
             <div className="h-48">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -116,7 +111,7 @@ export function ResultsSummary({ fptpSeats, prSeats, totalSeats }) {
                 </PieChart>
               </ResponsiveContainer>
             </div>
-            <CustomLegend payload={fptpData.map((d) => ({ value: d.name, color: d.color }))} />
+            <CustomLegend payload={fptpData.map(d => ({ value: d.name, color: d.color }))} />
           </motion.div>
 
           <motion.div
@@ -125,7 +120,9 @@ export function ResultsSummary({ fptpSeats, prSeats, totalSeats }) {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="bg-neutral/30 rounded-xl p-4"
           >
-            <h3 className="text-sm font-semibold text-foreground mb-4 text-center">PR Distribution</h3>
+            <h3 className="text-sm font-semibold text-foreground mb-4 text-center">
+              PR Distribution
+            </h3>
             <div className="h-48">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -147,7 +144,7 @@ export function ResultsSummary({ fptpSeats, prSeats, totalSeats }) {
                 </PieChart>
               </ResponsiveContainer>
             </div>
-            <CustomLegend payload={prData.map((d) => ({ value: d.name, color: d.color }))} />
+            <CustomLegend payload={prData.map(d => ({ value: d.name, color: d.color }))} />
           </motion.div>
         </div>
 
@@ -191,7 +188,7 @@ export function ResultsSummary({ fptpSeats, prSeats, totalSeats }) {
                 <div className="w-[12%] text-center">
                   <span className="text-xs font-mono text-muted">{pr}</span>
                 </div>
-                 <div className="w-[12%] text-center">
+                <div className="w-[12%] text-center">
                   <span className="text-xs font-mono text-muted">{baseline}</span>
                 </div>
                 <div className="w-[12%] text-center">
@@ -206,15 +203,26 @@ export function ResultsSummary({ fptpSeats, prSeats, totalSeats }) {
                   </motion.span>
                 </div>
                 <div className="w-[27%] text-center">
-                  <div className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-xs font-medium ${
-                    change > 0 ? 'bg-green-500/20 text-green-600' :
-                    change < 0 ? 'bg-red-500/20 text-red-600' :
-                    'bg-neutral/20 text-muted'
-                  }`}>
-                    {change > 0 ? <TrendingUp className="w-3 h-3" /> :
-                     change < 0 ? <TrendingDown className="w-3 h-3" /> :
-                     <Minus className="w-3 h-3" />}
-                    <span>{change > 0 ? '+' : ''}{change}</span>
+                  <div
+                    className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-xs font-medium ${
+                      change > 0
+                        ? 'bg-green-500/20 text-green-600'
+                        : change < 0
+                          ? 'bg-red-500/20 text-red-600'
+                          : 'bg-neutral/20 text-muted'
+                    }`}
+                  >
+                    {change > 0 ? (
+                      <TrendingUp className="w-3 h-3" />
+                    ) : change < 0 ? (
+                      <TrendingDown className="w-3 h-3" />
+                    ) : (
+                      <Minus className="w-3 h-3" />
+                    )}
+                    <span>
+                      {change > 0 ? '+' : ''}
+                      {change}
+                    </span>
                   </div>
                 </div>
               </motion.div>
@@ -231,7 +239,8 @@ export function ResultsSummary({ fptpSeats, prSeats, totalSeats }) {
               {Object.values(totalSeats).reduce((a, b) => a + b, 0)}
             </span>
             <span className="text-sm text-muted ml-2">
-              ({Object.values(fptpSeats).reduce((a, b) => a + b, 0)} FPTP + {Object.values(prSeats).reduce((a, b) => a + b, 0)} PR)
+              ({Object.values(fptpSeats).reduce((a, b) => a + b, 0)} FPTP +{' '}
+              {Object.values(prSeats).reduce((a, b) => a + b, 0)} PR)
             </span>
           </div>
         </div>

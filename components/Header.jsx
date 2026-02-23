@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
@@ -10,7 +10,7 @@ import { useLanguage } from '../context/LanguageContext';
 
 const NAV_ITEMS = [
   { href: '/', labelKey: 'nav.home', label: 'Home' },
-  { href: '/simulator', labelKey: 'nav.simulator', label: 'Simulator' },
+  { href: '/simulator/2026', labelKey: 'nav.simulator', label: 'Simulator' },
   { href: '/elections', labelKey: 'nav.elections', label: 'Elections' },
   { href: '/analysis', labelKey: 'nav.analysis', label: 'Analysis' },
   { href: '/districts', labelKey: 'nav.districts', label: 'Districts' },
@@ -24,8 +24,10 @@ export function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const isActive = (href) => {
-    if (href === '/') {return pathname === '/';}
+  const isActive = href => {
+    if (href === '/') {
+      return pathname === '/';
+    }
     return pathname.startsWith(href);
   };
 
@@ -36,10 +38,16 @@ export function Header() {
         <div className="flex items-center justify-between h-14">
           {/* Wordmark */}
           <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <span className="text-xl font-bold text-[rgb(24,26,36)] tracking-tight" style={{ fontFamily: 'Lora, serif' }}>
+            <span
+              className="text-xl font-bold text-[rgb(24,26,36)] tracking-tight"
+              style={{ fontFamily: 'Lora, serif' }}
+            >
               {language === 'ne' ? 'नेपाली सोच' : 'NepaliSoch'}
             </span>
-            <span className="hidden sm:inline text-xs text-[rgb(100,110,130)] tracking-wide" style={{ fontFamily: 'Figtree, sans-serif' }}>
+            <span
+              className="hidden sm:inline text-xs text-[rgb(100,110,130)] tracking-wide"
+              style={{ fontFamily: 'Figtree, sans-serif' }}
+            >
               {language === 'ne' ? 'डाटा-संचालित विश्लेषण' : 'Data-Driven Analysis'}
             </span>
           </Link>
@@ -62,7 +70,7 @@ export function Header() {
       <nav className="hidden md:block border-t border-[rgb(219,211,196)]/50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center gap-1 h-11 -mb-px">
-            {NAV_ITEMS.map((item) => (
+            {NAV_ITEMS.map(item => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -87,7 +95,7 @@ export function Header() {
       {mobileOpen && (
         <nav className="md:hidden border-t border-[rgb(219,211,196)] bg-white">
           <div className="px-4 py-3 space-y-1">
-            {NAV_ITEMS.map((item) => (
+            {NAV_ITEMS.map(item => (
               <Link
                 key={item.href}
                 href={item.href}

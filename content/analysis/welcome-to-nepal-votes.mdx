@@ -1,11 +1,11 @@
 ---
 title: "Nepal Deserves Better Election Coverage. We're Going to Try."
 excerpt: "Nepal has held nine national elections since 1991, survived a civil war and the abolition of its monarchy, and still doesn't have a single dedicated data-driven election analysis platform. We're fixing that."
-author: "Data Journalism Team"
-date: "2026-02-17"
-category: "Analysis"
-tags: ["introduction", "forecasts", "nepal-elections", "methodology"]
-featuredImage: "/images/welcome.svg"
+author: 'Data Journalism Team'
+date: '2026-02-17'
+category: 'Analysis'
+tags: ['introduction', 'forecasts', 'nepal-elections', 'methodology']
+featuredImage: '/images/welcome.svg'
 featured: true
 ---
 
@@ -75,7 +75,27 @@ Since we're launching with historical data, let me give you a taste of what the 
 
 ### The party system has fragmented — and that's probably fine
 
-In 1991, two parties — the Nepali Congress and the UML — won 83% of FPTP seats between them. By 2022, that number had dropped to around 55%. New parties keep breaking through. The Maoists went from insurgents to the largest party in parliament in 2008. The Rastriya Swatantra Party didn't exist before 2022 and won 20 FPTP seats in its first election.
+In 1991, two parties — the Nepali Congress and the UML — won 83% of FPTP seats between them. By 2022, that number had dropped to around 55%. New parties keep breaking through.
+
+<LineChart
+  data={[
+    { year: '1991', topTwo: 83 },
+    { year: '1994', topTwo: 79 },
+    { year: '1999', topTwo: 81 },
+    { year: '2008', topTwo: 62 },
+    { year: '2013', topTwo: 68 },
+    { year: '2017', topTwo: 72 },
+    { year: '2022', topTwo: 55 },
+  ]}
+  xKey="year"
+  yKeys={['topTwo']}
+  colors={['#B91C1C']}
+  height={350}
+/>
+
+_Figure: Share of FPTP seats won by top two parties (%)_
+
+The Maoists went from insurgents to the largest party in parliament in 2008. The Rastriya Swatantra Party didn't exist before 2022 and won 20 FPTP seats in its first election.
 
 The conventional wisdom says this fragmentation is bad — that it makes governance harder, coalitions less stable, and voters more confused. And there's something to that. Nepal has had more than 30 governments since 1990. That's a lot of prime ministers.
 
@@ -86,6 +106,24 @@ The real question isn't whether fragmentation is good or bad in the abstract. It
 ### Turnout is declining, and we should pay attention
 
 Nepal's voter turnout peaked at around 66% in 2008, the first election after the end of the civil war and the abolition of the monarchy. By 2022, it had dropped to about 61%.
+
+<LineChart
+  data={[
+    { year: '1991', turnout: 65.2 },
+    { year: '1994', turnout: 62.8 },
+    { year: '1999', turnout: 65.8 },
+    { year: '2008', turnout: 78.3 },
+    { year: '2013', turnout: 78.6 },
+    { year: '2017', turnout: 68.8 },
+    { year: '2022', turnout: 61.0 },
+  ]}
+  xKey="year"
+  yKeys={['turnout']}
+  colors={['#B91C1C']}
+  height={350}
+/>
+
+_Figure: National voter turnout over time (%)_
 
 A five-percentage-point decline over 14 years doesn't sound like a crisis. And maybe it isn't. Turnout declines are common in maturing democracies — the initial excitement of new elections wears off, and voting becomes routine rather than revolutionary.
 
@@ -171,4 +209,4 @@ We're going to bother.
 
 ---
 
-*Have questions, feedback, or data tips? Get in touch. Subscribe to our newsletter for weekly updates. And if you're a data nerd who cares about Nepali politics, we want to hear from you.*
+_Have questions, feedback, or data tips? Get in touch. Subscribe to our newsletter for weekly updates. And if you're a data nerd who cares about Nepali politics, we want to hear from you._

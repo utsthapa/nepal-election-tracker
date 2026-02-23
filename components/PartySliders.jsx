@@ -6,9 +6,10 @@ import { getPartyBgColor, getPartyTextColor, getPartySliderClass } from '../lib/
 const partyOrder = Object.keys(INITIAL_NATIONAL);
 
 export function PartySliders({
-  title = "Vote Share",
-  subtitle = "Adjust sliders to simulate vote shifts",
+  title = 'Vote Share',
+  subtitle = 'Adjust sliders to simulate vote shifts',
   sliders,
+  simulatedShares,
   fptpSeats,
   prSeats,
   totalSeats,
@@ -18,12 +19,8 @@ export function PartySliders({
 }) {
   return (
     <div className="bg-surface rounded-xl p-6 border border-neutral">
-      <h2 className="text-lg font-sans font-semibold text-foreground mb-1">
-        {title}
-      </h2>
-      <p className="text-xs text-muted mb-4 font-mono">
-        {subtitle}
-      </p>
+      <h2 className="text-lg font-sans font-semibold text-foreground mb-1">{title}</h2>
+      <p className="text-xs text-muted mb-4 font-mono">{subtitle}</p>
 
       <div className="space-y-3">
         {partyOrder.map((party, index) => (
@@ -34,7 +31,7 @@ export function PartySliders({
             fptpSeats={fptpSeats[party] || 0}
             prSeats={prSeats[party] || 0}
             totalSeats={totalSeats[party] || 0}
-            onChange={(value) => onSliderChange(party, value)}
+            onChange={value => onSliderChange(party, value)}
             delay={index * 0.03}
             showFptp={showFptp}
             showPr={showPr}
@@ -46,7 +43,10 @@ export function PartySliders({
         <div className="flex justify-between text-sm">
           <span className="text-muted">Total</span>
           <span className="font-mono text-foreground">
-            {Object.values(sliders).reduce((a, b) => a + b, 0).toFixed(0)}%
+            {Object.values(sliders)
+              .reduce((a, b) => a + b, 0)
+              .toFixed(0)}
+            %
           </span>
         </div>
       </div>
@@ -54,7 +54,17 @@ export function PartySliders({
   );
 }
 
-function PartySlider({ party, value, fptpSeats, prSeats, totalSeats, onChange, delay, showFptp, showPr }) {
+function PartySlider({
+  party,
+  value,
+  fptpSeats,
+  prSeats,
+  totalSeats,
+  onChange,
+  delay,
+  showFptp,
+  showPr,
+}) {
   const partyInfo = PARTIES[party];
   const colorClass = getPartySliderClass(party);
   const fillPercent = Math.max(0, Math.min(100, value ?? 0));
@@ -74,12 +84,7 @@ function PartySlider({ party, value, fptpSeats, prSeats, totalSeats, onChange, d
         <div className="flex items-center gap-2">
           <div className={`w-2.5 h-2.5 rounded-full ${getPartyBgColor(party)}`} />
           <div className="leading-tight">
-            <span className="block text-xs font-medium text-foreground">
-              {partyInfo.short}
-            </span>
-            <span className="block text-[11px] text-muted">
-              {partyInfo.name}
-            </span>
+            <span className="block text-xs font-medium text-foreground">{partyInfo.name}</span>
           </div>
         </div>
         <div className="flex items-center gap-3">
@@ -104,7 +109,7 @@ function PartySlider({ party, value, fptpSeats, prSeats, totalSeats, onChange, d
           max="100"
           step="0.5"
           value={value}
-          onChange={(e) => onChange(parseFloat(e.target.value))}
+          onChange={e => onChange(parseFloat(e.target.value))}
           className={`w-full h-1.5 ${colorClass}`}
           style={{
             background: `linear-gradient(to right, ${partyInfo.color} 0%, ${partyInfo.color} ${fillPercent}%, #1e293b ${fillPercent}%, #1e293b 100%)`,

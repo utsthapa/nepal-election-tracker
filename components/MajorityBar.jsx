@@ -16,16 +16,17 @@ export function MajorityBar({ totalSeats, leadingParty }) {
     return colors;
   }, [totalSeats]);
 
-  const formatPartyLabel = (partyId) => {
+  const formatPartyLabel = partyId => {
     const info = PARTIES[partyId];
-    return info ? `${info.short} (${info.name})` : partyId;
+    return info ? `${info.name}` : partyId;
   };
 
   // Ordered parties by seat share
-  const sortedParties = useMemo(() =>
-    Object.entries(totalSeats)
-      .sort((a, b) => b[1] - a[1])
-      .filter(([_, seats]) => seats > 0),
+  const sortedParties = useMemo(
+    () =>
+      Object.entries(totalSeats)
+        .sort((a, b) => b[1] - a[1])
+        .filter(([_, seats]) => seats > 0),
     [totalSeats]
   );
 
@@ -58,7 +59,7 @@ export function MajorityBar({ totalSeats, leadingParty }) {
       const maxSize = Math.min(6, coalitionCandidates.length);
       for (let size = 2; size <= maxSize; size++) {
         const combos = generateCombinations(coalitionCandidates, size);
-        combos.forEach((combo) => {
+        combos.forEach(combo => {
           const seats = combo.reduce((sum, [, seatCount]) => sum + seatCount, 0);
           if (seats >= MAJORITY) {
             winningCombos.push({
@@ -73,8 +74,12 @@ export function MajorityBar({ totalSeats, leadingParty }) {
     }
 
     winningCombos.sort((a, b) => {
-      if (a.size !== b.size) {return a.size - b.size;}
-      if (a.surplus !== b.surplus) {return a.surplus - b.surplus;}
+      if (a.size !== b.size) {
+        return a.size - b.size;
+      }
+      if (a.surplus !== b.surplus) {
+        return a.surplus - b.surplus;
+      }
       return b.seats - a.seats;
     });
 
@@ -82,7 +87,7 @@ export function MajorityBar({ totalSeats, leadingParty }) {
       winningCombos,
       minimalCoalitionSize: winningCombos[0]?.size ?? null,
       coalitionCount: winningCombos.length,
-      coalitionPaths: winningCombos.slice(0, Math.min(3, winningCombos.length))
+      coalitionPaths: winningCombos.slice(0, Math.min(3, winningCombos.length)),
     };
   }, [sortedParties, hasMajority]);
 
@@ -101,7 +106,9 @@ export function MajorityBar({ totalSeats, leadingParty }) {
               {TOTAL_SEATS} seats total · {MAJORITY} needed to govern
             </p>
           </div>
-          <div className={`flex items-center gap-2 rounded-full border px-4 py-2 ${hasMajority ? 'bg-green-100 text-green-900 border-green-300' : 'bg-amber-100 text-amber-900 border-amber-300'}`}>
+          <div
+            className={`flex items-center gap-2 rounded-full border px-4 py-2 ${hasMajority ? 'bg-green-100 text-green-900 border-green-300' : 'bg-amber-100 text-amber-900 border-amber-300'}`}
+          >
             {hasMajority ? <Check className="h-4 w-4" /> : <AlertTriangle className="h-4 w-4" />}
             <span className="text-sm font-semibold">
               {hasMajority ? 'Stable majority' : 'Hung parliament'}
@@ -113,7 +120,10 @@ export function MajorityBar({ totalSeats, leadingParty }) {
           <div className="rounded-lg border border-neutral/60 bg-neutral/30 px-3 py-3">
             <p className="text-[11px] uppercase tracking-[0.12em] text-muted">Leading</p>
             <div className="mt-1 flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: partyColors[leadingParty] }} />
+              <span
+                className="h-2.5 w-2.5 rounded-full"
+                style={{ backgroundColor: partyColors[leadingParty] }}
+              />
               <p className="text-lg font-bold text-foreground">{leadingSeats}</p>
             </div>
             <p className="text-xs font-mono text-muted">{formatPartyLabel(leadingParty)}</p>
@@ -155,7 +165,10 @@ export function MajorityBar({ totalSeats, leadingParty }) {
                 key={party}
                 className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm"
               >
-                <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: partyColors[party] }} />
+                <span
+                  className="h-2.5 w-2.5 rounded-full"
+                  style={{ backgroundColor: partyColors[party] }}
+                />
                 <span className="font-semibold text-foreground">{formatPartyLabel(party)}</span>
                 <span className="text-xs font-mono text-muted">{seats}</span>
               </span>
@@ -165,7 +178,9 @@ export function MajorityBar({ totalSeats, leadingParty }) {
 
         {!hasMajority && coalitionCount > 0 && (
           <div className="rounded-lg border border-neutral/60 bg-neutral/30 px-3 py-3">
-            <p className="text-[11px] uppercase tracking-[0.12em] text-muted">Top coalition paths</p>
+            <p className="text-[11px] uppercase tracking-[0.12em] text-muted">
+              Top coalition paths
+            </p>
             <div className="mt-2 space-y-2">
               {coalitionPaths.map((coalition, index) => (
                 <div
@@ -173,13 +188,18 @@ export function MajorityBar({ totalSeats, leadingParty }) {
                   className="flex items-center justify-between rounded-lg border border-white/5 bg-white/5 px-3 py-2"
                 >
                   <div className="flex flex-wrap items-center gap-2">
-                    {coalition.parties.map((party) => (
+                    {coalition.parties.map(party => (
                       <span
                         key={party}
                         className="inline-flex items-center gap-1.5 rounded-full bg-neutral/60 px-2 py-1 text-xs"
                       >
-                        <span className="h-2 w-2 rounded-full" style={{ backgroundColor: partyColors[party] }} />
-                        <span className="font-semibold text-foreground">{PARTIES[party]?.short || party}</span>
+                        <span
+                          className="h-2 w-2 rounded-full"
+                          style={{ backgroundColor: partyColors[party] }}
+                        />
+                        <span className="font-semibold text-foreground">
+                          {PARTIES[party]?.name || party}
+                        </span>
                       </span>
                     ))}
                   </div>
@@ -195,14 +215,19 @@ export function MajorityBar({ totalSeats, leadingParty }) {
         {!hasMajority && coalitionCount === 0 && (
           <div className="flex items-start gap-2 rounded-lg border border-amber-300 bg-amber-100 px-3 py-3 text-amber-900">
             <AlertTriangle className="h-4 w-4 mt-0.5" />
-            <p className="text-sm">No coalition clears 138 yet. Increase the leading party or add more parties.</p>
+            <p className="text-sm">
+              No coalition clears 138 yet. Increase the leading party or add more parties.
+            </p>
           </div>
         )}
 
         {hasMajority && (
           <div className="flex items-center gap-2 rounded-lg border border-green-300 bg-green-100 px-3 py-3 text-green-900">
             <Check className="h-4 w-4" />
-            <p className="text-sm">{formatPartyLabel(leadingParty)} governs alone with a {leadingSeats - MAJORITY} seat buffer.</p>
+            <p className="text-sm">
+              {formatPartyLabel(leadingParty)} governs alone with a {leadingSeats - MAJORITY} seat
+              buffer.
+            </p>
           </div>
         )}
       </div>

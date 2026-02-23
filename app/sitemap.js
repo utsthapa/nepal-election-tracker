@@ -4,7 +4,9 @@ const baseUrl = 'https://nepalvotes.com';
 
 const routes = [
   '',
-  '/simulator',
+  '/simulator/2026',
+  '/simulator/2022',
+  '/simulator/2017',
   '/elections',
   '/polls',
   '/analysis',

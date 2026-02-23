@@ -15,7 +15,7 @@ export default function DistrictsPage() {
   const districts = useMemo(() => {
     const districtMap = {};
 
-    constituencies.forEach((c) => {
+    constituencies.forEach(c => {
       const districtName = c.district;
       if (!districtMap[districtName]) {
         districtMap[districtName] = {
@@ -33,17 +33,21 @@ export default function DistrictsPage() {
     });
 
     return Object.values(districtMap).sort((a, b) => {
-      if (a.province !== b.province) {return a.province - b.province;}
+      if (a.province !== b.province) {
+        return a.province - b.province;
+      }
       return a.name.localeCompare(b.name);
     });
   }, []);
 
   // Filter districts based on search
   const filteredDistricts = useMemo(() => {
-    if (!searchQuery.trim()) {return districts;}
+    if (!searchQuery.trim()) {
+      return districts;
+    }
     const query = searchQuery.toLowerCase();
     return districts.filter(
-      (d) =>
+      d =>
         d.name.toLowerCase().includes(query) ||
         PROVINCES[d.province]?.name.toLowerCase().includes(query)
     );
@@ -52,7 +56,7 @@ export default function DistrictsPage() {
   // Group by province
   const groupedByProvince = useMemo(() => {
     const groups = {};
-    filteredDistricts.forEach((d) => {
+    filteredDistricts.forEach(d => {
       if (!groups[d.province]) {
         groups[d.province] = [];
       }
@@ -62,7 +66,7 @@ export default function DistrictsPage() {
   }, [filteredDistricts]);
 
   // Get dominant party for a district
-  const getDominantParty = (winners) => {
+  const getDominantParty = winners => {
     let maxWins = 0;
     let dominant = null;
     Object.entries(winners).forEach(([party, wins]) => {
@@ -82,9 +86,7 @@ export default function DistrictsPage() {
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-foreground mb-2">Districts</h1>
-          <p className="text-muted">
-            Explore all 77 districts of Nepal with 2022 election results
-          </p>
+          <p className="text-muted">Explore all 77 districts of Nepal with 2022 election results</p>
         </div>
 
         {/* Search */}
@@ -95,7 +97,7 @@ export default function DistrictsPage() {
               type="text"
               placeholder="Search districts or provinces..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={e => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-3 bg-surface border border-neutral rounded-xl text-foreground placeholder-muted focus:outline-none focus:border-nc/50 transition-colors"
             />
           </div>
@@ -118,7 +120,7 @@ export default function DistrictsPage() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {provinceDistricts.map((district) => {
+              {provinceDistricts.map(district => {
                 const dominantParty = getDominantParty(district.winners);
                 const partyInfo = PARTIES[dominantParty];
 
@@ -162,7 +164,7 @@ export default function DistrictsPage() {
                                   color: PARTIES[party]?.color,
                                 }}
                               >
-                                {PARTIES[party]?.short || party}: {count}
+                                {PARTIES[party]?.name || party}: {count}
                               </span>
                             ))}
                         </div>
@@ -170,9 +172,7 @@ export default function DistrictsPage() {
                     </div>
 
                     <div className="mt-3 pt-3 border-t border-neutral">
-                      <span className="text-xs text-nc group-hover:underline">
-                        View details →
-                      </span>
+                      <span className="text-xs text-nc group-hover:underline">View details →</span>
                     </div>
                   </Link>
                 );

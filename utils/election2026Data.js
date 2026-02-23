@@ -7,33 +7,33 @@ import electionData from '../nepal_2026_election_data.json';
  */
 export function get2026Candidates(constituencyName) {
   if (!constituencyName) return [];
-  
+
   const candidates = [];
-  
+
   electionData.parties.forEach(party => {
     if (party.key_candidates) {
       const partyCandidates = party.key_candidates.filter(
         c => c.constituency.toLowerCase() === constituencyName.toLowerCase()
       );
-      
+
       partyCandidates.forEach(candidate => {
         candidates.push({
           name: candidate.name,
           party: party.name,
           partyShort: party.abbreviation,
           position: candidate.position || null,
-          color: getPartyColor(party.name)
+          color: getPartyColor(party.name),
         });
       });
     }
   });
-  
+
   return candidates;
 }
 
 /**
  * Get party color by party name
- * @param {string} partyName 
+ * @param {string} partyName
  * @returns {string} Hex color code
  */
 export function getPartyColor(partyName) {
@@ -44,27 +44,30 @@ export function getPartyColor(partyName) {
     'Nepali Communist Party': '#dc2626',
     'Rastriya Prajatantra Party': '#8b5cf6',
     'Janamat Party': '#14b8a6',
+    'Janadesh Party': '#0d9488',
     'Janata Samajbadi Party': '#ec4899',
     'Loktantrik Samajbadi Party': '#a855f7',
     'Nagarik Unmukti Party': '#06b6d4',
     'CPN (Unified Socialist)': '#f97316',
     'CPN-Maoist Centre': '#991b1b',
   };
-  
+
   return colors[partyName] || '#6b7280';
 }
 
 /**
  * Get key battleground info for a constituency
- * @param {string} constituencyName 
+ * @param {string} constituencyName
  * @returns {Object|null}
  */
 export function getBattlegroundInfo(constituencyName) {
   if (!constituencyName) return null;
-  
-  return electionData.key_battlegrounds.find(
-    b => b.constituency.toLowerCase() === constituencyName.toLowerCase()
-  ) || null;
+
+  return (
+    electionData.key_battlegrounds.find(
+      b => b.constituency.toLowerCase() === constituencyName.toLowerCase()
+    ) || null
+  );
 }
 
 /**
@@ -79,5 +82,5 @@ export default {
   get2026Candidates,
   getPartyColor,
   getBattlegroundInfo,
-  get2026ElectionData
+  get2026ElectionData,
 };

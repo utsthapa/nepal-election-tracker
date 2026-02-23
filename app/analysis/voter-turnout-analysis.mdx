@@ -1,0 +1,350 @@
+---
+title: "Nepal's Voters Are Disappearing. The Data Shows Where They Went."
+excerpt: "Turnout fell from 68.8% in 2017 to 61% in 2022 — the steepest decline in Nepal's democratic history. Young, urban voters are driving this trend, and the consequences are mounting."
+author: 'Data Journalism Team'
+date: '2026-02-17'
+category: 'Analysis'
+tags:
+  ['voter-turnout', 'electoral-participation', 'demographics', 'historical-analysis', 'long-read']
+featuredImage: '/images/voter-turnout.svg'
+featured: false
+readTime: '6-7'
+---
+
+# Nepal's Voters Are Disappearing. The Data Shows Where They Went.
+
+## KEY FINDINGS
+
+- Turnout dropped **7.8 percentage points** between 2017 and 2022, the sharpest decline outside the civil war period
+- **Urban-rural gap widened** from 8 points to 17 points, creating two different electorates
+- **Youth turnout fell 6 points** from 58% in 2017 to 52% in 2022, with 18-25 year olds most disengaged
+- Roughly **1.4 million voters** would have shown up if participation had held steady
+- Evidence-based reforms could push turnout back to **71-78%**
+
+---
+
+In Humla, a remote district in Karnali Province, **75.8%** of eligible voters showed up in 2022. In Kathmandu-1, the capital's political heart, turnout hit **48.3%**.
+
+That's a **27.5-point gap**. In the same country. On the same day.
+
+<PullQuote>
+  Nepal's voter turnout story isn't really one story. It's two — and the second one is winning.
+</PullQuote>
+
+Between 2017 and 2022, national turnout fell from **68.8% to 61%**. That 7.8-point drop represents roughly **1.4 million voters** who would have shown up if participation had held steady.
+
+<Callout type="warning">
+  Turnout dropped from 68.8% in 2017 to 61.0% in 2022 — the steepest decline in Nepal's democratic
+  history outside the civil war period.
+</Callout>
+
+The short answer: yes, we should be worried. The long answer involves mountains, migration, generational cynicism, and a political class losing its audience.
+
+---
+
+## Three decades of turnout tell a clear story
+
+Nepal has held seven major national elections since 1991. Turnout has bounced around, but the pattern isn't random.
+
+| Election | Year | Type  | Turnout | Eligible Voters |
+| -------- | ---- | ----- | ------- | --------------- |
+| House 1  | 1991 | FPTP  | 65.2%   | 11,315,000      |
+| House 2  | 1994 | FPTP  | 62.8%   | 12,000,000      |
+| House 3  | 1999 | FPTP  | 65.8%   | 13,129,000      |
+| CA 1     | 2008 | Mixed | 78.3%   | 17,620,556      |
+| CA 2     | 2013 | Mixed | 78.6%   | 12,147,234      |
+| House 5  | 2017 | Mixed | 68.8%   | 15,371,000      |
+| House 6  | 2022 | Mixed | 61.0%   | 17,988,570      |
+
+The 1990s elections hovered in the mid-60s. Then came the Constituent Assembly elections of 2008 and 2013, and turnout spiked to nearly **78%**.
+
+Those weren't ordinary elections. They were votes on what kind of country Nepal would become. The civil war had just ended. The monarchy had been abolished.
+
+Once the constitution was written, voters started leaving. Nepal went from one of South Asia's higher-turnout democracies to one that sits in the **bottom quartile globally**.
+
+For context: India's 2019 election drew **67.4%**. Sri Lanka's 2020 vote hit **75.9%**. The OECD average is **68%**. Nepal, at 61%, is closer to the United States than to its regional peers.
+
+<LineChart
+  data={[
+    { year: '1991', turnout: 65.2 },
+    { year: '1994', turnout: 62.8 },
+    { year: '1999', turnout: 65.8 },
+    { year: '2008', turnout: 78.3 },
+    { year: '2013', turnout: 78.6 },
+    { year: '2017', turnout: 68.8 },
+    { year: '2022', turnout: 61.0 },
+  ]}
+  xKey="year"
+  yKeys={['turnout']}
+  colors={['#B91C1C']}
+  height={350}
+/>
+
+_Figure: National voter turnout in Nepal, 1991-2022_
+
+---
+
+## Mountains vote, cities don't
+
+The 2022 provincial breakdown makes the pattern stark:
+
+| Province      | Turnout   | vs. National Average |
+| ------------- | --------- | -------------------- |
+| Karnali       | 67.3%     | +6.3                 |
+| Sudurpashchim | 65.8%     | +4.8                 |
+| Lumbini       | 62.1%     | +1.1                 |
+| Gandaki       | 61.8%     | +0.8                 |
+| **National**  | **61.0%** | **—**                |
+| Bagmati       | 58.2%     | -2.8                 |
+| Province 1    | 57.9%     | -3.1                 |
+| Madhesh       | 56.4%     | -4.6                 |
+
+Karnali and Sudurpashchim — the country's most remote, least urbanized provinces — lead the pack. Madhesh and Bagmati bring up the rear.
+
+<BarChart
+  data={[
+    { province: 'Karnali', turnout: 67.3 },
+    { province: 'Sudurpashchim', turnout: 65.8 },
+    { province: 'Lumbini', turnout: 62.1 },
+    { province: 'Gandaki', turnout: 61.8 },
+    { province: 'National', turnout: 61.0 },
+    { province: 'Bagmati', turnout: 58.2 },
+    { province: 'Province 1', turnout: 57.9 },
+    { province: 'Madhesh', turnout: 56.4 },
+  ]}
+  xKey="province"
+  yKey="turnout"
+  colors={['#B91C1C']}
+  height={400}
+/>
+
+_Figure: Voter turnout by province, 2022_
+
+Break it down further and the gradient gets steeper:
+
+| Area Type      | Turnout | Examples               |
+| -------------- | ------- | ---------------------- |
+| Rural mountain | 68.2%   | Humla, Mugu, Dolpa     |
+| Rural hill     | 64.7%   | Gorkha, Pyuthan, Rolpa |
+| Rural plains   | 58.1%   | Rural Bara, Rautahat   |
+| Urban hill     | 55.3%   | Pokhara, Dharan        |
+| Urban valley   | 52.8%   | Kathmandu core         |
+
+<PullQuote>
+  A 15.4-point gap between rural mountain districts and urban Kathmandu. That's essentially two
+  different electorates operating under the same system.
+</PullQuote>
+
+<Sidebar>
+  The urban-rural turnout gap has widened from 8 points in 2017 to 17 points in 2022, with rural
+  areas maintaining participation while urban districts drop precipitously.
+</Sidebar>
+
+<MultiBarChart
+  data={[
+    { area: 'Rural Mountain', year2017: 70.1, year2022: 68.2 },
+    { area: 'Rural Hill', year2017: 66.3, year2022: 64.7 },
+    { area: 'Rural Plains', year2017: 60.8, year2022: 58.1 },
+    { area: 'Urban Hill', year2017: 57.5, year2022: 55.3 },
+    { area: 'Urban Valley', year2017: 55.1, year2022: 52.8 },
+  ]}
+  xKey="area"
+  bars={[
+    { key: 'year2017', name: '2017', color: '#94A3B8' },
+    { key: 'year2022', name: '2022', color: '#B91C1C' },
+  ]}
+  height={400}
+/>
+
+_Figure: Turnout by area type, 2017 vs 2022_
+
+The top 10 constituencies are all remote mountain districts: Humla (75.8%), Mugu (74.2%), Bajura (72.9%), Darchula (71.6%), Jumla (71.3%).
+
+The bottom 10 are Kathmandu constituencies and Madhesh districts: Kathmandu-1 (48.3%), Kathmandu-3 (49.1%), Lalitpur-2 (49.7%), Rautahat-3 (51.2%), Bara-2 (52.3%).
+
+<Callout type="info">
+  Rural mountain voters travel an average of 4.8 kilometers to polling stations. Urban voters often
+  have stations within walking distance — but they don't show up.
+</Callout>
+
+In a village of 500 people, everyone knows whether you voted. There's social pressure, but also social meaning — the election is a community event.
+
+In Kathmandu, nobody knows and nobody cares. You're anonymous. You've got work. The polling station is inconvenient.
+
+---
+
+## The age gap is real — and getting worse
+
+Exit poll estimates from 2022 paint a clear picture:
+
+| Age Group | Turnout | Share of Electorate | Share of Actual Voters |
+| --------- | ------- | ------------------- | ---------------------- |
+| 18-25     | 52%     | 23%                 | 19%                    |
+| 26-35     | 58%     | 28%                 | 26%                    |
+| 36-45     | 64%     | 22%                 | 23%                    |
+| 46-60     | 68%     | 18%                 | 20%                    |
+| 60+       | 71%     | 9%                  | 10%                    |
+
+There's a **19-point gap** between the youngest and oldest cohorts. Young voters aged 18-25 make up 23% of the electorate but only 19% of actual voters.
+
+<BarChart
+  data={[
+    { age: '18-25', turnout: 52 },
+    { age: '26-35', turnout: 58 },
+    { age: '36-45', turnout: 64 },
+    { age: '46-60', turnout: 68 },
+    { age: '60+', turnout: 71 },
+  ]}
+  xKey="age"
+  yKey="turnout"
+  colors={['#B91C1C']}
+  height={350}
+/>
+
+_Figure: Voter turnout by age group, 2022_
+
+<PullQuote>
+  Young voters are disengaging from politics at alarming rates — and they're the generation that
+  will shape Nepal's next three decades.
+</PullQuote>
+
+Youth turnout dropped from roughly **58% in 2017 to 52% in 2022**. That 6-point decline is steeper than the overall 7.8-point national drop.
+
+<PieChart
+  data={[
+    { name: '18-25', value: 19 },
+    { name: '26-35', value: 26 },
+    { name: '36-45', value: 23 },
+    { name: '46-60', value: 20 },
+    { name: '60+', value: 10 },
+  ]}
+  nameKey="name"
+  valueKey="value"
+  height={350}
+/>
+
+_Figure: Share of actual voters by age group, 2022_
+
+Notice that while 18-25 year olds make up 23% of the electorate, they only account for 19% of actual voters. Meanwhile, voters over 60 are just 9% of the electorate but 10% of those who actually vote.
+
+Qualitative research keeps turning up the same themes. "All parties are the same." "Promises never kept." "My single vote doesn't matter."
+
+Nepal has had four different prime ministers since 2017. Coalition partners swap sides like they're changing seats at a dinner party.
+
+If you're 22 and you've watched this your entire adult life, why would you believe your vote changes anything?
+
+---
+
+## The gender gap is closing — but not everywhere
+
+The gender gap has been shrinking steadily for three decades:
+
+| Year | Male Turnout | Female Turnout | Gap |
+| ---- | ------------ | -------------- | --- |
+| 1991 | 67.8%        | 62.4%          | 5.4 |
+| 1999 | 68.2%        | 63.1%          | 5.1 |
+| 2008 | 79.4%        | 77.1%          | 2.3 |
+| 2017 | 69.7%        | 67.8%          | 1.9 |
+| 2022 | 62.1%        | 59.8%          | 2.3 |
+
+In 1991, women voted at rates **5.4 points below men**. By 2017, the gap was down to 1.9 points. It ticked back up slightly to 2.3 in 2022.
+
+In the Kathmandu Valley, the gap is just **0.8 points**. In rural hill districts, it's 1.5 points. But in rural plains areas, it's still **4.2 points**.
+
+<Callout type="success">
+  The gender gap has shrunk from 5.4 points in 1991 to 2.3 points in 2022 — one of Nepal's genuine
+  democratic success stories.
+</Callout>
+
+---
+
+## What drove the 2017-2022 decline?
+
+The 7.8-point decline deserves a proper autopsy. There are four plausible explanations.
+
+**1. Disillusionment:** This is the biggest factor. Pre-election polling found satisfaction with democracy dropped from 58% to 42% since 2017. The share who believed "parties care about people like me" fell from 49% to 31%.
+
+**2. Migration:** The 2021 census found 2.1 million people living outside their birth district. Many are still registered back home but can't easily travel to vote.
+
+**3. Youth disengagement:** Young voters didn't cause the entire decline, but they're a disproportionate part of it.
+
+**4. COVID:** The pandemic might explain a point or two, but it can't carry the weight of a nearly 8-point drop.
+
+<PullQuote>
+  The decline was concentrated in urban areas with lots of young people experiencing economic
+  stress. Rural, remote, older communities barely budged.
+</PullQuote>
+
+A regression model helps sort out the relative contributions:
+
+1. Urban status: -4.2 percentage points
+2. Youth population share: -2.8 points per 10% increase
+3. Rising poverty: -1.4 points per 5% poverty increase
+4. Remoteness: +1.8 points (remote areas declined less)
+
+Translation: the decline was concentrated in urban areas with lots of young people experiencing economic stress.
+
+---
+
+## What could actually fix this?
+
+There are five evidence-based interventions that could push turnout back toward the high 60s or even the 70s.
+
+**1. Automatic voter registration:** Nepal had 17.9 million registered voters in 2022, but census data suggests 20 million or more were eligible. Automatically registering citizens when they turn 18 could add **3 to 5 points**.
+
+**2. Absentee or mobile voting for migrants:** With 2.1 million internal migrants unable to easily vote, some form of vote-by-mail or vote-anywhere system could recover **2 to 4 points**.
+
+**3. Civic education in schools:** This is a long game. Mandatory civics curricula that emphasize participation could narrow the youth gap by **3 to 6 points** over time.
+
+**4. More polling stations:** Adding more stations, especially in areas with difficult terrain, could add **1 to 2 points**.
+
+**5. Simpler ballot design:** Clearer instructions and visual aids could add **half a point to a point**.
+
+If all five were implemented, turnout could plausibly reach **71 to 78%**. That's a big if — these reforms require political will, and the parties currently in power got there with 61% turnout.
+
+---
+
+## Should we actually worry?
+
+If people aren't voting because they're satisfied, low turnout is a sign of stability, not crisis. Political scientists call this the "politics of happiness" theory.
+
+Nepal's situation is different. The polling data points to **alienation and cynicism**, not satisfaction and not fear. People _can_ vote. They just don't think it matters.
+
+And there's a representational problem baked in. When young, urban voters check out and older, rural voters stay engaged, the resulting parliament reflects **one Nepal more than the other**.
+
+The people most affected by economic policy, urbanization, and the job market are the least represented in the body that makes those decisions.
+
+<Sidebar>
+  The 2022 parliament was elected by the oldest, most rural slice of the population — while the
+  people most affected by economic policy decisions stayed home.
+</Sidebar>
+
+That's not a recipe for a political system that feels legitimate to its citizens.
+
+---
+
+## What we know and what we don't
+
+**What the data tells us:**
+
+1. Nepal's turnout decline is real and concentrated among young and urban voters
+2. The geographic divide in participation is enormous and growing
+3. The gender gap is shrinking — a genuine success story
+4. There are concrete, evidence-based reforms that could reverse the trend
+
+**What we don't know:**
+
+1. Whether the decline will continue or stabilize
+2. How new parties like the RSP will affect mobilization
+3. Whether Nepal's political class will take the hint
+
+<Callout type="warning">
+  When 39% of your citizens don't bother to vote, they're telling you something. The question is
+  whether anyone in power is listening.
+</Callout>
+
+The biggest unknown is whether Nepal's political class will act. Or whether they're too busy forming the next coalition to notice.
+
+---
+
+_Data sources: Election Commission of Nepal (1991-2022), Census 2021, voter registration records. Full dataset and methodology available at [github.com/nepalisoch/turnout-analysis](/methodology)._

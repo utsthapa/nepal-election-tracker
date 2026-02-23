@@ -5,15 +5,16 @@ import { PARTIES, INITIAL_NATIONAL } from '../data/constituencies';
 
 const partyOrder = Object.keys(INITIAL_NATIONAL);
 
-export function PRBlockChart({ prSeats, nationalVoteShares = {}, threshold = 3, method = 'modified' }) {
-  const totalSeats = useMemo(() =>
-    Object.values(prSeats).reduce((a, b) => a + b, 0),
-    [prSeats]
-  );
+export function PRBlockChart({
+  prSeats,
+  nationalVoteShares = {},
+  threshold = 3,
+  method = 'modified',
+}) {
+  const totalSeats = useMemo(() => Object.values(prSeats).reduce((a, b) => a + b, 0), [prSeats]);
 
-  const methodLabel = method === 'dhondt'
-    ? "D'Hondt (1,2,3 divisors)"
-    : 'Sainte-Laguë (1,3,5,7...)';
+  const methodLabel =
+    method === 'dhondt' ? "D'Hondt (1,2,3 divisors)" : 'Sainte-Laguë (1,3,5,7...)';
 
   // Dynamic color classes
   const bgColors = {};
@@ -23,26 +24,22 @@ export function PRBlockChart({ prSeats, nationalVoteShares = {}, threshold = 3, 
     textColors[p] = `text-${p.toLowerCase()}`;
   });
 
-  const formatPartyLabel = (partyId) => {
+  const formatPartyLabel = partyId => {
     const info = PARTIES[partyId];
-    return info ? `${info.short} (${info.name})` : partyId;
+    return info ? `${info.name}` : partyId;
   };
 
   // Memoize party sorting calculation
-  const sortedParties = useMemo(() =>
-    [...partyOrder].sort((a, b) => (prSeats[b] || 0) - (prSeats[a] || 0)),
+  const sortedParties = useMemo(
+    () => [...partyOrder].sort((a, b) => (prSeats[b] || 0) - (prSeats[a] || 0)),
     [prSeats]
   );
 
   return (
     <div className="bg-surface rounded-xl p-6 border border-neutral">
       <div className="flex items-center justify-between mb-1">
-        <h2 className="text-lg font-sans font-semibold text-foreground">
-          PR Allocation
-        </h2>
-        <span className="text-sm font-mono text-muted">
-          {totalSeats} / 110 seats
-        </span>
+        <h2 className="text-lg font-sans font-semibold text-foreground">PR Allocation</h2>
+        <span className="text-sm font-mono text-muted">{totalSeats} / 110 seats</span>
       </div>
       <p className="text-xs text-muted mb-4 font-mono">
         {methodLabel} • {threshold}% threshold (failed votes redistributed)
@@ -55,7 +52,9 @@ export function PRBlockChart({ prSeats, nationalVoteShares = {}, threshold = 3, 
             const seats = prSeats[party] || 0;
             const percentage = totalSeats > 0 ? (seats / 110) * 100 : 0;
 
-            if (seats === 0) {return null;}
+            if (seats === 0) {
+              return null;
+            }
 
             return (
               <motion.div
@@ -67,14 +66,14 @@ export function PRBlockChart({ prSeats, nationalVoteShares = {}, threshold = 3, 
                 style={{ minWidth: seats > 0 ? '2rem' : 0 }}
               >
                 {seats >= 5 && (
-                  <span className="text-foreground text-sm font-bold font-mono">
-                    {seats}
-                  </span>
+                  <span className="text-foreground text-sm font-bold font-mono">{seats}</span>
                 )}
 
                 {/* Tooltip */}
                 <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-surface border border-neutral rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
-                  <span className="text-xs text-foreground">{PARTIES[party].name}: {seats}</span>
+                  <span className="text-xs text-foreground">
+                    {PARTIES[party].name}: {seats}
+                  </span>
                 </div>
               </motion.div>
             );
@@ -104,9 +103,7 @@ export function PRBlockChart({ prSeats, nationalVoteShares = {}, threshold = 3, 
                 )}
               </div>
               <div className="flex items-center gap-4">
-                <span className="text-xs font-mono text-muted">
-                  {voteShare.toFixed(2)}% votes
-                </span>
+                <span className="text-xs font-mono text-muted">{voteShare.toFixed(2)}% votes</span>
                 <motion.span
                   key={seats}
                   initial={{ scale: 1.3 }}
