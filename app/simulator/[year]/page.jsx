@@ -296,7 +296,9 @@ export default function SimulatorYearPage() {
   const applyCustomScenario = () => {
     // Start from the dynamic baseline instead of the hardcoded OFFICIAL_FPTP_VOTE
     // so we compose the RSP assumption with decay correctly
-    let baseFptp = useRspNationalBase ? applyRspNationalEntry({ ...OFFICIAL_FPTP_VOTE }) : { ...OFFICIAL_FPTP_VOTE };
+    let baseFptp = useRspNationalBase
+      ? applyRspNationalEntry({ ...OFFICIAL_FPTP_VOTE })
+      : { ...OFFICIAL_FPTP_VOTE };
     let basePr = { ...OFFICIAL_PR_VOTE };
 
     const incumbents = ['NC', 'UML', 'Maoist'];
@@ -434,8 +436,8 @@ export default function SimulatorYearPage() {
     }
     const d = Math.sqrt(
       Math.pow(pa.econ - pb.econ, 2) +
-      Math.pow(pa.federal - pb.federal, 2) +
-      Math.pow(pa.geo - pb.geo, 2)
+        Math.pow(pa.federal - pb.federal, 2) +
+        Math.pow(pa.geo - pb.geo, 2)
     );
     const score = Math.max(0, 100 - d * 100);
     return { distance: d, score };
@@ -505,10 +507,11 @@ export default function SimulatorYearPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                   <button
                     onClick={() => handleStartingPointSelect('2022')}
-                    className={`text-left rounded-lg border px-4 py-3 transition-colors ${startingPoint === '2022'
-                      ? 'border-[#B91C1C] bg-[#B91C1C]/5'
-                      : 'border-[rgb(219,211,196)] hover:border-[rgb(24,26,36)]/30'
-                      }`}
+                    className={`text-left rounded-lg border px-4 py-3 transition-colors ${
+                      startingPoint === '2022'
+                        ? 'border-[#B91C1C] bg-[#B91C1C]/5'
+                        : 'border-[rgb(219,211,196)] hover:border-[rgb(24,26,36)]/30'
+                    }`}
                   >
                     <p className="text-sm font-semibold text-[rgb(24,26,36)]">2022 Baseline</p>
                     <p className="text-xs text-[rgb(100,110,130)] mt-1">
@@ -518,10 +521,11 @@ export default function SimulatorYearPage() {
 
                   <button
                     onClick={() => handleStartingPointSelect('custom')}
-                    className={`text-left rounded-lg border px-4 py-3 transition-colors ${startingPoint === 'custom'
-                      ? 'border-[#B91C1C] bg-[#B91C1C]/5'
-                      : 'border-[rgb(219,211,196)] hover:border-[rgb(24,26,36)]/30'
-                      }`}
+                    className={`text-left rounded-lg border px-4 py-3 transition-colors ${
+                      startingPoint === 'custom'
+                        ? 'border-[#B91C1C] bg-[#B91C1C]/5'
+                        : 'border-[rgb(219,211,196)] hover:border-[rgb(24,26,36)]/30'
+                    }`}
                   >
                     <p className="text-sm font-semibold text-[rgb(24,26,36)]">Custom Scenario</p>
                     <p className="text-xs text-[rgb(100,110,130)] mt-1">
@@ -596,7 +600,10 @@ export default function SimulatorYearPage() {
                   </p>
                 </div>
 
-                <div className="flex items-start gap-3 rounded-lg border border-[rgb(219,211,196)] p-3 cursor-pointer" onClick={() => setUseRspNationalBase(!useRspNationalBase)}>
+                <div
+                  className="flex items-start gap-3 rounded-lg border border-[rgb(219,211,196)] p-3 cursor-pointer"
+                  onClick={() => setUseRspNationalBase(!useRspNationalBase)}
+                >
                   <input
                     type="checkbox"
                     checked={useRspNationalBase}
@@ -608,7 +615,8 @@ export default function SimulatorYearPage() {
                       Treat RSP as running in all 2022 seats
                     </p>
                     <p className="text-xs text-[rgb(100,110,130)] mt-1">
-                      Sets their baseline everywhere to their 2022 PR share (10.70%) before slider shifts apply.
+                      Sets their baseline everywhere to their 2022 PR share (10.70%) before slider
+                      shifts apply.
                     </p>
                   </div>
                 </div>
@@ -1051,15 +1059,15 @@ export default function SimulatorYearPage() {
                         No battlegrounds match the current filters.
                       </p>
                     )}
-                    {filteredBattlegroundCards.map(battle => {
+                    {filteredBattlegroundCards.map((battle, idx) => {
                       const constituency = battle?.constituency
                         ? constituencyByNormalizedName.get(
-                          normalizeConstituencyName(battle.constituency)
-                        )
+                            normalizeConstituencyName(battle.constituency)
+                          )
                         : null;
                       return (
                         <div
-                          key={battle.constituency}
+                          key={`${battle.province ?? idx}-${battle.constituency}`}
                           className="rounded-lg border border-[rgb(219,211,196)] p-3"
                         >
                           <div className="flex items-center justify-between gap-2 mb-2">
@@ -1112,56 +1120,43 @@ export default function SimulatorYearPage() {
         {showControlsSection && (
           <>
             <div className="mb-6">
-              {!showControlSetupStep && (
-                <div className="flex gap-1 mb-4 border-b border-gray-200">
-                  <TabButton label="Manual" active={true} onClick={() => { }} />
-                </div>
-              )}
+              <div className="flex justify-center mb-3">
+                <button
+                  onClick={() => setSlidersLocked(!slidersLocked)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border transition-colors ${
+                    slidersLocked
+                      ? 'border-[#ef4444] bg-[#ef4444]/10 text-[#ef4444]'
+                      : 'border-[rgb(219,211,196)] text-[rgb(100,110,130)] hover:border-[rgb(24,26,36)]/30 hover:text-[rgb(24,26,36)]'
+                  }`}
+                >
+                  {slidersLocked ? <Lock className="w-4 h-4" /> : <Unlock className="w-4 h-4" />}
+                  {slidersLocked ? 'Sliders Locked' : 'Sliders Unlocked'}
+                </button>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <PartySliders
+                  title={t('simulator.fptp')}
+                  subtitle="Affects 165 constituency seats"
+                  sliders={adjustedFptpSliders}
+                  simulatedShares={simulatedFptpShares}
+                  fptpSeats={fptpSeats}
+                  prSeats={prSeats}
+                  totalSeats={totalSeats}
+                  onSliderChange={updateFptpSlider}
+                  showFptp={true}
+                />
 
-              {true && (
-                <>
-                  <div className="flex justify-center mb-3">
-                    <button
-                      onClick={() => setSlidersLocked(!slidersLocked)}
-                      className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border transition-colors ${slidersLocked
-                        ? 'border-[#ef4444] bg-[#ef4444]/10 text-[#ef4444]'
-                        : 'border-[rgb(219,211,196)] text-[rgb(100,110,130)] hover:border-[rgb(24,26,36)]/30 hover:text-[rgb(24,26,36)]'
-                        }`}
-                    >
-                      {slidersLocked ? (
-                        <Lock className="w-4 h-4" />
-                      ) : (
-                        <Unlock className="w-4 h-4" />
-                      )}
-                      {slidersLocked ? 'Sliders Locked' : 'Sliders Unlocked'}
-                    </button>
-                  </div>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <PartySliders
-                      title={t('simulator.fptp')}
-                      subtitle="Affects 165 constituency seats"
-                      sliders={adjustedFptpSliders}
-                      simulatedShares={simulatedFptpShares}
-                      fptpSeats={fptpSeats}
-                      prSeats={prSeats}
-                      totalSeats={totalSeats}
-                      onSliderChange={updateFptpSlider}
-                      showFptp={true}
-                    />
-
-                    <PartySliders
-                      title={t('simulator.pr')}
-                      subtitle="Affects 110 proportional seats (3% threshold)"
-                      sliders={adjustedPrSliders}
-                      fptpSeats={fptpSeats}
-                      prSeats={prSeats}
-                      totalSeats={totalSeats}
-                      onSliderChange={updatePrSlider}
-                      showPr={true}
-                    />
-                  </div>
-                </>
-              )}
+                <PartySliders
+                  title={t('simulator.pr')}
+                  subtitle="Affects 110 proportional seats (3% threshold)"
+                  sliders={adjustedPrSliders}
+                  fptpSeats={fptpSeats}
+                  prSeats={prSeats}
+                  totalSeats={totalSeats}
+                  onSliderChange={updatePrSlider}
+                  showPr={true}
+                />
+              </div>
             </div>
           </>
         )}
@@ -1206,8 +1201,6 @@ export default function SimulatorYearPage() {
             <div className="mb-6">
               <CoalitionBuilder totalSeats={totalSeats} fptpResults={fptpResults} />
             </div>
-
-
           </>
         )}
 
@@ -1299,10 +1292,11 @@ function TabButton({ label, active, onClick }) {
   return (
     <button
       onClick={onClick}
-      className={`px-4 py-2 font-medium text-sm transition-colors border-b-2 ${active
-        ? 'border-blue-600 text-blue-600'
-        : 'border-transparent text-gray-600 hover:text-gray-900'
-        }`}
+      className={`px-4 py-2 font-medium text-sm transition-colors border-b-2 ${
+        active
+          ? 'border-blue-600 text-blue-600'
+          : 'border-transparent text-gray-600 hover:text-gray-900'
+      }`}
     >
       {label}
     </button>
@@ -1743,8 +1737,9 @@ Available preset configurations include:
                   <span className="font-semibold text-[rgb(24,26,36)]">{section.title}</span>
                 </div>
                 <svg
-                  className={`w-5 h-5 text-[rgb(100,110,130)] transition-transform ${expandedSection === section.id ? 'rotate-180' : ''
-                    }`}
+                  className={`w-5 h-5 text-[rgb(100,110,130)] transition-transform ${
+                    expandedSection === section.id ? 'rotate-180' : ''
+                  }`}
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"

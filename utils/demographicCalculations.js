@@ -3,14 +3,18 @@
  * Accounts for vote concentration and demographic affinity
  */
 
-import { constituencies, INITIAL_NATIONAL, PARTIES } from '../data/constituencies';
+import {
+  applyAllianceTransfer,
+  determineFPTPWinner,
+  calculateAdjustedResults,
+} from './calculations';
+import { constituencies, INITIAL_NATIONAL } from '../data/constituencies';
 import { DISTRICT_DEMOGRAPHICS } from '../data/demographics';
 import {
   PARTY_DEMOGRAPHIC_PROFILES,
   calculateConstituencyVote,
   calculateVoteEfficiency,
 } from '../data/partyDemographicProfiles';
-import { applyAllianceTransfer, determineFPTPWinner } from './calculations';
 
 /**
  * Calculate adjusted vote shares with demographic weighting
@@ -93,7 +97,6 @@ export function calculateDemographicFPTPResults(
       adjustedVotes = applyAllianceTransfer(adjustedVotes, alliance);
     } else {
       // Fall back to uniform swing
-      const { calculateAdjustedResults } = require('./calculations');
       adjustedVotes = calculateAdjustedResults(
         constituency.results2022,
         globalSliders,

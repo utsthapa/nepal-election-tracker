@@ -128,8 +128,11 @@ export const MDXArticleComponents = {
   ),
 
   // Sidebar — inset box for supplementary context
-  Sidebar: ({ children }) => (
+  Sidebar: ({ title, children }) => (
     <aside className="my-6 p-5 bg-[rgb(250,249,246)] border border-[rgb(219,211,196)] rounded-lg text-sm text-[rgb(100,110,130)] leading-relaxed">
+      {title && (
+        <p className="text-xs font-bold uppercase tracking-wider text-[#B91C1C] mb-3">{title}</p>
+      )}
       {children}
     </aside>
   ),

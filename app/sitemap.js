@@ -1,6 +1,7 @@
+import { BASE_URL } from '../lib/config';
 import { getAllArticles } from '../lib/content';
 
-const baseUrl = 'https://nepalvotes.com';
+const baseUrl = BASE_URL;
 
 const routes = [
   '',

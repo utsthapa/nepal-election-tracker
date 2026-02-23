@@ -1,53 +1,53 @@
-'use client'
+'use client';
 
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react';
 
 const LanguageContext = createContext({
   language: 'en',
   toggleLanguage: () => {},
   t: (key, fallback) => fallback,
-})
+});
 
 export function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState('en')
+  const [language, setLanguage] = useState('en');
 
   useEffect(() => {
     // Load saved language preference from localStorage
-    const savedLanguage = localStorage.getItem('language')
+    const savedLanguage = localStorage.getItem('language');
     if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'ne')) {
-      setLanguage(savedLanguage)
+      setLanguage(savedLanguage);
     } else {
       // Detect browser language
-      const browserLang = navigator.language || navigator.userLanguage
+      const browserLang = navigator.language || navigator.userLanguage;
       if (browserLang.startsWith('ne') || browserLang.startsWith('np')) {
-        setLanguage('ne')
+        setLanguage('ne');
       }
     }
-  }, [])
+  }, []);
 
   const toggleLanguage = () => {
-    const newLanguage = language === 'en' ? 'ne' : 'en'
-    setLanguage(newLanguage)
-    localStorage.setItem('language', newLanguage)
-  }
+    const newLanguage = language === 'en' ? 'ne' : 'en';
+    setLanguage(newLanguage);
+    localStorage.setItem('language', newLanguage);
+  };
 
   const t = (key, fallback = key) => {
-    return TRANSLATIONS[key]?.[language] || fallback
-  }
+    return TRANSLATIONS[key]?.[language] || fallback;
+  };
 
   return (
     <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
       {children}
     </LanguageContext.Provider>
-  )
+  );
 }
 
 export function useLanguage() {
-  const context = useContext(LanguageContext)
+  const context = useContext(LanguageContext);
   if (!context) {
-    throw new Error('useLanguage must be used within a LanguageProvider')
+    throw new Error('useLanguage must be used within a LanguageProvider');
   }
-  return context
+  return context;
 }
 
 // Translation strings
@@ -63,7 +63,7 @@ const TRANSLATIONS = {
   'nav.about': { en: 'About', ne: 'बारेमा' },
   'nav.newsletter': { en: 'Newsletter', ne: 'समाचारपत्र' },
   'nav.search': { en: 'Search', ne: 'खोज्नुहोस्' },
-  
+
   // Actions
   'action.readMore': { en: 'Read More', ne: 'थप पढ्नुहोस्' },
   'action.share': { en: 'Share', ne: 'साझा गर्नुहोस्' },
@@ -72,14 +72,14 @@ const TRANSLATIONS = {
   'action.filter': { en: 'Filter', ne: 'फिल्टर गर्नुहोस्' },
   'action.reset': { en: 'Reset', ne: 'पुनः सेट गर्नुहोस्' },
   'action.search': { en: 'Search', ne: 'खोज्नुहोस्' },
-  
+
   // Content types
   'content.article': { en: 'Article', ne: 'लेख' },
   'content.poll': { en: 'Poll', ne: 'मतदान' },
   'content.forecast': { en: 'Forecast', ne: 'पूर्वानुमान' },
   'content.analysis': { en: 'Analysis', ne: 'विश्लेषण' },
   'content.newsletter': { en: 'Newsletter', ne: 'समाचारपत्र' },
-  
+
   // Categories
   'category.forecasts': { en: 'Forecasts', ne: 'पूर्वानुमानहरू' },
   'category.polling': { en: 'Polling', ne: 'मतदान' },
@@ -87,66 +87,91 @@ const TRANSLATIONS = {
   'category.historical': { en: 'Historical', ne: 'ऐतिहासिक' },
   'category.policy': { en: 'Policy', ne: 'नीति' },
   'category.opinion': { en: 'Opinion', ne: 'मत' },
-  
+
   // Meta
   'meta.readTime': { en: 'min read', ne: 'मिनेट पढ्ने' },
   'meta.published': { en: 'Published', ne: 'प्रकाशित' },
   'meta.updated': { en: 'Updated', ne: 'अपडेट गरिएको' },
   'meta.author': { en: 'Author', ne: 'लेखक' },
   'meta.tags': { en: 'Tags', ne: 'ट्यागहरू' },
-  
+
   // Simulator
   'simulator.title': { en: 'Election Simulator', ne: 'निर्वाचन प्रतिरूपक' },
+  'simulator.gathabandan': { en: 'Alliance', ne: 'गठबन्धन' },
   'simulator.fptp': { en: 'FPTP Vote Share', ne: 'FPTP मत शेयर' },
   'simulator.pr': { en: 'PR Vote Share', ne: 'PR मत शेयर' },
   'simulator.seats': { en: 'Seats', ne: 'सिटहरू' },
   'simulator.majority': { en: 'Majority', ne: 'बहुमत' },
   'simulator.hung': { en: 'Hung Parliament', ne: 'टाँगिएको संसद' },
-  
+
   // Elections
   'elections.title': { en: 'Elections', ne: 'निर्वाचनहरू' },
   'elections.forecast': { en: 'Forecast', ne: 'पूर्वानुमान' },
   'elections.history': { en: 'History', ne: 'इतिहास' },
   'elections.results': { en: 'Results', ne: 'नतिजाहरू' },
-  
+
   // Polls
   'polls.title': { en: 'Polls', ne: 'मतदान' },
   'polls.trends': { en: 'Polling Trends', ne: 'मतदान प्रवृत्ति' },
   'polls.methodology': { en: 'Methodology', ne: 'पद्धति' },
   'polls.sampleSize': { en: 'Sample Size', ne: 'नमूना आकार' },
   'polls.marginError': { en: 'Margin of Error', ne: 'त्रुटिको सीमा' },
-  
+
   // Newsletter
   'newsletter.title': { en: 'Newsletter', ne: 'समाचारपत्र' },
-  'newsletter.subscribe': { en: 'Subscribe to our newsletter', ne: 'हाम्रो समाचारपत्रमा सदस्यता लिनुहोस्' },
-  'newsletter.description': { en: 'Get weekly updates on Nepal elections and analysis', ne: 'नेपालको निर्वाचन र विश्लेषणको हप्तावारी अपडेट प्राप्त गर्नुहोस्' },
+  'newsletter.subscribe': {
+    en: 'Subscribe to our newsletter',
+    ne: 'हाम्रो समाचारपत्रमा सदस्यता लिनुहोस्',
+  },
+  'newsletter.description': {
+    en: 'Get weekly updates on Nepal elections and analysis',
+    ne: 'नेपालको निर्वाचन र विश्लेषणको हप्तावारी अपडेट प्राप्त गर्नुहोस्',
+  },
   'newsletter.email': { en: 'Email address', ne: 'इमेल ठेगाना' },
   'newsletter.archive': { en: 'Newsletter Archive', ne: 'समाचारपत्र संग्रह' },
-  
+
   // About
   'about.title': { en: 'About', ne: 'बारेमा' },
   'about.methodology': { en: 'Methodology', ne: 'पद्धति' },
   'about.dataSources': { en: 'Data Sources', ne: 'डाटा स्रोतहरू' },
   'about.contact': { en: 'Contact', ne: 'सम्पर्क' },
   'about.roadmap': { en: 'Future Roadmap', ne: 'भविष्यको रोडम्याप' },
-  
+
   // Feature Tour
   'tour.welcome': { en: 'Welcome to NepaliSoch', ne: 'नेपाली सोचमा स्वागतम्' },
-  'tour.subtitle': { en: 'Data-driven election analysis and simulation for Nepal', ne: 'नेपालको डाटा-आधारित निर्वाचन विश्लेषण र प्रतिरूपण' },
+  'tour.subtitle': {
+    en: 'Data-driven election analysis and simulation for Nepal',
+    ne: 'नेपालको डाटा-आधारित निर्वाचन विश्लेषण र प्रतिरूपण',
+  },
   'tour.simulationMode': { en: 'Simulation Mode', ne: 'सिमुलेसन मोड' },
-  'tour.simulationModeDesc': { en: 'Adjust FPTP and PR vote share sliders to see real-time seat projections. Watch as 275 seats are calculated instantly based on your inputs.', ne: 'FPTP र PR मत शेयर स्लाइडरहरू समायोजन गरेर रियल-टाइम सिट प्रोजेक्सन हेर्नुहोस्। तपाईंको इनपुटको आधारमा २७५ सिटहरू तुरुन्त गणना हुन्छ।' },
+  'tour.simulationModeDesc': {
+    en: 'Adjust FPTP and PR vote share sliders to see real-time seat projections. Watch as 275 seats are calculated instantly based on your inputs.',
+    ne: 'FPTP र PR मत शेयर स्लाइडरहरू समायोजन गरेर रियल-टाइम सिट प्रोजेक्सन हेर्नुहोस्। तपाईंको इनपुटको आधारमा २७५ सिटहरू तुरुन्त गणना हुन्छ।',
+  },
   'tour.interactiveMap': { en: 'Interactive Map', ne: 'इन्टरएक्टिभ म्याप' },
-  'tour.interactiveMapDesc': { en: 'Explore all 165 constituencies across Nepal\'s 7 provinces. Click any region to view detailed demographics, voting patterns, and election results.', ne: 'नेपालको ७ प्रदेशमा भएका सबै १६५ निर्वाचन क्षेत्रहरू अन्वेषण गर्नुहोस्। कुनै पनि क्षेत्रमा क्लिक गरेर विस्तृत जनसांख्यिकी, मतदान प्याटर्न, र निर्वाचन नतिजाहरू हेर्नुहोस्।' },
+  'tour.interactiveMapDesc': {
+    en: "Explore all 165 constituencies across Nepal's 7 provinces. Click any region to view detailed demographics, voting patterns, and election results.",
+    ne: 'नेपालको ७ प्रदेशमा भएका सबै १६५ निर्वाचन क्षेत्रहरू अन्वेषण गर्नुहोस्। कुनै पनि क्षेत्रमा क्लिक गरेर विस्तृत जनसांख्यिकी, मतदान प्याटर्न, र निर्वाचन नतिजाहरू हेर्नुहोस्।',
+  },
   'tour.coalitionBuilder': { en: 'Coalition Builder', ne: 'गठबन्धन बिल्डर' },
-  'tour.coalitionBuilderDesc': { en: 'Pair parties to form alliances with configurable transfer efficiency. Test different coalition scenarios and see the impact on seat distribution.', ne: 'पार्टीहरूलाई ट्रान्सफर दक्षता कन्फिगर गरेर गठबन्धन बनाउनुहोस्। विभिन्न गठबन्धन परिदृश्यहरू परीक्षण गर्नुहोस् र सिट वितरणमा प्रभाव हेर्नुहोस्।' },
+  'tour.coalitionBuilderDesc': {
+    en: 'Pair parties to form alliances with configurable transfer efficiency. Test different coalition scenarios and see the impact on seat distribution.',
+    ne: 'पार्टीहरूलाई ट्रान्सफर दक्षता कन्फिगर गरेर गठबन्धन बनाउनुहोस्। विभिन्न गठबन्धन परिदृश्यहरू परीक्षण गर्नुहोस् र सिट वितरणमा प्रभाव हेर्नुहोस्।',
+  },
   'tour.constituencyOverrides': { en: 'Constituency Overrides', ne: 'निर्वाचन क्षेत्र ओभरराइडहरू' },
-  'tour.constituencyOverridesDesc': { en: 'Manually override any constituency\'s winner. Useful for modeling local factors, swing regions, or incumbency effects that aren\'t captured in national data.', ne: 'कुनै पनि निर्वाचन क्षेत्रको विजेता म्यानुअली ओभरराइड गर्नुहोस्। यो स्थानीय कारकहरू, स्विङ क्षेत्रहरू, वा राष्ट्रिय डाटामा कब्जा नगरिएका इन्कम्बेन्सी प्रभावहरू मोडेलिङ गर्न उपयोगी छ।' },
+  'tour.constituencyOverridesDesc': {
+    en: "Manually override any constituency's winner. Useful for modeling local factors, swing regions, or incumbency effects that aren't captured in national data.",
+    ne: 'कुनै पनि निर्वाचन क्षेत्रको विजेता म्यानुअली ओभरराइड गर्नुहोस्। यो स्थानीय कारकहरू, स्विङ क्षेत्रहरू, वा राष्ट्रिय डाटामा कब्जा नगरिएका इन्कम्बेन्सी प्रभावहरू मोडेलिङ गर्न उपयोगी छ।',
+  },
   'tour.advancedControls': { en: 'Advanced Controls', ne: 'उन्नत कन्ट्रोलहरू' },
-  'tour.advancedControlsDesc': { en: 'Configure voter migration patterns and baseline assumptions including party switching matrices and starting point adjustments.', ne: 'पार्टी स्विचिङ म्याट्रिसेस र प्रारम्भिक बिन्दु समायोजन सहित मतदाता माइग्रेसन ढाँचा र आधारभूत धारणाहरू कन्फिगर गर्नुहोस्।' },
+  'tour.advancedControlsDesc': {
+    en: 'Configure voter migration patterns and baseline assumptions including party switching matrices and starting point adjustments.',
+    ne: 'पार्टी स्विचिङ म्याट्रिसेस र प्रारम्भिक बिन्दु समायोजन सहित मतदाता माइग्रेसन ढाँचा र आधारभूत धारणाहरू कन्फिगर गर्नुहोस्।',
+  },
   'tour.getStarted': { en: 'Get Started', ne: 'सुरु गर्नुहोस्' },
   'tour.skip': { en: 'Skip', ne: 'छोड्नुहोस्' },
-  'tour.dontShowAgain': { en: 'Don\'t show this again', ne: 'पुन: नदेखाउनुहोस्' },
-  
+  'tour.dontShowAgain': { en: "Don't show this again", ne: 'पुन: नदेखाउनुहोस्' },
+
   // Common
   'common.loading': { en: 'Loading...', ne: 'लोड हुँदैछ...' },
   'common.error': { en: 'Error', ne: 'त्रुटि' },
@@ -156,11 +181,11 @@ const TRANSLATIONS = {
   'common.previous': { en: 'Previous', ne: 'अघिल्लो' },
   'common.all': { en: 'All', ne: 'सबै' },
   'common.none': { en: 'None', ne: 'कुनै पनि होइन' },
-  
+
   // Social
   'social.twitter': { en: 'Share on Twitter', ne: 'ट्विटरमा साझा गर्नुहोस्' },
   'social.facebook': { en: 'Share on Facebook', ne: 'फेसबुकमा साझा गर्नुहोस्' },
   'social.linkedin': { en: 'Share on LinkedIn', ne: 'LinkedIn मा साझा गर्नुहोस्' },
   'social.whatsapp': { en: 'Share on WhatsApp', ne: 'WhatsApp मा साझा गर्नुहोस्' },
   'social.copy': { en: 'Copy Link', ne: 'लिंक कपी गर्नुहोस्' },
-}
+};

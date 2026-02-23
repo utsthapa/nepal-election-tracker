@@ -1,3 +1,5 @@
+import { BASE_URL } from '../lib/config';
+
 export default function robots() {
   return {
     rules: {
@@ -5,6 +7,6 @@ export default function robots() {
       allow: '/',
       disallow: ['/api/', '/_next/'],
     },
-    sitemap: 'https://nepalvotes.com/sitemap.xml',
-  }
+    sitemap: `${BASE_URL}/sitemap.xml`,
+  };
 }

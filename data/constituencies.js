@@ -69,7 +69,7 @@ export const PARTIES = {
   },
   Janadesh: {
     name: 'Janadesh Party',
-    short: 'JP',
+    short: 'JD',
     color: '#0d9488',
   },
   Others: {
