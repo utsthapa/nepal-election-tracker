@@ -72,8 +72,10 @@ export function useElectionState() {
   // Vote switching matrix between parties
   const [switchingMatrix, setSwitchingMatrix] = useState({});
 
-  // Whether FPTP and PR sliders are locked (move together)
-  const [slidersLocked, setSlidersLocked] = useState(() => urlState?.slidersLocked ?? true);
+  // Whether FPTP and PR sliders are locked (move together).
+  // Defaults to false so FPTP and PR sliders are independent — users can adjust
+  // constituency-level (FPTP) and national proportional (PR) vote shares separately.
+  const [slidersLocked, setSlidersLocked] = useState(() => urlState?.slidersLocked ?? false);
 
   // Demographic modeling state
   const [demographicMode, setDemographicMode] = useState(false);

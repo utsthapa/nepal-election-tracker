@@ -135,12 +135,12 @@ export const ELECTIONS = {
         Maoist: 18,
         RSP: 7,
         RPP: 7,
-        JSPN: 6,
+        JSPN: 7,
         US: 10,
         JP: 1,
         LSP: 4,
         NUP: 3,
-        Others: 8,
+        Others: 7, // Independent: 5, NMKP: 1, Janamorcha: 1
       },
       PR: {
         NC: 32,
@@ -161,12 +161,12 @@ export const ELECTIONS = {
         Maoist: 32,
         RSP: 20,
         RPP: 14,
-        JSPN: 11,
+        JSPN: 12,
         US: 10,
         JP: 6,
         LSP: 4,
         NUP: 3,
-        Others: 8,
+        Others: 7, // Independent: 5, NMKP: 1, Janamorcha: 1 (no PR seats for these parties)
       },
     },
     voteShare: {
