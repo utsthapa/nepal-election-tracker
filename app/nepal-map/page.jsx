@@ -6,18 +6,33 @@ import dynamic from 'next/dynamic';
 import { SimpleHeader } from '../../components/SimpleHeader';
 import { PARTIES } from '../../data/constituencies';
 
-// Dynamic import for heavy map component
-const NepalMap = dynamic(() => import('../../components/NepalMap'), {
-  loading: () => (
-    <div className="flex items-center justify-center h-96 bg-surface/50 rounded-xl">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500 mx-auto mb-3"></div>
-        <p className="text-muted text-sm">Loading map...</p>
+function MapErrorFallback() {
+  return (
+    <div className="flex items-center justify-center h-96 bg-surface/50 rounded-xl border border-red-200">
+      <div className="text-center px-6">
+        <MapPin className="w-10 h-10 text-red-400 mx-auto mb-3" />
+        <p className="text-sm font-medium text-red-600 mb-1">Map failed to load</p>
+        <p className="text-xs text-muted">Please refresh the page to try again.</p>
       </div>
     </div>
-  ),
-  ssr: false,
-});
+  );
+}
+
+// Dynamic import for heavy map component
+const NepalMap = dynamic(
+  () => import('../../components/NepalMap').catch(() => ({ default: MapErrorFallback })),
+  {
+    loading: () => (
+      <div className="flex items-center justify-center h-96 bg-surface/50 rounded-xl">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500 mx-auto mb-3"></div>
+          <p className="text-muted text-sm">Loading map...</p>
+        </div>
+      </div>
+    ),
+    ssr: false,
+  }
+);
 
 export default function NepalMapPage() {
   return (

@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+
 import {
   classifyLiteracy,
   normalizeVoteShares,
@@ -16,19 +17,19 @@ describe('classifyLiteracy', () => {
   });
 
   it('should classify rate 70-80% as medium', () => {
-    expect(classifyLiteracy(0.70)).toBe('medium');
+    expect(classifyLiteracy(0.7)).toBe('medium');
     expect(classifyLiteracy(0.75)).toBe('medium');
-    expect(classifyLiteracy(0.80)).toBe('medium');
+    expect(classifyLiteracy(0.8)).toBe('medium');
   });
 
   it('should classify rate < 70% as low', () => {
-    expect(classifyLiteracy(0.50)).toBe('low');
+    expect(classifyLiteracy(0.5)).toBe('low');
     expect(classifyLiteracy(0.69)).toBe('low');
   });
 
   it('should handle boundary at 0.80 as medium (not strictly greater)', () => {
     // 0.80 is NOT > 0.80, so it should be medium
-    expect(classifyLiteracy(0.80)).toBe('medium');
+    expect(classifyLiteracy(0.8)).toBe('medium');
   });
 
   it('should handle 0.81 as high', () => {
@@ -77,6 +78,23 @@ describe('normalizeVoteShares', () => {
     const result = normalizeVoteShares(input);
     expect(result.NC).toBeCloseTo(40.3, 1);
   });
+
+  it('should return null for invalid input (negative share)', () => {
+    const input = { NC: -5, UML: 60, RSP: 45 };
+    const result = normalizeVoteShares(input);
+    expect(result).toBeNull();
+  });
+
+  it('should return null for invalid input (NaN share)', () => {
+    const input = { NC: NaN, UML: 60, RSP: 40 };
+    const result = normalizeVoteShares(input);
+    expect(result).toBeNull();
+  });
+
+  it('should return null for empty shares object', () => {
+    const result = normalizeVoteShares({});
+    expect(result).toBeNull();
+  });
 });
 
 // ─── calculateConstituencyVoteShares (single-dimension mode) ─────────────────
@@ -87,7 +105,7 @@ describe('calculateConstituencyVoteShares', () => {
       '18-29': { NC: 15, UML: 20, RSP: 40, Maoist: 10, Others: 15 },
       '30-44': { NC: 25, UML: 30, RSP: 15, Maoist: 15, Others: 15 },
       '45-59': { NC: 30, UML: 35, RSP: 8, Maoist: 12, Others: 15 },
-      '60+':   { NC: 35, UML: 35, RSP: 5, Maoist: 10, Others: 15 },
+      '60+': { NC: 35, UML: 35, RSP: 5, Maoist: 10, Others: 15 },
     },
     urbanRural: {
       urban: { NC: 20, UML: 22, RSP: 30, Maoist: 10, Others: 18 },
@@ -103,9 +121,9 @@ describe('calculateConstituencyVoteShares', () => {
       7: { NC: 28, UML: 28, RSP: 10, Maoist: 10, Others: 24 },
     },
     literacy: {
-      high:   { NC: 24, UML: 27, RSP: 18, Maoist: 10, Others: 21 },
+      high: { NC: 24, UML: 27, RSP: 18, Maoist: 10, Others: 21 },
       medium: { NC: 23, UML: 30, RSP: 12, Maoist: 14, Others: 21 },
-      low:    { NC: 22, UML: 33, RSP: 6, Maoist: 16, Others: 23 },
+      low: { NC: 22, UML: 33, RSP: 6, Maoist: 16, Others: 23 },
     },
   };
 
@@ -199,7 +217,11 @@ describe('calculateConstituencyTurnout', () => {
   });
 
   it('should fallback to 65 for unknown district', () => {
-    const result = calculateConstituencyTurnout({ district: 'Nowhere', province: 1 }, turnout, 'age');
+    const result = calculateConstituencyTurnout(
+      { district: 'Nowhere', province: 1 },
+      turnout,
+      'age'
+    );
     expect(result).toBe(65);
   });
 });
@@ -212,7 +234,7 @@ describe('applyDemographicModel', () => {
       '18-29': { NC: 20, UML: 30, RSP: 30, Others: 20 },
       '30-44': { NC: 25, UML: 30, RSP: 20, Others: 25 },
       '45-59': { NC: 30, UML: 35, RSP: 10, Others: 25 },
-      '60+':   { NC: 35, UML: 35, RSP: 5, Others: 25 },
+      '60+': { NC: 35, UML: 35, RSP: 5, Others: 25 },
     },
     urbanRural: {
       urban: { NC: 25, UML: 25, RSP: 25, Others: 25 },
@@ -228,9 +250,9 @@ describe('applyDemographicModel', () => {
       7: { NC: 28, UML: 28, RSP: 10, Others: 34 },
     },
     literacy: {
-      high:   { NC: 25, UML: 27, RSP: 18, Others: 30 },
+      high: { NC: 25, UML: 27, RSP: 18, Others: 30 },
       medium: { NC: 23, UML: 30, RSP: 12, Others: 35 },
-      low:    { NC: 22, UML: 33, RSP: 6, Others: 39 },
+      low: { NC: 22, UML: 33, RSP: 6, Others: 39 },
     },
   };
 

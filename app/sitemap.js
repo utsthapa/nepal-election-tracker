@@ -1,8 +1,6 @@
 import { BASE_URL } from '../lib/config';
 import { getAllArticles } from '../lib/content';
 
-const baseUrl = BASE_URL;
-
 const routes = [
   '',
   '/simulator/2026',
@@ -22,7 +20,7 @@ export default function sitemap() {
   const articles = getAllArticles();
 
   const staticRoutes = routes.map(route => ({
-    url: `${baseUrl}${route}`,
+    url: `${BASE_URL}${route}`,
     lastModified: new Date(),
     changeFrequency: 'daily',
     priority: route === '' ? 1 : 0.8,
@@ -33,7 +31,7 @@ export default function sitemap() {
     const validDate = isNaN(date.getTime()) ? new Date() : date;
 
     return {
-      url: `${baseUrl}/analysis/${article.slug}`,
+      url: `${BASE_URL}/analysis/${article.slug}`,
       lastModified: validDate,
       changeFrequency: 'weekly',
       priority: 0.7,

@@ -12,18 +12,17 @@ const PR_SEATS = 110;
 /**
  * Calculate PR seat allocation using Sainte-Laguë method
  * @param {Object} voteShares - Party vote shares { NC: 0.26, UML: 0.27, ... }
- * @param {number} totalVotes - Total votes cast
  * @param {number} seats - Number of seats to allocate (default: 110)
  * @returns {Object} Seat allocation by party
  */
-export function allocateSeats(voteShares, totalVotes = 1000000, seats = PR_SEATS) {
+export function allocateSeats(voteShares, seats = PR_SEATS) {
   // Step 1: Apply 3% threshold
   const threshold = THRESHOLD_PERCENT / 100;
   const qualifiedParties = Object.entries(voteShares)
     .filter(([_, share]) => share >= threshold)
     .map(([party, share]) => ({
       party,
-      votes: share * totalVotes,
+      votes: share,
       share,
     }));
 
@@ -85,7 +84,7 @@ export function calculateNationalVoteShare(constituencies, adjustedResults) {
   const parties = Object.keys(constituencies[0]?.results2022 || {});
 
   // Initialize
-  parties.forEach(p => totalVotes[p] = 0);
+  parties.forEach(p => (totalVotes[p] = 0));
 
   let grandTotal = 0;
 

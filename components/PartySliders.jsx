@@ -9,7 +9,6 @@ export function PartySliders({
   title = 'Vote Share',
   subtitle = 'Adjust sliders to simulate vote shifts',
   sliders,
-  simulatedShares,
   fptpSeats,
   prSeats,
   totalSeats,

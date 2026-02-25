@@ -12,6 +12,8 @@
  *   - 25% from literacy level composition
  */
 
+import { DISTRICT_DEMOGRAPHICS } from '@/data/demographics';
+import { DISTRICT_ETHNICITY } from '@/data/ethnicDemographics';
 import type {
   DemographicVotingPatterns,
   DemographicTurnout,
@@ -21,11 +23,7 @@ import type {
   AgeGroup,
   EthnicGroup,
 } from '@/types/demographics';
-
 import { LiteracyBucket } from '@/types/demographics';
-
-import { DISTRICT_DEMOGRAPHICS } from '@/data/demographics';
-import { DISTRICT_ETHNICITY } from '@/data/ethnicDemographics';
 
 // Tolerance for vote share normalization
 const NORMALIZATION_TOLERANCE = 0.01; // 1%
@@ -34,8 +32,12 @@ const NORMALIZATION_TOLERANCE = 0.01; // 1%
  * Classify a literacy rate into high/medium/low buckets
  */
 export function classifyLiteracy(literacyRate: number): LiteracyBucket {
-  if (literacyRate > 0.80) return LiteracyBucket.HIGH;
-  if (literacyRate >= 0.70) return LiteracyBucket.MEDIUM;
+  if (literacyRate > 0.8) {
+    return LiteracyBucket.HIGH;
+  }
+  if (literacyRate >= 0.7) {
+    return LiteracyBucket.MEDIUM;
+  }
   return LiteracyBucket.LOW;
 }
 
@@ -43,7 +45,10 @@ export function classifyLiteracy(literacyRate: number): LiteracyBucket {
  * Validate party vote shares input
  * @returns Validation result with isValid flag and error message if invalid
  */
-export function validateVoteSharesInput(shares: PartyVoteShares): { isValid: boolean; error?: string } {
+export function validateVoteSharesInput(shares: PartyVoteShares): {
+  isValid: boolean;
+  error?: string;
+} {
   // Check if shares is a valid object
   if (!shares || typeof shares !== 'object') {
     return { isValid: false, error: 'Invalid vote shares: must be an object' };
@@ -65,12 +70,18 @@ export function validateVoteSharesInput(shares: PartyVoteShares): { isValid: boo
 
     // Check for negative values
     if (share < 0) {
-      return { isValid: false, error: `Invalid vote share for ${party}: cannot be negative (${share})` };
+      return {
+        isValid: false,
+        error: `Invalid vote share for ${party}: cannot be negative (${share})`,
+      };
     }
 
     // Check for unreasonably high values (>100%)
     if (share > 100) {
-      return { isValid: false, error: `Invalid vote share for ${party}: cannot exceed 100% (${share})` };
+      return {
+        isValid: false,
+        error: `Invalid vote share for ${party}: cannot exceed 100% (${share})`,
+      };
     }
   }
 
@@ -80,13 +91,12 @@ export function validateVoteSharesInput(shares: PartyVoteShares): { isValid: boo
 /**
  * Normalize vote shares to sum to exactly 100%
  */
-export function normalizeVoteShares(shares: PartyVoteShares): PartyVoteShares {
+export function normalizeVoteShares(shares: PartyVoteShares): PartyVoteShares | null {
   // Validate input first
   const validation = validateVoteSharesInput(shares);
   if (!validation.isValid) {
     console.warn('Validation failed in normalizeVoteShares:', validation.error);
-    // Return original shares if validation fails
-    return shares;
+    return null;
   }
 
   const total = Object.values(shares).reduce((sum, val) => sum + val, 0);
@@ -134,7 +144,7 @@ function mapCensusAgeToVotingAge(
   const total60plus = censusAges['60+'] || 0;
 
   // Approximate: 18-29 is roughly 80% of 15-29 age group
-  const adjusted1829 = total1829 * 0.80;
+  const adjusted1829 = total1829 * 0.8;
 
   const votingAgeTotal = adjusted1829 + total3044 + total4559 + total60plus;
 
@@ -164,9 +174,7 @@ function calculateAgeContribution(
   agePatterns: DemographicVotingPatterns['age']
 ): PartyVoteShares {
   const parties = Object.keys(agePatterns['18-29']);
-  const contribution: PartyVoteShares = Object.fromEntries(
-    parties.map(p => [p, 0])
-  );
+  const contribution: PartyVoteShares = Object.fromEntries(parties.map(p => [p, 0]));
 
   for (const [ageGroup, weight] of Object.entries(votingAgeDistribution) as [AgeGroup, number][]) {
     const pattern = agePatterns[ageGroup];
@@ -239,7 +247,8 @@ function calculateEthnicityContribution(
     const contribution: PartyVoteShares = Object.fromEntries(parties.map(p => [p, 0]));
     for (const group of groups) {
       for (const party of parties) {
-        contribution[party] = (contribution[party] || 0) + (ethnicityPatterns[group]?.[party] || 0) * equalWeight;
+        contribution[party] =
+          (contribution[party] || 0) + (ethnicityPatterns[group]?.[party] || 0) * equalWeight;
       }
     }
     return contribution;
@@ -252,7 +261,9 @@ function calculateEthnicityContribution(
   for (const group of groups) {
     const weight = ethnicData[group] || 0;
     const pattern = ethnicityPatterns[group];
-    if (!pattern) continue;
+    if (!pattern) {
+      continue;
+    }
     for (const party of parties) {
       contribution[party] = (contribution[party] || 0) + (pattern[party] || 0) * weight;
     }
@@ -287,7 +298,8 @@ function combineContributions(
     ethnicity: ethnicityContribution || ageContribution,
   };
 
-  return normalizeVoteShares({ ...dimensionMap[activeDimension] });
+  const raw = { ...dimensionMap[activeDimension] };
+  return normalizeVoteShares(raw) ?? raw;
 }
 
 /**
@@ -301,6 +313,7 @@ export function calculateConstituencyTurnout(
   const demographics = (DISTRICT_DEMOGRAPHICS as Record<string, any>)[constituency.district];
 
   if (!demographics) {
+    console.warn(`No demographic data found for district: ${constituency.district}`);
     return 65.0;
   }
 
@@ -310,7 +323,10 @@ export function calculateConstituencyTurnout(
       demographics.voterEligible
     );
     let ageTurnout = 0;
-    for (const [ageGroup, weight] of Object.entries(votingAgeDistribution) as [AgeGroup, number][]) {
+    for (const [ageGroup, weight] of Object.entries(votingAgeDistribution) as [
+      AgeGroup,
+      number,
+    ][]) {
       ageTurnout += turnoutRates.age[ageGroup] * weight;
     }
     return ageTurnout;
@@ -318,8 +334,10 @@ export function calculateConstituencyTurnout(
 
   if (activeDimension === 'urbanRural') {
     const urbanPercent = demographics.urbanPopulation;
-    return turnoutRates.urbanRural.urban * urbanPercent +
-           turnoutRates.urbanRural.rural * (1 - urbanPercent);
+    return (
+      turnoutRates.urbanRural.urban * urbanPercent +
+      turnoutRates.urbanRural.rural * (1 - urbanPercent)
+    );
   }
 
   if (activeDimension === 'province') {
@@ -327,11 +345,16 @@ export function calculateConstituencyTurnout(
   }
 
   if (activeDimension === 'ethnicity' && turnoutRates.ethnicity) {
-    const ethnicData = (DISTRICT_ETHNICITY as Record<string, Record<string, number>>)[constituency.district];
-    if (!ethnicData) return 65.0;
+    const ethnicData = (DISTRICT_ETHNICITY as Record<string, Record<string, number>>)[
+      constituency.district
+    ];
+    if (!ethnicData) {
+      return 65.0;
+    }
     let ethnicTurnout = 0;
     for (const [group, weight] of Object.entries(ethnicData)) {
-      ethnicTurnout += (turnoutRates.ethnicity[group as keyof typeof turnoutRates.ethnicity] || 65) * weight;
+      ethnicTurnout +=
+        (turnoutRates.ethnicity[group as keyof typeof turnoutRates.ethnicity] || 65) * weight;
     }
     return ethnicTurnout;
   }
@@ -345,7 +368,12 @@ export function calculateConstituencyTurnout(
  * Calculate predicted vote shares for a single constituency
  */
 export function calculateConstituencyVoteShares(
-  constituency: { id: string; district: string; province: number; results2022?: Record<string, number> },
+  constituency: {
+    id: string;
+    district: string;
+    province: number;
+    results2022?: Record<string, number>;
+  },
   patterns: DemographicVotingPatterns,
   turnoutRates: DemographicTurnout,
   activeDimension: DemographicDimension = 'age'
@@ -369,10 +397,7 @@ export function calculateConstituencyVoteShares(
   );
 
   // Calculate contributions from each dimension
-  const ageContribution = calculateAgeContribution(
-    votingAgeDistribution,
-    patterns.age
-  );
+  const ageContribution = calculateAgeContribution(votingAgeDistribution, patterns.age);
 
   const urbanRuralContribution = calculateUrbanRuralContribution(
     demographics.urbanPopulation,
@@ -424,7 +449,12 @@ export function calculateConstituencyVoteShares(
  * Apply demographic model to all constituencies
  */
 export function applyDemographicModel(
-  constituencies: Array<{ id: string; district: string; province: number; results2022?: Record<string, number> }>,
+  constituencies: Array<{
+    id: string;
+    district: string;
+    province: number;
+    results2022?: Record<string, number>;
+  }>,
   patterns: DemographicVotingPatterns,
   turnoutRates: DemographicTurnout,
   activeDimension: DemographicDimension = 'age'
@@ -498,10 +528,14 @@ export function validateConstituencyPrediction(
   const warnings: ValidationWarning[] = [];
 
   const voteShareWarning = validateVoteShares(prediction.voteShares);
-  if (voteShareWarning) warnings.push(voteShareWarning);
+  if (voteShareWarning) {
+    warnings.push(voteShareWarning);
+  }
 
   const turnoutWarning = validateTurnout(prediction.turnout);
-  if (turnoutWarning) warnings.push(turnoutWarning);
+  if (turnoutWarning) {
+    warnings.push(turnoutWarning);
+  }
 
   return warnings;
 }

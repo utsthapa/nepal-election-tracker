@@ -11,15 +11,16 @@
  */
 
 import { describe, it, expect } from 'vitest';
+
+import { DISTRICT_DEMOGRAPHICS } from '../data/demographics';
+import { determineFPTPWinner } from '../utils/calculations';
 import {
   calculateConstituencyVoteShares,
   calculateConstituencyTurnout,
   applyDemographicModel,
   normalizeVoteShares,
 } from '../utils/demographicCalculator';
-import { determineFPTPWinner } from '../utils/calculations';
 import { allocateSeats } from '../utils/sainteLague';
-import { DISTRICT_DEMOGRAPHICS } from '../data/demographics';
 
 // ─── Helper: build uniform patterns (same shares in every segment) ───────────
 
@@ -85,7 +86,7 @@ describe('100% monopoly — one party gets all votes everywhere', () => {
   });
 
   it('PartyX should get all PR seats from monopoly vote share', () => {
-    const seats = allocateSeats({ PartyX: 1.0, PartyY: 0.0 }, 1000000, 110);
+    const seats = allocateSeats({ PartyX: 1.0, PartyY: 0.0 }, 110);
     expect(seats.PartyX).toBe(110);
     expect(seats.PartyY).toBe(0);
   });
@@ -136,13 +137,13 @@ describe('equal split — all parties get identical shares', () => {
   });
 
   it('equal shares should produce equal PR seats', () => {
-    const seats = allocateSeats({ A: 0.50, B: 0.50 }, 1000000, 100);
+    const seats = allocateSeats({ A: 0.5, B: 0.5 }, 100);
     expect(seats.A).toBe(50);
     expect(seats.B).toBe(50);
   });
 
   it('3 equal parties should each get ~1/3 of PR seats', () => {
-    const seats = allocateSeats({ A: 0.334, B: 0.333, C: 0.333 }, 1000000, 99);
+    const seats = allocateSeats({ A: 0.334, B: 0.333, C: 0.333 }, 99);
     expect(seats.A).toBe(33);
     expect(seats.B).toBe(33);
     expect(seats.C).toBe(33);
@@ -414,15 +415,15 @@ describe('full pipeline: demographics → PR seat allocation', () => {
   it('dominant party should get most PR seats, minor party still gets some', () => {
     // SmallParty at 5% is above the 3% threshold, so Sainte-Laguë gives it seats
     const nationalShare = { BigParty: 0.95, SmallParty: 0.05 };
-    const seats = allocateSeats(nationalShare, 1000000, 110);
+    const seats = allocateSeats(nationalShare, 110);
     expect(seats.BigParty).toBeGreaterThan(100);
     expect(seats.SmallParty).toBeGreaterThan(0);
     expect(seats.BigParty + seats.SmallParty).toBe(110);
   });
 
   it('party below 3% threshold gets 0 PR seats even with votes', () => {
-    const nationalShare = { Big: 0.60, Medium: 0.38, Tiny: 0.02 };
-    const seats = allocateSeats(nationalShare, 1000000, 110);
+    const nationalShare = { Big: 0.6, Medium: 0.38, Tiny: 0.02 };
+    const seats = allocateSeats(nationalShare, 110);
     expect(seats.Tiny).toBe(0);
     expect(seats.Big + seats.Medium).toBe(110);
   });
@@ -431,7 +432,7 @@ describe('full pipeline: demographics → PR seat allocation', () => {
     // If one party dominates every demographic, they win every constituency
     // and should get 100% of the national vote → all PR seats
     const monopolyShares = { Dominant: 1.0 };
-    const seats = allocateSeats(monopolyShares, 1000000, 110);
+    const seats = allocateSeats(monopolyShares, 110);
     expect(seats.Dominant).toBe(110);
   });
 });
@@ -496,7 +497,7 @@ describe('many parties — stress test with 20 parties', () => {
     for (let i = 0; i < 20; i++) {
       shares[`P${i}`] = 0.05; // 20 × 5% = 100%, all above 3% threshold
     }
-    const seats = allocateSeats(shares, 1000000, 100);
+    const seats = allocateSeats(shares, 100);
     const totalSeats = Object.values(seats).reduce((s, v) => s + v, 0);
     expect(totalSeats).toBe(100);
 

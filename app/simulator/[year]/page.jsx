@@ -25,6 +25,7 @@ import { BattlegroundPanel } from '../../../components/BattlegroundPanel';
 import { CandidatesByParty } from '../../../components/CandidatesByParty';
 import { CoalitionBuilder } from '../../../components/CoalitionBuilder';
 import { ConstituencyTable } from '../../../components/ConstituencyTable';
+import DemographicInputPanel from '../../../components/ElectionSimulation/DemographicInputPanel';
 import { Election2026InfoPanel } from '../../../components/Election2026InfoPanel';
 import CandidateWordCloud from '../../../components/CandidateWordCloud';
 import { ExportButton } from '../../../components/ExportButton';
@@ -138,6 +139,22 @@ export default function SimulatorYearPage() {
     setSlidersLocked,
     useRspNationalBase,
     setUseRspNationalBase,
+    // Demographic modeling
+    demographicMode,
+    setDemographicMode,
+    demographicPatterns,
+    demographicTurnout,
+    activeScenario,
+    savedScenarios,
+    activeDemographicDimension,
+    setActiveDemographicDimension,
+    updateDemographicPattern,
+    updateDemographicTurnout,
+    loadScenario,
+    saveScenario,
+    deleteScenario,
+    clearDemographicInputs,
+    PRESET_SCENARIOS,
   } = useElectionState();
 
   const screenshotRef = useRef(null);
@@ -1018,6 +1035,124 @@ export default function SimulatorYearPage() {
               </div>
             )}
 
+            {/* Candidate Demographics Section */}
+            {(showAllDataSections || dataFlowStep === 2) && (
+              <div className="rounded-lg border border-[rgb(219,211,196)] p-3 space-y-4">
+                <p className="text-sm font-semibold text-[rgb(24,26,36)]">
+                  Candidate Demographics (2022)
+                </p>
+
+                {/* Gender stats */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                  <DataStatCard
+                    label="Total Candidates"
+                    value={CANDIDATE_DEMOGRAPHICS_2022.totalCandidates.toLocaleString()}
+                  />
+                  <DataStatCard
+                    label="Women Candidates"
+                    value={`${femaleCandidateShare.toFixed(1)}%`}
+                  />
+                  <DataStatCard label="Women Elected" value={`${femaleElectedShare.toFixed(1)}%`} />
+                  <DataStatCard
+                    label="Avg Age (Elected)"
+                    value={CANDIDATE_DEMOGRAPHICS_2022.ageSummaryElected.average}
+                  />
+                </div>
+
+                {/* Age Distribution */}
+                <div>
+                  <p className="text-xs font-semibold text-[rgb(100,110,130)] mb-2">
+                    Age Distribution of Candidates
+                  </p>
+                  <div className="space-y-1">
+                    {CANDIDATE_DEMOGRAPHICS_2022.ageBuckets.map(bucket => {
+                      return (
+                        <div key={bucket.bucket} className="space-y-1">
+                          <div className="flex items-center justify-between text-xs text-[rgb(100,110,130)]">
+                            <span>{bucket.bucket}</span>
+                            <span>
+                              {bucket.count} ({bucket.sharePct}%)
+                            </span>
+                          </div>
+                          <div className="h-2 rounded-full bg-[rgb(244,238,229)] overflow-hidden">
+                            <div
+                              className="h-full rounded-full bg-[#3b82f6]"
+                              style={{ width: `${bucket.sharePct}%` }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Province Breakdown */}
+                <div>
+                  <p className="text-xs font-semibold text-[rgb(100,110,130)] mb-2">
+                    Candidates by Province
+                  </p>
+                  <div className="space-y-1">
+                    {CANDIDATE_DEMOGRAPHICS_2022.provinceBreakdown.map(prov => {
+                      return (
+                        <div key={prov.stateName} className="space-y-1">
+                          <div className="flex items-center justify-between text-xs text-[rgb(100,110,130)]">
+                            <span>{prov.stateName}</span>
+                            <span>
+                              {prov.candidateCount} ({prov.sharePct}%)
+                            </span>
+                          </div>
+                          <div className="h-2 rounded-full bg-[rgb(244,238,229)] overflow-hidden">
+                            <div
+                              className="h-full rounded-full bg-[#B91C1C]"
+                              style={{ width: `${prov.sharePct}%` }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Top Parties by Female Candidates */}
+                <div>
+                  <p className="text-xs font-semibold text-[rgb(100,110,130)] mb-2">
+                    Female Representation by Party (top 10)
+                  </p>
+                  <div className="space-y-1">
+                    {CANDIDATE_DEMOGRAPHICS_2022.topPartiesByCandidates
+                      .filter(p => p.femaleSharePct > 0)
+                      .sort((a, b) => b.femaleSharePct - a.femaleSharePct)
+                      .slice(0, 10)
+                      .map(partyData => {
+                        const partyColor = PARTIES[partyData.partyCode]?.color || '#9ca3af';
+                        return (
+                          <div key={partyData.partyNameNp} className="space-y-1">
+                            <div className="flex items-center justify-between text-xs text-[rgb(100,110,130)]">
+                              <span>
+                                {PARTIES[partyData.partyCode]?.name || partyData.partyNameNp}
+                              </span>
+                              <span>
+                                {partyData.femaleCandidates}/{partyData.candidateCount} (
+                                {partyData.femaleSharePct}%)
+                              </span>
+                            </div>
+                            <div className="h-2 rounded-full bg-[rgb(244,238,229)] overflow-hidden">
+                              <div
+                                className="h-full rounded-full"
+                                style={{
+                                  width: `${partyData.femaleSharePct}%`,
+                                  backgroundColor: partyColor,
+                                }}
+                              />
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                </div>
+              </div>
+            )}
+
             {(showAllDataSections || dataFlowStep === 2) && selectedYear === 2026 && (
               <>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -1138,7 +1273,6 @@ export default function SimulatorYearPage() {
                   title={t('simulator.fptp')}
                   subtitle="Affects 165 constituency seats"
                   sliders={adjustedFptpSliders}
-                  simulatedShares={simulatedFptpShares}
                   fptpSeats={fptpSeats}
                   prSeats={prSeats}
                   totalSeats={totalSeats}
@@ -1156,6 +1290,55 @@ export default function SimulatorYearPage() {
                   onSliderChange={updatePrSlider}
                   showPr={true}
                 />
+              </div>
+            </div>
+
+            {/* Demographic Modeling Toggle & Panel */}
+            <div className="mt-6">
+              <div className="bg-white rounded-lg border border-[rgb(219,211,196)] p-4 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)]">
+                      Demographic Modeling
+                    </p>
+                    <p className="text-sm text-[rgb(100,110,130)] mt-1">
+                      {demographicMode
+                        ? 'Constituency predictions use real census data for the selected demographic lens.'
+                        : 'Enable to model how different demographic groups vote across constituencies.'}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setDemographicMode(!demographicMode)}
+                    className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                      demographicMode
+                        ? 'bg-[#B91C1C] text-white hover:bg-[#991B1B]'
+                        : 'border border-[rgb(219,211,196)] text-[rgb(100,110,130)] hover:border-[rgb(24,26,36)]/30 hover:text-[rgb(24,26,36)]'
+                    }`}
+                  >
+                    <Users className="w-4 h-4 inline-block mr-1.5 -mt-0.5" />
+                    {demographicMode ? 'Enabled' : 'Enable'}
+                  </button>
+                </div>
+
+                {demographicMode && (
+                  <div className="mt-4">
+                    <DemographicInputPanel
+                      patterns={demographicPatterns}
+                      turnout={demographicTurnout}
+                      onUpdatePattern={updateDemographicPattern}
+                      onUpdateTurnout={updateDemographicTurnout}
+                      scenarios={PRESET_SCENARIOS}
+                      savedScenarios={savedScenarios}
+                      activeScenario={activeScenario}
+                      onLoadScenario={loadScenario}
+                      onSaveScenario={saveScenario}
+                      onDeleteScenario={deleteScenario}
+                      onClear={clearDemographicInputs}
+                      activeDimension={activeDemographicDimension}
+                      onChangeDimension={setActiveDemographicDimension}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </>

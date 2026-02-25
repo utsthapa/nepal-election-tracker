@@ -16,7 +16,9 @@ export function calculateVoteFlows(fptpResults) {
 
   constituencies.forEach(c => {
     const result = fptpResults[c.id];
-    if (!result) return;
+    if (!result) {
+      return;
+    }
 
     const current = result.adjusted || {};
     const baseline = c.results2022 || {};
@@ -33,12 +35,17 @@ export function calculateVoteFlows(fptpResults) {
     const losers = [];
     const gainers = [];
     Object.entries(deltas).forEach(([party, delta]) => {
-      if (delta < -0.001) losers.push({ party, loss: -delta });
-      else if (delta > 0.001) gainers.push({ party, gain: delta });
+      if (delta < -0.001) {
+        losers.push({ party, loss: -delta });
+      } else if (delta > 0.001) {
+        gainers.push({ party, gain: delta });
+      }
     });
 
     const totalGain = gainers.reduce((sum, g) => sum + g.gain, 0);
-    if (totalGain === 0 || losers.length === 0) return;
+    if (totalGain === 0 || losers.length === 0) {
+      return;
+    }
 
     // Distribute each loser's votes proportionally to gainers
     losers.forEach(({ party: source, loss }) => {
@@ -70,8 +77,13 @@ export function calculateVoteFlows(fptpResults) {
  * @returns {{ nodes: Array, links: Array }}
  */
 export function toSankeyData(flows, minFlow = 5000) {
+  if (!Array.isArray(flows)) {
+    return { nodes: [], links: [] };
+  }
   const filtered = flows.filter(f => f.value >= minFlow);
-  if (filtered.length === 0) return { nodes: [], links: [] };
+  if (filtered.length === 0) {
+    return { nodes: [], links: [] };
+  }
 
   // Collect unique parties
   const partySet = new Set();
@@ -81,7 +93,9 @@ export function toSankeyData(flows, minFlow = 5000) {
   });
   const nodeList = [...partySet];
   const nodeIndex = {};
-  nodeList.forEach((name, i) => { nodeIndex[name] = i; });
+  nodeList.forEach((name, i) => {
+    nodeIndex[name] = i;
+  });
 
   const nodes = nodeList.map(name => ({ name }));
   const links = filtered.map(f => ({

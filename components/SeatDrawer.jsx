@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Unlink, Link2, RotateCcw, BarChart3, Vote, Users, Trophy } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 import { DemographicsPanel } from './DemographicsPanel';
 import { PARTIES, INITIAL_NATIONAL } from '../data/constituencies';
@@ -19,6 +19,13 @@ export function SeatDrawer({ constituency, isOpen, onClose, onOverride, onClearO
       setLocalResults(constituency.currentResults || constituency.results2022 || {});
       setIsDetached(constituency.isOverridden || false);
     }
+  }, [constituency]);
+
+  const candidates2026 = useMemo(() => {
+    if (constituency && constituency.name) {
+      return get2026Candidates(constituency.name);
+    }
+    return [];
   }, [constituency]);
 
   if (!constituency) {
@@ -84,7 +91,19 @@ export function SeatDrawer({ constituency, isOpen, onClose, onOverride, onClearO
 
   const formatPartyLabel = partyId => {
     const info = PARTIES[partyId];
-    return info ? `${info.name}` : partyId;
+    const baseLabel = info ? `${info.name}` : partyId;
+
+    const candidate = candidates2026.find(c => {
+      if (c.partyShort === partyId) return true;
+      if (info && (c.partyShort === info.short || c.party === info.name)) return true;
+      if (partyId === 'UML' && c.partyShort === 'CPN-UML') return true;
+      if (partyId === 'Maoist' && (c.partyShort === 'CPN-M' || c.party === 'CPN-Maoist Centre'))
+        return true;
+      if (partyId === 'JSPN' && c.partyShort === 'PSP-N') return true;
+      return false;
+    });
+
+    return candidate ? `${baseLabel} - ${candidate.name}` : baseLabel;
   };
 
   const winProbEntries = constituency.winProbabilities
@@ -144,30 +163,33 @@ export function SeatDrawer({ constituency, isOpen, onClose, onOverride, onClearO
               <div className="flex border-t border-neutral">
                 <button
                   onClick={() => setActiveTab('voting')}
-                  className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-colors ${activeTab === 'voting'
+                  className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-colors ${
+                    activeTab === 'voting'
                       ? 'text-blue-800 border-b-2 border-blue-600 bg-blue-100'
                       : 'text-gray-700 hover:text-gray-200 hover:bg-neutral/50'
-                    }`}
+                  }`}
                 >
                   <Vote className="w-4 h-4" />
                   Voting
                 </button>
                 <button
                   onClick={() => setActiveTab('candidates')}
-                  className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-colors ${activeTab === 'candidates'
+                  className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-colors ${
+                    activeTab === 'candidates'
                       ? 'text-purple-800 border-b-2 border-purple-600 bg-purple-100'
                       : 'text-gray-700 hover:text-gray-200 hover:bg-neutral/50'
-                    }`}
+                  }`}
                 >
                   <Users className="w-4 h-4" />
                   2026 Candidates
                 </button>
                 <button
                   onClick={() => setActiveTab('demographics')}
-                  className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-colors ${activeTab === 'demographics'
+                  className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-colors ${
+                    activeTab === 'demographics'
                       ? 'text-green-800 border-b-2 border-green-600 bg-green-100'
                       : 'text-gray-700 hover:text-gray-200 hover:bg-neutral/50'
-                    }`}
+                  }`}
                 >
                   <BarChart3 className="w-4 h-4" />
                   Demographics
@@ -207,10 +229,11 @@ export function SeatDrawer({ constituency, isOpen, onClose, onOverride, onClearO
                     </div>
                     <button
                       onClick={handleDetachToggle}
-                      className={`px-3 py-1 rounded text-xs font-medium transition-colors ${isDetached
+                      className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                        isDetached
                           ? 'bg-amber-100 text-amber-900 hover:bg-amber-200'
                           : 'bg-blue-100 text-blue-900 hover:bg-blue-200'
-                        }`}
+                      }`}
                     >
                       {isDetached ? 'Reattach' : 'Detach'}
                     </button>
@@ -228,14 +251,18 @@ export function SeatDrawer({ constituency, isOpen, onClose, onOverride, onClearO
                     <div className="space-y-1">
                       {partyOrder.map(party => {
                         const val2022 = constituency.results2022?.[party] || 0;
-                        const val2026 = (constituency.currentResults || constituency.results2022)?.[party] || 0;
+                        const val2026 =
+                          (constituency.currentResults || constituency.results2022)?.[party] || 0;
                         const diff = val2026 - val2022;
 
                         return (
                           <div key={party} className="flex items-center justify-between text-sm">
                             <div className="flex items-center gap-2">
                               <div className={`w-2 h-2 rounded-full ${bgColors[party]}`} />
-                              <span className="text-gray-700 truncate min-w-[120px]" title={formatPartyLabel(party)}>
+                              <span
+                                className="text-gray-700 truncate min-w-[120px]"
+                                title={formatPartyLabel(party)}
+                              >
                                 {formatPartyLabel(party)}
                               </span>
                             </div>
@@ -243,7 +270,9 @@ export function SeatDrawer({ constituency, isOpen, onClose, onOverride, onClearO
                               <span className="w-14 text-right opacity-60">
                                 {(val2022 * 100).toFixed(2)}%
                               </span>
-                              <span className={`w-14 text-right font-medium ${diff > 0.0001 ? 'text-green-600' : diff < -0.0001 ? 'text-red-500' : ''}`}>
+                              <span
+                                className={`w-14 text-right font-medium ${diff > 0.0001 ? 'text-green-600' : diff < -0.0001 ? 'text-red-500' : ''}`}
+                              >
                                 {(val2026 * 100).toFixed(2)}%
                               </span>
                             </div>
@@ -277,7 +306,10 @@ export function SeatDrawer({ constituency, isOpen, onClose, onOverride, onClearO
                             <div className="flex items-center justify-between mb-1">
                               <div className="flex items-center gap-2">
                                 <div className={`w-2 h-2 rounded-full ${bgColors[party]}`} />
-                                <span className="text-sm text-gray-700">
+                                <span
+                                  className="text-sm text-gray-700 truncate max-w-[200px]"
+                                  title={formatPartyLabel(party)}
+                                >
                                   {formatPartyLabel(party)}
                                 </span>
                               </div>

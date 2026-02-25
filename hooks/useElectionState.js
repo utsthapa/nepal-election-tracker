@@ -1,10 +1,12 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
+
 import {
   constituencies,
   INITIAL_NATIONAL,
   OFFICIAL_FPTP_VOTE,
   OFFICIAL_PR_VOTE,
 } from '../data/constituencies';
+import { PRESET_SCENARIOS, createNeutralBaseline } from '../data/demographicScenarios';
 import {
   calculateAllFPTPResults,
   countFPTPSeats,
@@ -14,10 +16,9 @@ import {
   MAJORITY_THRESHOLD,
 } from '../utils/calculations';
 import { calculateDemographicFPTPResults } from '../utils/demographicCalculations';
-import { allocateSeats } from '../utils/sainteLague';
 import { applyDemographicModel } from '../utils/demographicCalculator';
+import { allocateSeats } from '../utils/sainteLague';
 import { applyRspNationalEntry } from '../utils/scenarios';
-import { PRESET_SCENARIOS, createNeutralBaseline } from '../data/demographicScenarios';
 import { readStateFromUrl } from '../utils/stateSerializer';
 
 /**
@@ -28,7 +29,9 @@ import { readStateFromUrl } from '../utils/stateSerializer';
 export function useElectionState() {
   // Hydrate from URL on initial load
   const urlState = useMemo(() => {
-    if (typeof window === 'undefined') return null;
+    if (typeof window === 'undefined') {
+      return null;
+    }
     return readStateFromUrl();
   }, []);
 
@@ -82,7 +85,9 @@ export function useElectionState() {
   // Use demographic-based seat calculations (for realistic RSP/urban party performance)
   const [useDemographicSeats, setUseDemographicSeats] = useState(false);
   // Whether to treat RSP as running in all 2022 seats at their PR proportion
-  const [useRspNationalBase, setUseRspNationalBase] = useState(() => urlState?.useRspNationalBase ?? false);
+  const [useRspNationalBase, setUseRspNationalBase] = useState(
+    () => urlState?.useRspNationalBase ?? false
+  );
 
   const [savedScenarios, setSavedScenarios] = useState(() => {
     // Load saved scenarios from localStorage
@@ -157,8 +162,8 @@ export function useElectionState() {
     // If RSP National Base is active, jump to that as the new visual "100%" baseline
     setFptpSliders(current => {
       // Only reset if we actually want the baseline. The dependency array makes it tricky to read dynamicFptpBaseline cleanly here without stale closure risks,
-      // but typically reset means "go back to what the baseline demands". 
-      return { ...fptpBaseline };  // State will be replaced correctly below anyway.
+      // but typically reset means "go back to what the baseline demands".
+      return { ...fptpBaseline }; // State will be replaced correctly below anyway.
     });
     setPrSliders({ ...prBaseline });
     setAllianceConfig(current => ({
@@ -175,12 +180,13 @@ export function useElectionState() {
       // Force FPTP sliders to display the new base if we were roughly at baseline
       setFptpSliders(current => {
         // If currently at identical values to OFFICIAL_FPTP_VOTE, snap them to the PR entry values visually too
-        const isAtPureBaseline = Object.entries(current).every(([p, v]) => Math.abs(v - OFFICIAL_FPTP_VOTE[p]) < 0.01);
+        const isAtPureBaseline = Object.entries(current).every(
+          ([p, v]) => Math.abs(v - OFFICIAL_FPTP_VOTE[p]) < 0.01
+        );
         return isAtPureBaseline ? applyRspNationalEntry(current) : current;
       });
     }
   }, [useRspNationalBase]);
-
 
   // Override a specific constituency
   const overrideConstituency = useCallback((constituencyId, results) => {
@@ -386,7 +392,13 @@ export function useElectionState() {
         ...overrides, // Manual overrides override demographic predictions
       };
 
-      return calculateAllFPTPResults(fptpSliders, mergedOverrides, dynamicFptpBaseline, allianceConfig, useRspNationalBase);
+      return calculateAllFPTPResults(
+        fptpSliders,
+        mergedOverrides,
+        dynamicFptpBaseline,
+        allianceConfig,
+        useRspNationalBase
+      );
     }
 
     // Use demographic-based calculations for realistic seat distribution
@@ -402,7 +414,13 @@ export function useElectionState() {
     }
 
     // Default: use existing calculation without demographic weighting
-    return calculateAllFPTPResults(fptpSliders, overrides, dynamicFptpBaseline, allianceConfig, useRspNationalBase);
+    return calculateAllFPTPResults(
+      fptpSliders,
+      overrides,
+      dynamicFptpBaseline,
+      allianceConfig,
+      useRspNationalBase
+    );
   }, [
     fptpSliders,
     overrides,
@@ -411,7 +429,7 @@ export function useElectionState() {
     demographicMode,
     demographicPredictions,
     useDemographicSeats,
-    useRspNationalBase
+    useRspNationalBase,
   ]);
 
   // Count FPTP seats by party
@@ -433,7 +451,7 @@ export function useElectionState() {
 
   // Calculate PR seat allocation using Sainte-Laguë
   const prSeats = useMemo(() => {
-    return allocateSeats(nationalVoteShares, 1000000, PR_SEATS);
+    return allocateSeats(nationalVoteShares, PR_SEATS);
   }, [nationalVoteShares]);
 
   // Total seats (FPTP + PR)
@@ -457,7 +475,9 @@ export function useElectionState() {
   // Find leading party
   const leadingParty = useMemo(() => {
     const entries = Object.entries(totalSeats);
-    if (entries.length === 0) return null;
+    if (entries.length === 0) {
+      return null;
+    }
     return entries.reduce((a, b) => (a[1] > b[1] ? a : b))[0];
   }, [totalSeats]);
 
@@ -474,10 +494,14 @@ export function useElectionState() {
   // Simulated national FPTP vote shares — weighted average of adjusted shares across constituencies
   // This reflects the actual simulation output (post geographic weighting + normalization)
   const simulatedFptpShares = useMemo(() => {
-    if (!fptpResults || Object.keys(fptpResults).length === 0) return {};
+    if (!fptpResults || Object.keys(fptpResults).length === 0) {
+      return {};
+    }
     const parties = Object.keys(INITIAL_NATIONAL);
     const weightedSums = {};
-    parties.forEach(p => { weightedSums[p] = 0; });
+    parties.forEach(p => {
+      weightedSums[p] = 0;
+    });
     let totalWeight = 0;
     Object.values(fptpResults).forEach(c => {
       const w = c.totalVotes || 1;
