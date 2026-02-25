@@ -1,5 +1,18 @@
 // Polling data for Nepal elections
-// Sources: Kantipur Media Group, Nepal Live, Republica, The Kathmandu Post
+//
+// DATA INTEGRITY WARNING: The polls below are ILLUSTRATIVE EXAMPLES only.
+// They are NOT verified as real published polls. The pollster names (Kantipur Media Group,
+// Nepal Live, Republica) are real organisations, but these specific poll results
+// have NOT been confirmed against any published reports.
+//
+// Before using this data publicly, each poll must be verified against an actual
+// published source (e.g., a newspaper article or press release from the pollster).
+// Add a `sourceUrl` field to each poll entry once verified.
+//
+// Real Nepali polling organisations to check:
+//   - Kantipur: https://ekantipur.com
+//   - Republica: https://myrepublica.nagariknetwork.com
+//   - Nepal Live: https://nepallive.com
 
 export const POLLS = [
   {
@@ -27,6 +40,8 @@ export const POLLS = [
     rating: 'A-',
     notes: 'Conducted across all 7 provinces. Weighted by population.',
     notesNe: 'सबै ७ प्रदेशहरूमा गरिएको। जनसंख्याद्वारा तौल गरिएको।',
+    verified: false, // TODO: locate published source and set to true
+    sourceUrl: null, // TODO: add URL to published poll report
   },
   {
     id: 'poll-002',
@@ -53,6 +68,8 @@ export const POLLS = [
     rating: 'B+',
     notes: 'Urban bias detected. Adjusted for demographic representation.',
     notesNe: 'शहरी पक्षपात पत्ता लाग्यो। जनसांख्यिकी प्रतिनिधित्वको लागि समायोजन गरियो।',
+    verified: false, // TODO: locate published source and set to true
+    sourceUrl: null, // TODO: add URL to published poll report
   },
   {
     id: 'poll-003',
@@ -79,6 +96,8 @@ export const POLLS = [
     rating: 'A',
     notes: 'Comprehensive rural and urban sampling.',
     notesNe: 'व्यापक ग्रामीण र शहरी नमूनाकरण।',
+    verified: false, // TODO: locate published source and set to true
+    sourceUrl: null, // TODO: add URL to published poll report
   },
 ]
 

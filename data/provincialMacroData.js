@@ -1,15 +1,18 @@
 /**
  * Provincial-level Macro Data for Nepal
  *
- * Data Sources:
- * - National Statistics Office Nepal
- * - Provincial government reports
- * - World Bank Nepal Development Update
+ * !! FAKE / PLACEHOLDER DATA — DO NOT USE AS REAL DATA !!
  *
- * Last Updated: 2024-01-15
+ * ALL values in this file are SAMPLE DATA generated for development purposes.
+ * They do NOT reflect actual provincial economic figures.
+ * Real data must be fetched and verified from the sources listed below.
  *
- * NOTE: This file contains placeholder/sample data structure.
- * Real provincial data to be populated from official sources.
+ * Official sources to replace this data:
+ * - National Statistics Office Nepal: https://cbs.gov.np/
+ * - Provincial government reports (Province 1–7)
+ * - World Bank Nepal Development Update: https://www.worldbank.org/en/country/nepal
+ *
+ * Last Updated: 2024-01-15 (stale — data not yet replaced with real values)
  */
 
 /**

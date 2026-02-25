@@ -1,100 +1,40 @@
-// Prediction market data for Nepal elections
-// Sources: Kalshi and Polymarket
+// Prediction market metadata for Nepal elections
+//
+// IMPORTANT: This file does NOT contain live market prices.
+// Live prices are fetched at runtime from the real APIs via:
+//   - /api/markets/kalshi       → Kalshi Elections API (KXNEPALHOUSE-26MAR05)
+//   - /api/markets/polymarket   → Polymarket Gamma API (nepal-house-of-representatives-election-winner)
+//   - /api/markets/polymarket-pm → Polymarket Gamma API (next-prime-minister-of-nepal)
+//
+// This file provides static metadata (platform names, URLs, market titles)
+// used by data-context scripts. Do NOT use it as a source of prices or probabilities.
 
-export function getPredictionMarkets() {
-  return {
-    kalshi: {
-      name: 'Kalshi',
-      url: 'https://kalshi.com/markets/kxnepalhouse/nepal-house-of-representatives-winner/kxnepalhouse-26mar05',
-      markets: [
-        {
-          id: 'kxnepalhouse-26mar05',
-          title: 'Nepal House of Representatives Winner',
-          subtitle: 'Which party will win the most seats in the next election?',
-          yesPrice: 0.45,
-          noPrice: 0.55,
-          volume: 125000,
-          lastUpdated: new Date().toISOString(),
-          outcomes: [
-            { name: 'Nepali Congress', probability: 0.32, color: '#0066cc' },
-            { name: 'CPN-UML', probability: 0.28, color: '#cc0000' },
-            { name: 'Maoist Centre', probability: 0.15, color: '#ff6600' },
-            { name: 'Rastriya Swatantra Party', probability: 0.12, color: '#00cc66' },
-            { name: 'Other', probability: 0.13, color: '#999999' },
-          ]
-        }
-      ]
-    },
-    polymarket: {
-      name: 'Polymarket',
-      url: 'https://polymarket.com/event/nepal-house-of-representatives-election-winner',
-      markets: [
-        {
-          id: 'nepal-hor-winner',
-          title: 'Nepal House of Representatives Election Winner',
-          subtitle: 'Who will form the next government?',
-          yesPrice: 0.38,
-          noPrice: 0.62,
-          volume: 89000,
-          lastUpdated: new Date().toISOString(),
-          outcomes: [
-            { name: 'Nepali Congress', probability: 0.35, color: '#0066cc' },
-            { name: 'CPN-UML', probability: 0.30, color: '#cc0000' },
-            { name: 'Maoist Centre', probability: 0.12, color: '#ff6600' },
-            { name: 'Rastriya Swatantra Party', probability: 0.10, color: '#00cc66' },
-            { name: 'Coalition Government', probability: 0.13, color: '#9933ff' },
-          ]
-        }
-      ]
-    }
-  }
+export const PREDICTION_MARKET_METADATA = {
+  kalshi: {
+    name: 'Kalshi',
+    url: 'https://kalshi.com/markets/kxnepalhouse/nepal-house-of-representatives-winner/kxnepalhouse-26mar05',
+    apiEndpoint: '/api/markets/kalshi',
+    description: 'Nepal House of Representatives Winner — which party wins the most seats?',
+    note: 'Kalshi is a US-regulated prediction market exchange.',
+  },
+  polymarket: {
+    name: 'Polymarket',
+    url: 'https://polymarket.com/event/nepal-house-of-representatives-election-winner',
+    apiEndpoint: '/api/markets/polymarket',
+    description: 'Nepal House of Representatives Election Winner — who forms the next government?',
+    note: 'Polymarket is a decentralized prediction market on the Polygon blockchain.',
+  },
+  polymarketPM: {
+    name: 'Polymarket — Next PM',
+    url: 'https://polymarket.com/event/next-prime-minister-of-nepal',
+    apiEndpoint: '/api/markets/polymarket-pm',
+    description: 'Who will be the next Prime Minister of Nepal?',
+    note: 'Polymarket is a decentralized prediction market on the Polygon blockchain.',
+  },
 }
 
-export function getLatestPredictionMarkets() {
-  const markets = getPredictionMarkets()
-  return {
-    kalshi: markets.kalshi.markets[0],
-    polymarket: markets.polymarket.markets[0]
-  }
-}
-
-export function getAggregatedProbabilities() {
-  const markets = getPredictionMarkets()
-  const kalshiOutcomes = markets.kalshi.markets[0].outcomes
-  const polymarketOutcomes = markets.polymarket.markets[0].outcomes
-
-  // Aggregate probabilities from both platforms
-  const aggregated = {}
-  
-  // Process Kalshi outcomes
-  kalshiOutcomes.forEach(outcome => {
-    if (!aggregated[outcome.name]) {
-      aggregated[outcome.name] = { 
-        name: outcome.name, 
-        kalshi: outcome.probability,
-        polymarket: 0,
-        color: outcome.color 
-      }
-    }
-  })
-
-  // Process Polymarket outcomes
-  polymarketOutcomes.forEach(outcome => {
-    if (!aggregated[outcome.name]) {
-      aggregated[outcome.name] = { 
-        name: outcome.name, 
-        kalshi: 0,
-        polymarket: outcome.probability,
-        color: outcome.color 
-      }
-    } else {
-      aggregated[outcome.name].polymarket = outcome.probability
-    }
-  })
-
-  // Calculate average probability
-  return Object.values(aggregated).map(item => ({
-    ...item,
-    average: (item.kalshi + item.polymarket) / 2
-  })).sort((a, b) => b.average - a.average)
+// Returns metadata only — no prices, no probabilities.
+// To get live prices, call the API endpoints directly.
+export function getPredictionMarketMetadata() {
+  return PREDICTION_MARKET_METADATA
 }

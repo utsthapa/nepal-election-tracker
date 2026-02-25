@@ -1,17 +1,19 @@
 /**
  * Nepal Macro Economic Data (2010-2024)
  *
- * Data Sources:
+ * !! FAKE / PLACEHOLDER DATA — DO NOT USE AS REAL DATA !!
+ *
+ * ALL values in this file are SAMPLE DATA generated for development purposes.
+ * They do NOT reflect actual Nepali economic figures.
+ * Real data must be fetched from the sources listed below and verified before use.
+ *
+ * Official sources to replace this data:
  * - World Bank Open Data: https://data.worldbank.org/country/nepal
- * - FRED (Federal Reserve Economic Data): https://fred.stlouisfed.org
  * - Nepal Rastra Bank: https://www.nrb.org.np/
- * - IMF World Economic Outlook
+ * - IMF World Economic Outlook: https://www.imf.org/en/Publications/WEO
  * - National Statistics Office Nepal: https://cbs.gov.np/
  *
- * Last Updated: 2024-01-15
- *
- * NOTE: This file contains placeholder/sample data structure.
- * Real data to be populated from official sources.
+ * Last Updated: 2024-01-15 (stale — data not yet replaced with real values)
  */
 
 // Years covered in the dataset

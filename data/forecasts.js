@@ -1,15 +1,26 @@
 // Election forecast models and projections
+//
+// DATA INTEGRITY WARNING: The projections below are ILLUSTRATIVE ESTIMATES only.
+// They are NOT produced by an independent research organisation.
+// "NepaliSoch Ensemble Model" is an internal working name — it does NOT refer to a
+// peer-reviewed model or published methodology. The seat ranges and win probabilities
+// (0.35, 0.30, 0.15, …) are manually constructed approximations based on poll averages,
+// NOT the output of a calibrated statistical model.
+//
+// Do NOT present these numbers as authoritative forecasts. Label them clearly as
+// "illustrative projections" in the UI.
 
 export const FORECASTS = {
   '2027': {
     id: 'forecast-2027',
     election: '2027 General Election',
     electionNe: '२०२७ साधारण निर्वाचन',
-    model: 'NepaliSoch Ensemble Model',
+    model: 'Illustrative Projection (Internal Estimate)',
+    modelNote: 'These are manually constructed estimates, not the output of a peer-reviewed model.',
     lastUpdated: '2025-01-28',
-    confidence: 'Medium',
-    methodology: 'Combines polling data, historical trends, and demographic analysis',
-    methodologyNe: 'मतदान डाटा, ऐतिहासिक प्रवृत्ति, र जनसांख्यिकी विश्लेषणको संयोजन',
+    confidence: 'Low — illustrative only',
+    methodology: 'Manual approximation based on unverified poll averages and historical seat distributions. Not a calibrated statistical forecast.',
+    methodologyNe: 'अपुष्ट मतदान औसत र ऐतिहासिक सिट वितरणमा आधारित म्यानुअल अनुमान।',
     projections: {
       NC: {
         seats: 95,
