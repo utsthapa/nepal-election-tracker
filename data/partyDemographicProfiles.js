@@ -1,11 +1,21 @@
 /**
  * Party Demographic Profiles
- * Defines where each party's support is concentrated based on demographics
- * Used for realistic seat projections in custom scenarios
+ *
+ * ⚠️  DATA STATUS — ANALYTICAL MODEL PARAMETERS ⚠️
+ * The affinity scores below (e.g. urbanAffinity: 0.85) are ENGINEERED
+ * ASSUMPTIONS used as inputs to the election simulator. They are NOT
+ * derived from survey data, exit polls, or any published empirical study.
+ * They encode the developers' qualitative understanding of each party's
+ * traditional support base. Treat them as modelling parameters, not
+ * measured facts.
+ *
+ * These values should be replaced with empirically sourced figures if
+ * this tool is to be used for serious analysis.
  */
 
 // Demographic affinity scores (0-1) for each party
-// Higher = stronger support in that demographic
+// Higher = stronger modelled support in that demographic
+// ⚠️ These are analytical assumptions, not survey-derived measurements
 export const PARTY_DEMOGRAPHIC_PROFILES = {
   RSP: {
     // RSP: Urban, educated, young professionals - concentrated in cities

@@ -1,11 +1,27 @@
 // Polling data for Nepal elections
-// Sources: Kantipur Media Group, Nepal Live, Republica, The Kathmandu Post
+//
+// ⚠️  IMPORTANT — DATA STATUS ⚠️
+// No verified, published pre-election opinion polls for Nepal's 2026/2027
+// general election have been sourced at this time. The entries below are
+// ILLUSTRATIVE PLACEHOLDER EXAMPLES only. They are NOT real polls, NOT
+// published by the organisations named, and the numbers are FABRICATED.
+// They must NOT be treated as factual poll results.
+// Source URLs will be added when real, published polls are obtained.
+
+/**
+ * Set to true while all entries below are illustrative placeholders.
+ * Components should display a prominent disclaimer when this is true.
+ */
+export const POLLS_ARE_ILLUSTRATIVE = true;
 
 export const POLLS = [
   {
     id: 'poll-001',
-    title: 'National Poll - January 2025',
-    titleNe: 'राष्ट्रिय मतदान - जनवरी २०२५',
+    // ⚠️ ILLUSTRATIVE ONLY — not a real published poll
+    isIllustrative: true,
+    sourceUrl: null, // No source — data is fabricated
+    title: 'National Poll - January 2025 [ILLUSTRATIVE]',
+    titleNe: 'राष्ट्रिय मतदान - जनवरी २०२५ [उदाहरण मात्र]',
     pollster: 'Kantipur Media Group',
     pollsterNe: 'कान्तिपुर मिडिया ग्रुप',
     methodology: 'Phone survey, n=2000',
@@ -25,13 +41,16 @@ export const POLLS = [
       Others: 2,
     },
     rating: 'A-',
-    notes: 'Conducted across all 7 provinces. Weighted by population.',
-    notesNe: 'सबै ७ प्रदेशहरूमा गरिएको। जनसंख्याद्वारा तौल गरिएको।',
+    notes: '[ILLUSTRATIVE PLACEHOLDER — numbers are fabricated, not a real Kantipur Media poll]',
+    notesNe: '[उदाहरण मात्र — यो वास्तविक कान्तिपुर मिडियाको सर्वेक्षण होइन]',
   },
   {
     id: 'poll-002',
-    title: 'National Poll - December 2024',
-    titleNe: 'राष्ट्रिय मतदान - डिसेम्बर २०२४',
+    // ⚠️ ILLUSTRATIVE ONLY — not a real published poll
+    isIllustrative: true,
+    sourceUrl: null,
+    title: 'National Poll - December 2024 [ILLUSTRATIVE]',
+    titleNe: 'राष्ट्रिय मतदान - डिसेम्बर २०२४ [उदाहरण मात्र]',
     pollster: 'Nepal Live',
     pollsterNe: 'नेपाल लाइभ',
     methodology: 'Online survey, n=1500',
@@ -51,13 +70,16 @@ export const POLLS = [
       Others: 2,
     },
     rating: 'B+',
-    notes: 'Urban bias detected. Adjusted for demographic representation.',
-    notesNe: 'शहरी पक्षपात पत्ता लाग्यो। जनसांख्यिकी प्रतिनिधित्वको लागि समायोजन गरियो।',
+    notes: '[ILLUSTRATIVE PLACEHOLDER — numbers are fabricated, not a real Nepal Live poll]',
+    notesNe: '[उदाहरण मात्र — यो वास्तविक नेपाल लाइभको सर्वेक्षण होइन]',
   },
   {
     id: 'poll-003',
-    title: 'National Poll - November 2024',
-    titleNe: 'राष्ट्रिय मतदान - नोभेम्बर २०२४',
+    // ⚠️ ILLUSTRATIVE ONLY — not a real published poll
+    isIllustrative: true,
+    sourceUrl: null,
+    title: 'National Poll - November 2024 [ILLUSTRATIVE]',
+    titleNe: 'राष्ट्रिय मतदान - नोभेम्बर २०२४ [उदाहरण मात्र]',
     pollster: 'Republica',
     pollsterNe: 'रिपब्लिका',
     methodology: 'Face-to-face, n=2500',
@@ -77,8 +99,8 @@ export const POLLS = [
       Others: 2,
     },
     rating: 'A',
-    notes: 'Comprehensive rural and urban sampling.',
-    notesNe: 'व्यापक ग्रामीण र शहरी नमूनाकरण।',
+    notes: '[ILLUSTRATIVE PLACEHOLDER — numbers are fabricated, not a real Republica poll]',
+    notesNe: '[उदाहरण मात्र — यो वास्तविक रिपब्लिकाको सर्वेक्षण होइन]',
   },
 ]
 

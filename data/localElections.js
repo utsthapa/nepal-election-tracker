@@ -1,5 +1,19 @@
 // Local election data for Nepal
 // Covers 2017 and 2022 local elections (municipalities and rural municipalities)
+//
+// ⚠️  DATA STATUS ⚠️
+// SUMMARY-LEVEL FIGURES (LOCAL_ELECTIONS — mayor/deputy mayor seat totals by
+// party and province) are broadly consistent with publicly reported results
+// but have not been individually verified against the Election Commission of
+// Nepal's official tally sheets.
+//
+// METROPOLITAN VOTE COUNTS (METROPOLITAN_RESULTS) — winner names and parties
+// are verifiable for key races (e.g. Balendra Shah, Kathmandu 2022 ✓), but
+// the specific vote tallies (e.g. votes: 38871) are UNVERIFIED ESTIMATES.
+// Individual candidate vote totals should be checked against:
+//   Election Commission of Nepal: https://election.gov.np/
+//
+// Do not cite specific vote counts without verifying from official sources.
 
 export const LOCAL_ELECTIONS = {
   2022: {
@@ -89,105 +103,119 @@ export const LOCAL_ELECTIONS = {
 };
 
 // Key metropolitan cities results
+// ⚠️ Winner names and parties are publicly verifiable; vote tallies are UNVERIFIED ESTIMATES.
+// Verify vote counts at: https://election.gov.np/
 export const METROPOLITAN_RESULTS = {
   2022: {
     Kathmandu: {
       mayor: 'Balendra Shah',
       party: 'RSP',
-      votes: 38871,
+      votes: 38871, // ⚠️ unverified estimate — check election.gov.np
       runnerUp: 'Keshav Sthapit',
       runnerUpParty: 'UML',
-      runnerUpVotes: 26456,
+      runnerUpVotes: 26456, // ⚠️ unverified estimate
+      votesVerified: false,
     },
     Pokhara: {
       mayor: 'Dhanraj Acharya',
       party: 'NC',
-      votes: 27584,
+      votes: 27584, // ⚠️ unverified estimate
       runnerUp: 'Krishna Thapa',
       runnerUpParty: 'UML',
-      runnerUpVotes: 24123,
+      runnerUpVotes: 24123, // ⚠️ unverified estimate
+      votesVerified: false,
     },
     Lalitpur: {
       mayor: 'Chiri Babu Maharjan',
       party: 'NC',
-      votes: 25891,
+      votes: 25891, // ⚠️ unverified estimate
       runnerUp: 'Hari Krishna Byanjankar',
       runnerUpParty: 'UML',
-      runnerUpVotes: 18921,
+      runnerUpVotes: 18921, // ⚠️ unverified estimate
+      votesVerified: false,
     },
     Bharatpur: {
       mayor: 'Renu Dahal',
       party: 'Maoist',
-      votes: 42123,
+      votes: 42123, // ⚠️ unverified estimate
       runnerUp: 'Bijay Subedi',
       runnerUpParty: 'UML',
-      runnerUpVotes: 38912,
+      runnerUpVotes: 38912, // ⚠️ unverified estimate
+      votesVerified: false,
     },
     Birgunj: {
       mayor: 'Rajesh Man Singh',
       party: 'NC',
-      votes: 32145,
+      votes: 32145, // ⚠️ unverified estimate
       runnerUp: 'Vijay Kumar Sarawagi',
       runnerUpParty: 'JSPN',
-      runnerUpVotes: 28456,
+      runnerUpVotes: 28456, // ⚠️ unverified estimate
+      votesVerified: false,
     },
     Biratnagar: {
       mayor: 'Nagesh Koirala',
       party: 'NC',
-      votes: 35123,
+      votes: 35123, // ⚠️ unverified estimate
       runnerUp: 'Sagar Kumar Thapa',
       runnerUpParty: 'UML',
-      runnerUpVotes: 31245,
+      runnerUpVotes: 31245, // ⚠️ unverified estimate
+      votesVerified: false,
     },
   },
   2017: {
     Kathmandu: {
       mayor: 'Bidya Sundar Shakya',
       party: 'UML',
-      votes: 68456,
+      votes: 68456, // ⚠️ unverified estimate
       runnerUp: 'Rajaram Shrestha',
       runnerUpParty: 'NC',
-      runnerUpVotes: 42123,
+      runnerUpVotes: 42123, // ⚠️ unverified estimate
+      votesVerified: false,
     },
     Pokhara: {
       mayor: 'Man Bahadur GC',
       party: 'UML',
-      votes: 45123,
+      votes: 45123, // ⚠️ unverified estimate
       runnerUp: 'Krishna Thapa',
       runnerUpParty: 'NC',
-      runnerUpVotes: 32145,
+      runnerUpVotes: 32145, // ⚠️ unverified estimate
+      votesVerified: false,
     },
     Lalitpur: {
       mayor: 'Chiri Babu Maharjan',
       party: 'NC',
-      votes: 32145,
+      votes: 32145, // ⚠️ unverified estimate
       runnerUp: 'Hari Krishna Byanjankar',
       runnerUpParty: 'UML',
-      runnerUpVotes: 28456,
+      runnerUpVotes: 28456, // ⚠️ unverified estimate
+      votesVerified: false,
     },
     Bharatpur: {
       mayor: 'Renu Dahal',
       party: 'Maoist',
-      votes: 38456,
+      votes: 38456, // ⚠️ unverified estimate
       runnerUp: 'Devi Gyawali',
       runnerUpParty: 'UML',
-      runnerUpVotes: 37123,
+      runnerUpVotes: 37123, // ⚠️ unverified estimate
+      votesVerified: false,
     },
     Birgunj: {
       mayor: 'Vijay Kumar Sarawagi',
       party: 'RJPN',
-      votes: 28456,
+      votes: 28456, // ⚠️ unverified estimate
       runnerUp: 'Rajesh Man Singh',
       runnerUpParty: 'NC',
-      runnerUpVotes: 25123,
+      runnerUpVotes: 25123, // ⚠️ unverified estimate
+      votesVerified: false,
     },
     Biratnagar: {
       mayor: 'Bhima Parajuli',
       party: 'NC',
-      votes: 32145,
+      votes: 32145, // ⚠️ unverified estimate
       runnerUp: 'Nagesh Koirala',
       runnerUpParty: 'UML',
-      runnerUpVotes: 28456,
+      runnerUpVotes: 28456, // ⚠️ unverified estimate
+      votesVerified: false,
     },
   },
 };

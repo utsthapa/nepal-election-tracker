@@ -112,37 +112,37 @@ The difference isn't academic. It changes who sits in parliament.
 
 ## What the 2022 election actually looked like
 
-Let's apply this to real data. In the 2022 election, here's how the PR votes broke down among parties that crossed the 3% threshold:
+Let's apply this to real data. In the 2022 election, here's how the PR votes broke down among parties that crossed the 3% threshold (approximate vote totals derived from official Election Commission percentages and a total of ~10.56 million valid PR ballots):
 
-| Party | PR Votes | Vote % |
+| Party | PR Votes (approx.) | Vote % |
 |-------|----------|--------|
-| UML   | 2,519,976 | 26.61% |
-| NC    | 2,518,582 | 26.59% |
-| RSP   | 1,235,586 | 13.05% |
-| Maoist Centre | 1,214,247 | 12.82% |
-| RPP   | 648,354   | 6.85%  |
-| JSPN  | 636,212   | 6.72%  |
-| JP    | 412,500   | 4.36%  |
+| UML   | 2,845,942 | 26.95% |
+| NC    | 2,714,957 | 25.71% |
+| Maoist Centre | 1,175,337 | 11.13% |
+| RSP   | 1,129,929 | 10.70% |
+| RPP   |   589,253 |  5.58% |
+| JSPN  |   421,447 |  3.99% |
+| JP    |   394,947 |  3.74% |
 
-Look at those top two numbers. UML and NC were separated by fewer than 1,400 votes out of more than 9 million cast. That's a margin of 0.02 percentage points. And yet UML ended up with 34 PR seats to NC's 32 — a two-seat gap that looks a lot bigger than a 1,400-vote difference.
+UML led NC by roughly 131,000 votes — a margin of 1.24 percentage points. That gap translated into a two-seat advantage in PR allocation (34 seats vs. 32).
 
 Here's how Sainte-Laguë allocated the 110 seats:
 
-| Party | Votes | PR Seats | Seat % | Vote % | Difference |
+| Party | Votes (approx.) | PR Seats | Seat % | Vote % | Difference |
 |-------|-------|----------|--------|--------|------------|
-| UML   | 2,519,976 | 34 | 30.91% | 26.61% | +4.30% |
-| NC    | 2,518,582 | 32 | 29.09% | 26.59% | +2.50% |
-| Maoist Centre | 1,214,247 | 14 | 12.73% | 12.82% | -0.09% |
-| RSP   | 1,235,586 | 13 | 11.82% | 13.05% | -1.23% |
-| RPP   | 648,354   | 7  | 6.36%  | 6.85%  | -0.49% |
-| JSPN  | 636,212   | 6  | 5.45%  | 6.72%  | -1.27% |
-| JP    | 412,500   | 4  | 3.64%  | 4.36%  | -0.72% |
+| UML   | 2,845,942 | 34 | 30.91% | 26.95% | +3.96% |
+| NC    | 2,714,957 | 32 | 29.09% | 25.71% | +3.38% |
+| Maoist Centre | 1,175,337 | 14 | 12.73% | 11.13% | +1.60% |
+| RSP   | 1,129,929 | 13 | 11.82% | 10.70% | +1.12% |
+| RPP   |   589,253 |  7 |  6.36% |  5.58% | +0.78% |
+| JSPN  |   421,447 |  5 |  4.55% |  3.99% | +0.56% |
+| JP    |   394,947 |  5 |  4.55% |  3.74% | +0.81% |
 
-The average deviation between vote share and seat share? Just 1.51 percentage points. That's really good. For context, pure FPTP systems routinely produce deviations of 10-15 percentage points.
+The average deviation between vote share and seat share? About 1.7 percentage points. That's good — not perfect, but far better than pure FPTP systems, which routinely produce deviations of 10–15 percentage points.
 
-But "really good" isn't "perfect." UML got overrepresented by 4.3 points. JSPN got shortchanged by 1.27 points. These are rounding artifacts — inevitable when you're converting continuous percentages into discrete seats. The question isn't whether there's some distortion. There always will be. The question is whether the distortion is systematic or random.
+Notice that every qualifying party is slightly overrepresented relative to their raw vote share. This is because roughly 12% of total PR votes went to parties that fell below the 3% threshold and received no seats — those votes effectively inflate the seat shares of the parties that did qualify.
 
-With Sainte-Laguë, it's mostly random. And that matters.
+With Sainte-Laguë, the overrepresentation is distributed roughly in proportion to party size rather than being concentrated among the largest parties. And that matters.
 
 ## What if Nepal used D'Hondt instead?
 
@@ -150,15 +150,15 @@ Run the same 2022 votes through D'Hondt and you get a slightly different parliam
 
 | Party | Sainte-Laguë | D'Hondt | Change |
 |-------|--------------|---------|--------|
-| NC    | 32           | 33      | +1     |
-| UML   | 34           | 34      | 0      |
+| UML   | 34           | 35      | +1     |
+| NC    | 32           | 32      | 0      |
 | Maoist Centre | 14   | 14      | 0      |
 | RSP   | 13           | 13      | 0      |
 | RPP   | 7            | 7       | 0      |
-| JSPN  | 6            | 6       | 0      |
-| JP    | 4            | 3       | -1     |
+| JSPN  | 5            | 5       | 0      |
+| JP    | 5            | 4       | -1     |
 
-One seat shifts from the smallest qualifying party (JP, with 4.36% of votes) to the largest (NC, with 26.59%). That's D'Hondt doing what D'Hondt does: giving a small bonus to big parties at the expense of small ones.
+One seat shifts from the smallest qualifying party (JP, with 3.74% of votes) to the largest (UML, with 26.95%). That's D'Hondt doing what D'Hondt does: giving a small bonus to big parties at the expense of small ones.
 
 One seat doesn't sound like much. But in a parliament where the effective number of parties is 4.75 and coalition math is everything, a single seat can be the difference between a viable coalition and a failed one. In 2022, the eventual governing coalition had a working majority of just a handful of seats. Move one here, one there, and the whole calculus shifts.
 
@@ -166,7 +166,7 @@ One seat doesn't sound like much. But in a parliament where the effective number
 
 Before Sainte-Laguë even kicks in, there's a gate to pass through. Parties need at least 3% of the national PR vote to qualify for seats.
 
-In 2022, parties that fell below 3% collectively received about 283,450 votes — roughly 3% of the total. Those votes just... disappeared. They didn't count toward any seat allocation. The voters who cast them got FPTP representation in their local constituencies, but their PR votes were effectively wasted.
+In 2022, parties that fell below 3% collectively received roughly 1.3 million PR votes — about 12% of all valid PR ballots cast. That includes the Unified Socialists (2.83%), the National Unity Party (2.57%), the Loktantrik Samajbadi Party (1.58%), and numerous smaller parties. Those votes just... disappeared. They didn't count toward any seat allocation. The voters who cast them got FPTP representation in their local constituencies, but their PR votes were effectively wasted.
 
 This creates an interesting tension. The whole point of PR is to ensure every vote counts. But the threshold means some votes don't. The justification is practical: without a threshold, you'd get a parliament full of micro-parties with one or two seats each, making coalition-building nearly impossible.
 
@@ -182,7 +182,7 @@ In 2022, the FPTP results alone gave NC 57 seats, UML 44, and Maoist Centre 18 o
 
 The PR seats act as a corrective. UML picked up 34 additional seats through PR, bringing its total to 78 (28.4% of the 275-seat house). NC got 32 more, reaching 89 (32.4%). And critically, parties like RSP — which won 20 total seats, with 13 coming through PR — got parliamentary representation that FPTP alone would have denied them.
 
-RSP's story is actually the best argument for why PR matters. The party didn't exist before 2022. It emerged as a genuine grassroots force, winning 13.05% of the PR vote. Under a pure FPTP system, a new party with geographically dispersed support would struggle to win individual constituencies. PR gave RSP a voice proportional to its actual support. Whether you like RSP's politics or not, that's democracy working as designed.
+RSP's story is actually the best argument for why PR matters. The party didn't exist before 2022. It emerged as a genuine grassroots force, winning 10.70% of the PR vote and 7 FPTP seats for a total of 20 seats. Under a pure FPTP system, a new party with geographically dispersed support would struggle to win individual constituencies. PR gave RSP a voice broadly proportional to its actual support. Whether you like RSP's politics or not, that's democracy working as designed.
 
 ## The gender quota adds another layer
 
@@ -230,7 +230,7 @@ Nepal chose proportionality. Given that the country's parliament already had an 
 
 ## What we know and what we don't
 
-Here's what the data tells us clearly: Sainte-Laguë does what it's supposed to do. In 2022, the average deviation between vote share and seat share was 1.51 percentage points. That's about as good as you can get when converting percentages into whole numbers.
+Here's what the data tells us clearly: Sainte-Laguë does what it's supposed to do. In 2022, the average deviation between vote share and seat share was about 1.7 percentage points. That's about as good as you can get when converting percentages into whole numbers.
 
 We also know the system has shaped Nepal's party dynamics. The combination of PR seats and a low threshold gave RSP a meaningful parliamentary presence in its very first election. It gave smaller parties like RPP and JSPN seats roughly proportional to their support. And it prevented any single party from translating a plurality of votes into an outright majority.
 

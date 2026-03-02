@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useLanguage } from '../../context/LanguageContext';
 import { PARTIES } from '../../data/constituencies';
 
-export default function PollsPageClient({ polls, trends }) {
+export default function PollsPageClient({ polls, trends, pollsAreIllustrative }) {
   const { language, t } = useLanguage();
 
   return (
@@ -22,6 +22,25 @@ export default function PollsPageClient({ polls, trends }) {
               : 'Latest public opinion polls and polling trends for Nepal elections'}
           </p>
         </div>
+
+        {/* Illustrative data warning banner */}
+        {pollsAreIllustrative && (
+          <div className="mb-8 p-4 bg-amber-50 border-2 border-amber-400 rounded-xl flex items-start gap-3">
+            <AlertCircle className="w-6 h-6 text-amber-600 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="font-bold text-amber-900 mb-1">
+                {language === 'ne'
+                  ? '⚠️ उदाहरण डाटा — वास्तविक सर्वेक्षण होइन'
+                  : '⚠️ Illustrative Data — Not Real Polls'}
+              </p>
+              <p className="text-sm text-amber-800">
+                {language === 'ne'
+                  ? 'तलका सर्वेक्षणहरू उदाहरणात्मक प्लेसहोल्डर मात्र हुन्। संख्याहरू निर्मित छन् र यी संस्थाहरूले प्रकाशित गरेका वास्तविक सर्वेक्षण होइनन्। वास्तविक, प्रकाशित सर्वेक्षण उपलब्ध भएपछि यो सूचना अद्यावधिक हुनेछ।'
+                  : 'The polls below are illustrative placeholder examples only. The numbers are fabricated and are NOT real surveys published by the named organisations. This section will be updated when verified, published polls become available.'}
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
