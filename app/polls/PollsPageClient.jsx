@@ -6,7 +6,6 @@ import Link from 'next/link';
 
 import { useLanguage } from '../../context/LanguageContext';
 import { PARTIES } from '../../data/constituencies';
-import { POLLS_ARE_ILLUSTRATIVE } from '../../data/polls';
 
 export default function PollsPageClient({ polls, trends, pollsAreIllustrative }) {
   const { language, t } = useLanguage();
