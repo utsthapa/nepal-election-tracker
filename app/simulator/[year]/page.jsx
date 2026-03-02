@@ -484,6 +484,18 @@ export default function SimulatorYearPage() {
                   scenario.
                 </p>
               </div>
+              <button
+                onClick={() => {
+                  setGuidedFlowEnabled(false);
+                  setGuidedStep(5);
+                  if (!experienceMode) {
+                    setExperienceMode('simulation');
+                  }
+                }}
+                className="px-3 py-2 rounded-lg border border-[rgb(219,211,196)] text-sm text-[rgb(100,110,130)] hover:border-[rgb(24,26,36)]/30 hover:text-[rgb(24,26,36)]"
+              >
+                Use Full Dashboard
+              </button>
             </div>
 
             {guidedStep === 0 && (
