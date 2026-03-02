@@ -139,6 +139,9 @@ export const OFFICIAL_FPTP_VOTE = {
 };
 
 export const OFFICIAL_PR_VOTE = {
+  // Official 2022 PR ballot national percentages from ECN
+  // Parties below 3% threshold (US, LSP, NUP) received 0 PR seats
+  // Independent/NMKP/Janamorcha do not contest PR — folded into Others
   NC: 25.71,
   UML: 26.95,
   Maoist: 11.13,
@@ -149,13 +152,12 @@ export const OFFICIAL_PR_VOTE = {
   JP: 3.74,
   LSP: 1.58,
   NUP: 2.57,
-  Independent: 0,
-  NMKP: 0,
-  Janamorcha: 0,
   Others: 5.22,
 };
 
 export const ACTUAL_2022_SEATS = {
+  // FPTP seats: Independent (5) + NMKP (1) + Janamorcha (1) = 7 folded into Others
+  // to match the simulator's totalSeats.Others fold-in logic (INITIAL_NATIONAL parties only)
   FPTP: {
     NC: 57,
     UML: 44,
@@ -167,10 +169,7 @@ export const ACTUAL_2022_SEATS = {
     JP: 1,
     LSP: 4,
     NUP: 3,
-    Independent: 5,
-    NMKP: 1,
-    Janamorcha: 1,
-    Others: 0,
+    Others: 7, // Independent: 5, NMKP: 1, Janamorcha: 1
   },
   PR: {
     NC: 32,
@@ -183,9 +182,6 @@ export const ACTUAL_2022_SEATS = {
     JP: 5,
     LSP: 0,
     NUP: 0,
-    Independent: 0,
-    NMKP: 0,
-    Janamorcha: 0,
     Others: 0,
   },
   Total: {
@@ -199,10 +195,7 @@ export const ACTUAL_2022_SEATS = {
     JP: 6,
     LSP: 4,
     NUP: 3,
-    Independent: 5,
-    NMKP: 1,
-    Janamorcha: 1,
-    Others: 0,
+    Others: 7, // Independent: 5, NMKP: 1, Janamorcha: 1 (no PR seats for these parties)
   },
 };
 
