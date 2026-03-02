@@ -244,11 +244,11 @@ Let's ground all of this in a real example. Here's what the final pre-election p
 
 <BarChart
   data={[
-    { party: 'NC', pollAvg: 29, actual: 26.6, error: 2.4 },
-    { party: 'UML', pollAvg: 26, actual: 26.6, error: -0.6 },
-    { party: 'Maoist', pollAvg: 14, actual: 12.8, error: 1.2 },
-    { party: 'RSP', pollAvg: 13, actual: 13.1, error: -0.1 },
-    { party: 'Others', pollAvg: 18, actual: 20.9, error: -2.9 },
+    { party: 'NC', pollAvg: 29, actual: 25.7, error: 3.3 },
+    { party: 'UML', pollAvg: 26, actual: 27.0, error: -1.0 },
+    { party: 'Maoist', pollAvg: 14, actual: 11.1, error: 2.9 },
+    { party: 'RSP', pollAvg: 13, actual: 10.7, error: 2.3 },
+    { party: 'Others', pollAvg: 18, actual: 25.5, error: -7.5 },
   ]}
   xKey="party"
   bars={[
@@ -258,24 +258,24 @@ Let's ground all of this in a real example. Here's what the final pre-election p
   height={400}
 />
 
-_Figure: 2022 polling accuracy — polls vs actual results_
+_Figure: 2022 polling accuracy — polls vs actual PR vote shares_
 
 <Callout type="info" title="2022 POLLING ACCURACY">
 | Party | Final Poll Average (Nov 10-15) | Actual PR Vote Share (Nov 20) | Error |
 |-------|-------------------------------|-------------------------------|-------|
-| NC | 29% | 26.6% | +2.4% |
-| UML | 26% | 26.6% | -0.6% |
-| Maoist Centre | 14% | 12.8% | +1.2% |
-| RSP | 13% | 13.1% | -0.1% |
-| Others | 18% | 20.9% | -2.9% |
+| NC | 29% | 25.7% | +3.3% |
+| UML | 26% | 27.0% | -1.0% |
+| Maoist Centre | 14% | 11.1% | +2.9% |
+| RSP | 13% | 10.7% | +2.3% |
+| Others | 18% | 25.5% | -7.5% |
 
-**Average error**: 1.4 percentage points
+**Average error**: ~3.4 percentage points
 
 </Callout>
 
-The polls got the big picture right. They correctly identified the tight NC-UML race. They nailed RSP's arrival as a serious force — a genuinely hard thing to poll, since RSP was a brand-new party with no historical baseline. They caught the Maoist Centre's continued decline from 2017.
+The polls got the broad picture right on direction: they identified a close NC-UML contest and correctly flagged RSP as a serious force in its first election. They also anticipated Maoist Centre's continued decline from 2017.
 
-Where they stumbled was on the "Others" category — the fragmented collection of smaller parties that collectively grabbed nearly 21% of the PR vote. Polls underestimated this by about 3 points, which makes sense: it's hard to poll for a dozen small parties individually.
+But they overstated support for the named parties (NC, Maoist, RSP) and badly underestimated the "Others" bucket — the fragmented collection of smaller parties (RPP, JSPN, JP, and others) that collectively grabbed about 25.5% of the PR vote. Polls put that bucket at 18%, undershooting by 7.5 points. That's the biggest systematic error, and it's not surprising: it's hard to poll for a dozen smaller parties individually, so their combined total gets underestimated. The average error across the five categories was about 3–4 percentage points — workable for calling the overall order of parties, but wide enough that close races between individual parties are hard to predict precisely.
 
 ---
 
@@ -351,7 +351,7 @@ So what should you actually do the next time a poll drops?
 
 ## What We Know, and What We Don't
 
-Here's what we can say with confidence: polling in Nepal has gotten better. The 2022 results showed average errors around 1.4 percentage points — genuinely solid performance. The big stories (RSP's rise, the NC-UML dead heat, the Maoist decline) were all captured in pre-election surveys.
+Here's what we can say with confidence: polling in Nepal captured the 2022 election's main stories — RSP's emergence as a significant force, a tight NC-UML contest at the top, and continued Maoist decline. Where polls consistently fell short was in estimating the combined "Others" vote share, which was badly underestimated. Named-party polling was closer but still overestimated the big established parties somewhat. Average errors across the main categories ran around 3–4 percentage points.
 
 Here's what we can't say: whether that accuracy will hold in 2027. Every election is different. New parties create new challenges. Alliance structures shift. Voter behavior evolves.
 
