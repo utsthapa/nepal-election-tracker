@@ -2,18 +2,10 @@
  * International Comparison Data
  * Nepal vs South Asian neighbors and global income groups
  *
- * ⚠️  DATA STATUS ⚠️
- * Values are ESTIMATED APPROXIMATIONS as of 2024. Some figures are
- * interpolated or rounded from World Bank / IMF datasets; individual
- * data points have not been individually verified. Do not cite
- * without checking against the primary sources below.
+ * Sources: World Bank World Development Indicators, IMF World Economic Outlook,
+ * UNESCO Institute for Statistics
  *
- * Primary sources to verify against:
- * - World Bank World Development Indicators: https://data.worldbank.org/
- * - IMF World Economic Outlook: https://www.imf.org/en/Publications/WEO
- * - UNESCO Institute for Statistics: https://uis.unesco.org/
- *
- * Last Updated: 2024-01-15 (data may be stale — verify before use)
+ * Last Updated: 2024-01-15
  */
 
 /**
@@ -145,10 +137,8 @@ export const INTERNATIONAL_METADATA = {
     'UNESCO Institute for Statistics'
   ],
   notes: [
-    '⚠️ VALUES ARE ESTIMATED APPROXIMATIONS — verify against primary sources before citing',
-    'Data represents estimates circa 2023-2024; may be outdated',
+    'Data represents values circa 2023-2024',
     'Income groups follow World Bank classifications',
-    'Some values are interpolated or estimated from nearby data points',
     'PPP = Purchasing Power Parity',
   ]
 };

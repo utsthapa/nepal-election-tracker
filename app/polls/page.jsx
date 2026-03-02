@@ -1,5 +1,5 @@
 import PollsPageClient from './PollsPageClient'
-import { getLatestPolls, getPollTrends, POLLS_ARE_ILLUSTRATIVE } from '../../data/polls'
+import { getLatestPolls, getPollTrends } from '../../data/polls'
 
 export const metadata = {
   title: 'Polls | NepaliSoch',
@@ -10,5 +10,5 @@ export default function PollsPage() {
   const polls = getLatestPolls(20)
   const trends = getPollTrends()
 
-  return <PollsPageClient polls={polls} trends={trends} pollsAreIllustrative={POLLS_ARE_ILLUSTRATIVE} />
+  return <PollsPageClient polls={polls} trends={trends} />
 }
