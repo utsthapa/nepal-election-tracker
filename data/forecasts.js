@@ -123,13 +123,14 @@ export const FORECASTS = {
   },
 }
 
+const FORECAST_YEARS_DESC = Object.keys(FORECASTS).sort((a, b) => b - a);
+
 export function getForecastById(id) {
   return FORECASTS[id]
 }
 
 export function getLatestForecast() {
-  const years = Object.keys(FORECASTS).sort((a, b) => b - a)
-  return FORECASTS[years[0]]
+  return FORECASTS[FORECAST_YEARS_DESC[0]]
 }
 
 export function getForecastWinProbability(party, forecastId = '2027') {
