@@ -1,15 +1,19 @@
 /**
  * Provincial-level Macro Data for Nepal
  *
- * Data Sources:
- * - National Statistics Office Nepal
- * - Provincial government reports
+ * ⚠️  DATA STATUS ⚠️
+ * The values in this file are ESTIMATED / UNVERIFIED PLACEHOLDERS. Provincial
+ * disaggregated statistics for Nepal are difficult to obtain; these numbers
+ * are rough approximations that have NOT been verified against official
+ * provincial or national sources. Do not cite them without checking first.
+ *
+ * Intended primary sources (verify/replace each value before citing):
+ * - National Statistics Office Nepal: https://cbs.gov.np/
+ * - Provincial government annual reports
  * - World Bank Nepal Development Update
+ * - Nepal Rastra Bank: https://www.nrb.org.np/
  *
- * Last Updated: 2024-01-15
- *
- * NOTE: This file contains placeholder/sample data structure.
- * Real provincial data to be populated from official sources.
+ * Last Updated: 2024-01-15 (data not re-verified since this date)
  */
 
 /**

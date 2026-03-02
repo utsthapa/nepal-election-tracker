@@ -1,15 +1,30 @@
 // Election forecast models and projections
+//
+// ⚠️  IMPORTANT — DATA STATUS ⚠️
+// The projections below are ILLUSTRATIVE PLACEHOLDER examples generated for
+// development and UI demonstration purposes. They are NOT the output of a
+// real published forecasting model. "NepaliSoch Ensemble Model" is a
+// placeholder name — no such organisation or model exists. Seat projections
+// and probabilities are fabricated. This section must be replaced with a
+// real, peer-reviewed or officially published forecast before going live.
+
+/**
+ * True while all forecast entries are illustrative placeholders.
+ * Components should display a disclaimer when this is true.
+ */
+export const FORECASTS_ARE_ILLUSTRATIVE = true;
 
 export const FORECASTS = {
   '2027': {
     id: 'forecast-2027',
     election: '2027 General Election',
     electionNe: '२०२७ साधारण निर्वाचन',
-    model: 'NepaliSoch Ensemble Model',
+    // ⚠️ Placeholder name — not a real organisation or published model
+    model: 'Illustrative Forecast Model (placeholder — no real organisation)',
     lastUpdated: '2025-01-28',
-    confidence: 'Medium',
-    methodology: 'Combines polling data, historical trends, and demographic analysis',
-    methodologyNe: 'मतदान डाटा, ऐतिहासिक प्रवृत्ति, र जनसांख्यिकी विश्लेषणको संयोजन',
+    confidence: 'Low — illustrative only',
+    methodology: '[ILLUSTRATIVE] Combines polling data, historical trends, and demographic analysis. These numbers are fabricated for demonstration; no real model output is behind them.',
+    methodologyNe: '[उदाहरण मात्र] मतदान डाटा, ऐतिहासिक प्रवृत्ति, र जनसांख्यिकी विश्लेषणको संयोजन। यी संख्याहरू प्रदर्शनको लागि निर्मित हुन्।',
     projections: {
       NC: {
         seats: 95,

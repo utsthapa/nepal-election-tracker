@@ -15,7 +15,7 @@ import {
 
 import { useLanguage } from '../../../context/LanguageContext';
 import { PARTIES } from '../../../data/constituencies';
-import { getLatestForecast } from '../../../data/forecasts';
+import { getLatestForecast, FORECASTS_ARE_ILLUSTRATIVE } from '../../../data/forecasts';
 
 export default function ForecastPage() {
   const { language } = useLanguage();
@@ -54,6 +54,25 @@ export default function ForecastPage() {
           </h1>
           <p className="text-gray-700">{forecast.election}</p>
         </div>
+
+        {/* Illustrative data warning */}
+        {FORECASTS_ARE_ILLUSTRATIVE && (
+          <div className="mb-8 p-4 bg-amber-50 border-2 border-amber-400 rounded-xl flex items-start gap-3">
+            <AlertCircle className="w-6 h-6 text-amber-600 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="font-bold text-amber-900 mb-1">
+                {language === 'ne'
+                  ? '⚠️ उदाहरण पूर्वानुमान — वास्तविक मोडेल होइन'
+                  : '⚠️ Illustrative Forecast — Not a Real Published Model'}
+              </p>
+              <p className="text-sm text-amber-800">
+                {language === 'ne'
+                  ? 'तलका सिट अनुमानहरू र सम्भावनाहरू उदाहरणात्मक प्लेसहोल्डर मात्र हुन्। कुनै वास्तविक प्रकाशित पूर्वानुमान मोडेलको आउटपुट होइन। यी संख्याहरू निर्मित छन्।'
+                  : 'The seat projections and probabilities below are illustrative placeholder examples only. They are not the output of any real published forecasting model. These numbers are fabricated for development purposes.'}
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* Methodology Info */}
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-8">
