@@ -382,7 +382,7 @@ export default function SimulatorYearPage() {
     resetSliders();
     clearAllOverrides();
     clearAlliance();
-    setSlidersLocked(true);
+    setSlidersLocked(false);
     setUseRspNationalBase(false);
     setStartingPoint('2022');
     setIncumbencyDecay(0);
