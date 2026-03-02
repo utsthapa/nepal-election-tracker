@@ -73,7 +73,8 @@ export function useElectionState() {
   const [switchingMatrix, setSwitchingMatrix] = useState({});
 
   // Whether FPTP and PR sliders are locked (move together)
-  const [slidersLocked, setSlidersLocked] = useState(() => urlState?.slidersLocked ?? true);
+  // Default false so FPTP and PR are independently adjustable out of the box
+  const [slidersLocked, setSlidersLocked] = useState(() => urlState?.slidersLocked ?? false);
 
   // Demographic modeling state
   const [demographicMode, setDemographicMode] = useState(false);
