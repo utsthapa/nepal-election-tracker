@@ -160,7 +160,7 @@ export default function SimulatorYearPage() {
   const screenshotRef = useRef(null);
   const [isAllianceModalOpen, setAllianceModalOpen] = useState(false);
   const [nepalMapMode, setNepalMapMode] = useState('map');
-  const [guidedFlowEnabled, setGuidedFlowEnabled] = useState(true);
+  const [guidedFlowEnabled, setGuidedFlowEnabled] = useState(false);
   const [guidedStep, setGuidedStep] = useState(0);
   const [experienceMode, setExperienceMode] = useState(null);
 
