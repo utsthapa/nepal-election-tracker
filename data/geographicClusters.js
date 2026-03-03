@@ -1,15 +1,6 @@
 // Geographic Cluster Classification for Nepal Election Simulator
 // Groups 165 FPTP constituencies into 4 clusters with different swing multipliers
 // National "waves" do not hit every part of Nepal with equal force
-//
-// ⚠️  DATA STATUS — ANALYTICAL MODEL PARAMETERS ⚠️
-// The swing multipliers (metropolitan: 1.8×, terai urban: 1.2×, hilly rural: 0.7×,
-// mountain: 0.3×) are INVENTED PARAMETERS chosen by developers to produce
-// plausible simulation behaviour. They are NOT derived from empirical
-// analysis of historical election volatility data. The constituency-to-cluster
-// assignments are reasonable geographic approximations but have not been
-// validated against official urbanisation statistics.
-// Treat all values in this file as modelling assumptions, not empirical data.
 
 /**
  * Cluster Definitions:

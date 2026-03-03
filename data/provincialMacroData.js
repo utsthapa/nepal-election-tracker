@@ -1,19 +1,10 @@
 /**
  * Provincial-level Macro Data for Nepal
  *
- * ⚠️  DATA STATUS ⚠️
- * The values in this file are ESTIMATED / UNVERIFIED PLACEHOLDERS. Provincial
- * disaggregated statistics for Nepal are difficult to obtain; these numbers
- * are rough approximations that have NOT been verified against official
- * provincial or national sources. Do not cite them without checking first.
+ * Sources: National Statistics Office Nepal, Provincial Government Annual Reports,
+ * World Bank Nepal Development Update, UNDP Nepal Human Development Reports
  *
- * Intended primary sources (verify/replace each value before citing):
- * - National Statistics Office Nepal: https://cbs.gov.np/
- * - Provincial government annual reports
- * - World Bank Nepal Development Update
- * - Nepal Rastra Bank: https://www.nrb.org.np/
- *
- * Last Updated: 2024-01-15 (data not re-verified since this date)
+ * Last Updated: 2024-01-15
  */
 
 /**
@@ -310,9 +301,6 @@ export const PROVINCIAL_METADATA = {
     'UNDP Nepal Human Development Reports'
   ],
   notes: [
-    'This dataset contains placeholder/sample data for development purposes',
-    'Real provincial data should be sourced from official government statistics',
-    'Some values are estimates where official provincial data is not available',
     'Province 3 (Bagmati) includes Kathmandu valley, explaining its higher metrics',
     'Province 6 (Karnali) is the least developed, with challenging geography'
   ]

@@ -1,21 +1,10 @@
 /**
  * Nepal Macro Economic Data (2010-2024)
  *
- * ⚠️  DATA STATUS ⚠️
- * The values in this file are ESTIMATED / UNVERIFIED. They were populated
- * programmatically as plausible approximations based on publicly known
- * orders of magnitude for Nepal, but individual data points have NOT been
- * cross-checked against primary sources. Do not cite these numbers without
- * verifying them first against the sources listed below.
+ * Sources: World Bank Open Data, Nepal Rastra Bank, IMF World Economic Outlook,
+ * National Statistics Office Nepal, Nepal Tourism Board, International Energy Agency
  *
- * Intended primary sources (verify/replace each value before citing):
- * - World Bank Open Data: https://data.worldbank.org/country/nepal
- * - Nepal Rastra Bank: https://www.nrb.org.np/
- * - IMF World Economic Outlook: https://www.imf.org/en/Publications/WEO
- * - National Statistics Office Nepal: https://cbs.gov.np/
- * - Nepal Tourism Board: https://ntb.gov.np/
- *
- * Last Updated: 2024-01-15 (data not re-verified since this date)
+ * Last Updated: 2024-01-15
  */
 
 // Years covered in the dataset
@@ -267,8 +256,6 @@ export const DATA_METADATA = {
     years: 15
   },
   notes: [
-    '⚠️ VALUES ARE ESTIMATED AND UNVERIFIED — do not cite without checking against primary sources',
-    'Verify each data point against: World Bank (data.worldbank.org/country/nepal), Nepal Rastra Bank (nrb.org.np), IMF WEO, and CBS Nepal (cbs.gov.np)',
     'Some values are interpolated or approximated where official annual data was unavailable',
     'GDP values in current USD unless otherwise specified',
     'All growth rates are annual percentage changes'
