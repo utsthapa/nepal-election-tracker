@@ -1,9 +1,9 @@
-import PredictionMarkets from '../../components/PredictionMarkets'
+import PredictionMarkets from '../../components/PredictionMarkets';
 
 export const metadata = {
   title: 'Prediction Markets - NepaliSoch',
   description: 'Live prediction market odds for Nepal elections from Kalshi and Polymarket.',
-}
+};
 
 export default function PredictionMarketsPage() {
   return (
@@ -19,8 +19,27 @@ export default function PredictionMarketsPage() {
           </p>
         </div>
 
-        <PredictionMarkets />
+        <div className="space-y-10">
+          <section className="space-y-4">
+            <h2 className="text-sm font-bold tracking-widest uppercase text-red-600 border-b border-gray-200 pb-2">
+              Parliament Winner
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <PredictionMarkets type="kalshi" marketLabel="Parliament" />
+              <PredictionMarkets type="polymarket" marketLabel="Parliament" />
+            </div>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-sm font-bold tracking-widest uppercase text-red-600 border-b border-gray-200 pb-2">
+              Prime Minister
+            </h2>
+            <div className="grid grid-cols-1 gap-6">
+              <PredictionMarkets type="polymarket-pm" marketLabel="Prime Minister" />
+            </div>
+          </section>
+        </div>
       </main>
     </div>
-  )
+  );
 }

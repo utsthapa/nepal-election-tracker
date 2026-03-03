@@ -1,6 +1,6 @@
 'use client';
 
-import { ExternalLink, Activity, Clock } from 'lucide-react';
+import { ExternalLink, Activity } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const PARTY_COLORS = {
@@ -35,7 +35,7 @@ function cleanName(name) {
     .replace(' be the next Prime Minister of Nepal?', '');
 }
 
-export default function PredictionMarkets({ type = 'combined' }) {
+export default function PredictionMarkets({ type = 'combined', marketLabel = '' }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -47,7 +47,7 @@ export default function PredictionMarkets({ type = 'combined' }) {
         let url;
         if (type === 'kalshi') url = '/api/markets/kalshi';
         else if (type === 'polymarket') url = '/api/markets/polymarket';
-        else if (type === 'pm') url = '/api/markets/polymarket-pm';
+        else if (type === 'polymarket-pm' || type === 'pm') url = '/api/markets/polymarket-pm';
         else url = '/api/markets/kalshi'; // default
 
         const res = await fetch(url, { headers: { Accept: 'application/json' } });
@@ -97,16 +97,17 @@ export default function PredictionMarkets({ type = 'combined' }) {
 
   const getTitle = () => {
     if (type === 'kalshi') return 'Kalshi';
-    if (type === 'polymarket') return 'Polymarket';
-    if (type === 'pm') return 'Next PM';
+    if (type === 'polymarket' || type === 'polymarket-pm' || type === 'pm') return 'Polymarket';
     return 'Markets';
   };
 
   const getUrl = () => {
-    if (type === 'kalshi') return 'https://kalshi.com/markets/nepal';
+    if (type === 'kalshi')
+      return 'https://kalshi.com/markets/kxnepalhouse/nepal-house-of-representatives-winner/kxnepalhouse-26mar05';
     if (type === 'polymarket')
       return 'https://polymarket.com/event/nepal-house-of-representatives-election-winner';
-    if (type === 'pm') return 'https://polymarket.com/event/next-prime-minister-of-nepal';
+    if (type === 'polymarket-pm' || type === 'pm')
+      return 'https://polymarket.com/event/next-prime-minister-of-nepal';
     return '#';
   };
 
@@ -124,9 +125,14 @@ export default function PredictionMarkets({ type = 'combined' }) {
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm space-y-3">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Activity className="w-4 h-4 text-red-600" />
+        <div className="flex items-center gap-2 min-w-0">
+          <Activity className="w-4 h-4 text-red-600 shrink-0" />
           <p className="text-xs font-bold tracking-wider uppercase text-red-600">{getTitle()}</p>
+          {marketLabel ? (
+            <span className="text-[10px] font-semibold tracking-wide uppercase text-gray-500 truncate">
+              {marketLabel}
+            </span>
+          ) : null}
         </div>
         <a
           href={getUrl()}

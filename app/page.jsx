@@ -231,8 +231,11 @@ export default function HomePage() {
             <div className="lg:col-span-2">
               <ResultsWidget />
             </div>
-            <PredictionMarkets type="kalshi" />
-            <PredictionMarkets type="pm" />
+            <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+              <PredictionMarkets type="kalshi" marketLabel="Parliament" />
+              <PredictionMarkets type="polymarket" marketLabel="Parliament" />
+              <PredictionMarkets type="polymarket-pm" marketLabel="Prime Minister" />
+            </div>
           </div>
         </div>
 

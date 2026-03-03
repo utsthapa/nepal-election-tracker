@@ -147,7 +147,8 @@ export default function ArticlePageClient({ article, relatedArticles, children }
                   if (typeof window !== 'undefined') {
                     window.open(
                       `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(window.location.href)}`,
-                      '_blank'
+                      '_blank',
+                      'noopener,noreferrer'
                     );
                   }
                 }}
@@ -161,7 +162,8 @@ export default function ArticlePageClient({ article, relatedArticles, children }
                   if (typeof window !== 'undefined') {
                     window.open(
                       `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`,
-                      '_blank'
+                      '_blank',
+                      'noopener,noreferrer'
                     );
                   }
                 }}

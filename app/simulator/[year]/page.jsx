@@ -17,7 +17,7 @@ import {
   Users,
 } from 'lucide-react';
 import dynamic from 'next/dynamic';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { AllianceModal } from '../../../components/AllianceModal';
@@ -95,6 +95,7 @@ export default function SimulatorYearPage() {
   const { t } = useLanguage();
   const params = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const yearParam = params?.year;
 
   // Parse and validate year from URL
@@ -116,6 +117,7 @@ export default function SimulatorYearPage() {
     updateFptpSlider,
     updatePrSlider,
     replaceSliders,
+    hydrateSharedState,
     resetSliders,
     overrideConstituency,
     clearOverride,
@@ -158,6 +160,7 @@ export default function SimulatorYearPage() {
   } = useElectionState();
 
   const screenshotRef = useRef(null);
+  const hydratedShareIdRef = useRef(null);
   const [isAllianceModalOpen, setAllianceModalOpen] = useState(false);
   const [nepalMapMode, setNepalMapMode] = useState('map');
   const [guidedFlowEnabled, setGuidedFlowEnabled] = useState(false);
@@ -175,6 +178,7 @@ export default function SimulatorYearPage() {
   const [dataWinnerFilter, setDataWinnerFilter] = useState('all');
   const [dataSearch, setDataSearch] = useState('');
   const [dataBattlegroundOnly, setDataBattlegroundOnly] = useState(false);
+  const [shareLoadError, setShareLoadError] = useState('');
 
   const activeAlliance = allianceConfig?.enabled && allianceConfig.parties?.length === 2;
   const [allyA, allyB] = allianceConfig?.parties || [];
@@ -293,6 +297,50 @@ export default function SimulatorYearPage() {
   const topCloseSeats = useMemo(() => {
     return [...filteredDataRows].sort((a, b) => a.margin - b.margin).slice(0, 8);
   }, [filteredDataRows]);
+
+  useEffect(() => {
+    const shareId = searchParams?.get('sid');
+    if (!shareId || hydratedShareIdRef.current === shareId) {
+      return;
+    }
+
+    let cancelled = false;
+    setShareLoadError('');
+
+    const loadSharedState = async () => {
+      try {
+        const response = await fetch(`/api/simulations/${encodeURIComponent(shareId)}`, {
+          cache: 'no-store',
+        });
+        if (!response.ok) {
+          throw new Error('Failed to load shared simulation');
+        }
+        const payload = await response.json();
+
+        if (cancelled) {
+          return;
+        }
+
+        if (payload?.year && Number(payload.year) !== selectedYear) {
+          router.replace(`/simulator/${payload.year}?sid=${encodeURIComponent(shareId)}`);
+          return;
+        }
+
+        hydrateSharedState(payload?.state);
+        hydratedShareIdRef.current = shareId;
+      } catch {
+        if (!cancelled) {
+          setShareLoadError('Could not load the shared simulation state.');
+        }
+      }
+    };
+
+    loadSharedState();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [searchParams, selectedYear, router, hydrateSharedState]);
 
   const partyColors = {};
   Object.keys(PARTIES).forEach(p => {
@@ -817,6 +865,7 @@ export default function SimulatorYearPage() {
                   overrides,
                   allianceConfig,
                   slidersLocked,
+                  useRspNationalBase,
                 }}
                 year={selectedYear}
               />
@@ -839,6 +888,12 @@ export default function SimulatorYearPage() {
                 Reset
               </button>
             </div>
+          </div>
+        )}
+
+        {shareLoadError && (
+          <div className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {shareLoadError}
           </div>
         )}
 

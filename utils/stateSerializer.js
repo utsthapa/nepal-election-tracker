@@ -19,6 +19,110 @@ const PARTY_ORDER = [
 ];
 
 const VERSION = 1;
+const DEFAULT_ALLIANCE = { enabled: false, parties: [], handicap: 10 };
+const MAX_OVERRIDES = 200;
+const TOTAL_TOLERANCE = 1e-6;
+
+const isPlainObject = value => value && typeof value === 'object' && !Array.isArray(value);
+
+const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+const normalizeMap = (raw, maxValue, preserveIfValid = false) => {
+  if (!isPlainObject(raw)) {
+    return null;
+  }
+
+  const map = {};
+  PARTY_ORDER.forEach(party => {
+    const num = Number(raw[party]);
+    map[party] = Number.isFinite(num) ? clamp(num, 0, maxValue) : 0;
+  });
+
+  const total = Object.values(map).reduce((sum, value) => sum + value, 0);
+  if (total <= 0) {
+    return null;
+  }
+
+  if (preserveIfValid && Math.abs(total - maxValue) <= TOTAL_TOLERANCE) {
+    return map;
+  }
+
+  PARTY_ORDER.forEach(party => {
+    map[party] = (map[party] / total) * maxValue;
+  });
+
+  return map;
+};
+
+const sanitizeAlliance = rawAlliance => {
+  if (!isPlainObject(rawAlliance) || !rawAlliance.enabled) {
+    return { ...DEFAULT_ALLIANCE };
+  }
+  const parties = Array.isArray(rawAlliance.parties) ? rawAlliance.parties.slice(0, 2) : [];
+  if (parties.length !== 2) {
+    return { ...DEFAULT_ALLIANCE };
+  }
+  const handicap = Number(rawAlliance.handicap);
+  return {
+    enabled: true,
+    parties,
+    handicap: Number.isFinite(handicap) ? clamp(handicap, 0, 100) : DEFAULT_ALLIANCE.handicap,
+  };
+};
+
+const sanitizeOverrides = rawOverrides => {
+  if (!isPlainObject(rawOverrides)) {
+    return {};
+  }
+
+  const entries = Object.entries(rawOverrides).slice(0, MAX_OVERRIDES);
+  const overrides = {};
+  entries.forEach(([id, shares]) => {
+    if (typeof id !== 'string' || !id.trim()) {
+      return;
+    }
+    const normalized = normalizeMap(shares, 1, true);
+    if (normalized) {
+      overrides[id] = normalized;
+    }
+  });
+
+  return overrides;
+};
+
+const sanitizeSliderMap = (raw, maxValue) => {
+  if (!isPlainObject(raw)) {
+    return null;
+  }
+
+  const map = {};
+  PARTY_ORDER.forEach(party => {
+    const num = Number(raw[party]);
+    map[party] = Number.isFinite(num) ? clamp(num, 0, maxValue) : 0;
+  });
+  return map;
+};
+
+export function sanitizeSharedState(rawState) {
+  if (!isPlainObject(rawState)) {
+    return null;
+  }
+
+  const fptpSliders = sanitizeSliderMap(rawState.fptpSliders, 100);
+  const prSliders = sanitizeSliderMap(rawState.prSliders, 100);
+  if (!fptpSliders || !prSliders) {
+    return null;
+  }
+
+  return {
+    fptpSliders,
+    prSliders,
+    overrides: sanitizeOverrides(rawState.overrides),
+    allianceConfig: sanitizeAlliance(rawState.allianceConfig),
+    slidersLocked: rawState.slidersLocked === false ? false : true,
+    useRspNationalBase: Boolean(rawState.useRspNationalBase),
+  };
+}
 
 /**
  * Serialize simulator state to a compact base64url string
@@ -29,28 +133,46 @@ export function serializeState({
   overrides,
   allianceConfig,
   slidersLocked,
+  useRspNationalBase,
 }) {
+  const sanitized = sanitizeSharedState({
+    fptpSliders,
+    prSliders,
+    overrides,
+    allianceConfig,
+    slidersLocked,
+    useRspNationalBase,
+  });
+  if (!sanitized) {
+    return null;
+  }
+
   const state = { v: VERSION };
 
   // Encode sliders as ordered arrays (full precision)
-  state.f = PARTY_ORDER.map(p => fptpSliders[p] || 0);
-  state.p = PARTY_ORDER.map(p => prSliders[p] || 0);
+  state.f = PARTY_ORDER.map(p => sanitized.fptpSliders[p] || 0);
+  state.p = PARTY_ORDER.map(p => sanitized.prSliders[p] || 0);
 
   // Only include non-default values
-  if (slidersLocked === false) state.l = 0;
+  if (sanitized.slidersLocked === false) {
+    state.l = 0;
+  }
+  if (sanitized.useRspNationalBase) {
+    state.r = 1;
+  }
 
   // Alliance
-  if (allianceConfig?.enabled && allianceConfig.parties?.length === 2) {
+  if (sanitized.allianceConfig?.enabled && sanitized.allianceConfig.parties?.length === 2) {
     state.a = {
-      p: allianceConfig.parties,
-      h: allianceConfig.handicap,
+      p: sanitized.allianceConfig.parties,
+      h: sanitized.allianceConfig.handicap,
     };
   }
 
   // Overrides (only if any exist)
-  if (overrides && Object.keys(overrides).length > 0) {
+  if (sanitized.overrides && Object.keys(sanitized.overrides).length > 0) {
     state.o = {};
-    Object.entries(overrides).forEach(([id, shares]) => {
+    Object.entries(sanitized.overrides).forEach(([id, shares]) => {
       state.o[id] = PARTY_ORDER.map(p => shares[p] || 0);
     });
   }
@@ -71,7 +193,9 @@ export function deserializeState(encoded) {
   try {
     // Restore base64 padding
     let b64 = encoded.replace(/-/g, '+').replace(/_/g, '/');
-    while (b64.length % 4) b64 += '=';
+    while (b64.length % 4) {
+      b64 += '=';
+    }
 
     let json;
     if (typeof window !== 'undefined') {
@@ -80,52 +204,43 @@ export function deserializeState(encoded) {
       json = Buffer.from(b64, 'base64').toString('utf-8');
     }
 
-    const state = JSON.parse(json);
-    if (!state || state.v !== VERSION) return null;
-
-    const result = {};
-
-    // Decode sliders
-    if (Array.isArray(state.f) && state.f.length === PARTY_ORDER.length) {
-      result.fptpSliders = {};
-      PARTY_ORDER.forEach((p, i) => {
-        result.fptpSliders[p] = state.f[i];
-      });
+    const compact = JSON.parse(json);
+    if (!compact || compact.v !== VERSION) {
+      return null;
     }
 
-    if (Array.isArray(state.p) && state.p.length === PARTY_ORDER.length) {
-      result.prSliders = {};
-      PARTY_ORDER.forEach((p, i) => {
-        result.prSliders[p] = state.p[i];
-      });
+    const decoded = {};
+    if (Array.isArray(compact.f) && compact.f.length === PARTY_ORDER.length) {
+      decoded.fptpSliders = Object.fromEntries(
+        PARTY_ORDER.map((party, i) => [party, compact.f[i]])
+      );
     }
+    if (Array.isArray(compact.p) && compact.p.length === PARTY_ORDER.length) {
+      decoded.prSliders = Object.fromEntries(PARTY_ORDER.map((party, i) => [party, compact.p[i]]));
+    }
+    decoded.slidersLocked = compact.l === 0 ? false : true;
+    decoded.useRspNationalBase = compact.r === 1;
 
-    result.slidersLocked = state.l === 0 ? false : true;
-
-    // Alliance
-    if (state.a && Array.isArray(state.a.p) && state.a.p.length === 2) {
-      result.allianceConfig = {
+    if (compact.a && Array.isArray(compact.a.p) && compact.a.p.length === 2) {
+      decoded.allianceConfig = {
         enabled: true,
-        parties: state.a.p,
-        handicap: state.a.h || 10,
+        parties: compact.a.p,
+        handicap: compact.a.h,
       };
     }
 
-    // Overrides
-    if (state.o && typeof state.o === 'object') {
-      result.overrides = {};
-      Object.entries(state.o).forEach(([id, arr]) => {
+    if (compact.o && isPlainObject(compact.o)) {
+      decoded.overrides = {};
+      Object.entries(compact.o).forEach(([id, arr]) => {
         if (Array.isArray(arr) && arr.length === PARTY_ORDER.length) {
-          const shares = {};
-          PARTY_ORDER.forEach((p, i) => {
-            shares[p] = arr[i];
-          });
-          result.overrides[id] = shares;
+          decoded.overrides[id] = Object.fromEntries(
+            PARTY_ORDER.map((party, i) => [party, arr[i]])
+          );
         }
       });
     }
 
-    return result;
+    return sanitizeSharedState(decoded);
   } catch {
     return null;
   }
@@ -138,6 +253,9 @@ export function deserializeState(encoded) {
  */
 export function buildShareableUrl(state, year = 2026) {
   const encoded = serializeState(state);
+  if (!encoded) {
+    return null;
+  }
   const base =
     typeof window !== 'undefined'
       ? `${window.location.origin}/simulator/${year}`
@@ -145,17 +263,30 @@ export function buildShareableUrl(state, year = 2026) {
   return `${base}?s=${encoded}`;
 }
 
+export function buildShareableUrlFromId(id, year = 2026) {
+  const safeId = typeof id === 'string' ? id.trim() : '';
+  const base =
+    typeof window !== 'undefined'
+      ? `${window.location.origin}/simulator/${year}`
+      : `/simulator/${year}`;
+  return `${base}?sid=${encodeURIComponent(safeId)}`;
+}
+
 /**
  * Read and deserialize state from current URL params
  * @returns {Object|null} Deserialized state or null
  */
 export function readStateFromUrl() {
-  if (typeof window === 'undefined') return null;
+  if (typeof window === 'undefined') {
+    return null;
+  }
 
   try {
     const params = new URLSearchParams(window.location.search);
     const encoded = params.get('s');
-    if (!encoded) return null;
+    if (!encoded) {
+      return null;
+    }
     return deserializeState(encoded);
   } catch {
     return null;

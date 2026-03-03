@@ -54,6 +54,18 @@ npm run build
 npm start
 ```
 
+### Turso Simulation Sharing
+
+To persist and share simulator states via short links, configure Turso credentials:
+
+```bash
+TURSO_DATABASE_URL=libsql://your-db-name.turso.io
+TURSO_AUTH_TOKEN=your_turso_auth_token_here
+```
+
+When configured, the simulator Share button stores state in Turso and copies a URL like:
+`/simulator/2026?sid=<id>`. If Turso is not configured, sharing falls back to compact URL state.
+
 ## Project Structure
 
 ```
@@ -122,6 +134,7 @@ npm start
 ### Election Simulator
 
 Uses the **Sainte-Laguë method** (divisor: 1, 3, 5, 7...) for proportional representation seat allocation, matching Nepal's electoral system. Supports:
+
 - Separate FPTP and PR vote adjustments
 - Constituency-level overrides
 - Alliance/coalition simulations
@@ -134,12 +147,14 @@ Incorporates demographic patterns (age groups, urban/rural, provincial, literacy
 ### Interactive Maps
 
 Two map implementations:
+
 - **SVG Map** (NepalMap.jsx) - Lightweight, fast rendering
 - **Leaflet Map** (ConstituencyMap.jsx) - Full GIS features, zoomable
 
 ## Contributing
 
 Contributions welcome! Please ensure:
+
 - Code follows existing patterns
 - ESLint passes (`npm run lint`)
 - Build succeeds (`npm run build`)

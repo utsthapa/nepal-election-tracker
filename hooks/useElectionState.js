@@ -174,6 +174,32 @@ export function useElectionState() {
     [prSliders]
   );
 
+  // Hydrate state from a validated shared payload
+  const hydrateSharedState = useCallback(sharedState => {
+    if (!sharedState || typeof sharedState !== 'object') {
+      return;
+    }
+
+    if (sharedState.fptpSliders) {
+      setFptpSliders(sharedState.fptpSliders);
+    }
+    if (sharedState.prSliders) {
+      setPrSliders(sharedState.prSliders);
+    }
+
+    setOverrides(sharedState.overrides || {});
+    setAllianceConfig(
+      sharedState.allianceConfig || {
+        enabled: false,
+        parties: [],
+        handicap: 10,
+      }
+    );
+    setSlidersLocked(sharedState.slidersLocked === false ? false : true);
+    setUseRspNationalBase(Boolean(sharedState.useRspNationalBase));
+    setSwitchingMatrix({});
+  }, []);
+
   // Reset sliders to initial values (2022 baseline)
   const resetSliders = useCallback(() => {
     // If RSP National Base is active, jump to that as the new visual "100%" baseline
@@ -713,6 +739,7 @@ export function useElectionState() {
     updateSlider, // Legacy: same as updateFptpSlider
     replaceSliders,
     setFptpToPr,
+    hydrateSharedState,
     resetSliders,
     overrideConstituency,
     clearOverride,
