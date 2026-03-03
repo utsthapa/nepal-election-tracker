@@ -62,7 +62,7 @@ export const ELECTIONS = {
     turnout: 'TBD',
     prThreshold: 3,
     notes:
-      'Early election following Gen Z protests. 3,484 candidates from 68 parties contesting. Major parties: NC (165 seats), UML (164), RSP (164), NCP (164). Key battles: Jhapa-5 (Oli vs Balen), Chitwan-2 (Lamichhane).',
+      'Early election following Gen Z protests. 3,484 candidates from 68 parties contesting. FPTP candidates fielded: NC (165), UML (164), RSP (164), NCP (164), RPP (163). Key contests: Jhapa-5 (Oli vs Balen), Chitwan-2 (Lamichhane).',
     candidates: {
       total: 3484,
       parties: 2397,
@@ -74,26 +74,26 @@ export const ELECTIONS = {
       {
         name: 'Nepali Congress',
         leader: 'Gagan Kumar Thapa',
-        seats: 165,
+        candidatesFielded: 165,
         pmCandidate: 'Gagan Kumar Thapa',
       },
-      { name: 'CPN-UML', leader: 'K.P. Sharma Oli', seats: 164, pmCandidate: 'K.P. Sharma Oli' },
+      { name: 'CPN-UML', leader: 'K.P. Sharma Oli', candidatesFielded: 164, pmCandidate: 'K.P. Sharma Oli' },
       {
         name: 'Rastriya Swatantra Party',
         leader: 'Rabi Lamichhane',
-        seats: 164,
+        candidatesFielded: 164,
         pmCandidate: 'Balendra Shah',
       },
       {
         name: 'Nepali Communist Party',
         leader: 'Pushpa Kamal Dahal',
-        seats: 164,
+        candidatesFielded: 164,
         pmCandidate: 'Pushpa Kamal Dahal',
       },
       {
         name: 'Rastriya Prajatantra Party',
         leader: 'Rajendra Prasad Lingden',
-        seats: 163,
+        candidatesFielded: 163,
         pmCandidate: 'Rajendra Prasad Lingden',
       },
     ],
