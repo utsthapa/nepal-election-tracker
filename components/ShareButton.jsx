@@ -8,6 +8,20 @@ import { buildShareableUrl } from '../utils/stateSerializer';
 export function ShareButton({ state, year = 2026 }) {
   const [status, setStatus] = useState('idle');
 
+  const toAbsoluteUrl = url => {
+    if (!url || typeof url !== 'string') {
+      return null;
+    }
+    if (/^https?:\/\//i.test(url)) {
+      return url;
+    }
+    if (typeof window === 'undefined') {
+      return url;
+    }
+    const normalized = url.startsWith('/') ? url : `/${url}`;
+    return `${window.location.origin}${normalized}`;
+  };
+
   const copyToClipboard = async text => {
     try {
       await navigator.clipboard.writeText(text);
@@ -40,7 +54,7 @@ export function ShareButton({ state, year = 2026 }) {
       let url = null;
       if (response.ok) {
         const payload = await response.json();
-        url = payload?.url || null;
+        url = toAbsoluteUrl(payload?.url || null);
       }
 
       if (!url) {

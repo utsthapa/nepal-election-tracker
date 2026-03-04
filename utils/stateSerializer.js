@@ -263,12 +263,15 @@ export function buildShareableUrl(state, year = 2026) {
   return `${base}?s=${encoded}`;
 }
 
-export function buildShareableUrlFromId(id, year = 2026) {
+export function buildShareableUrlFromId(id, year = 2026, origin) {
   const safeId = typeof id === 'string' ? id.trim() : '';
-  const base =
-    typeof window !== 'undefined'
-      ? `${window.location.origin}/simulator/${year}`
-      : `/simulator/${year}`;
+  const resolvedOrigin =
+    typeof origin === 'string' && origin.trim()
+      ? origin.trim().replace(/\/$/, '')
+      : typeof window !== 'undefined'
+        ? window.location.origin
+        : '';
+  const base = resolvedOrigin ? `${resolvedOrigin}/simulator/${year}` : `/simulator/${year}`;
   return `${base}?sid=${encodeURIComponent(safeId)}`;
 }
 

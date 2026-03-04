@@ -62,7 +62,7 @@ export async function POST(request) {
         return NextResponse.json({
           id,
           year,
-          url: buildShareableUrlFromId(id, year),
+          url: buildShareableUrlFromId(id, year, request.nextUrl?.origin),
         });
       } catch (error) {
         if (isUniqueConstraintError(error)) {

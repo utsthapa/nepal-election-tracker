@@ -52,6 +52,7 @@ import { IDEOLOGY_COORDS } from '../../../data/partyMeta';
 import { useElectionState } from '../../../hooks/useElectionState';
 import { get2026ElectionData, getPartyColor } from '../../../utils/election2026Data';
 import { applyRspNationalEntry } from '../../../utils/scenarios';
+import { buildShareableUrlFromId } from '../../../utils/stateSerializer';
 
 // Dynamically import heavy map components with no SSR
 const NepalMap = dynamic(() => import('../../../components/NepalMap'), {
@@ -356,6 +357,20 @@ export default function SimulatorYearPage() {
   }, [selectedYear, setDemographicMode]);
 
   useEffect(() => {
+    if (selectedYear !== 2026) {
+      return;
+    }
+    const hasCompactState = Boolean(searchParams?.get('s'));
+    if (!hasCompactState) {
+      return;
+    }
+    // Compact shared URLs already carry state in the query string.
+    setExperienceMode('simulation');
+    setSelectedStartMode('baseline');
+    setSimulationStep(4);
+  }, [selectedYear, searchParams]);
+
+  useEffect(() => {
     const shareId = searchParams?.get('sid');
     if (!shareId || hydratedShareIdRef.current === shareId) {
       return;
@@ -379,12 +394,15 @@ export default function SimulatorYearPage() {
         }
 
         if (payload?.year && Number(payload.year) !== selectedYear) {
-          router.replace(`/simulator/${payload.year}?sid=${encodeURIComponent(shareId)}`);
+          router.replace(buildShareableUrlFromId(shareId, Number(payload.year)));
           return;
         }
 
         hydrateSharedState(payload?.state);
         hydratedShareIdRef.current = shareId;
+        setExperienceMode('simulation');
+        setSelectedStartMode('baseline');
+        setSimulationStep(4);
       } catch {
         if (!cancelled) {
           setShareLoadError('Could not load the shared simulation state.');
