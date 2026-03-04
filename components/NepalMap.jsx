@@ -455,8 +455,8 @@ export default function NepalMap({
 
   return (
     <div className="w-full">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-3">
+      <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+        <div className="flex flex-wrap items-center gap-3">
           <h2 className="text-lg font-semibold text-foreground">
             {viewMode === 'map' ? 'Nepal Constituency Map' : 'Nepal Constituencies'}
           </h2>
@@ -484,18 +484,18 @@ export default function NepalMap({
           </div>
         </div>
         {viewMode === 'map' && (
-          <>
+          <div className="min-w-0 text-left md:text-right">
             <div className="text-sm text-muted">
               {constituenciesData?.features?.length} constituencies over{' '}
               {districtsData?.features?.length} districts
             </div>
-            <div className="text-xs text-muted flex items-center gap-2 mt-2">
-              <div className="flex items-center gap-1">
+            <div className="mt-2 text-xs text-muted">
+              <div className="inline-flex max-w-full flex-wrap items-center gap-1">
                 <div className="w-3 h-3 bg-foreground/50 border border-neutral rounded"></div>
                 <span>Gray areas are protected</span>
               </div>
             </div>
-          </>
+          </div>
         )}
       </div>
 

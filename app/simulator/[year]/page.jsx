@@ -7,7 +7,7 @@ import {
   Crosshair,
   Database,
   Info,
-  Link,
+  Link as LinkIcon,
   Lock,
   MapPin,
   RotateCcw,
@@ -37,6 +37,7 @@ import { PRBlockChart } from '../../../components/PRBlockChart';
 import { ResultsSummary } from '../../../components/ResultsSummary';
 import { SeatDrawer } from '../../../components/SeatDrawer';
 import { ShareButton } from '../../../components/ShareButton';
+import { WorkInProgressBanner } from '../../../components/WorkInProgressBanner';
 import YearSelector from '../../../components/YearSelector';
 import { useLanguage } from '../../../context/LanguageContext';
 import { CANDIDATE_DEMOGRAPHICS_2022 } from '../../../data/candidateDemographics2022.js';
@@ -517,6 +518,8 @@ export default function SimulatorYearPage() {
       <Header />
 
       <main className="max-w-7xl mx-auto px-4 py-6" ref={screenshotRef}>
+        <WorkInProgressBanner className="mb-6" />
+
         {guidedFlowEnabled && (
           <div className="mb-6 bg-white rounded-lg border border-[rgb(219,211,196)] p-5 shadow-sm">
             <div className="flex items-start justify-between gap-3 mb-4">
@@ -1577,7 +1580,7 @@ function MethodologySection() {
     BarChart3,
     TrendingUp,
     Users,
-    Link,
+    LinkIcon,
     ArrowLeftRight,
     Crosshair,
     Save,
@@ -1783,7 +1786,7 @@ The simulator enables analysis across population subgroups using Census 2021 dat
     {
       id: 'alliances',
       title: 'Electoral Alliance Modeling',
-      icon: Link,
+      icon: LinkIcon,
       content: `
 **Alliance and Coalition Simulation:**
 

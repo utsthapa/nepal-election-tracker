@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
+import { WorkInProgressBanner } from '../../components/WorkInProgressBanner';
 import { ELECTIONS, getElectionYears, getPartyInfo } from '../../data/historicalElections';
 
 export default function ElectionsPage() {
@@ -35,6 +36,8 @@ export default function ElectionsPage() {
             elections (1991-2022)
           </p>
         </div>
+
+        <WorkInProgressBanner className="mb-8" />
 
         {/* Timeline */}
         <div className="relative">

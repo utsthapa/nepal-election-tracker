@@ -4,10 +4,42 @@
  */
 
 import Image from 'next/image';
+import { Children, isValidElement } from 'react';
 import { Callout } from '../../components/mdx/Callout';
 import { CodeBlock } from '../../components/mdx/CodeBlock';
 import { Table } from '../../components/mdx/Table';
 import { MDXBarChart, MDXLineChart, MDXMultiBarChart, MDXPieChart } from './mdx-charts';
+
+const BLOCK_LIKE_TAGS = new Set([
+  'div',
+  'p',
+  'ul',
+  'ol',
+  'li',
+  'table',
+  'thead',
+  'tbody',
+  'tr',
+  'td',
+  'th',
+  'blockquote',
+  'pre',
+  'hr',
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+]);
+
+function hasBlockChildren(children) {
+  return Children.toArray(children).some(child => {
+    if (!isValidElement(child)) {
+      return false;
+    }
+    const type = child.type;
+    return typeof type === 'string' && BLOCK_LIKE_TAGS.has(type);
+  });
+}
 
 export const MDXArticleComponents = {
   // Headings
@@ -45,7 +77,12 @@ export const MDXArticleComponents = {
   ),
 
   // Text
-  p: ({ children }) => <p className="text-[rgb(100,110,130)] mb-4 leading-relaxed">{children}</p>,
+  p: ({ children }) => {
+    if (hasBlockChildren(children)) {
+      return <div className="text-[rgb(100,110,130)] mb-4 leading-relaxed">{children}</div>;
+    }
+    return <p className="text-[rgb(100,110,130)] mb-4 leading-relaxed">{children}</p>;
+  },
   a: ({ href, children }) => (
     <a
       href={href}
@@ -121,9 +158,9 @@ export const MDXArticleComponents = {
   // Pull Quote — styled callout used throughout articles
   PullQuote: ({ children }) => (
     <blockquote className="my-8 px-6 py-5 bg-[rgb(250,249,246)] border-l-4 border-[#B91C1C] rounded-r-lg">
-      <p className="text-lg font-medium text-[rgb(24,26,36)] leading-relaxed italic m-0">
+      <div className="text-lg font-medium text-[rgb(24,26,36)] leading-relaxed italic m-0">
         {children}
-      </p>
+      </div>
     </blockquote>
   ),
 

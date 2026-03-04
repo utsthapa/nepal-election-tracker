@@ -112,6 +112,17 @@ export default function ArticlePageClient({ article, relatedArticles, children }
 
       {/* Article Content */}
       <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Proof-of-concept notice */}
+        <div className="mb-8 rounded-xl border-2 border-amber-300 bg-amber-50 p-5 shadow-sm">
+          <p className="text-xs font-bold uppercase tracking-wider text-amber-800 mb-2">
+            Prototype Notice
+          </p>
+          <p className="text-base font-semibold text-amber-900 leading-relaxed">
+            These articles are proof-of-concept samples for product/design testing and were not
+            written or edited as final published journalism.
+          </p>
+        </div>
+
         {/* Article Body with MDX Components */}
         <article
           className="prose prose-lg prose-slate max-w-none

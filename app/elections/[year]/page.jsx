@@ -2,6 +2,7 @@ import { ArrowLeft, Trophy, Info } from 'lucide-react';
 import Link from 'next/link';
 
 import { SimpleHeader } from '../../../components/SimpleHeader';
+import { WorkInProgressBanner } from '../../../components/WorkInProgressBanner';
 import { ELECTIONS, getPartyInfo } from '../../../data/historicalElections';
 
 // Generate static params for all election years
@@ -12,8 +13,9 @@ export function generateStaticParams() {
 }
 
 // Generate metadata for each election year
-export function generateMetadata({ params }) {
-  const year = parseInt(params.year, 10);
+export async function generateMetadata({ params }) {
+  const { year: yearStr } = await params;
+  const year = parseInt(yearStr, 10);
   const election = ELECTIONS[year];
 
   if (!election) {
@@ -28,8 +30,9 @@ export function generateMetadata({ params }) {
   };
 }
 
-export default function ElectionYearPage({ params }) {
-  const year = parseInt(params.year, 10);
+export default async function ElectionYearPage({ params }) {
+  const { year: yearStr } = await params;
+  const year = parseInt(yearStr, 10);
   const election = ELECTIONS[year];
 
   if (!election) {
@@ -97,6 +100,8 @@ export default function ElectionYearPage({ params }) {
           <p className="text-gray-700">{election.date}</p>
           {election.notes && <p className="text-gray-700 mt-2 max-w-3xl">{election.notes}</p>}
         </div>
+
+        <WorkInProgressBanner className="mb-8" />
 
         {/* Summary Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
@@ -210,7 +215,7 @@ export default function ElectionYearPage({ params }) {
                           />
                           <div>
                             <p className="font-semibold text-gray-900">{info.name}</p>
-                            <p className="text-xs text-gray-600">{info.name}</p>
+                            <p className="text-xs text-gray-600">{party}</p>
                           </div>
                           {hasMajority && (
                             <span className="text-xs bg-amber-100 text-amber-900 px-2 py-0.5 rounded border border-amber-300">

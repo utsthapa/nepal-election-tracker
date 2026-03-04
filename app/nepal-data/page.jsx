@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import Header from '@/components/Header';
+import { WorkInProgressBanner } from '../../components/WorkInProgressBanner';
 import CollapsibleSection from '@/components/nepal-data/shared/CollapsibleSection';
 import DataSources from '@/components/nepal-data/shared/DataSources';
 import PageHeader from '@/components/nepal-data/shared/PageHeader';
@@ -130,6 +131,8 @@ export default function NepalDataPage() {
             description="Comprehensive visualization of Nepal's economic, social, and development indicators. Explore GDP growth, inflation, trade, remittances, poverty, demographics, and more through interactive charts and time series analysis."
             lastUpdated={DATA_METADATA.lastUpdated}
           />
+
+          <WorkInProgressBanner className="mb-6" />
 
           {/* Quick Stats Bar */}
           <QuickStatsBar stats={quickStats} />

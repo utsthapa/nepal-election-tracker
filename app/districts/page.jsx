@@ -6,6 +6,7 @@ import { useState, useMemo } from 'react';
 
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
+import { WorkInProgressBanner } from '../../components/WorkInProgressBanner';
 import { PARTIES, PROVINCES, constituencies } from '../../data/constituencies';
 
 export default function DistrictsPage() {
@@ -88,6 +89,8 @@ export default function DistrictsPage() {
           <h1 className="text-3xl font-bold text-foreground mb-2">Districts</h1>
           <p className="text-muted">Explore all 77 districts of Nepal with 2022 election results</p>
         </div>
+
+        <WorkInProgressBanner className="mb-8" />
 
         {/* Search */}
         <div className="mb-8">

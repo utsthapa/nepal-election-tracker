@@ -15,6 +15,7 @@ import { useMemo, useState } from 'react';
 import { ConstituencyResultCard } from '../../../components/ConstituencyResultCard';
 import { DistrictCoalitionBuilder } from '../../../components/DistrictCoalitionBuilder';
 import { PartySliders } from '../../../components/PartySliders';
+import { WorkInProgressBanner } from '../../../components/WorkInProgressBanner';
 import { PARTIES, INITIAL_NATIONAL } from '../../../data/constituencies';
 import { AGE_GROUP_LABELS } from '../../../data/demographics';
 import {
@@ -115,6 +116,8 @@ export default function DistrictPageClient({ district, demographics }) {
         <ArrowLeft className="w-4 h-4" />
         Back to Districts
       </Link>
+
+      <WorkInProgressBanner className="mb-8" />
 
       {/* Hero */}
       <section className="mb-8">

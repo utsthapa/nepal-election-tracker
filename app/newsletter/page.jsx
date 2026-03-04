@@ -1,28 +1,53 @@
-'use client'
+'use client';
 
-import { Mail, CheckCircle, ArrowRight, Archive } from 'lucide-react'
-import { useState } from 'react'
+import { Mail, CheckCircle, ArrowRight, Archive } from 'lucide-react';
+import { useState } from 'react';
 
-import { Footer } from '../../components/Footer'
-import { Header } from '../../components/Header'
-import { useLanguage } from '../../context/LanguageContext'
+import { Footer } from '../../components/Footer';
+import { Header } from '../../components/Header';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function NewsletterPage() {
-  const { language, t } = useLanguage()
-  const [email, setEmail] = useState('')
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const { language, t } = useLanguage();
+  const [email, setEmail] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsLoading(true)
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    setIsSubmitted(true)
-    setIsLoading(false)
-  }
+  const handleSubmit = async e => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'newsletter-page' }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        setError(
+          data.error ||
+            (language === 'ne'
+              ? 'सदस्यता गर्न सकिएन, कृपया फेरि प्रयास गर्नुहोस्।'
+              : 'Could not subscribe, please try again.')
+        );
+        return;
+      }
+
+      setIsSubmitted(true);
+    } catch {
+      setError(
+        language === 'ne'
+          ? 'नेटवर्क त्रुटि भयो, कृपया फेरि प्रयास गर्नुहोस्।'
+          : 'Network error, please try again.'
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -33,19 +58,17 @@ export default function NewsletterPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl mb-6">
             <Mail className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-4xl font-bold text-foreground mb-4">
-            {t('newsletter.title')}
-          </h1>
-          <p className="text-xl text-muted max-w-2xl mx-auto">
-            {t('newsletter.description')}
-          </p>
+          <h1 className="text-4xl font-bold text-foreground mb-4">{t('newsletter.title')}</h1>
+          <p className="text-xl text-muted max-w-2xl mx-auto">{t('newsletter.description')}</p>
         </div>
 
         {/* Newsletter Signup */}
         {!isSubmitted ? (
           <div className="bg-surface border border-neutral rounded-2xl p-8 mb-8">
             <h2 className="text-2xl font-bold text-foreground mb-6 text-center">
-              {language === 'ne' ? 'हाम्रो समाचारपत्रमा सदस्यता लिनुहोस्' : 'Subscribe to our newsletter'}
+              {language === 'ne'
+                ? 'हाम्रो समाचारपत्रमा सदस्यता लिनुहोस्'
+                : 'Subscribe to our newsletter'}
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -57,7 +80,7 @@ export default function NewsletterPage() {
                   type="email"
                   id="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                   placeholder={language === 'ne' ? 'तपाईंको इमेल' : 'your@email.com'}
                   required
                   className="w-full px-4 py-3 bg-neutral border border-neutral rounded-lg text-foreground placeholder-muted focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
@@ -72,8 +95,20 @@ export default function NewsletterPage() {
                 {isLoading ? (
                   <span className="flex items-center justify-center gap-2">
                     <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8 018 8 0 018 8 0 018-8 018-8 0 018z" />
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                        fill="none"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                      />
                     </svg>
                     {language === 'ne' ? 'प्रक्रिया गरिँदैछ...' : 'Subscribing...'}
                   </span>
@@ -84,47 +119,46 @@ export default function NewsletterPage() {
                   </span>
                 )}
               </button>
+              {error && (
+                <p className="text-sm text-red-700" role="alert">
+                  {error}
+                </p>
+              )}
             </form>
 
             <div className="mt-6 pt-6 border-t border-neutral">
               <h3 className="text-lg font-semibold text-foreground mb-4">
-                {language === 'ne' ? 'हाम्रो समाचारपत्रमा के प्राप्त हुनेछ' : 'What you\'ll get:'}
+                {language === 'ne' ? 'हाम्रो समाचारपत्रमा के प्राप्त हुनेछ' : "What you'll get:"}
               </h3>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
                   <span className="text-muted">
-                    {language === 'ne' 
+                    {language === 'ne'
                       ? 'हप्तावारी निर्वाचन विश्लेषण र पूर्वानुमान'
-                      : 'Weekly election analysis and forecasts'
-                    }
+                      : 'Weekly election analysis and forecasts'}
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
                   <span className="text-muted">
-                    {language === 'ne' 
-                      ? 'नवीनतम मतदान अपडेट'
-                      : 'Latest polling updates'
-                    }
+                    {language === 'ne' ? 'नवीनतम मतदान अपडेट' : 'Latest polling updates'}
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
                   <span className="text-muted">
-                    {language === 'ne' 
+                    {language === 'ne'
                       ? 'विशेष विश्लेषण र डाटा भिजुअलाइजेसनहरू'
-                      : 'Exclusive data visualizations'
-                    }
+                      : 'Exclusive data visualizations'}
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
                   <span className="text-muted">
-                    {language === 'ne' 
+                    {language === 'ne'
                       ? 'निर्वाचन समयमा विशेष अपडेट'
-                      : 'Election day live coverage'
-                    }
+                      : 'Election day live coverage'}
                   </span>
                 </li>
               </ul>
@@ -137,15 +171,14 @@ export default function NewsletterPage() {
               {language === 'ne' ? 'धन्यवाद!' : 'Successfully Subscribed!'}
             </h2>
             <p className="text-muted mb-6">
-              {language === 'ne' 
+              {language === 'ne'
                 ? 'तपाईंलाई हाम्रो समाचारपत्रमा स्वागत छ।'
-                : `You're now subscribed to our newsletter. Check ${email} for confirmation.`
-              }
+                : `You're now subscribed to our newsletter. Check ${email} for confirmation.`}
             </p>
             <button
               onClick={() => {
-                setIsSubmitted(false)
-                setEmail('')
+                setIsSubmitted(false);
+                setEmail('');
               }}
               className="inline-flex items-center gap-2 px-6 py-3 bg-neutral hover:bg-neutral/80 text-foreground font-medium rounded-lg transition-colors"
             >
@@ -171,25 +204,23 @@ export default function NewsletterPage() {
           </div>
           <div className="space-y-4">
             {[1, 2, 3].map(issue => (
-              <div key={issue} className="bg-neutral rounded-lg p-4 hover:bg-neutral/80 transition-colors">
+              <div
+                key={issue}
+                className="bg-neutral rounded-lg p-4 hover:bg-neutral/80 transition-colors"
+              >
                 <div className="flex items-start justify-between mb-2">
                   <div>
                     <span className="px-2 py-1 bg-blue-100 text-blue-900 rounded text-xs font-medium">
                       {language === 'ne' ? 'समस्या' : 'Issue'}
                     </span>
-                    <span className="text-sm text-muted ml-2">
-                      Week {issue}
-                    </span>
+                    <span className="text-sm text-muted ml-2">Week {issue}</span>
                   </div>
-                  <span className="text-sm text-muted">
-                    January 2025
-                  </span>
+                  <span className="text-sm text-muted">January 2025</span>
                 </div>
                 <p className="text-sm text-muted">
-                  {language === 'ne' 
+                  {language === 'ne'
                     ? `हप्तावारी ${issue}: नेपालको निर्वाचन परिदृश्यको समीक्षण`
-                    : `Weekly update ${issue}: Summary of Nepal election developments`
-                  }
+                    : `Weekly update ${issue}: Summary of Nepal election developments`}
                 </p>
               </div>
             ))}
@@ -205,14 +236,13 @@ export default function NewsletterPage() {
         {/* Privacy Notice */}
         <div className="mt-8 p-4 bg-neutral/30 rounded-lg text-center">
           <p className="text-xs text-muted">
-            {language === 'ne' 
+            {language === 'ne'
               ? 'हामी तपाईंको इमेल गोपनीपनतामा प्रयोग गर्छौं र कहिल्यै तेस्रो पार्टीको लागि प्रयोग गर्छौं।'
-              : 'We respect your privacy and will never share your email with third parties. You can unsubscribe at any time.'
-            }
+              : 'We respect your privacy and will never share your email with third parties. You can unsubscribe at any time.'}
           </p>
         </div>
       </div>
       <Footer />
     </div>
-  )
+  );
 }

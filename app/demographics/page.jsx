@@ -10,54 +10,58 @@ import {
   Info,
   ChevronDown,
   ChevronUp,
-  Search
+  Search,
 } from 'lucide-react';
 import { useState, useMemo } from 'react';
 
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
+import { WorkInProgressBanner } from '../../components/WorkInProgressBanner';
 import { PROVINCES } from '../../data/constituencies';
 import {
   DISTRICT_DEMOGRAPHICS,
   PROVINCE_DEMOGRAPHICS,
-  AGE_GROUP_LABELS
+  AGE_GROUP_LABELS,
 } from '../../data/demographics';
-import {
-  getYouthIndex,
-  getDependencyRatio,
-  getAgeGroupColor
-} from '../../utils/demographicUtils';
+import { getYouthIndex, getDependencyRatio, getAgeGroupColor } from '../../utils/demographicUtils';
 
 // Data sources with descriptions
 const DATA_SOURCES = [
   {
     name: 'National Population and Housing Census 2021',
     organization: 'Central Bureau of Statistics (CBS) / National Statistics Office (NSO)',
-    description: 'Official decennial census providing district-level population data, age distribution, literacy, and other demographic indicators.',
+    description:
+      'Official decennial census providing district-level population data, age distribution, literacy, and other demographic indicators.',
     url: 'https://censusnepal.cbs.gov.np/results/files/result-folder/Final_Population_compostion_12_2.pdf',
-    dataUsed: ['Population by district', 'Age groups', 'Literacy rates', 'Urban/rural distribution']
+    dataUsed: [
+      'Population by district',
+      'Age groups',
+      'Literacy rates',
+      'Urban/rural distribution',
+    ],
   },
   {
     name: 'Census Dataset Downloads',
     organization: 'National Statistics Office (NSO)',
-    description: 'Downloadable census tables in Excel/CSV format for detailed demographic analysis.',
+    description:
+      'Downloadable census tables in Excel/CSV format for detailed demographic analysis.',
     url: 'https://censusnepal.cbs.gov.np/results/downloads/census-dataset',
-    dataUsed: ['Detailed age breakdowns', 'Gender distribution', 'Household data']
+    dataUsed: ['Detailed age breakdowns', 'Gender distribution', 'Household data'],
   },
   {
     name: 'NSO Open Data Portal',
     organization: 'National Statistics Office (NSO)',
     description: 'Machine-readable datasets including population by district.',
     url: 'https://data.nsonepal.gov.np/dataset/population-census-2021',
-    dataUsed: ['Total population by district', 'Male/female population']
+    dataUsed: ['Total population by district', 'Male/female population'],
   },
   {
     name: 'Election Commission of Nepal',
     organization: 'Government of Nepal',
     description: 'Official electoral data including constituency boundaries and voter information.',
     url: 'https://election.gov.np/en/page/district-wise-constituency-map',
-    dataUsed: ['Constituency-district mapping', '2022 election results']
-  }
+    dataUsed: ['Constituency-district mapping', '2022 election results'],
+  },
 ];
 
 // Methodology explanation
@@ -66,25 +70,30 @@ const METHODOLOGY = {
   sections: [
     {
       heading: 'Data Granularity Challenge',
-      content: 'The Census 2021 provides demographic data at the DISTRICT level, while electoral constituencies are SUB-DISTRICT units. Nepal has 77 districts but 165 FPTP constituencies, meaning most districts contain multiple constituencies.'
+      content:
+        'The Census 2021 provides demographic data at the DISTRICT level, while electoral constituencies are SUB-DISTRICT units. Nepal has 77 districts but 165 FPTP constituencies, meaning most districts contain multiple constituencies.',
     },
     {
       heading: 'Proportional Allocation Method',
-      content: 'We estimate constituency demographics by allocating district-level data proportionally based on the number of constituencies per district. For example, if Kathmandu district has 10 constituencies, each is assigned approximately 1/10th of the district\'s population and inherits the district\'s demographic percentages (age distribution, literacy rate, etc.).'
+      content:
+        "We estimate constituency demographics by allocating district-level data proportionally based on the number of constituencies per district. For example, if Kathmandu district has 10 constituencies, each is assigned approximately 1/10th of the district's population and inherits the district's demographic percentages (age distribution, literacy rate, etc.).",
     },
     {
       heading: 'Assumptions & Limitations',
-      content: 'This method assumes demographic characteristics are uniformly distributed within a district. In reality, urban constituencies may have higher literacy and different age profiles than rural ones within the same district. Constituency boundaries also don\'t always align perfectly with administrative units.'
+      content:
+        "This method assumes demographic characteristics are uniformly distributed within a district. In reality, urban constituencies may have higher literacy and different age profiles than rural ones within the same district. Constituency boundaries also don't always align perfectly with administrative units.",
     },
     {
       heading: 'Confidence Levels',
-      content: 'We indicate "High" confidence for single-constituency districts (direct match) and "Medium" confidence for multi-constituency districts (proportional estimate). This transparency helps users understand data reliability.'
+      content:
+        'We indicate "High" confidence for single-constituency districts (direct match) and "Medium" confidence for multi-constituency districts (proportional estimate). This transparency helps users understand data reliability.',
     },
     {
       heading: 'Age Group Definitions',
-      content: 'Age groups follow standard demographic categories: Children (0-14), Youth (15-29), Young Adults (30-44), Middle-aged (45-59), and Elderly (60+). Voting age population is calculated as 18+ (approximately 80% of the 15-29 group plus all older groups).'
-    }
-  ]
+      content:
+        'Age groups follow standard demographic categories: Children (0-14), Youth (15-29), Young Adults (30-44), Middle-aged (45-59), and Elderly (60+). Voting age population is calculated as 18+ (approximately 80% of the 15-29 group plus all older groups).',
+    },
+  ],
 };
 
 export default function DemographicsPage() {
@@ -95,33 +104,40 @@ export default function DemographicsPage() {
 
   // Get all districts with their data
   const districts = useMemo(() => {
-    return Object.entries(DISTRICT_DEMOGRAPHICS).map(([name, data]) => ({
-      name,
-      ...data,
-      youthIndex: getYouthIndex(data.ageGroups),
-      dependencyRatio: getDependencyRatio(data.ageGroups)
-    })).sort((a, b) => b.population - a.population);
+    return Object.entries(DISTRICT_DEMOGRAPHICS)
+      .map(([name, data]) => ({
+        name,
+        ...data,
+        youthIndex: getYouthIndex(data.ageGroups),
+        dependencyRatio: getDependencyRatio(data.ageGroups),
+      }))
+      .sort((a, b) => b.population - a.population);
   }, []);
 
   // Filter districts by search
   const filteredDistricts = useMemo(() => {
-    if (!searchTerm) {return districts;}
+    if (!searchTerm) {
+      return districts;
+    }
     const term = searchTerm.toLowerCase();
     return districts.filter(d => d.name.toLowerCase().includes(term));
   }, [districts, searchTerm]);
 
   // National totals
   const nationalStats = useMemo(() => {
-    const total = districts.reduce((acc, d) => ({
-      population: acc.population + d.population,
-      male: acc.male + d.male,
-      female: acc.female + d.female
-    }), { population: 0, male: 0, female: 0 });
+    const total = districts.reduce(
+      (acc, d) => ({
+        population: acc.population + d.population,
+        male: acc.male + d.male,
+        female: acc.female + d.female,
+      }),
+      { population: 0, male: 0, female: 0 }
+    );
 
     return {
       ...total,
       districts: districts.length,
-      constituencies: 165
+      constituencies: 165,
     };
   }, [districts]);
 
@@ -129,7 +145,7 @@ export default function DemographicsPage() {
     <div className="min-h-screen bg-background">
       <Header />
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
+      <main className="max-w-7xl mx-auto px-4 py-8 overflow-x-hidden">
         {/* Page Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
@@ -141,35 +157,29 @@ export default function DemographicsPage() {
           </p>
         </div>
 
+        <WorkInProgressBanner className="mb-8" />
+
         {/* National Overview */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-surface border border-neutral rounded-xl p-4">
-            <p className="text-xs uppercase tracking-wider text-muted mb-1">
-              Total Population
-            </p>
+            <p className="text-xs uppercase tracking-wider text-muted mb-1">Total Population</p>
             <p className="text-2xl font-bold text-foreground">
               {(nationalStats.population / 1000000).toFixed(2)}M
             </p>
             <p className="text-xs text-muted">Census 2021</p>
           </div>
           <div className="bg-surface border border-neutral rounded-xl p-4">
-            <p className="text-xs uppercase tracking-wider text-muted mb-1">
-              Districts
-            </p>
+            <p className="text-xs uppercase tracking-wider text-muted mb-1">Districts</p>
             <p className="text-2xl font-bold text-foreground">{nationalStats.districts}</p>
             <p className="text-xs text-muted">with demographic data</p>
           </div>
           <div className="bg-surface border border-neutral rounded-xl p-4">
-            <p className="text-xs uppercase tracking-wider text-muted mb-1">
-              FPTP Constituencies
-            </p>
+            <p className="text-xs uppercase tracking-wider text-muted mb-1">FPTP Constituencies</p>
             <p className="text-2xl font-bold text-foreground">{nationalStats.constituencies}</p>
             <p className="text-xs text-muted">estimated demographics</p>
           </div>
           <div className="bg-surface border border-neutral rounded-xl p-4">
-            <p className="text-xs uppercase tracking-wider text-muted mb-1">
-              Gender Ratio
-            </p>
+            <p className="text-xs uppercase tracking-wider text-muted mb-1">Gender Ratio</p>
             <p className="text-2xl font-bold text-foreground">
               {((nationalStats.male / nationalStats.female) * 100).toFixed(0)}
             </p>
@@ -184,7 +194,8 @@ export default function DemographicsPage() {
             <h2 className="text-xl font-semibold text-foreground">Data Sources</h2>
           </div>
           <p className="text-sm text-muted mb-4">
-            All demographic data is sourced from official Government of Nepal publications. Click each source for details.
+            All demographic data is sourced from official Government of Nepal publications. Click
+            each source for details.
           </p>
           <div className="space-y-3">
             {DATA_SOURCES.map((source, idx) => (
@@ -220,7 +231,10 @@ export default function DemographicsPage() {
                       <p className="text-xs text-muted mb-1">Data used:</p>
                       <div className="flex flex-wrap gap-2">
                         {source.dataUsed.map((item, i) => (
-                          <span key={i} className="px-2 py-1 bg-neutral rounded text-xs text-foreground/80">
+                          <span
+                            key={i}
+                            className="px-2 py-1 bg-neutral rounded text-xs text-foreground/80"
+                          >
                             {item}
                           </span>
                         ))}
@@ -272,8 +286,9 @@ export default function DemographicsPage() {
               ))}
               <div className="mt-4 p-3 bg-yellow-100 border border-yellow-300 rounded-lg">
                 <p className="text-xs text-yellow-900">
-                  <strong>Transparency Note:</strong> These are estimates based on the best available public data.
-                  Actual constituency-level demographics may differ. We encourage verification with official sources for critical analysis.
+                  <strong>Transparency Note:</strong> These are estimates based on the best
+                  available public data. Actual constituency-level demographics may differ. We
+                  encourage verification with official sources for critical analysis.
                 </p>
               </div>
             </motion.div>
@@ -305,11 +320,15 @@ export default function DemographicsPage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted">Literacy</span>
-                    <span className="text-foreground/80 font-mono">{(data.literacyRate * 100).toFixed(0)}%</span>
+                    <span className="text-foreground/80 font-mono">
+                      {(data.literacyRate * 100).toFixed(0)}%
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted">Urban</span>
-                    <span className="text-foreground/80 font-mono">{(data.urbanPopulation * 100).toFixed(0)}%</span>
+                    <span className="text-foreground/80 font-mono">
+                      {(data.urbanPopulation * 100).toFixed(0)}%
+                    </span>
                   </div>
                 </div>
               </div>
@@ -330,7 +349,7 @@ export default function DemographicsPage() {
                 type="text"
                 placeholder="Search district..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={e => setSearchTerm(e.target.value)}
                 className="pl-9 pr-3 py-2 bg-neutral border border-neutral rounded-lg text-sm text-foreground placeholder-gray-500 focus:outline-none focus:border-gray-500 w-48"
               />
             </div>
@@ -351,8 +370,8 @@ export default function DemographicsPage() {
           </div>
 
           {/* District table */}
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+          <div className="w-full max-w-full overflow-x-auto">
+            <table className="min-w-[720px] w-full text-sm">
               <thead>
                 <tr className="border-b border-neutral">
                   <th className="text-left py-3 px-2 text-muted font-medium">District</th>
@@ -364,11 +383,13 @@ export default function DemographicsPage() {
                 </tr>
               </thead>
               <tbody>
-                {filteredDistricts.map((district) => (
+                {filteredDistricts.map(district => (
                   <tr
                     key={district.name}
                     className="border-b border-neutral/50 hover:bg-neutral/30 cursor-pointer"
-                    onClick={() => setSelectedDistrict(district.name === selectedDistrict ? null : district.name)}
+                    onClick={() =>
+                      setSelectedDistrict(district.name === selectedDistrict ? null : district.name)
+                    }
                   >
                     <td className="py-3 px-2">
                       <span className="text-foreground font-medium">{district.name}</span>
@@ -380,12 +401,20 @@ export default function DemographicsPage() {
                       {district.medianAge}
                     </td>
                     <td className="py-3 px-2 text-right font-mono">
-                      <span className={district.youthIndex > 0.55 ? 'text-green-400' : 'text-foreground/80'}>
+                      <span
+                        className={
+                          district.youthIndex > 0.55 ? 'text-green-400' : 'text-foreground/80'
+                        }
+                      >
                         {(district.youthIndex * 100).toFixed(2)}%
                       </span>
                     </td>
                     <td className="py-3 px-2 text-right font-mono">
-                      <span className={district.literacyRate > 0.8 ? 'text-blue-400' : 'text-foreground/80'}>
+                      <span
+                        className={
+                          district.literacyRate > 0.8 ? 'text-blue-400' : 'text-foreground/80'
+                        }
+                      >
                         {(district.literacyRate * 100).toFixed(0)}%
                       </span>
                     </td>
@@ -397,7 +426,7 @@ export default function DemographicsPage() {
                               key={group}
                               style={{
                                 width: `${pct * 100}%`,
-                                backgroundColor: getAgeGroupColor(group)
+                                backgroundColor: getAgeGroupColor(group),
                               }}
                               title={`${AGE_GROUP_LABELS[group]}: ${(pct * 100).toFixed(2)}%`}
                             />
@@ -421,8 +450,17 @@ export default function DemographicsPage() {
         {/* Footer note */}
         <div className="mt-8 p-4 bg-neutral/30 rounded-lg">
           <p className="text-xs text-muted text-center">
-            Data last updated: Census 2021 (published 2023). Constituency estimates use proportional allocation methodology.
-            For official data, please refer to the <a href="https://censusnepal.cbs.gov.np" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">National Statistics Office</a>.
+            Data last updated: Census 2021 (published 2023). Constituency estimates use proportional
+            allocation methodology. For official data, please refer to the{' '}
+            <a
+              href="https://censusnepal.cbs.gov.np"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:underline"
+            >
+              National Statistics Office
+            </a>
+            .
           </p>
         </div>
       </main>
