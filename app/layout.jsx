@@ -2,6 +2,7 @@ import './globals.css';
 import ErrorBoundary from '../components/ErrorBoundary';
 import GlobalNewsletterSignup from '../components/GlobalNewsletterSignup';
 import { LanguageProvider } from '../context/LanguageContext';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata = {
   metadataBase: new URL('https://nepalisoch.com'),
@@ -73,6 +74,7 @@ export default function RootLayout({ children }) {
             <GlobalNewsletterSignup />
           </LanguageProvider>
         </ErrorBoundary>
+        <Analytics />
       </body>
     </html>
   );
