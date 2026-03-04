@@ -1,12 +1,13 @@
-import createMDX from '@next/mdx'
+import createMDX from '@next/mdx';
+import remarkGfm from 'remark-gfm';
 
 const withMDX = createMDX({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [],
+    remarkPlugins: [remarkGfm],
     rehypePlugins: [],
   },
-})
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -20,7 +21,7 @@ const nextConfig = {
         destination: '/analysis/2026-election-data-briefing',
         permanent: true,
       },
-    ]
+    ];
   },
 
   // Security headers
@@ -54,13 +55,13 @@ const nextConfig = {
     ];
   },
 
-  webpack: (config) => {
+  webpack: config => {
     config.module.rules.push({
       test: /\.geojson$/,
       type: 'json',
     });
     return config;
   },
-}
+};
 
-export default withMDX(nextConfig)
+export default withMDX(nextConfig);

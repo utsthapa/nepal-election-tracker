@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import remarkGfm from 'remark-gfm';
 import { getArticleBySlug, getRelatedArticles, getArticlesFromDir } from '../../../lib/content';
 import { generateArticleMetadata } from '../../../lib/metadata';
 import { MDXArticleComponents } from '../mdx-components';
@@ -41,7 +42,15 @@ export default async function ArticlePage({ params }) {
 
   return (
     <ArticlePageClient article={articleMeta} relatedArticles={relatedArticles}>
-      <MDXRemote source={content} components={MDXArticleComponents} />
+      <MDXRemote
+        source={content}
+        components={MDXArticleComponents}
+        options={{
+          mdxOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        }}
+      />
     </ArticlePageClient>
   );
 }
