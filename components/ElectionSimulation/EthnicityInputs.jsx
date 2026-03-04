@@ -71,6 +71,10 @@ function SegmentSection({
   };
 
   const handleTurnoutChange = e => {
+    if (e.target.value === '') {
+      onUpdateTurnout(0);
+      return;
+    }
     const value = parseFloat(e.target.value);
     if (!isNaN(value)) {
       onUpdateTurnout(Math.max(0, Math.min(100, value)));
@@ -120,7 +124,7 @@ function SegmentSection({
               min="0"
               max="100"
               step="0.1"
-              value={turnoutRate || 65}
+              value={turnoutRate ?? 65}
               onChange={handleTurnoutChange}
               className="w-full px-3 py-2 text-sm border border-gray-300 rounded"
             />

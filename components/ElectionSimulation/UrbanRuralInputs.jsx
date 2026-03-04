@@ -83,6 +83,10 @@ function SegmentSection({
   };
 
   const handleTurnoutChange = e => {
+    if (e.target.value === '') {
+      onUpdateTurnout(0);
+      return;
+    }
     const value = parseFloat(e.target.value);
     if (!isNaN(value)) {
       onUpdateTurnout(Math.max(0, Math.min(100, value)));
@@ -127,7 +131,7 @@ function SegmentSection({
               min="0"
               max="100"
               step="0.1"
-              value={turnoutRate || 65}
+              value={turnoutRate ?? 65}
               onChange={handleTurnoutChange}
               className="w-full px-3 py-2 text-sm border border-gray-300"
             />
@@ -155,14 +159,14 @@ function SegmentSection({
           {pattern && (
             <div className="border-t border-gray-200">
               <div className="text-xs font-medium text-gray-500">
-                Effective Contribution ({populationShare}% pop. × {(turnoutRate || 65).toFixed(0)}%
+                Effective Contribution ({populationShare}% pop. × {(turnoutRate ?? 65).toFixed(0)}%
                 turnout)
               </div>
               <div className="grid grid-cols-2 gap-x-4 gap-y-1">
                 {Object.keys(PARTIES).map(party => {
                   const voteShare = pattern[party] || 0;
                   const effective =
-                    (populationShare / 100) * ((turnoutRate || 65) / 100) * (voteShare / 100) * 100;
+                    (populationShare / 100) * ((turnoutRate ?? 65) / 100) * (voteShare / 100) * 100;
                   if (voteShare < 1) {
                     return null;
                   }
