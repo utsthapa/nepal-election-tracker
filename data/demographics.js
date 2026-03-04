@@ -911,6 +911,24 @@ export const DISTRICT_DEMOGRAPHICS = {
     voterEligible: 0.678
   },
 
+  // Bardiya - Province 5 (Lumbini)
+  'Bardiya': {
+    population: 465781,
+    male: 230458,
+    female: 235323,
+    ageGroups: {
+      '0-14': 0.282,
+      '15-29': 0.282,
+      '30-44': 0.195,
+      '45-59': 0.145,
+      '60+': 0.096
+    },
+    medianAge: 24.2,
+    literacyRate: 0.688,
+    urbanPopulation: 0.165,
+    voterEligible: 0.682
+  },
+
   // Province 6 - Karnali
   'Rukum': {
     population: 157707,
@@ -1073,23 +1091,7 @@ export const DISTRICT_DEMOGRAPHICS = {
     voterEligible: 0.652
   },
 
-  // Province 7 - Sudurpashchim
-  'Bardiya': {
-    population: 465781,
-    male: 230458,
-    female: 235323,
-    ageGroups: {
-      '0-14': 0.282,
-      '15-29': 0.282,
-      '30-44': 0.195,
-      '45-59': 0.145,
-      '60+': 0.096
-    },
-    medianAge: 24.2,
-    literacyRate: 0.688,
-    urbanPopulation: 0.165,
-    voterEligible: 0.682
-  },
+  // Province 7 - Sudurpashchim (Bardiya moved to Province 5 above)
   'Kailali': {
     population: 917836,
     male: 452658,
@@ -1248,23 +1250,23 @@ export const AGE_GROUP_LABELS = {
 // Detailed age breakdown (5-year groups) - Nepal average percentages
 // Used for more granular analysis when needed
 export const DETAILED_AGE_GROUPS = {
-  '0-4': 0.088,
-  '5-9': 0.092,
-  '10-14': 0.095,
-  '15-19': 0.098,
-  '20-24': 0.095,
-  '25-29': 0.088,
-  '30-34': 0.078,
-  '35-39': 0.072,
-  '40-44': 0.065,
-  '45-49': 0.058,
-  '50-54': 0.052,
-  '55-59': 0.045,
-  '60-64': 0.038,
-  '65-69': 0.030,
-  '70-74': 0.022,
-  '75-79': 0.014,
-  '80+': 0.010
+  '0-4': 0.082,
+  '5-9': 0.088,
+  '10-14': 0.093,
+  '15-19': 0.096,
+  '20-24': 0.092,
+  '25-29': 0.085,
+  '30-34': 0.076,
+  '35-39': 0.070,
+  '40-44': 0.063,
+  '45-49': 0.056,
+  '50-54': 0.050,
+  '55-59': 0.043,
+  '60-64': 0.036,
+  '65-69': 0.028,
+  '70-74': 0.020,
+  '75-79': 0.013,
+  '80+': 0.009
 };
 
 // Voting age breakdown (18+ only)

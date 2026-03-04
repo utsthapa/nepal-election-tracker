@@ -11,7 +11,8 @@ export const PARTIES_2013 = {
     color: "#16a34a",  // Green-600
     historicalFullName: "Nepali Congress",
     fptpSeats: 105,
-    prSeats: 91,
+    prSeats: 80,
+    nominatedSeats: 11,
     totalSeats: 196,
     prVotes: 2418370,
     prVotePercent: 25.55,
@@ -25,7 +26,8 @@ export const PARTIES_2013 = {
     color: "#dc2626",  // Red-600
     historicalFullName: "Communist Party of Nepal (Unified Marxist-Leninist)",
     fptpSeats: 91,
-    prSeats: 84,
+    prSeats: 76,
+    nominatedSeats: 8,
     totalSeats: 175,
     prVotes: 2239609,
     prVotePercent: 23.66,
@@ -39,7 +41,8 @@ export const PARTIES_2013 = {
     color: "#991b1b",  // Red-800
     historicalFullName: "Unified Communist Party of Nepal (Maoist)",
     fptpSeats: 26,
-    prSeats: 54,
+    prSeats: 49,
+    nominatedSeats: 5,
     totalSeats: 80,
     prVotes: 1439726,
     prVotePercent: 15.21,
@@ -53,7 +56,8 @@ export const PARTIES_2013 = {
     color: "#7c3aed",  // Violet-600
     historicalFullName: "Rastriya Prajatantra Party Nepal",
     fptpSeats: 0,
-    prSeats: 24,
+    prSeats: 22,
+    nominatedSeats: 2,
     totalSeats: 24,
     prVotes: 630697,
     prVotePercent: 6.66,

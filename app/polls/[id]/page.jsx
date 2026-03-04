@@ -11,7 +11,8 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  const poll = getPollById(params.id)
+  const { id } = await params
+  const poll = getPollById(id)
 
   if (!poll) {
     return {
@@ -27,8 +28,9 @@ export async function generateMetadata({ params }) {
   }
 }
 
-export default function PollPage({ params }) {
-  const poll = getPollById(params.id)
+export default async function PollPage({ params }) {
+  const { id } = await params
+  const poll = getPollById(id)
 
   if (!poll) {
     notFound()

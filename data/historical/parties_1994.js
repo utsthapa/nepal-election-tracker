@@ -76,7 +76,7 @@ export const PARTIES_1994 = {
     shortName: "Others",
     color: "#4b5563",  // Gray-600
     historicalFullName: "Other Parties & Independents",
-    seatsWon: 5,
+    seatsWon: 7,
     votes: 1000000,  // Approximate
     votePercent: 13.37,
     candidates: 500,

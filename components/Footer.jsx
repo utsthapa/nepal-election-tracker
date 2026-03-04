@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
 
 const SECTION_LINKS = [
-  { href: '/', labelKey: 'nav.simulator', label: 'Simulator' },
+  { href: '/simulator/2026', labelKey: 'nav.simulator', label: 'Simulator' },
   { href: '/elections', labelKey: 'nav.elections', label: 'Elections' },
   { href: '/analysis', labelKey: 'nav.analysis', label: 'Analysis' },
   { href: '/districts', labelKey: 'nav.districts', label: 'Districts' },

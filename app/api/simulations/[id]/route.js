@@ -14,7 +14,7 @@ function isValidId(id) {
 }
 
 export async function GET(_request, { params }) {
-  const id = params?.id;
+  const { id } = await params;
   if (!isValidId(id)) {
     return NextResponse.json({ error: 'Invalid simulation ID' }, { status: 400 });
   }

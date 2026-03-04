@@ -1,0 +1,215 @@
+---
+title: '2026 Nepal Election Data Briefing: Who Is Running, Where the Pressure Points Are, and What the Numbers Say'
+excerpt: "A full data-first briefing on Nepal's March 5, 2026 general election: candidate volume, party spread, gender and age composition, battleground constituencies, and timeline risk points."
+author: 'Data Journalism Team'
+date: '2026-03-04'
+category: 'Analysis'
+tags: ['2026-election', 'data-briefing', 'candidate-data', 'constituencies', 'nepal-politics']
+featuredImage: '/images/election-polls.svg'
+readTime: '8'
+featured: false
+---
+
+# 2026 Nepal Election Data Briefing
+
+<KeyFindings>
+**KEY FINDINGS**
+
+- Nepal's **2026 House election is set for March 5, 2026**, with **18,903,689 registered voters** and **275 total seats** (165 FPTP + 110 PR).
+- Candidate volume is high: **3,484 total candidates**, including **2,397 party candidates** and **1,087 independents**.
+- Representation remains uneven: **395 women candidates (11.3%)** and **3,088 men (88.6%)**.
+- Candidate age is concentrated in mid-career cohorts: **46.2% are 36-50**, while only **16.7% are under 35**.
+- The main structural story is breadth: several major parties are contesting nearly all FPTP seats, while dozens of smaller parties are selectively targeting regional and identity strongholds.
+
+</KeyFindings>
+
+<PullQuote>
+  The headline for 2026 is not just who is ahead. It is the scale and shape of competition: many
+  candidates, many parties, and highly uneven constituency-level pressure.
+</PullQuote>
+
+This article replaces our previous polling explainer at this URL and shifts to a broader, data-led election briefing for 2026.
+
+Everything below is based on the structured election dataset in this project (`nepal_2026_election_data.json`, last updated **February 15, 2026**) and should be read as a transparent snapshot of currently recorded data.
+
+---
+
+## 1) Election Basics: The Numbers That Define the Contest
+
+| Metric | Value |
+| --- | --- |
+| Election date | March 5, 2026 |
+| Election type | House of Representatives (Pratinidhi Sabha) |
+| Registered voters | 18,903,689 |
+| FPTP seats | 165 |
+| PR seats | 110 |
+| Total seats | 275 |
+| Total candidates | 3,484 |
+| Total parties participating | 68 |
+
+Two-seat system reminder:
+
+- **FPTP (165 seats):** one winner per constituency.
+- **PR (110 seats):** national party-list allocation with legal thresholds and formula-based seat conversion.
+
+---
+
+## 2) Candidate Composition: Big Field, Uneven Inclusion
+
+### Party vs independent entry
+
+<PieChart
+  data={[
+    { group: 'Party candidates', count: 2397 },
+    { group: 'Independent candidates', count: 1087 },
+  ]}
+  nameKey="group"
+  valueKey="count"
+  height={320}
+/>
+
+- Party candidates: **2,397 (68.8%)**
+- Independent candidates: **1,087 (31.2%)**
+
+A one-third independent share is high enough to matter in local vote splitting, especially in close FPTP races.
+
+### Gender profile
+
+<PieChart
+  data={[
+    { group: 'Women', count: 395 },
+    { group: 'Men', count: 3088 },
+    { group: 'Other gender', count: 1 },
+  ]}
+  nameKey="group"
+  valueKey="count"
+  height={320}
+/>
+
+- Women: **395 (11.3%)**
+- Men: **3,088 (88.6%)**
+- Other gender: **1**
+
+This is still a heavily male candidate field.
+
+### Age profile
+
+<BarChart
+  data={[
+    { band: 'Under 35', candidates: 583 },
+    { band: '36-50', candidates: 1610 },
+    { band: '51-65', candidates: 1090 },
+    { band: '65+', candidates: 201 },
+  ]}
+  xKey="band"
+  yKey="candidates"
+  colors={['#B91C1C']}
+  height={340}
+/>
+
+- Under 35: **583 (16.7%)**
+- 36-50: **1,610 (46.2%)**
+- 51-65: **1,090 (31.3%)**
+- Above 65: **201 (5.8%)**
+
+The center of gravity is clearly the 36-50 bracket.
+
+---
+
+## 3) Which Parties Are Contesting Nationally vs Selectively?
+
+Top parties by number of FPTP seats contested:
+
+| Party | Seats contested |
+| --- | --- |
+| Nepali Congress (NC) | 165 |
+| CPN-UML | 164 |
+| Rastriya Swatantra Party (RSP) | 164 |
+| NCP | 164 |
+| Rastriya Prajatantra Party (RPP) | 163 |
+| CPN (Maoist) | 130 |
+| Nepal Majdoor Kisan Party (NMKP) | 120 |
+| Mongol National Organisation (MNO) | 113 |
+| Shram Sanskriti Party (SSP) | 109 |
+| Ujyaalo Nepal Party (UNP) | 105 |
+
+<Callout type="info" title="What This Means Strategically">
+Parties contesting 160+ seats are pursuing clear national footprint strategies. Parties in the 60-120 range are usually balancing selective expansion with regional concentration, alliance dependence, or resource constraints.
+</Callout>
+
+---
+
+## 4) Women Candidates by Party: Where Inclusion Is Actually Happening
+
+Raw counts can be misleading if a party contests many more seats, but they still show who is putting women on ballots at scale.
+
+| Party | Women candidates | Total seats contested |
+| --- | --- | --- |
+| NMKP | 54 | 120 |
+| AJP | 25 | 98 |
+| RSP | 16 | 164 |
+| MNO | 15 | 113 |
+| NCP | 12 | 164 |
+| NC | 11 | 165 |
+| CPN-UML | 10 | 164 |
+| RJM | 9 | 70 |
+| RPP | 8 | 163 |
+| PSP-N | 8 | 94 |
+
+The broad pattern: large legacy parties remain low in women nominees relative to their ballot footprint, while some mid-sized and smaller parties show stronger absolute inclusion numbers.
+
+---
+
+## 5) High-Impact Battlegrounds to Watch
+
+The project dataset flags several constituencies as high significance:
+
+1. **Jhapa-5**: KP Sharma Oli (CPN-UML), Balendra Shah/Balen (RSP), Mandhara Chimariya (NC)
+2. **Chitwan-2**: Rabi Lamichhane (RSP) vs Asmin Ghimire (CPN-UML)
+3. **Sarlahi-4**: Gagan Kumar Thapa (NC) vs Amaresh Kumar Singh (RSP) vs Amanesh Kumar Yadav (CPN-UML)
+4. **Kathmandu-5**: Ishwar Pokharel (CPN-UML) vs Sasmita Pokharel (RSP)
+5. **Kathmandu-3**: Kul Man Ghising (UNP) vs Santosh Chalise (NC)
+6. **Sunsari-1**: Harka Sampang (SSP) vs Ashok Kumar Rai (JSP)
+
+These are not the only competitive seats, but they are politically leveraged contests where narrative effects can exceed one-seat arithmetic.
+
+---
+
+## 6) Timeline Risk: The Last 72 Hours Matter
+
+Key late-stage dates in the current election timeline:
+
+| Date | Event |
+| --- | --- |
+| March 3, 2026 | Campaigning ends |
+| March 5, 2026 | Election Day |
+
+That short gap is operationally important: mobilization, turnout logistics, local coordination, and message discipline usually decide close FPTP seats more than macro narrative does.
+
+---
+
+## 7) What This Data Can and Cannot Tell You
+
+<Sidebar title="Interpretation Discipline">
+This is **contest structure data**, not final outcome data. It tells you who is running, where they are running, and how broad or narrow their ballot footprint is. It does not by itself predict seat winners.
+</Sidebar>
+
+Useful for:
+
+- Understanding how fragmented the field is
+- Tracking representation and inclusion patterns
+- Identifying pressure constituencies and high-salience contests
+
+Not sufficient for:
+
+- Exact seat projection
+- Vote-share forecasting
+- Coalition probability estimates without additional inputs
+
+---
+
+## Methodology Note
+
+Data used here comes from this project's structured election dataset for 2026 (`nepal_2026_election_data.json`, `last_updated: 2026-02-15`). Percentages in this article are computed directly from totals in that file and rounded to one decimal place.
+
+For election system mechanics (FPTP + PR + seat math), see our [about page](/about) and [Sainte-Laguë explainer](/analysis/sainte-lague-method-explained).

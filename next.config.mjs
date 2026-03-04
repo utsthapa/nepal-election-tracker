@@ -13,6 +13,16 @@ const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
 
+  async redirects() {
+    return [
+      {
+        source: '/analysis/understanding-election-polls',
+        destination: '/analysis/2026-election-data-briefing',
+        permanent: true,
+      },
+    ]
+  },
+
   // Security headers
   async headers() {
     return [

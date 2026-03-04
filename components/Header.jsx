@@ -16,6 +16,8 @@ const NAV_ITEMS = [
   { href: '/districts', labelKey: 'nav.districts', label: 'Districts' },
   { href: '/demographics', labelKey: 'nav.demographics', label: 'Demographics' },
   { href: '/nepal-data', labelKey: 'nav.nepalData', label: 'Nepal Data' },
+  { href: '/polls', labelKey: 'nav.polls', label: 'Polls' },
+  { href: '/prediction-markets', labelKey: 'nav.markets', label: 'Markets' },
   { href: '/about', labelKey: 'nav.about', label: 'About' },
 ];
 

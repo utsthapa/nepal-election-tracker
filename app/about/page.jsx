@@ -360,11 +360,21 @@ export default function AboutPage() {
               { icon: Code, color: 'amber', title: { en: 'Mobile App Development', ne: 'मोबाइल एप विकास' }, desc: { en: 'Native apps for iOS and Android with offline mode and push notifications for updates.', ne: 'iOS र Android लागि नेटिभ एप, अफलाइन मोड, र पुश सूचनाहरू।' } },
               { icon: Target, color: 'rose', title: { en: 'Live Election Night Coverage', ne: 'लाइभ निर्वाचन रात कभरेज' }, desc: { en: 'Real-time results, updates, and analysis streamed live on election day with interactive dashboards.', ne: 'वास्तविक-समयमा नतिजा, अपडेट, र विश्लेषण, निर्वाचन दिनमा लाइभ।' } },
               { icon: BarChart3, color: 'cyan', title: { en: 'District-Level Forecasts', ne: 'जिल्ला-स्तरीय अनुमान' }, desc: { en: 'Projected results for each district with historical trends and demographic analysis.', ne: 'प्रत्येक जिल्लामा प्रोजेक्टेड नतिजाहरू, ऐतिहासिक प्रवृत्ति र जनसांख्यिकी विश्लेषण।' } },
-            ].map((item, i) => (
+            ].map((item, i) => {
+              const colorMap = {
+                blue: { bg: 'bg-blue-500/20', text: 'text-blue-500' },
+                purple: { bg: 'bg-purple-500/20', text: 'text-purple-500' },
+                green: { bg: 'bg-green-500/20', text: 'text-green-500' },
+                amber: { bg: 'bg-amber-500/20', text: 'text-amber-500' },
+                rose: { bg: 'bg-rose-500/20', text: 'text-rose-500' },
+                cyan: { bg: 'bg-cyan-500/20', text: 'text-cyan-500' },
+              };
+              const colors = colorMap[item.color] || { bg: 'bg-gray-500/20', text: 'text-gray-500' };
+              return (
               <div key={i} className="p-4 bg-neutral/30 rounded-lg hover:bg-neutral/50 transition-colors">
                 <div className="flex items-start gap-3">
-                  <div className={`p-2 bg-${item.color}-500/20 rounded-lg flex-shrink-0`}>
-                    <item.icon className={`w-5 h-5 text-${item.color}-500`} />
+                  <div className={`p-2 ${colors.bg} rounded-lg flex-shrink-0`}>
+                    <item.icon className={`w-5 h-5 ${colors.text}`} />
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-foreground mb-1">
@@ -376,7 +386,7 @@ export default function AboutPage() {
                   </div>
                 </div>
               </div>
-            ))}
+            );})}
           </div>
 
           <div className="mt-6 p-4 bg-green-500/10 border border-green-500/30 rounded-lg">

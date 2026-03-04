@@ -129,6 +129,9 @@ export function calculateAdjustedResults(baseline, globalShifts, initialValues =
  */
 export function determineFPTPWinner(voteShares) {
   const sorted = Object.entries(voteShares).sort((a, b) => b[1] - a[1]);
+  if (sorted.length === 0) {
+    return { winner: null, margin: 0, share: 0 };
+  }
   const winner = sorted[0][0];
   const winnerShare = sorted[0][1];
   const runnerUpShare = sorted.length > 1 ? sorted[1][1] : 0;

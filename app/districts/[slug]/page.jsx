@@ -88,8 +88,9 @@ export function generateStaticParams() {
   return Array.from(seen).map((slug) => ({ slug }));
 }
 
-export function generateMetadata({ params }) {
-  const data = getDistrictData(params.slug);
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const data = getDistrictData(slug);
 
   if (!data) {
     return {
@@ -123,8 +124,9 @@ export function generateMetadata({ params }) {
   };
 }
 
-export default function DistrictPage({ params }) {
-  const districtData = getDistrictData(params.slug);
+export default async function DistrictPage({ params }) {
+  const { slug } = await params;
+  const districtData = getDistrictData(slug);
 
   if (!districtData) {
     notFound();

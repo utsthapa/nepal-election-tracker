@@ -25,7 +25,7 @@ export const PARTY_DEMOGRAPHIC_PROFILES = {
     youthAffinity: 0.4, // Weak with youth
     middleClassAffinity: 0.45, // Moderate middle class
     // Traditional strongholds - Terai, rural hills
-    keyDistricts: ['Dhanusa', 'Mahottari', 'Sarlahi', 'Rautahat', 'Chitwan', 'Nawalparasi'],
+    keyDistricts: ['Dhanusha', 'Mahottari', 'Sarlahi', 'Rautahat', 'Chitwan', 'Nawalparasi'],
     voteEfficiency: 0.85, // Votes spread thin
     description: 'Traditional party with rural Terai and hill strongholds',
   },
@@ -35,7 +35,7 @@ export const PARTY_DEMOGRAPHIC_PROFILES = {
     educationAffinity: 0.5, // Moderate education
     youthAffinity: 0.55, // Moderate youth (party organization)
     middleClassAffinity: 0.5, // Moderate
-    keyDistricts: ['Jhapa', 'Ilam', 'Jhapa', 'Surkhet', 'Dang'],
+    keyDistricts: ['Jhapa', 'Ilam', 'Morang', 'Surkhet', 'Dang'],
     voteEfficiency: 0.9,
     description: 'Urban working class and organized rural pockets',
   },

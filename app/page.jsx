@@ -195,11 +195,11 @@ export default function HomePage() {
               delay={0.9}
             />
             <ArticleCard
-              title="Understanding Election Polls"
-              excerpt="How to read polls, spot bad ones, and understand margin of error."
-              category="Methodology"
-              date="February 17, 2026"
-              href="/analysis/understanding-election-polls"
+              title="2026 Election Data Briefing"
+              excerpt="Who is running, where parties are concentrated, and what the candidate data says before election day."
+              category="Analysis"
+              date="March 4, 2026"
+              href="/analysis/2026-election-data-briefing"
               delay={1.0}
             />
             <ArticleCard
