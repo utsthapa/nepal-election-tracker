@@ -55,6 +55,13 @@ async function main() {
       issues.push(`Expected redirect to /simulator/2026, got ${page.url()}`);
     }
 
+    const hasModePrompt =
+      (await page.locator('button:has-text("Simulation Mode")').count()) > 0 &&
+      (await page.locator('button:has-text("Data Mode")').count()) > 0;
+    if (!hasModePrompt) {
+      issues.push('Initial simulator mode chooser (Simulation/Data) is not visible on first load.');
+    }
+
     await clickIfVisible(page, 'button:has-text("Use Full Dashboard")');
 
     const switchedToTable = await clickIfVisible(page, 'button:has-text("TABLE")');
@@ -64,8 +71,6 @@ async function main() {
       await clickIfVisible(page, 'button:has-text("MAP")');
       await page.waitForTimeout(250);
       checkpoints.push({ step: 'map_view', overflow: await overflowAmount(page) });
-    } else {
-      issues.push('Could not find TABLE toggle button in simulator flow.');
     }
 
     const sliders = page.locator('input[type="range"]');

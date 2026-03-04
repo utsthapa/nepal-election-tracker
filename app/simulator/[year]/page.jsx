@@ -164,22 +164,71 @@ export default function SimulatorYearPage() {
   const hydratedShareIdRef = useRef(null);
   const [isAllianceModalOpen, setAllianceModalOpen] = useState(false);
   const [nepalMapMode, setNepalMapMode] = useState('map');
-  const [guidedFlowEnabled, setGuidedFlowEnabled] = useState(false);
-  const [guidedStep, setGuidedStep] = useState(0);
-  const [experienceMode, setExperienceMode] = useState(null);
-
-  // Starting point and custom scenario state
-  const [startingPoint, setStartingPoint] = useState('2022');
-  const [incumbencyDecay, setIncumbencyDecay] = useState(0);
-  const [rspBoost, setRspBoost] = useState(0);
-
-  const [guidedControlIndex, setGuidedControlIndex] = useState(0);
-  const [dataFlowStep, setDataFlowStep] = useState(0);
+  const [experienceMode, setExperienceMode] = useState(selectedYear === 2026 ? null : 'simulation');
+  const [selectedStartMode, setSelectedStartMode] = useState('baseline');
+  const [simulationStep, setSimulationStep] = useState(1);
+  const [surgeStrength, setSurgeStrength] = useState(0);
   const [dataProvinceFilter, setDataProvinceFilter] = useState('all');
   const [dataWinnerFilter, setDataWinnerFilter] = useState('all');
   const [dataSearch, setDataSearch] = useState('');
   const [dataBattlegroundOnly, setDataBattlegroundOnly] = useState(false);
   const [shareLoadError, setShareLoadError] = useState('');
+
+  const scrollToSliders = () => {
+    setTimeout(() => {
+      document
+        .getElementById('simulator-slider-section')
+        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 0);
+  };
+
+  const applyBaselineStepOptions = () => {
+    let baseFptp = useRspNationalBase
+      ? applyRspNationalEntry({ ...OFFICIAL_FPTP_VOTE })
+      : { ...OFFICIAL_FPTP_VOTE };
+    const basePr = { ...OFFICIAL_PR_VOTE };
+
+    if (surgeStrength > 0) {
+      const incumbents = ['NC', 'UML', 'Maoist'];
+      let transferableVotes = 0;
+      incumbents.forEach(party => {
+        if (baseFptp[party]) {
+          const decayAmount = baseFptp[party] * surgeStrength * 0.5;
+          transferableVotes += decayAmount;
+          baseFptp[party] -= decayAmount;
+        }
+      });
+
+      const rspShare = 0.5;
+      const otherAltsShare = 0.3;
+      const othersShare = 0.2;
+      baseFptp.RSP = (baseFptp.RSP || 0) + transferableVotes * rspShare;
+
+      const alternatives = ['RPP', 'JP', 'LSP', 'NUP'];
+      const totalAlt = alternatives.reduce((sum, p) => sum + (baseFptp[p] || 0), 0);
+      if (totalAlt > 0) {
+        alternatives.forEach(party => {
+          const proportion = (baseFptp[party] || 0) / totalAlt;
+          baseFptp[party] += transferableVotes * otherAltsShare * proportion;
+        });
+      } else {
+        baseFptp.RSP += transferableVotes * otherAltsShare;
+      }
+      baseFptp.Others = (baseFptp.Others || 0) + transferableVotes * othersShare;
+    }
+
+    const normalize = sliders => {
+      const total = Object.values(sliders).reduce((sum, v) => sum + (v || 0), 0);
+      if (total > 0) {
+        Object.keys(sliders).forEach(key => {
+          sliders[key] = (sliders[key] / total) * 100;
+        });
+      }
+      return sliders;
+    };
+
+    replaceSliders(normalize(baseFptp), normalize(basePr));
+  };
 
   const activeAlliance = allianceConfig?.enabled && allianceConfig.parties?.length === 2;
   const [allyA, allyB] = allianceConfig?.parties || [];
@@ -206,25 +255,19 @@ export default function SimulatorYearPage() {
     });
     return map;
   }, []);
-  const enabledSimulationControls = ['manual'];
-  const currentGuidedControl = 'manual';
-  const inGuidedSimulation = guidedFlowEnabled && experienceMode === 'simulation';
-  const inGuidedData = guidedFlowEnabled && experienceMode === 'data';
-  const hasCompletedGuidedFlow = !guidedFlowEnabled || guidedStep >= 5;
-  const canUseFullDashboard = !inGuidedSimulation || hasCompletedGuidedFlow;
-  const showControlSetupStep = inGuidedSimulation && guidedStep === 3;
-  const showDataDashboard = experienceMode === 'data' && !guidedFlowEnabled;
+  const showDataDashboard = experienceMode === 'data';
+  const isSimulationFlowComplete =
+    selectedYear !== 2026 || experienceMode !== 'simulation' || simulationStep >= 3;
   const showResultSections =
-    selectedYear === 2026 && !inGuidedData && hasCompletedGuidedFlow && experienceMode !== 'data';
-  const showControlsSection =
-    selectedYear === 2026 &&
-    !inGuidedData &&
-    experienceMode !== 'data' &&
-    (!guidedFlowEnabled || (inGuidedSimulation && guidedStep >= 3));
+    selectedYear === 2026 && experienceMode === 'simulation' && simulationStep === 4;
+  const showControlsSection = selectedYear === 2026 && experienceMode === 'simulation';
   const showAllDataSections = showDataDashboard;
   const showSimulationTopPanels =
-    selectedYear === 2026 && !inGuidedData && hasCompletedGuidedFlow && experienceMode !== 'data';
-  const showMainMapSection = hasCompletedGuidedFlow;
+    selectedYear === 2026 && experienceMode === 'simulation' && simulationStep === 4;
+  const showMainMapSection =
+    selectedYear !== 2026 ||
+    experienceMode === 'data' ||
+    (experienceMode === 'simulation' && simulationStep === 4);
   const femaleCandidateShare =
     CANDIDATE_DEMOGRAPHICS_2022.genderBreakdown.find(item => item.genderLabel === 'Female')
       ?.sharePct || 0;
@@ -300,6 +343,19 @@ export default function SimulatorYearPage() {
   }, [filteredDataRows]);
 
   useEffect(() => {
+    if (selectedYear === 2026) {
+      setExperienceMode(null);
+      setSelectedStartMode('baseline');
+      setSimulationStep(1);
+      setDemographicMode(false);
+      return;
+    }
+    setExperienceMode('simulation');
+    setSelectedStartMode('baseline');
+    setSimulationStep(3);
+  }, [selectedYear, setDemographicMode]);
+
+  useEffect(() => {
     const shareId = searchParams?.get('sid');
     if (!shareId || hydratedShareIdRef.current === shareId) {
       return;
@@ -348,83 +404,9 @@ export default function SimulatorYearPage() {
     partyColors[p] = `text-${p.toLowerCase()}`;
   });
 
-  const formatPartyLabel = partyId => {
-    const info = PARTIES[partyId];
-    return info ? info.name : partyId;
-  };
-
   // Handle year change - navigate to new URL
   const handleYearChange = year => {
     router.push(`/simulator/${year}`);
-  };
-
-  // Apply custom scenario adjustments using demographic profiles
-  const applyCustomScenario = () => {
-    // Start from the dynamic baseline instead of the hardcoded OFFICIAL_FPTP_VOTE
-    // so we compose the RSP assumption with decay correctly
-    let baseFptp = useRspNationalBase
-      ? applyRspNationalEntry({ ...OFFICIAL_FPTP_VOTE })
-      : { ...OFFICIAL_FPTP_VOTE };
-    let basePr = { ...OFFICIAL_PR_VOTE };
-
-    const incumbents = ['NC', 'UML', 'Maoist'];
-    const decayStrength = incumbencyDecay;
-
-    if (decayStrength > 0) {
-      let transferableVotes = 0;
-      incumbents.forEach(party => {
-        if (baseFptp[party]) {
-          const decayAmount = baseFptp[party] * decayStrength * 0.5;
-          transferableVotes += decayAmount;
-          baseFptp[party] -= decayAmount;
-        }
-      });
-
-      const rspShare = 0.5;
-      const otherAltsShare = 0.3;
-      const othersShare = 0.2;
-
-      baseFptp['RSP'] = (baseFptp['RSP'] || 0) + transferableVotes * rspShare;
-
-      const alternatives = ['RPP', 'JP', 'LSP', 'NUP'];
-      const totalAlt = alternatives.reduce((sum, p) => sum + (baseFptp[p] || 0), 0);
-      if (totalAlt > 0) {
-        alternatives.forEach(party => {
-          const proportion = (baseFptp[party] || 0) / totalAlt;
-          baseFptp[party] += transferableVotes * otherAltsShare * proportion;
-        });
-      } else {
-        baseFptp['RSP'] += transferableVotes * otherAltsShare;
-      }
-
-      baseFptp['Others'] = (baseFptp['Others'] || 0) + transferableVotes * othersShare;
-    }
-
-    if (rspBoost > 0) {
-      const boostAmount = rspBoost * 15;
-      const otherParties = Object.keys(baseFptp).filter(p => p !== 'RSP');
-      const totalOthers = otherParties.reduce((sum, p) => sum + (baseFptp[p] || 0), 0);
-
-      if (totalOthers > 0) {
-        otherParties.forEach(party => {
-          const proportion = (baseFptp[party] || 0) / totalOthers;
-          baseFptp[party] -= proportion * boostAmount;
-        });
-        baseFptp['RSP'] = (baseFptp['RSP'] || 0) + boostAmount;
-      }
-    }
-
-    const normalizeSliders = sliders => {
-      const total = Object.values(sliders).reduce((sum, v) => sum + (v || 0), 0);
-      if (total > 0) {
-        Object.keys(sliders).forEach(key => {
-          sliders[key] = (sliders[key] / total) * 100;
-        });
-      }
-      return sliders;
-    };
-
-    replaceSliders(normalizeSliders(baseFptp), normalizeSliders(basePr));
   };
 
   const handleReset = () => {
@@ -433,65 +415,8 @@ export default function SimulatorYearPage() {
     clearAlliance();
     setSlidersLocked(false);
     setUseRspNationalBase(false);
-    setStartingPoint('2022');
-    setIncumbencyDecay(0);
-    setRspBoost(0);
-  };
-
-  const topSimulationChanges = Object.keys(OFFICIAL_FPTP_VOTE)
-    .map(party => {
-      const fptpDelta = (fptpSliders[party] || 0) - (OFFICIAL_FPTP_VOTE[party] || 0);
-      const prDelta = (prSliders[party] || 0) - (OFFICIAL_PR_VOTE[party] || 0);
-      return { party, fptpDelta, prDelta, magnitude: Math.abs(fptpDelta) + Math.abs(prDelta) };
-    })
-    .sort((a, b) => b.magnitude - a.magnitude)
-    .slice(0, 4);
-
-  const handleGuidedModeSelect = mode => {
-    setExperienceMode(mode);
-    if (mode === 'simulation') {
-      setGuidedControlIndex(0);
-      setGuidedStep(2);
-    } else {
-      setGuidedFlowEnabled(false);
-      setGuidedStep(3);
-      setDataFlowStep(0);
-    }
-  };
-
-  const handleStartingPointSelect = point => {
-    setStartingPoint(point);
-    if (point === '2022') {
-      setUseRspNationalBase(false);
-      // Let reset re-initialize state without triggering side-effect hooks poorly:
-      setTimeout(() => {
-        resetSliders();
-        setGuidedStep(3);
-      }, 0);
-    } else {
-      setGuidedStep(2);
-    }
-  };
-
-  const handleApplyCustomScenario = () => {
-    applyCustomScenario();
-    setGuidedStep(3);
-  };
-
-  const handleNextGuidedControl = () => {
-    if (guidedControlIndex < enabledSimulationControls.length - 1) {
-      setGuidedControlIndex(i => i + 1);
-      return;
-    }
-    setGuidedStep(4);
-  };
-
-  const handleBackGuidedControl = () => {
-    if (guidedControlIndex > 0) {
-      setGuidedControlIndex(i => i - 1);
-      return;
-    }
-    setGuidedStep(2);
+    setSurgeStrength(0);
+    setSimulationStep(demographicMode ? 2 : 3);
   };
 
   const computeCompatibility = (a, b) => {
@@ -520,341 +445,60 @@ export default function SimulatorYearPage() {
       <main className="max-w-7xl mx-auto px-4 py-6" ref={screenshotRef}>
         <WorkInProgressBanner className="mb-6" />
 
-        {guidedFlowEnabled && (
+        {selectedYear === 2026 && !experienceMode && (
           <div className="mb-6 bg-white rounded-lg border border-[rgb(219,211,196)] p-5 shadow-sm">
-            <div className="flex items-start justify-between gap-3 mb-4">
+            <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)] mb-3">
+              Choose Mode
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <button
+                onClick={() => {
+                  setExperienceMode('simulation');
+                  setSelectedStartMode('baseline');
+                  setSimulationStep(1);
+                }}
+                className="p-4 rounded-lg border border-[rgb(219,211,196)] hover:border-[rgb(24,26,36)]/30 text-left"
+              >
+                <p className="font-semibold text-[rgb(24,26,36)]">Simulation Mode</p>
+                <p className="text-sm text-[rgb(100,110,130)]">
+                  Run baseline or demographic scenarios and project seats.
+                </p>
+              </button>
+              <button
+                onClick={() => setExperienceMode('data')}
+                className="p-4 rounded-lg border border-[rgb(219,211,196)] hover:border-[rgb(24,26,36)]/30 text-left"
+              >
+                <p className="font-semibold text-[rgb(24,26,36)]">Data Mode</p>
+                <p className="text-sm text-[rgb(100,110,130)]">
+                  Browse constituency and candidate datasets.
+                </p>
+              </button>
+            </div>
+          </div>
+        )}
+
+        {selectedYear === 2026 && experienceMode === 'data' && (
+          <div className="mb-6 bg-white rounded-lg border border-[rgb(219,211,196)] p-4 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div>
                 <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)]">
-                  Guided Flow
+                  Data Mode
                 </p>
-                <h2 className="text-lg font-semibold text-[rgb(24,26,36)]">
-                  Build Scenario Step-by-Step
-                </h2>
-                <p className="text-sm text-[rgb(100,110,130)]">
-                  Start from the 2022 baseline map, apply changes, then review the resulting
-                  scenario.
+                <p className="text-sm text-[rgb(100,110,130)] mt-1">
+                  You can return to simulator controls at any time.
                 </p>
               </div>
               <button
                 onClick={() => {
-                  setGuidedFlowEnabled(false);
-                  setGuidedStep(5);
-                  if (!experienceMode) {
-                    setExperienceMode('simulation');
-                  }
+                  setExperienceMode('simulation');
+                  setSelectedStartMode('baseline');
+                  setSimulationStep(1);
                 }}
-                className="px-3 py-2 rounded-lg border border-[rgb(219,211,196)] text-sm text-[rgb(100,110,130)] hover:border-[rgb(24,26,36)]/30 hover:text-[rgb(24,26,36)]"
+                className="px-4 py-2 rounded-lg bg-[#B91C1C] text-white text-sm font-semibold hover:bg-[#991B1B] transition-colors"
               >
-                Use Full Dashboard
+                Switch to Simulation Mode
               </button>
             </div>
-
-            {guidedStep === 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <button
-                  onClick={() => handleGuidedModeSelect('simulation')}
-                  className="p-4 rounded-lg border border-[rgb(219,211,196)] hover:border-[rgb(24,26,36)]/30 text-left"
-                >
-                  <p className="font-semibold text-[rgb(24,26,36)]">Simulation Mode</p>
-                  <p className="text-sm text-[rgb(100,110,130)]">
-                    Build on the 2022 baseline, then project seats after your changes.
-                  </p>
-                </button>
-                <button
-                  onClick={() => handleGuidedModeSelect('data')}
-                  className="p-4 rounded-lg border border-[rgb(219,211,196)] hover:border-[rgb(24,26,36)]/30 text-left"
-                >
-                  <p className="font-semibold text-[rgb(24,26,36)]">Data Mode</p>
-                  <p className="text-sm text-[rgb(100,110,130)]">
-                    Browse election data and battlegrounds.
-                  </p>
-                </button>
-              </div>
-            )}
-
-            {guidedStep === 2 && (
-              <div className="space-y-4">
-                <div>
-                  <p className="text-sm font-semibold text-[rgb(24,26,36)] mb-1">
-                    Choose Your Starting Point
-                  </p>
-                  <p className="text-xs text-[rgb(100,110,130)]">
-                    Start from the 2022 election results or apply a custom scenario with pre-set
-                    adjustments.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-                  <button
-                    onClick={() => handleStartingPointSelect('2022')}
-                    className={`text-left rounded-lg border px-4 py-3 transition-colors ${
-                      startingPoint === '2022'
-                        ? 'border-[#B91C1C] bg-[#B91C1C]/5'
-                        : 'border-[rgb(219,211,196)] hover:border-[rgb(24,26,36)]/30'
-                    }`}
-                  >
-                    <p className="text-sm font-semibold text-[rgb(24,26,36)]">2022 Baseline</p>
-                    <p className="text-xs text-[rgb(100,110,130)] mt-1">
-                      Start with official 2022 election results as your baseline.
-                    </p>
-                  </button>
-
-                  <button
-                    onClick={() => handleStartingPointSelect('custom')}
-                    className={`text-left rounded-lg border px-4 py-3 transition-colors ${
-                      startingPoint === 'custom'
-                        ? 'border-[#B91C1C] bg-[#B91C1C]/5'
-                        : 'border-[rgb(219,211,196)] hover:border-[rgb(24,26,36)]/30'
-                    }`}
-                  >
-                    <p className="text-sm font-semibold text-[rgb(24,26,36)]">Custom Scenario</p>
-                    <p className="text-xs text-[rgb(100,110,130)] mt-1">
-                      Apply incumbency decay, RSP boost, or anti-establishment wave.
-                    </p>
-                  </button>
-                </div>
-
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setGuidedStep(0)}
-                    className="px-3 py-2 rounded-lg border border-[rgb(219,211,196)] text-sm"
-                  >
-                    Back
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {guidedStep === 2 && startingPoint === 'custom' && (
-              <div className="space-y-4">
-                <div>
-                  <p className="text-sm font-semibold text-[rgb(24,26,36)] mb-1">
-                    Custom Scenario Options
-                  </p>
-                  <p className="text-xs text-[rgb(100,110,130)]">
-                    Adjust these parameters to model different electoral dynamics.
-                  </p>
-                </div>
-
-                <div className="space-y-2 rounded-lg border border-[rgb(219,211,196)] p-3">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-medium text-[rgb(24,26,36)]">
-                      Incumbency Decay (Anti-Incumbent Wave)
-                    </p>
-                    <span className="text-xs font-mono text-[rgb(100,110,130)]">
-                      {Math.round(incumbencyDecay * 100)}%
-                    </span>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.05"
-                    value={incumbencyDecay}
-                    onChange={e => setIncumbencyDecay(parseFloat(e.target.value))}
-                    className="w-full accent-[#B91C1C]"
-                  />
-                  <p className="text-xs text-[rgb(100,110,130)]">
-                    Hurts NC, UML, and Maoist. Benefits flow to RSP (60%) and Others (40%).
-                  </p>
-                </div>
-
-                <div className="space-y-2 rounded-lg border border-[rgb(219,211,196)] p-3">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-medium text-[rgb(24,26,36)]">RSP Momentum Boost</p>
-                    <span className="text-xs font-mono text-[rgb(100,110,130)]">
-                      +{Math.round(rspBoost * 15)}%
-                    </span>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.1"
-                    value={rspBoost}
-                    onChange={e => setRspBoost(parseFloat(e.target.value))}
-                    className="w-full accent-[#B91C1C]"
-                  />
-                  <p className="text-xs text-[rgb(100,110,130)]">
-                    Additional boost for RSP. Taken proportionally from all other parties.
-                  </p>
-                </div>
-
-                <div
-                  className="flex items-start gap-3 rounded-lg border border-[rgb(219,211,196)] p-3 cursor-pointer"
-                  onClick={() => setUseRspNationalBase(!useRspNationalBase)}
-                >
-                  <input
-                    type="checkbox"
-                    checked={useRspNationalBase}
-                    onChange={e => setUseRspNationalBase(e.target.checked)}
-                    className="mt-0.5 accent-[#B91C1C] cursor-pointer"
-                  />
-                  <div>
-                    <p className="text-sm font-medium text-[rgb(24,26,36)]">
-                      Treat RSP as running in all 2022 seats
-                    </p>
-                    <p className="text-xs text-[rgb(100,110,130)] mt-1">
-                      Sets their baseline everywhere to their 2022 PR share (10.70%) before slider
-                      shifts apply.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setStartingPoint('2022')}
-                    className="px-3 py-2 rounded-lg border border-[rgb(219,211,196)] text-sm"
-                  >
-                    Back
-                  </button>
-                  <button
-                    onClick={handleApplyCustomScenario}
-                    className="px-4 py-2 rounded-lg text-sm font-semibold bg-[#B91C1C] text-white"
-                  >
-                    Apply & Continue
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {showControlSetupStep && (
-              <div className="flex items-center justify-between gap-3">
-                <div>
-                  <p className="text-sm font-semibold text-[rgb(24,26,36)]">
-                    Step {guidedControlIndex + 1} of {enabledSimulationControls.length}: Manual
-                  </p>
-                  <p className="text-xs text-[rgb(100,110,130)]">
-                    Apply this control, then continue.
-                  </p>
-                </div>
-                <div className="flex gap-2">
-                  <button
-                    onClick={handleBackGuidedControl}
-                    className="px-3 py-2 rounded-lg border border-[rgb(219,211,196)] text-sm"
-                  >
-                    Back
-                  </button>
-                  <button
-                    onClick={handleNextGuidedControl}
-                    className="px-4 py-2 rounded-lg text-sm font-semibold bg-[#B91C1C] text-white"
-                  >
-                    {guidedControlIndex === enabledSimulationControls.length - 1
-                      ? 'Next: Gathbandan'
-                      : 'Next Control'}
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {inGuidedSimulation && guidedStep === 4 && (
-              <div className="space-y-3">
-                <div>
-                  <p className="text-sm font-semibold text-[rgb(24,26,36)]">
-                    Step 4: Gathbandan (Alliances)
-                  </p>
-                  <p className="text-xs text-[rgb(100,110,130)]">
-                    Layer in alliances that transfer votes between partners. Start from the 2022 map
-                    and build these coop links before reviewing the final result.
-                  </p>
-                </div>
-                {activeAlliance ? (
-                  <div className="flex items-center gap-2 text-xs text-[rgb(24,26,36)]">
-                    <span className="font-semibold" style={{ color: PARTIES[allyA]?.color }}>
-                      {PARTIES[allyA]?.name || allyA}
-                    </span>
-                    <span>+ </span>
-                    <span className="font-semibold" style={{ color: PARTIES[allyB]?.color }}>
-                      {PARTIES[allyB]?.name || allyB}
-                    </span>
-                    <span>• {100 - allianceConfig.handicap}% transfer</span>
-                  </div>
-                ) : (
-                  <p className="text-xs text-[rgb(100,110,130)]">
-                    No alliance configured yet; use the button to open the dialog.
-                  </p>
-                )}
-                <div className="flex flex-wrap gap-2">
-                  <button
-                    onClick={() => setAllianceModalOpen(true)}
-                    className="px-4 py-2 rounded-lg border border-[rgb(219,211,196)] text-sm text-[rgb(24,26,36)]"
-                  >
-                    Configure Gathbandan
-                  </button>
-                  <button
-                    onClick={() => setGuidedStep(5)}
-                    className="px-4 py-2 rounded-lg bg-[#B91C1C] text-white text-sm font-semibold"
-                  >
-                    Continue to Results
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {showDataDashboard && (
-              <div className="flex items-center justify-between gap-3">
-                <div>
-                  <p className="text-sm font-semibold text-[rgb(24,26,36)]">
-                    Data mode workspace ready
-                  </p>
-                  <p className="text-xs text-[rgb(100,110,130)]">
-                    Full data view is loaded, including battleground and demographic insights.
-                  </p>
-                </div>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => {
-                      setGuidedFlowEnabled(true);
-                      setGuidedStep(0);
-                      setExperienceMode(null);
-                      setDataFlowStep(0);
-                      setGuidedControlIndex(0);
-                      setStartingPoint('2022');
-                      setIncumbencyDecay(0);
-                      setRspBoost(0);
-                    }}
-                    className="px-3 py-2 rounded-lg border border-[rgb(219,211,196)] text-sm"
-                  >
-                    Start Over
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {inGuidedSimulation && guidedStep === 5 && (
-              <div className="flex items-center justify-between gap-3">
-                <div>
-                  <p className="text-sm font-semibold text-[rgb(24,26,36)]">
-                    Step 5: Simulation Complete
-                  </p>
-                  <p className="text-xs text-[rgb(100,110,130)]">
-                    Review final outcomes and the biggest vote-share shifts.
-                  </p>
-                </div>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => {
-                      setGuidedStep(0);
-                      setExperienceMode(null);
-                      setDataFlowStep(0);
-                      setGuidedControlIndex(0);
-                      setStartingPoint('2022');
-                      setIncumbencyDecay(0);
-                      setRspBoost(0);
-                    }}
-                    className="px-3 py-2 rounded-lg border border-[rgb(219,211,196)] text-sm"
-                  >
-                    Start Over
-                  </button>
-                  <button
-                    onClick={() => setGuidedStep(1)}
-                    className="px-3 py-2 rounded-lg border border-[rgb(219,211,196)] text-sm"
-                  >
-                    Adjust Controls Again
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
         )}
 
@@ -900,61 +544,6 @@ export default function SimulatorYearPage() {
           </div>
         )}
 
-        {showSimulationTopPanels && (
-          <div className="mb-6">
-            <div className="bg-white rounded-lg p-4 border border-[rgb(219,211,196)] flex flex-col md:flex-row md:items-center md:justify-between gap-3 shadow-sm">
-              <div>
-                <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)]">
-                  {t('simulator.gathabandan')}
-                </p>
-                {activeAlliance ? (
-                  <div className="flex flex-wrap items-center gap-3 mt-1 text-[rgb(24,26,36)]">
-                    <div className="flex items-center gap-2">
-                      <span className="font-semibold" style={{ color: PARTIES[allyA]?.color }}>
-                        {PARTIES[allyA]?.name || allyA}
-                      </span>
-                      <span className="text-[rgb(100,110,130)]">+</span>
-                      <span className="font-semibold" style={{ color: PARTIES[allyB]?.color }}>
-                        {PARTIES[allyB]?.name || allyB}
-                      </span>
-                    </div>
-                    <span className="text-xs text-[rgb(100,110,130)]">
-                      Handicap {allianceConfig.handicap}% • {100 - allianceConfig.handicap}%
-                      transfer efficiency
-                    </span>
-                    {compatibility && (
-                      <span className="text-xs text-[rgb(100,110,130)]">
-                        Compatibility score: {compatibility.score.toFixed(1)}/100
-                      </span>
-                    )}
-                  </div>
-                ) : (
-                  <p className="text-sm text-[rgb(100,110,130)] mt-1">
-                    No alliance active. Pair two parties to pool constituency votes with a handicap.
-                  </p>
-                )}
-              </div>
-
-              <div className="flex items-center gap-2">
-                {activeAlliance && (
-                  <button
-                    onClick={clearAlliance}
-                    className="px-3 py-2 rounded-lg text-sm border border-[rgb(219,211,196)] text-[rgb(24,26,36)] hover:bg-[rgb(219,211,196)]/30 transition-colors font-medium"
-                  >
-                    Disable
-                  </button>
-                )}
-                <button
-                  onClick={() => setAllianceModalOpen(true)}
-                  className="px-4 py-2 rounded-lg text-sm font-semibold bg-[#B91C1C] text-white hover:bg-[#991B1B] transition-colors"
-                >
-                  Configure
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
         {showMainMapSection && (
           <div className="mb-6">
             <YearSelector selectedYear={selectedYear} onYearChange={handleYearChange} />
@@ -988,7 +577,7 @@ export default function SimulatorYearPage() {
 
         {showDataDashboard && (
           <div className="mb-6 bg-white rounded-lg border border-[rgb(219,211,196)] p-4 shadow-sm space-y-4">
-            {(showAllDataSections || dataFlowStep === 0) && (
+            {showAllDataSections && (
               <>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                   {selectedYear === 2026 ? (
@@ -1033,11 +622,9 @@ export default function SimulatorYearPage() {
               </>
             )}
 
-            {(showAllDataSections || dataFlowStep === 1) && selectedYear !== 2026 && (
-              <CandidateWordCloud />
-            )}
+            {showAllDataSections && selectedYear !== 2026 && <CandidateWordCloud />}
 
-            {(showAllDataSections || dataFlowStep === 1) && (
+            {showAllDataSections && (
               <div className="grid grid-cols-1 gap-4">
                 <div className="rounded-lg border border-[rgb(219,211,196)] p-3">
                   {selectedYear === 2026 ? (
@@ -1106,7 +693,7 @@ export default function SimulatorYearPage() {
             )}
 
             {/* Candidate Demographics Section */}
-            {(showAllDataSections || dataFlowStep === 2) && (
+            {showAllDataSections && (
               <div className="rounded-lg border border-[rgb(219,211,196)] p-3 space-y-4">
                 <p className="text-sm font-semibold text-[rgb(24,26,36)]">
                   Candidate Demographics (2022)
@@ -1223,7 +810,7 @@ export default function SimulatorYearPage() {
               </div>
             )}
 
-            {(showAllDataSections || dataFlowStep === 2) && selectedYear === 2026 && (
+            {showAllDataSections && selectedYear === 2026 && (
               <>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {selectedYear === 2026 ? (
@@ -1324,119 +911,231 @@ export default function SimulatorYearPage() {
 
         {showControlsSection && (
           <>
-            <div className="mb-6">
-              <div className="flex justify-center mb-3">
+            <div className="mb-6 bg-white rounded-lg border border-[rgb(219,211,196)] p-4 shadow-sm">
+              <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)] mb-3">
+                Simulation Flow
+              </p>
+              <p className="text-sm text-[rgb(100,110,130)] mb-3">
+                Step {Math.min(simulationStep, 3)} of 3:{' '}
+                {simulationStep === 1
+                  ? 'Choose Baseline or Demographic Mode'
+                  : simulationStep === 2
+                    ? selectedStartMode === 'demographic'
+                      ? 'Adjust Demographic Inputs'
+                      : 'Configure Baseline Scenario'
+                    : 'Review and Fine-Tune Sliders'}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <button
-                  onClick={() => setSlidersLocked(!slidersLocked)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border transition-colors ${
-                    slidersLocked
-                      ? 'border-[#ef4444] bg-[#ef4444]/10 text-[#ef4444]'
+                  onClick={() => {
+                    setSelectedStartMode('baseline');
+                  }}
+                  className={`px-3 py-2 rounded-lg text-sm font-semibold border transition-colors ${
+                    selectedStartMode === 'baseline'
+                      ? 'border-[#B91C1C] bg-[#B91C1C]/10 text-[#B91C1C]'
                       : 'border-[rgb(219,211,196)] text-[rgb(100,110,130)] hover:border-[rgb(24,26,36)]/30 hover:text-[rgb(24,26,36)]'
                   }`}
                 >
-                  {slidersLocked ? <Lock className="w-4 h-4" /> : <Unlock className="w-4 h-4" />}
-                  {slidersLocked ? 'Sliders Locked' : 'Sliders Unlocked'}
+                  2022 Baseline
+                </button>
+                <button
+                  onClick={() => {
+                    setSelectedStartMode('demographic');
+                  }}
+                  className={`px-3 py-2 rounded-lg text-sm font-semibold border transition-colors ${
+                    selectedStartMode === 'demographic'
+                      ? 'border-[#B91C1C] bg-[#B91C1C]/10 text-[#B91C1C]'
+                      : 'border-[rgb(219,211,196)] text-[rgb(100,110,130)] hover:border-[rgb(24,26,36)]/30 hover:text-[rgb(24,26,36)]'
+                  }`}
+                >
+                  Demographic Mode
                 </button>
               </div>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <PartySliders
-                  title={t('simulator.fptp')}
-                  subtitle="Affects 165 constituency seats"
-                  sliders={adjustedFptpSliders}
-                  fptpSeats={fptpSeats}
-                  prSeats={prSeats}
-                  totalSeats={totalSeats}
-                  onSliderChange={updateFptpSlider}
-                  showFptp={true}
-                />
-
-                <PartySliders
-                  title={t('simulator.pr')}
-                  subtitle="Affects 110 proportional seats (3% threshold)"
-                  sliders={adjustedPrSliders}
-                  fptpSeats={fptpSeats}
-                  prSeats={prSeats}
-                  totalSeats={totalSeats}
-                  onSliderChange={updatePrSlider}
-                  showPr={true}
-                />
-              </div>
-            </div>
-
-            {/* Demographic Modeling Toggle & Panel */}
-            <div className="mt-6">
-              <div className="bg-white rounded-lg border border-[rgb(219,211,196)] p-4 shadow-sm">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)]">
-                      Demographic Modeling
-                    </p>
-                    <p className="text-sm text-[rgb(100,110,130)] mt-1">
-                      {demographicMode
-                        ? 'Constituency predictions use real census data for the selected demographic lens.'
-                        : 'Enable to model how different demographic groups vote across constituencies.'}
-                    </p>
-                  </div>
+              {simulationStep === 1 && (
+                <div className="mt-3 flex justify-end">
                   <button
-                    onClick={() => setDemographicMode(!demographicMode)}
-                    className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
-                      demographicMode
-                        ? 'bg-[#B91C1C] text-white hover:bg-[#991B1B]'
-                        : 'border border-[rgb(219,211,196)] text-[rgb(100,110,130)] hover:border-[rgb(24,26,36)]/30 hover:text-[rgb(24,26,36)]'
-                    }`}
+                    onClick={() => {
+                      if (selectedStartMode === 'demographic') {
+                        setDemographicMode(true);
+                        setSimulationStep(2);
+                        return;
+                      }
+                      setDemographicMode(false);
+                      setSimulationStep(2);
+                    }}
+                    className="px-4 py-2 rounded-lg bg-[#B91C1C] text-white text-sm font-semibold hover:bg-[#991B1B] transition-colors"
                   >
-                    <Users className="w-4 h-4 inline-block mr-1.5 -mt-0.5" />
-                    {demographicMode ? 'Enabled' : 'Enable'}
+                    Next
                   </button>
                 </div>
-
-                {demographicMode && (
-                  <div className="mt-4">
-                    <DemographicInputPanel
-                      patterns={demographicPatterns}
-                      turnout={demographicTurnout}
-                      onUpdatePattern={updateDemographicPattern}
-                      onUpdateTurnout={updateDemographicTurnout}
-                      scenarios={PRESET_SCENARIOS}
-                      savedScenarios={savedScenarios}
-                      activeScenario={activeScenario}
-                      onLoadScenario={loadScenario}
-                      onSaveScenario={saveScenario}
-                      onDeleteScenario={deleteScenario}
-                      onClear={clearDemographicInputs}
-                      activeDimension={activeDemographicDimension}
-                      onChangeDimension={setActiveDemographicDimension}
-                    />
-                  </div>
-                )}
-              </div>
+              )}
             </div>
-          </>
-        )}
 
-        {showResultSections && inGuidedSimulation && guidedStep >= 3 && (
-          <div className="mb-6 bg-white rounded-lg border border-[rgb(219,211,196)] p-4 shadow-sm">
-            <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)] mb-2">
-              Biggest Input Changes
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
-              {topSimulationChanges.map(({ party, fptpDelta, prDelta }) => (
-                <div key={party} className="rounded-lg border border-[rgb(219,211,196)] p-3">
-                  <p className="text-sm font-semibold text-[rgb(24,26,36)]">
-                    {PARTIES[party]?.name || party}
-                  </p>
+            {selectedStartMode === 'baseline' && simulationStep === 2 && (
+              <div className="mb-6 bg-white rounded-lg border border-[rgb(219,211,196)] p-4 shadow-sm">
+                <div className="space-y-2 rounded-lg border border-[rgb(219,211,196)] p-3 mb-3">
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-medium text-[rgb(24,26,36)]">Anti-Incumbent Surge</p>
+                    <span className="text-xs font-mono text-[rgb(100,110,130)]">
+                      {Math.round(surgeStrength * 100)}%
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.05"
+                    value={surgeStrength}
+                    onChange={e => setSurgeStrength(parseFloat(e.target.value))}
+                    className="w-full accent-[#B91C1C]"
+                  />
                   <p className="text-xs text-[rgb(100,110,130)]">
-                    FPTP {fptpDelta >= 0 ? '+' : ''}
-                    {fptpDelta.toFixed(2)}%
-                  </p>
-                  <p className="text-xs text-[rgb(100,110,130)]">
-                    PR {prDelta >= 0 ? '+' : ''}
-                    {prDelta.toFixed(2)}%
+                    Reduces incumbent vote share and redistributes to challenger parties.
                   </p>
                 </div>
-              ))}
-            </div>
-          </div>
+
+                <div
+                  className="flex items-start gap-3 rounded-lg border border-[rgb(219,211,196)] p-3 cursor-pointer"
+                  onClick={() => setUseRspNationalBase(!useRspNationalBase)}
+                >
+                  <input
+                    type="checkbox"
+                    checked={useRspNationalBase}
+                    onChange={e => setUseRspNationalBase(e.target.checked)}
+                    className="mt-0.5 accent-[#B91C1C] cursor-pointer"
+                  />
+                  <div>
+                    <p className="text-sm font-medium text-[rgb(24,26,36)]">
+                      RSP Runs in Every Seat
+                    </p>
+                    <p className="text-xs text-[rgb(100,110,130)] mt-1">
+                      Uses RSP 2022 PR share as constituency baseline before slider shifts.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-4 flex items-center justify-between gap-2">
+                  <button
+                    onClick={() => setSimulationStep(1)}
+                    className="px-4 py-2 rounded-lg border border-[rgb(219,211,196)] text-[rgb(24,26,36)] text-sm font-semibold hover:bg-[rgb(219,211,196)]/30 transition-colors"
+                  >
+                    Back
+                  </button>
+                  <button
+                    onClick={() => {
+                      clearAllOverrides();
+                      clearAlliance();
+                      applyBaselineStepOptions();
+                      setSimulationStep(3);
+                      scrollToSliders();
+                    }}
+                    className="px-4 py-2 rounded-lg bg-[#B91C1C] text-white text-sm font-semibold hover:bg-[#991B1B] transition-colors"
+                  >
+                    Next: Sliders
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {demographicMode && simulationStep === 2 && (
+              <div className="mb-6 bg-white rounded-lg border border-[rgb(219,211,196)] p-4 shadow-sm">
+                <DemographicInputPanel
+                  patterns={demographicPatterns}
+                  turnout={demographicTurnout}
+                  onUpdatePattern={updateDemographicPattern}
+                  onUpdateTurnout={updateDemographicTurnout}
+                  scenarios={PRESET_SCENARIOS}
+                  savedScenarios={savedScenarios}
+                  activeScenario={activeScenario}
+                  onLoadScenario={loadScenario}
+                  onSaveScenario={saveScenario}
+                  onDeleteScenario={deleteScenario}
+                  onClear={clearDemographicInputs}
+                  activeDimension={activeDemographicDimension}
+                  onChangeDimension={setActiveDemographicDimension}
+                  hideScenarioSelector={true}
+                />
+                <div className="mt-4 flex items-center justify-between gap-2">
+                  <button
+                    onClick={() => {
+                      setSimulationStep(1);
+                    }}
+                    className="px-4 py-2 rounded-lg border border-[rgb(219,211,196)] text-[rgb(24,26,36)] text-sm font-semibold hover:bg-[rgb(219,211,196)]/30 transition-colors"
+                  >
+                    Back
+                  </button>
+                  <button
+                    onClick={() => {
+                      setSimulationStep(3);
+                      scrollToSliders();
+                    }}
+                    className="px-4 py-2 rounded-lg bg-[#B91C1C] text-white text-sm font-semibold hover:bg-[#991B1B] transition-colors"
+                  >
+                    Next: Sliders
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {simulationStep === 3 && (
+              <div id="simulator-slider-section" className="mb-6">
+                {demographicMode && (
+                  <div className="mb-3 flex justify-start">
+                    <button
+                      onClick={() => setSimulationStep(2)}
+                      className="px-3 py-2 rounded-lg border border-[rgb(219,211,196)] text-[rgb(24,26,36)] text-sm font-semibold hover:bg-[rgb(219,211,196)]/30 transition-colors"
+                    >
+                      Back: Demographic Mode
+                    </button>
+                  </div>
+                )}
+                <div className="flex justify-center mb-3">
+                  <button
+                    onClick={() => setSlidersLocked(!slidersLocked)}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border transition-colors ${
+                      slidersLocked
+                        ? 'border-[#ef4444] bg-[#ef4444]/10 text-[#ef4444]'
+                        : 'border-[rgb(219,211,196)] text-[rgb(100,110,130)] hover:border-[rgb(24,26,36)]/30 hover:text-[rgb(24,26,36)]'
+                    }`}
+                  >
+                    {slidersLocked ? <Lock className="w-4 h-4" /> : <Unlock className="w-4 h-4" />}
+                    {slidersLocked ? 'Sliders Locked' : 'Sliders Unlocked'}
+                  </button>
+                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <PartySliders
+                    title={t('simulator.fptp')}
+                    subtitle="Affects 165 constituency seats"
+                    sliders={adjustedFptpSliders}
+                    fptpSeats={fptpSeats}
+                    prSeats={prSeats}
+                    totalSeats={totalSeats}
+                    onSliderChange={updateFptpSlider}
+                    showFptp={true}
+                  />
+
+                  <PartySliders
+                    title={t('simulator.pr')}
+                    subtitle="Affects 110 proportional seats (3% threshold)"
+                    sliders={adjustedPrSliders}
+                    fptpSeats={fptpSeats}
+                    prSeats={prSeats}
+                    totalSeats={totalSeats}
+                    onSliderChange={updatePrSlider}
+                    showPr={true}
+                  />
+                </div>
+                <div className="mt-4 flex justify-end">
+                  <button
+                    onClick={() => setSimulationStep(4)}
+                    className="px-4 py-2 rounded-lg bg-[#B91C1C] text-white text-sm font-semibold hover:bg-[#991B1B] transition-colors"
+                  >
+                    Continue: Full Dashboard
+                  </button>
+                </div>
+              </div>
+            )}
+          </>
         )}
 
         {showResultSections && (
@@ -1453,6 +1152,55 @@ export default function SimulatorYearPage() {
 
             <div className="mb-6">
               <CoalitionBuilder totalSeats={totalSeats} fptpResults={fptpResults} />
+            </div>
+
+            <div className="mb-6">
+              <div className="bg-white rounded-lg p-4 border border-[rgb(219,211,196)] flex flex-col md:flex-row md:items-center md:justify-between gap-3 shadow-sm">
+                <div>
+                  <p className="text-xs font-semibold tracking-wider uppercase text-[rgb(100,110,130)]">
+                    {t('simulator.gathabandan')}
+                  </p>
+                  {activeAlliance ? (
+                    <div className="flex flex-wrap items-center gap-3 mt-1 text-[rgb(24,26,36)]">
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold" style={{ color: PARTIES[allyA]?.color }}>
+                          {PARTIES[allyA]?.name || allyA}
+                        </span>
+                        <span className="text-[rgb(100,110,130)]">+</span>
+                        <span className="font-semibold" style={{ color: PARTIES[allyB]?.color }}>
+                          {PARTIES[allyB]?.name || allyB}
+                        </span>
+                      </div>
+                      <span className="text-xs text-[rgb(100,110,130)]">
+                        Handicap {allianceConfig.handicap}% • {100 - allianceConfig.handicap}%
+                        transfer efficiency
+                      </span>
+                      {compatibility && (
+                        <span className="text-xs text-[rgb(100,110,130)]">
+                          Compatibility score: {compatibility.score.toFixed(1)}/100
+                        </span>
+                      )}
+                    </div>
+                  ) : null}
+                </div>
+
+                <div className="flex items-center gap-2">
+                  {activeAlliance && (
+                    <button
+                      onClick={clearAlliance}
+                      className="px-3 py-2 rounded-lg text-sm border border-[rgb(219,211,196)] text-[rgb(24,26,36)] hover:bg-[rgb(219,211,196)]/30 transition-colors font-medium"
+                    >
+                      Disable
+                    </button>
+                  )}
+                  <button
+                    onClick={() => setAllianceModalOpen(true)}
+                    className="px-4 py-2 rounded-lg text-sm font-semibold bg-[#B91C1C] text-white hover:bg-[#991B1B] transition-colors"
+                  >
+                    Configure
+                  </button>
+                </div>
+              </div>
             </div>
           </>
         )}

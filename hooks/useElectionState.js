@@ -9,6 +9,7 @@ import {
 import { PRESET_SCENARIOS, createNeutralBaseline } from '../data/demographicScenarios';
 import {
   calculateAllFPTPResults,
+  calculateAdjustedResults,
   countFPTPSeats,
   adjustZeroSumSliders,
   FPTP_SEATS,
@@ -25,6 +26,17 @@ const DEMOGRAPHIC_SWING_STRENGTH = 0.9;
 const DEMOGRAPHIC_RATIO_EPSILON = 0.005;
 const DEMOGRAPHIC_RATIO_MIN = 0.2;
 const DEMOGRAPHIC_RATIO_MAX = 5;
+const DEMOGRAPHIC_BLEND_WEIGHT = 0.7;
+
+const sharesRoughlyEqual = (a, b, epsilon = 0.05) => {
+  const keys = new Set([...Object.keys(a || {}), ...Object.keys(b || {})]);
+  for (const key of keys) {
+    if (Math.abs((a?.[key] || 0) - (b?.[key] || 0)) > epsilon) {
+      return false;
+    }
+  }
+  return true;
+};
 
 /**
  * Main election state management hook
@@ -32,6 +44,18 @@ const DEMOGRAPHIC_RATIO_MAX = 5;
  * Supports separate FPTP and PR sliders
  */
 export function useElectionState() {
+  const normalizeShares = shares => {
+    const total = Object.values(shares).reduce((sum, value) => sum + (value || 0), 0);
+    if (total <= 0) {
+      return shares;
+    }
+    const normalized = {};
+    Object.entries(shares).forEach(([party, value]) => {
+      normalized[party] = ((value || 0) / total) * 100;
+    });
+    return normalized;
+  };
+
   // Hydrate from URL on initial load
   const urlState = useMemo(() => {
     if (typeof window === 'undefined') {
@@ -47,9 +71,26 @@ export function useElectionState() {
     () => createNeutralBaseline(Object.keys(INITIAL_NATIONAL)),
     []
   );
-  const defaultDemographicScenario = useMemo(() => {
-    return PRESET_SCENARIOS.find(s => s.id === '2022-baseline') || PRESET_SCENARIOS[0] || null;
-  }, []);
+  const demographicPrBaseline = useMemo(() => {
+    const seededPatterns = {};
+    Object.entries(neutralDemographicBaseline.patterns || {}).forEach(([dimension, rows]) => {
+      seededPatterns[dimension] = {};
+      Object.entries(rows || {}).forEach(([segment, rowShares]) => {
+        const seededRow = {};
+        Object.keys(rowShares || {}).forEach(party => {
+          seededRow[party] = prBaseline[party] || 0;
+        });
+        seededPatterns[dimension][segment] = normalizeShares(seededRow);
+      });
+    });
+
+    return {
+      id: 'pr-baseline',
+      name: 'PR Baseline',
+      patterns: seededPatterns,
+      turnout: neutralDemographicBaseline.turnout,
+    };
+  }, [neutralDemographicBaseline.patterns, neutralDemographicBaseline.turnout, prBaseline]);
 
   // FPTP slider values (must sum to 100) - affects constituency-level voting
   const [fptpSliders, setFptpSliders] = useState(
@@ -91,12 +132,10 @@ export function useElectionState() {
   // Demographic modeling state
   const [demographicMode, setDemographicMode] = useState(false);
   const [demographicPatterns, setDemographicPatterns] = useState(
-    () => defaultDemographicScenario?.patterns || neutralDemographicBaseline.patterns
+    () => demographicPrBaseline.patterns
   );
-  const [demographicTurnout, setDemographicTurnout] = useState(
-    () => defaultDemographicScenario?.turnout || neutralDemographicBaseline.turnout
-  );
-  const [activeScenario, setActiveScenario] = useState(defaultDemographicScenario?.id || null);
+  const [demographicTurnout, setDemographicTurnout] = useState(() => demographicPrBaseline.turnout);
+  const [activeScenario, setActiveScenario] = useState(null);
   const [activeDemographicDimension, setActiveDemographicDimension] = useState('age');
 
   // Use demographic-based seat calculations (for realistic RSP/urban party performance)
@@ -203,7 +242,7 @@ export function useElectionState() {
   // Reset sliders to initial values (2022 baseline)
   const resetSliders = useCallback(() => {
     // If RSP National Base is active, jump to that as the new visual "100%" baseline
-    setFptpSliders(current => {
+    setFptpSliders(() => {
       // Only reset if we actually want the baseline. The dependency array makes it tricky to read dynamicFptpBaseline cleanly here without stale closure risks,
       // but typically reset means "go back to what the baseline demands".
       return { ...fptpBaseline }; // State will be replaced correctly below anyway.
@@ -237,23 +276,17 @@ export function useElectionState() {
       return;
     }
     if (!demographicPatterns) {
-      setDemographicPatterns(
-        defaultDemographicScenario?.patterns || neutralDemographicBaseline.patterns
-      );
+      setDemographicPatterns(demographicPrBaseline.patterns);
     }
     if (!demographicTurnout) {
-      setDemographicTurnout(
-        defaultDemographicScenario?.turnout || neutralDemographicBaseline.turnout
-      );
+      setDemographicTurnout(demographicPrBaseline.turnout);
     }
   }, [
     demographicMode,
     demographicPatterns,
     demographicTurnout,
-    defaultDemographicScenario?.patterns,
-    defaultDemographicScenario?.turnout,
-    neutralDemographicBaseline.patterns,
-    neutralDemographicBaseline.turnout,
+    demographicPrBaseline.patterns,
+    demographicPrBaseline.turnout,
   ]);
 
   // Override a specific constituency
@@ -414,20 +447,10 @@ export function useElectionState() {
   );
 
   const clearDemographicInputs = useCallback(() => {
-    setDemographicPatterns(
-      defaultDemographicScenario?.patterns || neutralDemographicBaseline.patterns
-    );
-    setDemographicTurnout(
-      defaultDemographicScenario?.turnout || neutralDemographicBaseline.turnout
-    );
-    setActiveScenario(defaultDemographicScenario?.id || null);
-  }, [
-    defaultDemographicScenario?.id,
-    defaultDemographicScenario?.patterns,
-    defaultDemographicScenario?.turnout,
-    neutralDemographicBaseline.patterns,
-    neutralDemographicBaseline.turnout,
-  ]);
+    setDemographicPatterns(demographicPrBaseline.patterns);
+    setDemographicTurnout(demographicPrBaseline.turnout);
+    setActiveScenario(null);
+  }, [demographicPrBaseline.patterns, demographicPrBaseline.turnout]);
 
   // Apply demographic model to generate constituency-level predictions
   const demographicPredictions = useMemo(() => {
@@ -448,11 +471,60 @@ export function useElectionState() {
     }
   }, [demographicMode, demographicPatterns, demographicTurnout, activeDemographicDimension]);
 
+  const demographicNationalShares = useMemo(() => {
+    if (!demographicPredictions || demographicPredictions.length === 0) {
+      return null;
+    }
+
+    const parties = Object.keys(INITIAL_NATIONAL);
+    const constituencyVoteMap = new Map(constituencies.map(c => [c.id, c.totalVotes || 1]));
+    const weightedSums = {};
+    parties.forEach(party => {
+      weightedSums[party] = 0;
+    });
+
+    let totalWeight = 0;
+    demographicPredictions.forEach(pred => {
+      const baseVotes = constituencyVoteMap.get(pred.constituencyId) || 1;
+      const turnoutWeight = Math.max(0, (pred.turnout || 65) / 100);
+      const weight = baseVotes * turnoutWeight;
+      totalWeight += weight;
+
+      parties.forEach(party => {
+        weightedSums[party] += ((pred.voteShares?.[party] || 0) / 100) * weight;
+      });
+    });
+
+    if (totalWeight <= 0) {
+      return null;
+    }
+
+    const asPercent = {};
+    parties.forEach(party => {
+      asPercent[party] = (weightedSums[party] / totalWeight) * 100;
+    });
+    return normalizeShares(asPercent);
+  }, [demographicPredictions]);
+
+  // Keep sliders aligned with demographic selections when demographic mode is active.
+  useEffect(() => {
+    if (!demographicMode || !demographicNationalShares) {
+      return;
+    }
+
+    setFptpSliders(current =>
+      sharesRoughlyEqual(current, demographicNationalShares) ? current : demographicNationalShares
+    );
+    setPrSliders(current =>
+      sharesRoughlyEqual(current, demographicNationalShares) ? current : demographicNationalShares
+    );
+  }, [demographicMode, demographicNationalShares]);
+
   // Baseline demographic predictions for the active dimension.
   // Used to apply only user-introduced deltas relative to the baseline scenario.
   const baselineDemographicPredictions = useMemo(() => {
-    const baselinePatterns = defaultDemographicScenario?.patterns;
-    const baselineTurnout = defaultDemographicScenario?.turnout;
+    const baselinePatterns = demographicPrBaseline.patterns;
+    const baselineTurnout = demographicPrBaseline.turnout;
     if (!baselinePatterns || !baselineTurnout) {
       return null;
     }
@@ -468,11 +540,7 @@ export function useElectionState() {
       console.error('Error applying baseline demographic model:', error);
       return null;
     }
-  }, [
-    defaultDemographicScenario?.patterns,
-    defaultDemographicScenario?.turnout,
-    activeDemographicDimension,
-  ]);
+  }, [demographicPrBaseline.patterns, demographicPrBaseline.turnout, activeDemographicDimension]);
 
   // Calculate FPTP results using FPTP sliders or demographic predictions
   const fptpResults = useMemo(() => {
@@ -514,7 +582,33 @@ export function useElectionState() {
           swungShares[party] = swungShares[party] / total;
         });
 
-        demographicOverrides[pred.constituencyId] = swungShares;
+        // Blend demographic signal with slider-driven swing signal so demographic mode is
+        // directional, not a 100% hard override.
+        const localizedBaseline = useRspNationalBase
+          ? applyRspNationalEntry(baseShares)
+          : baseShares;
+        const sliderShares = calculateAdjustedResults(
+          localizedBaseline,
+          fptpSliders,
+          dynamicFptpBaseline,
+          constituency?.district || null
+        );
+
+        const blended = {};
+        const blendParties = new Set([...Object.keys(swungShares), ...Object.keys(sliderShares)]);
+        blendParties.forEach(party => {
+          const demoValue = swungShares[party] || 0;
+          const sliderValue = sliderShares[party] || 0;
+          blended[party] =
+            DEMOGRAPHIC_BLEND_WEIGHT * demoValue + (1 - DEMOGRAPHIC_BLEND_WEIGHT) * sliderValue;
+        });
+
+        const blendedTotal = Object.values(blended).reduce((sum, val) => sum + val, 0) || 1;
+        Object.keys(blended).forEach(party => {
+          blended[party] = blended[party] / blendedTotal;
+        });
+
+        demographicOverrides[pred.constituencyId] = blended;
       });
 
       // Merge with manual overrides (manual overrides take precedence)
