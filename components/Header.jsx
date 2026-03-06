@@ -10,6 +10,7 @@ import { useLanguage } from '../context/LanguageContext';
 
 const NAV_ITEMS = [
   { href: '/', labelKey: 'nav.home', label: 'Home' },
+  { href: '/live', labelKey: 'nav.live', label: 'Live', badge: 'live' },
   { href: '/simulator/2026', labelKey: 'nav.simulator', label: 'Simulator' },
   { href: '/elections', labelKey: 'nav.elections', label: 'Elections' },
   { href: '/analysis', labelKey: 'nav.analysis', label: 'Analysis' },
@@ -76,7 +77,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-3 py-2 text-sm font-semibold transition-all relative whitespace-nowrap ${
+                className={`px-3 py-2 text-sm font-semibold transition-all relative whitespace-nowrap flex items-center gap-1.5 ${
                   isActive(item.href)
                     ? 'text-[#B91C1C]'
                     : 'text-[rgb(100,110,130)] hover:text-[rgb(24,26,36)]'
@@ -84,6 +85,12 @@ export function Header() {
                 style={{ fontFamily: 'Figtree, sans-serif' }}
               >
                 {t(item.labelKey, item.label)}
+                {item.badge === 'live' && (
+                  <span className="inline-flex items-center gap-0.5 rounded-full bg-red-600 px-1.5 py-0.5 text-[9px] font-bold text-white uppercase tracking-wider">
+                    <span className="h-1 w-1 rounded-full bg-white animate-pulse" />
+                    Live
+                  </span>
+                )}
                 {isActive(item.href) && (
                   <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-[#B91C1C] rounded-full" />
                 )}
@@ -102,7 +109,7 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileOpen(false)}
-                className={`block px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
+                className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
                   isActive(item.href)
                     ? 'bg-[#B91C1C]/10 text-[#B91C1C]'
                     : 'text-[rgb(100,110,130)] hover:bg-[rgb(219,211,196)]/30 hover:text-[rgb(24,26,36)]'
@@ -110,6 +117,12 @@ export function Header() {
                 style={{ fontFamily: 'Figtree, sans-serif' }}
               >
                 {t(item.labelKey, item.label)}
+                {item.badge === 'live' && (
+                  <span className="inline-flex items-center gap-0.5 rounded-full bg-red-600 px-1.5 py-0.5 text-[9px] font-bold text-white uppercase tracking-wider">
+                    <span className="h-1 w-1 rounded-full bg-white animate-pulse" />
+                    Live
+                  </span>
+                )}
               </Link>
             ))}
           </div>
