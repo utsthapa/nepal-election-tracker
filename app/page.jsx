@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
+import LiveResultsBanner from '../components/LiveResultsBanner';
 import PredictionMarkets from '../components/PredictionMarkets';
 import { ELECTIONS } from '../data/historicalElections';
 
@@ -92,6 +93,11 @@ export default function HomePage() {
       <Header />
 
       <main className="max-w-7xl mx-auto px-4 py-12">
+        {/* Live Election Results */}
+        <div className="mb-12">
+          <LiveResultsBanner />
+        </div>
+
         {/* Hero Article */}
         <div className="mb-20">
           <article className="mb-12">
