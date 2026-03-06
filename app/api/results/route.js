@@ -1,10 +1,9 @@
 // app/api/results/route.js
-// Live election results API - scrapes ekantipur election tracker
+// Live election results API - scrapes ekantipur election tracker (sourced from ECN)
 
 const EKANTIPUR_URL = 'https://election.ekantipur.com/?lng=eng';
 const KNOWN_AD_NAMES = ['xtreme energy drink', 'byд partner', 'byд', 'byd partner', 'byd'];
 
-// Province sections appear in order: National, then Province 1-7
 const PROVINCE_NAMES = [
   'Koshi',
   'Madhesh',
@@ -22,7 +21,6 @@ function isAdEntry(name) {
 }
 
 function parsePartyResults(html) {
-  // Match pattern: alt="PartyName" ... win-count">N ... lead-count">N
   const partyPattern = /alt="([^"]+)"[\s\S]*?win-count">(\d+)[\s\S]*?lead-count">(\d+)/g;
   const allMatches = [];
   let match;
@@ -37,8 +35,6 @@ function parsePartyResults(html) {
     }
   }
 
-  // First batch is national, then per-province
-  // National section has ~13 parties (including Others), then 7 provinces × ~13 parties each
   const PARTIES_PER_SECTION = 13;
   const national = allMatches.slice(0, PARTIES_PER_SECTION);
 
@@ -59,22 +55,52 @@ function parsePartyResults(html) {
   };
 }
 
-function parseConstituencyResults(html) {
-  // Extract competitive constituency results from the page
-  // Look for constituency blocks with candidate vote data
-  const constituencies = [];
-
-  // Pattern for constituency results in the "key contests" section
-  const constituencyPattern = /constituency\/([^?"]+)\?lng=eng[\s\S]*?<h4[^>]*>([^<]+)<\/h4>/g;
+function parseKeyContests(html) {
+  // Parse key contest cards with candidate name, party, vote count, constituency link
+  const contests = [];
+  const contestPattern =
+    /href="(\/pradesh-(\d+)\/district-([^/]+)\/constituency-(\d+)\?lng=eng)"[\s\S]*?alt="([^"]+)"[\s\S]*?<h5>([^<]+)<\/h5>[\s\S]*?<p>([0-9,]+)<\/p>/g;
   let match;
-  while ((match = constituencyPattern.exec(html)) !== null) {
-    constituencies.push({
-      slug: match[1],
-      name: match[2].trim(),
+  while ((match = contestPattern.exec(html)) !== null) {
+    const candidateName = match[6].trim();
+    const partyName = match[5].trim();
+    if (isAdEntry(partyName) || isAdEntry(candidateName)) {
+      continue;
+    }
+    contests.push({
+      url: match[1],
+      province: parseInt(match[2]),
+      district: match[3],
+      constituency: parseInt(match[4]),
+      candidate: candidateName,
+      party: partyName,
+      votes: parseInt(match[7].replace(/,/g, '')),
+      label: `${match[3].replace(/([a-z])([A-Z])/g, '$1 $2')}-${match[4]}`,
     });
   }
+  return contests;
+}
 
-  return constituencies;
+function parseConstituencyLinks(html) {
+  // Get all constituency result links from the page
+  const links = [];
+  const linkPattern = /href="(\/pradesh-(\d+)\/district-([^/]+)\/constituency-(\d+)\?lng=eng)"/g;
+  let match;
+  const seen = new Set();
+  while ((match = linkPattern.exec(html)) !== null) {
+    const key = `${match[3]}-${match[4]}`;
+    if (!seen.has(key)) {
+      seen.add(key);
+      links.push({
+        url: match[1],
+        province: parseInt(match[2]),
+        district: match[3],
+        constituency: parseInt(match[4]),
+        label: `${match[3]}-${match[4]}`,
+      });
+    }
+  }
+  return links;
 }
 
 export async function GET() {
@@ -97,13 +123,15 @@ export async function GET() {
 
     const html = await response.text();
     const partyResults = parsePartyResults(html);
-    const constituencies = parseConstituencyResults(html);
+    const keyContests = parseKeyContests(html);
+    const constituencyLinks = parseConstituencyLinks(html);
 
     const totalWon = partyResults.national.reduce((s, p) => s + p.won, 0);
     const totalLeading = partyResults.national.reduce((s, p) => s + p.leading, 0);
 
     const result = {
       source: 'ekantipur',
+      source_label: 'Kantipur Election Tracker (ECN data)',
       fetched_at: new Date().toISOString(),
       counting_status: totalWon >= 165 ? 'complete' : totalWon > 0 ? 'declaring' : 'counting',
       total_seats: 165,
@@ -112,7 +140,8 @@ export async function GET() {
       party_results: partyResults.national,
       party_results_all: partyResults.national_all,
       provincial_results: partyResults.provinces,
-      key_constituencies: constituencies.slice(0, 20),
+      key_contests: keyContests,
+      constituencies: constituencyLinks,
     };
 
     return Response.json(result, {
