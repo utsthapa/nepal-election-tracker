@@ -165,7 +165,7 @@ export default function LiveResultsBanner() {
         <div className="bg-gray-900 px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Activity className="w-5 h-5 text-red-500" />
-            <h3 className="text-white font-bold text-lg">2026 Election Results</h3>
+            <h3 className="text-white font-bold text-lg">2082 Election Results</h3>
             <StatusBadge status={counting_status} />
           </div>
           <div className="flex items-center gap-3">

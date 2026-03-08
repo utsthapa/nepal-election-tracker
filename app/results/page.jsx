@@ -121,7 +121,7 @@ function PartyBar({ name, won, leading, totalSeats }) {
   );
 }
 
-function ConstituencyDetail({ province, district, constituency, onClose }) {
+function ConstituencyDetail({ province, district, districtName, constituency, onClose }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -137,7 +137,7 @@ function ConstituencyDetail({ province, district, constituency, onClose }) {
       .catch(() => setLoading(false));
   }, [province, district, constituency]);
 
-  const label = `${district.charAt(0).toUpperCase() + district.slice(1)}-${constituency}`;
+  const label = `${districtName || district}-${constituency}`;
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
@@ -294,7 +294,7 @@ export default function ResultsPage() {
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <Activity className="w-6 h-6 text-red-600" />
-            <h1 className="text-3xl font-display font-bold text-gray-900">2026 Election Results</h1>
+            <h1 className="text-3xl font-display font-bold text-gray-900">2082 Election Results</h1>
             {data && <StatusBadge status={data.counting_status} />}
           </div>
           <div className="flex items-center gap-3">
@@ -369,6 +369,7 @@ export default function ResultsPage() {
                           setSelectedConstituency({
                             province: contest.province,
                             district: contest.district,
+                            districtName: contest.district_name,
                             constituency: contest.constituency,
                           })
                         }
@@ -411,13 +412,15 @@ export default function ResultsPage() {
                         setSelectedConstituency({
                           province: c.province,
                           district: c.district,
+                          districtName: c.district_name,
                           constituency: c.constituency,
                         })
                       }
                       className="text-left px-3 py-2 text-sm border border-gray-200 rounded hover:border-red-400 hover:bg-red-50 transition-colors cursor-pointer"
                     >
-                      <span className="font-medium text-gray-900 capitalize">
-                        {c.district.replace(/([a-z])([A-Z])/g, '$1 $2')}-{c.constituency}
+                      <span className="font-medium text-gray-900">
+                        {(c.district_name || c.district).replace(/([a-z])([A-Z])/g, '$1 $2')}-
+                        {c.constituency}
                       </span>
                       <span className="block text-xs text-gray-400">Province {c.province}</span>
                     </button>
@@ -472,6 +475,7 @@ export default function ResultsPage() {
         <ConstituencyDetail
           province={selectedConstituency.province}
           district={selectedConstituency.district}
+          districtName={selectedConstituency.districtName}
           constituency={selectedConstituency.constituency}
           onClose={() => setSelectedConstituency(null)}
         />
